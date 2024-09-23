@@ -1,0 +1,411 @@
+{
+    "translation-revision-date": "YEAR-MO-DA HO:MI+ZONE",
+    "generator": "WP-CLI\/2.10.0",
+    "source": "assets\/build\/recipe.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "en",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "Add Image": [
+                ""
+            ],
+            "Best Season": [
+                ""
+            ],
+            "Calories": [
+                ""
+            ],
+            "Nutrition Facts": [
+                ""
+            ],
+            "Amount Per Serving": [
+                ""
+            ],
+            "% Daily Value *": [
+                ""
+            ],
+            "Ingredients": [
+                ""
+            ],
+            "Instructions": [
+                ""
+            ],
+            "Fall": [
+                ""
+            ],
+            "Winter": [
+                ""
+            ],
+            "Summer": [
+                ""
+            ],
+            "Spring": [
+                ""
+            ],
+            "Suitable throughout the year": [
+                ""
+            ],
+            "Beginner": [
+                ""
+            ],
+            "Intermediate": [
+                ""
+            ],
+            "Advanced": [
+                ""
+            ],
+            "Upgrade to Pro": [
+                ""
+            ],
+            "Rest Time": [
+                ""
+            ],
+            "Cooking Temp": [
+                ""
+            ],
+            "Estimated Cost": [
+                ""
+            ],
+            "Nutrition": [
+                ""
+            ],
+            "Notes": [
+                ""
+            ],
+            "Time": [
+                ""
+            ],
+            "Click to initialize RichEditor": [
+                ""
+            ],
+            "Call to Action": [
+                ""
+            ],
+            "Choose Images": [
+                ""
+            ],
+            "Equipment": [
+                ""
+            ],
+            "Name": [
+                ""
+            ],
+            "The automatic nutrition calculator feature is available in the Pro version.": [
+                ""
+            ],
+            "Save Changes": [
+                ""
+            ],
+            "The feature to promote CTA with affiliate link is available in Pro version.": [
+                ""
+            ],
+            "The feature to promote equipments with affiliate link is available in Pro version.": [
+                ""
+            ],
+            "The feature to add additional content in recipe card is available in Pro version.": [
+                ""
+            ],
+            "FAQs": [
+                ""
+            ],
+            "Section Title": [
+                ""
+            ],
+            "Enter FAQs section title": [
+                ""
+            ],
+            "Enter title for the FAQ section.": [
+                ""
+            ],
+            "Question": [
+                ""
+            ],
+            "Enter the FAQ title.": [
+                ""
+            ],
+            "Answer": [
+                ""
+            ],
+            "Enter FAQ answer here.": [
+                ""
+            ],
+            "Sure to delete the FAQ? This action cannot be reverted.": [
+                ""
+            ],
+            "Add FAQ": [
+                ""
+            ],
+            "No URL supplied. Please enter valid YouTube or Vimeo URL.": [
+                ""
+            ],
+            "invalid URL supplied.": [
+                ""
+            ],
+            "Enable Video Gallery": [
+                ""
+            ],
+            "Add YouTube or Vimeo video URLs": [
+                ""
+            ],
+            "Enter YouTube\/Vimeo video URL.": [
+                ""
+            ],
+            "Add Video": [
+                ""
+            ],
+            "Delete": [
+                ""
+            ],
+            "Gallery": [
+                ""
+            ],
+            "Enable Image Gallery": [
+                ""
+            ],
+            "Choose File ": [
+                ""
+            ],
+            "to upload": [
+                ""
+            ],
+            "Supports: JPG, PNG, WEBP. Max. file size %s": [
+                ""
+            ],
+            " hour(s) ": [
+                ""
+            ],
+            " minute(s).": [
+                ""
+            ],
+            "Cooking temperature Celsius unit.\u0004Celcius": [
+                ""
+            ],
+            "Cooking temperature Fahrenheit unit.\u0004Fahrenheit": [
+                ""
+            ],
+            "Minutes": [
+                ""
+            ],
+            "Hours": [
+                ""
+            ],
+            "Recipe Info": [
+                ""
+            ],
+            "Recipe Subtitle": [
+                ""
+            ],
+            "Enter text for recipe subtitle": [
+                ""
+            ],
+            "Enter the subtitle text for the recipe. The text will be displayed below recipe title.": [
+                ""
+            ],
+            "Recipe Description": [
+                ""
+            ],
+            "Enter the description text for the recipe. The text will be displayed in recipe card section.": [
+                ""
+            ],
+            "Recipe Keywords": [
+                ""
+            ],
+            "Enter comma separated recipe keywords. The keywords will be used in recipe card and for SEO Schema.": [
+                ""
+            ],
+            "Difficulty Level": [
+                ""
+            ],
+            "Select Difficulty Level": [
+                ""
+            ],
+            "Select the difficulty level for this recipe.": [
+                ""
+            ],
+            "Preparation Time": [
+                ""
+            ],
+            "Cooking Time": [
+                ""
+            ],
+            "Enter the preperation time ( number ) for the recipe and choose desired unit.": [
+                ""
+            ],
+            "Total Duration:": [
+                ""
+            ],
+            "Enter the cooking temperature ( number ) for the recipe and choose desired unit.": [
+                ""
+            ],
+            "Enter the estimated cooking cost ( number ) for the recipe and currency.": [
+                ""
+            ],
+            "Eg. 120 kcal": [
+                ""
+            ],
+            "Enter number of calories for this recipe.": [
+                ""
+            ],
+            "Enter new season": [
+                ""
+            ],
+            "Add": [
+                ""
+            ],
+            "Qty.": [
+                ""
+            ],
+            "Unit": [
+                ""
+            ],
+            "Ingredient Name ": [
+                ""
+            ],
+            "Add Ingredient": [
+                ""
+            ],
+            "Add Ingredient Section": [
+                ""
+            ],
+            "Add Ingredient in Bulk": [
+                ""
+            ],
+            "Add Ingredients in Bulk": [
+                ""
+            ],
+            "Only numbers (e.g. 1), fractions (e.g. 1\/2), decimal numbers (e.g. 1.5), and mixed fractions (e.g. 1 1\/2) are allowed": [
+                ""
+            ],
+            "Sure to delete the ingredient?": [
+                ""
+            ],
+            "Section Heading": [
+                ""
+            ],
+            "Paste the Ingredients List": [
+                ""
+            ],
+            "1 tbsp Olive Oil (extra virgin)": [
+                ""
+            ],
+            "Press 'Enter' to add new ingredient.": [
+                ""
+            ],
+            "Add Bulk Ingredient": [
+                ""
+            ],
+            "No. Of Servings": [
+                ""
+            ],
+            "Enter no. of servings value for this recipe.": [
+                ""
+            ],
+            "Ingredient Title": [
+                ""
+            ],
+            "Ingredient section title": [
+                ""
+            ],
+            "Ingredient Links": [
+                ""
+            ],
+            "Unit Conversion": [
+                ""
+            ],
+            "The feature to auto-link ingredients is available in Pro version.": [
+                ""
+            ],
+            "The feature to convert units is available in Pro version.": [
+                ""
+            ],
+            "Enter instructions section title": [
+                ""
+            ],
+            "Enter title for the Instruction section.": [
+                ""
+            ],
+            "Add Instruction Section": [
+                ""
+            ],
+            "Add Instruction In Bulk": [
+                ""
+            ],
+            "Enter instructions section title here": [
+                ""
+            ],
+            "Sure to delete the instruction section? This action cannot be reverted.": [
+                ""
+            ],
+            "Upload Image": [
+                ""
+            ],
+            "Supports: .JPG, .PNG , .WEBP images": [
+                ""
+            ],
+            "Instruction Title": [
+                ""
+            ],
+            "Enter the title of the instruction.": [
+                ""
+            ],
+            "Instruction": [
+                ""
+            ],
+            "Enter recipe instruction description here.": [
+                ""
+            ],
+            "Add Notes": [
+                ""
+            ],
+            "Video URL (YouTube or Vimeo)": [
+                ""
+            ],
+            "Enter YouTube or Vimeo video URL.": [
+                ""
+            ],
+            "Enter recipe instruction notes": [
+                ""
+            ],
+            "Sure to delete the instruction? This action cannot be reverted.": [
+                ""
+            ],
+            "Add Instruction": [
+                ""
+            ],
+            "Paste the Instructions List": [
+                ""
+            ],
+            "Press 'Enter' to add new instruction.": [
+                ""
+            ],
+            "Add Bulk Instructions": [
+                ""
+            ],
+            "Enter text for recipe notes.": [
+                ""
+            ],
+            "Enter the notes for the recipe. The text will be displayed below recipe card section.": [
+                ""
+            ],
+            "* Percent Daily Values are based on a 2,000 calorie diet. Your daily value may be higher or lower depending on your calorie needs.": [
+                ""
+            ],
+            "Nutrition Information": [
+                ""
+            ],
+            "Recipe settings saved successfully !!": [
+                ""
+            ],
+            "Recipe settings has been changed. Please save the changes from Recipe Settings section before updating the recipe.": [
+                ""
+            ],
+            "Extended Content": [
+                ""
+            ]
+        }
+    }
+}

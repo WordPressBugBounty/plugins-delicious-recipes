@@ -1,0 +1,117 @@
+{
+    "translation-revision-date": "YEAR-MO-DA HO:MI+ZONE",
+    "generator": "WP-CLI\/2.10.0",
+    "source": "assets\/build\/import.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "en",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "Import Recipes": [
+                ""
+            ],
+            "Recipes to Import": [
+                ""
+            ],
+            "Recipe Courses": [
+                ""
+            ],
+            "Recipe Cooking Methods": [
+                ""
+            ],
+            "Recipe Cuisines": [
+                ""
+            ],
+            "Recipe Keys": [
+                ""
+            ],
+            "Recipe Tags": [
+                ""
+            ],
+            "Recipe Badges": [
+                ""
+            ],
+            "No recipes found.": [
+                ""
+            ],
+            "Recipe Dietaries": [
+                ""
+            ],
+            "Back": [
+                ""
+            ],
+            "Proceed to Next Step": [
+                ""
+            ],
+            "10": [
+                ""
+            ],
+            "25": [
+                ""
+            ],
+            "50": [
+                ""
+            ],
+            "100": [
+                ""
+            ],
+            "Show All": [
+                ""
+            ],
+            "Show": [
+                ""
+            ],
+            "Entries": [
+                ""
+            ],
+            "Showing": [
+                ""
+            ],
+            "entries": [
+                ""
+            ],
+            "-": [
+                ""
+            ],
+            "of": [
+                ""
+            ],
+            "Map Recipes Fields": [
+                ""
+            ],
+            "Plugin Fields": [
+                ""
+            ],
+            "Map With": [
+                ""
+            ],
+            "Select Field": [
+                ""
+            ],
+            "Select from the options below to import your recipes.": [
+                ""
+            ],
+            "We recommend taking a full backup of your site before proceeding with the import. Alternatively, you can also create a staging site and import the recipes.": [
+                ""
+            ],
+            "Fields Mapping": [
+                ""
+            ],
+            "Summary": [
+                ""
+            ],
+            "Import Process": [
+                ""
+            ],
+            "Fields Mapped:": [
+                ""
+            ],
+            "Selected recipes listed above.": [
+                ""
+            ]
+        }
+    }
+}
