@@ -36,7 +36,6 @@ if ( ! $enable_nutrition_facts ) {
 <style>
 	.dr-nutrition-facts.chart-layout-flat .dr-nutrition-list .dr-nutrition-fact-lists .dr-nutrition-fact-value,
 	.dr-nutrition-facts.chart-layout-flat .dr-nutrition-list .dr-nutrition-fact-lists .dr-nut-measurement {
-		font-style: italic;
 		font-weight: bold;
 	} 
 </style>
@@ -53,10 +52,10 @@ if ( ! $enable_nutrition_facts ) {
 			echo '<p class="dr-nutrition-fact-lists">';
 			if ( ! empty( $_nf_fields['top'] ) ) {
 				if ( isset( $nutrition_facts['servings'] ) && $nutrition_facts['servings'] ) {
-					echo '<span class="dr-nut-label">' . esc_html__( "Servings", 'delicious-recipes' ) . ': <span class="dr-nutrition-fact-value"> ' . esc_html( $nutrition_facts['servings'] ) . ' ' . esc_html__( "Serving", 'delicious-recipes' ) . '</span></span>&nbsp;';
+					echo '<span class="dr-nut-label">' . esc_html__( "Servings", 'delicious-recipes' ) . ':<span class="dr-nutrition-fact-value"> ' . esc_html( $nutrition_facts['servings'] ) . ' ' . esc_html__( "Serving", 'delicious-recipes' ) . '</span></span>';
 				}
 				if ( $show_serving_size && isset( $nutrition_facts['servingSize'] ) && $nutrition_facts['servingSize'] ) {
-					echo '<span class="dr-nut-label">' . esc_html__( "Serving Size", 'delicious-recipes' ) . ': <span class="dr-nutrition-fact-value"> ' . esc_html( $nutrition_facts['servingSize'] ) . '</span></span>&nbsp;';
+					echo '<span class="dr-nut-label">' . esc_html__( "Serving Size", 'delicious-recipes' ) . ': <span class="dr-nutrition-fact-value"> ' . esc_html( $nutrition_facts['servingSize'] ) . '</span></span>';
 				}
 			}
 
@@ -78,9 +77,9 @@ if ( ! $enable_nutrition_facts ) {
 					}
 
 					if ( 'calories_fat' !== $slug ) {
-						echo '<span>' . esc_html( $nf['name'] ) . ': <span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts[ $slug ] ) . '</span>' . ( isset( $nf['measurement'] ) ? '&nbsp;<span class="dr-nut-measurement">' . esc_html( $nf['measurement'] ) . '</span></span>&nbsp;' : '</span>&nbsp;' );
+						echo '<span>' . esc_html( $nf['name'] ) . ':<span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts[ $slug ] ) . '</span>' . ( isset( $nf['measurement'] ) ? '<span class="dr-nut-measurement">' . esc_html( $nf['measurement'] ) . '</span></span>' : '</span>' );
 						if ( isset( $nutrition_facts['calories_fat'] ) && $nutrition_facts['calories_fat'] ) {
-							echo '<span>' . esc_html( $_nf_fields['mid']['calories_fat']['name'] ) . '<span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts['calories_fat'] ) . '</span></span>&nbsp;';
+							echo '<span>' . esc_html( $_nf_fields['mid']['calories_fat']['name'] ) . '<span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts['calories_fat'] ) . '</span></span>';
 						}
 					}
 				}
@@ -98,7 +97,7 @@ if ( ! $enable_nutrition_facts ) {
 						$hide = '' === $value || 0 === $value;
 					}
 					if ( ! $hide ) {
-						echo '<span>' . esc_html( $nf['name'] ) . ': <span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts[ $slug ] ) . '</span> ' . ( isset( $nf['measurement'] ) ? '&nbsp;<span class="dr-nut-measurement">' . esc_html( $nf['measurement'] ) . '</span></span>&nbsp;' : '</span>&nbsp;' );
+						echo '<span>' . esc_html( $nf['name'] ) . ':<span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts[ $slug ] ) . '</span>' . ( isset( $nf['measurement'] ) ? '<span class="dr-nut-measurement">' . esc_html( $nf['measurement'] ) . '</span></span>' : '</span>' );
 					}
 
 					if ( isset( $nf['subs'] ) ) {
@@ -115,7 +114,7 @@ if ( ! $enable_nutrition_facts ) {
 							if ( $hide ) {
 								continue;
 							}
-							echo '<span>' . esc_html( $sub_nf['name'] ) . ': <span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts[ $sub_slug ] ) . '</span>' . ( isset( $sub_nf['measurement'] ) ? '&nbsp;<span class="dr-nut-measurement">' . esc_html( $sub_nf['measurement'] ) . '</span></span>&nbsp;' : '</span>&nbsp;' );
+							echo '<span>' . esc_html( $sub_nf['name'] ) . ': <span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts[ $sub_slug ] ) . '</span>' . ( isset( $sub_nf['measurement'] ) ? '<span class="dr-nut-measurement">' . esc_html( $sub_nf['measurement'] ) . '</span></span>' : '</span>' );
 						}
 					}
 				}
@@ -135,7 +134,7 @@ if ( ! $enable_nutrition_facts ) {
 					if ( $hide ) {
 						continue;
 					}
-					echo '<span>' . esc_html( $nf['name'] ) . ': <span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts[ $slug ] ) . '</span> ' . ( isset( $nf['measurement'] ) ? '&nbsp;<span class="dr-nut-measurement">' . esc_html( $nf['measurement'] ) . '</span></span>&nbsp;' : '</span>&nbsp;' );
+					echo '<span>' . esc_html( $nf['name'] ) . ': <span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts[ $slug ] ) . '</span>' . ( isset( $nf['measurement'] ) ? '<span class="dr-nut-measurement">' . esc_html( $nf['measurement'] ) . '</span></span>' : '</span>' );
 				}
 			}
 
@@ -151,7 +150,7 @@ if ( ! $enable_nutrition_facts ) {
 							continue;
 						}
 					}
-					echo '<span>' . esc_html( $additional_nutrition_element_value['name'] ) . ': <span class="dr-nutrition-fact-value">' . esc_html( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) . '</span>' . ( isset( $additional_nutrition_element_value['measurement'] ) ? '&nbsp;<span class="dr-nut-measurement">' . esc_html( $additional_nutrition_element_value['measurement'] ) . '</span></span>&nbsp;' : '</span>&nbsp;' );
+					echo '<span>' . esc_html( $additional_nutrition_element_value['name'] ) . ': <span class="dr-nutrition-fact-value">' . esc_html( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) . '</span>' . ( isset( $additional_nutrition_element_value['measurement'] ) ? '<span class="dr-nut-measurement">' . esc_html( $additional_nutrition_element_value['measurement'] ) . '</span></span>' : '</span>' );
 				}
 			}
 			echo '</p>';

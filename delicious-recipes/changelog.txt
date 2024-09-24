@@ -1,3 +1,12 @@
+1.7.2: 2024-09-23
+- New Feature: Introduced a feature to preload the featured image on single recipe pages for improved loading speed.
+- Enhancement: Added a Delisho promotion button to the Elementor backend editor.
+- Fixes: Resolved design issues with Layout 2 of the nutritional information section.
+- Fixes: Fixed design problems in the WP Delicious Sidebar Widgets.
+- Fixes: Updated the changelog display, now linking to a dedicated page instead of displaying directly on WP.org.
+- Fixes: Moved the "Reset filter" field to the end of the search page for better UX.
+- Fixes: Fixed an issue with the recipe import feature.
+
 1.7.1: 2024-09-12
 - Enhancement: Updated the design of the review form for improved appearance on default themes.
 - Fixes: Resolved the issue where the featured image was not displaying.

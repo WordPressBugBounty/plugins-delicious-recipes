@@ -969,26 +969,26 @@ function delicious_recipes_get_global_settings() {
 					'enable' => array(),
 				),
 				'10' => array(
-					'label'  => __( 'Reset', 'delicious-recipes' ),
-					'key'    => 'reset',
-					'enable' => array(
-						'0' => 'yes',
-					),
-				),
-				'11' => array(
 					'label'  => __( 'Recipe Badges', 'delicious-recipes' ),
 					'key'    => 'recipe-badges',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
-				'12' => array(
+				'11' => array(
 					'label'  => __( 'Recipe Dietary', 'delicious-recipes' ),
 					'key'    => 'recipe-dietary',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
+				'12' => array(
+					'label'  => __( 'Reset', 'delicious-recipes' ),
+					'key'    => 'reset',
+					'enable' => array(
+						'0' => 'yes',
+					),
+				)
 			),
 
 			// Miscellaneous fields.
@@ -998,6 +998,7 @@ function delicious_recipes_get_global_settings() {
 			'allowSVGIcons'                => array(),
 			'enableDefaultSessionHandler'  => array(),
 			'enableLazyLoading'            => array(),
+			'enablePreloadFeaturedImage'   => array(),
 
 			// User Dashboard fields.
 			'dashboardPage'                => '',

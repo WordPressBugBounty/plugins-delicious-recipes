@@ -7,6 +7,19 @@ import 'fslightbox';
 import LazyLoad from "vanilla-lazyload";
 import './ratings.js';
 
+// Additional Instruction Images for Recipe Instructions
+document.addEventListener('DOMContentLoaded', function() {
+    var remainingImageBoxes = document.querySelectorAll('.wpd-fslightbox-images-box');    
+    remainingImageBoxes.forEach(function(box) {
+        box.addEventListener('click', function() {
+            var lightboxLinks = this.closest('.additional-images').querySelector('.dr-lg-media-popup');
+            if (lightboxLinks) {
+                lightboxLinks.click();
+            }
+        });
+    });
+});
+
 (function () {
 	class recipeGlobal {
 		constructor() { }

@@ -114,6 +114,9 @@ class DeliciousPublic {
 		//For lazy loading
 		add_action( 'template_redirect', array( $this, 'start' ) );
 		add_filter( 'delicious_recipes_output_buffer_template_redirect', array( $this, 'add_lazyload_attributes' ) );
+
+		//for preloading featured image
+		add_action( 'wp_head', array( $this, 'add_preload_featured_image' ) );
 	}
 
 	/**
@@ -185,6 +188,29 @@ class DeliciousPublic {
 			},
 			$html
 		);
+	}
+
+	/**
+	 * Preload Feature Images 
+	 * 
+	 * Since 1.7.1
+	 */
+	public static function add_preload_featured_image()
+	{
+		$global_settings   = get_option('delicious_recipe_settings', true);
+		$global_toggles = delicious_recipes_get_global_toggles_and_labels();
+		$img_size = $global_toggles['enable_recipe_image_crop'] ? 'recipe-feat-gallery' : 'full';
+
+		if (isset($global_settings['enablePreloadFeaturedImage']) && ['yes'] !== $global_settings['enablePreloadFeaturedImage'] && !is_singular(DELICIOUS_RECIPE_POST_TYPE)) {
+			return;
+		}
+		$recipe_meta = get_post_meta(get_the_ID());
+		if ( !isset($recipe_meta['_thumbnail_id']) && empty($recipe_meta['_thumbnail_id'])) return;
+		if (has_post_thumbnail()) {
+			echo '<link rel="preload" href="' . esc_url(get_the_post_thumbnail_url(null, $img_size)) . '" as="image">';
+		} else {
+			echo '<link rel="preload" href="' . esc_url(wp_get_attachment_image_url($recipe_meta['_thumbnail_id'][0], $img_size)) . '" as="image">';
+		}
 	}
 
 	function wpdelicious_body_classes( $classes ) {

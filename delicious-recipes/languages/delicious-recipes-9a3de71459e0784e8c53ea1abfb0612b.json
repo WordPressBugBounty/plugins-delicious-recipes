@@ -649,6 +649,12 @@
             "Enable this option to activate lazy loading on the recipe page, enhancing performance by loading images only when they are needed.": [
                 ""
             ],
+            "Enable Preload Featured Image": [
+                ""
+            ],
+            "Enable this option to preload the featured image, improving initial load times when users visit the website.": [
+                ""
+            ],
             "Permalinks": [
                 ""
             ],
@@ -865,7 +871,16 @@
             "Select the pagination style for recipe listings.": [
                 ""
             ],
-            "Recipe Archive Title": [
+            "Recipe Taxonomy Subtitle": [
+                ""
+            ],
+            "Enter title for the terms box in taxonomy archive page templates.": [
+                ""
+            ],
+            "This is the default label on recipe archive page templates such as recipe keys, courses, cooking methods etc.": [
+                ""
+            ],
+            "Recipe Index Title": [
                 ""
             ],
             "Enter recipe archive title text": [
@@ -874,7 +889,7 @@
             "This is the text that will be displayed on Recipe Archive Title.": [
                 ""
             ],
-            "Archive Description": [
+            "Recipe Index Description": [
                 ""
             ],
             "Recipe Archive Description here...": [
@@ -883,13 +898,7 @@
             "Enter Recipe Archive description.": [
                 ""
             ],
-            "Recipe Taxonomy Subtitle": [
-                ""
-            ],
-            "Enter title for the terms box in taxonomy archive page templates.": [
-                ""
-            ],
-            "This is the default label on recipe archive page templates such as recipe keys, courses, cooking methods etc.": [
+            "Custom Recipe Index Page feature is available in Pro version.": [
                 ""
             ],
             "Recipe Post": [
@@ -970,7 +979,7 @@
             "Enable this option to display Pinit button in recipe, archive and search pages.": [
                 ""
             ],
-            "Cook Mode feature is available in Pro version.": [
+            "Cook Mode and Multiple Instruction Images features are available in Pro version.": [
                 ""
             ],
             "Recipe Dietaries": [

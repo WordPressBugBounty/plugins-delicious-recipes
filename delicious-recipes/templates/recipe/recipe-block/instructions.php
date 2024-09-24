@@ -6,10 +6,18 @@
  */
 
 global $recipe;
+$global_settings      = delicious_recipes_get_global_settings();
 $recipe_instructions  = isset( $recipe->instructions ) ? $recipe->instructions : array();
 $instruction_title    = isset( $recipe->instruction_title ) ? $recipe->instruction_title : __( "Instructions", 'delicious-recipes'  );
 $enable_video_gallery = isset( $recipe->enable_video_gallery ) ? $recipe->enable_video_gallery : false;
 $video_gallery_vids   = isset( $recipe->video_gallery ) ? $recipe->video_gallery : array();
+$recipe_settings      = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
+
+$enable_multiple_images = false;
+$additionalImages       = array();
+if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
+	$enable_multiple_images = isset( $global_settings['enableMultipleInstructionImages'] ) && is_array( $global_settings['enableMultipleInstructionImages'] ) && ! empty( $global_settings['enableMultipleInstructionImages'][0] ) && 'yes' === $global_settings['enableMultipleInstructionImages'][0];
+}
 
 // Get global toggles.
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
@@ -59,13 +67,63 @@ if ( ! empty( $recipe_instructions ) ) :
 							</div>
 							<!-- Place for gallery image  -->
 							<?php
-							if ( $instruction_image ) :
-								$instruct_image = wp_get_attachment_url( $instruction_image, 'full' );
-								echo '<a data-fslightbox=" ' . esc_url( $instruct_image ) . "-" . esc_html( $instruction_image ) . '" class="dr-lg-media-popup" href=" ' . esc_url( $instruct_image ) . '">
-											<img src="' . esc_url( $instruct_image ) . '" />
-									  </a>';
-							endif;
-							?>
+							$all_images = array();
+
+							// Add the main instruction image to the array
+							if ( $instruction_image ) {
+								$all_images[] = array(
+									'id' => $instruction_image,
+									'url' => wp_get_attachment_url( $instruction_image, 'full' ),
+								);
+							}
+
+							// Add additional images to the array
+							if ( function_exists( 'DEL_RECIPE_PRO' ) && $enable_multiple_images ) {
+								$additionalImages  = isset( $instruct['additionalImages'] ) ? $instruct['additionalImages'] : array();
+								if ( ! empty( $additionalImages ) ) {
+									foreach ( $additionalImages as $key => $value ) {
+										if ( $value['instructionIndex'] == $sec_key && $value['instructionId'] == $inst_key ) {
+											if ( ! empty( $value['additionalImages'] ) ) {
+												foreach ( $value['additionalImages'] as $image ) {
+													$all_images[] = array(
+														'id' => $image['id'],
+														'url' => wp_get_attachment_url( $image['id'], 'full' ),
+													);
+												}
+											}
+										}
+									}
+								}
+							}
+							?> <div class="additional-images"> <?php
+								// Display the images
+								$total_images = count( $all_images );
+								for ( $i = 0; $i < min( 3, $total_images ); $i++ ) {
+									$image = $all_images[ $i ];
+									$instruct_image_small = esc_url( $image['url'] );
+									echo '<a data-fslightbox="gallery-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) . '" class="dr-lg-media-popup" href="' . $instruct_image_small . '">
+											<img src="' . $instruct_image_small . '" />
+										</a>';
+								}
+
+								// Add hidden images for fslightbox for images after the first 3
+								if ( $total_images > 3 ) {
+									for ( $i = 3; $i < $total_images; $i++ ) {
+										$image = $all_images[ $i ];
+										$instruct_image_small = esc_url( $image['url'] );
+										echo '<a data-fslightbox="gallery-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) .'" href="' . $instruct_image_small . '" style="display:none;"></a>';
+									}
+
+									// Display the remaining images count box without an href
+									$remaining_images = $total_images - 3;
+									echo '<div class="wpd-fslightbox-images-box" id="remaining-images-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) . '" data-sec-key="' . esc_attr( $sec_key ) . '">
+											+' . esc_html( $remaining_images ) . ' photos
+										</div>';
+								}
+								?>
+								<script>
+							</script>
+							</div>
 							<?php if ( ! empty( $instruction_notes ) ) : ?>
 								<div class="dr-list-tips">
 									<?php echo esc_html( $instruction_notes ); ?>
@@ -172,5 +230,4 @@ if ( ! empty( $recipe_instructions ) ) :
 		endif;
 		?>
 	</div>
-	<?php
-endif;
+<?php endif;

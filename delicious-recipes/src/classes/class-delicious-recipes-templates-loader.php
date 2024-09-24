@@ -377,6 +377,10 @@ class Delicious_Recipes_Template_Loader {
 		if ( $post->ID != $pid ) {
 			return;
 		}
+		
+		if ( ! has_shortcode( $post->post_content, 'search_recipe' ) ) {
+			return;
+		}
 		delicious_recipes_get_template( 'global/searchpage.php' );
 		exit();
 	}

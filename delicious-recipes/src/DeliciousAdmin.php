@@ -198,6 +198,39 @@ class DeliciousAdmin {
 		 * @since 1.6.2
 		 */
 		add_action('restrict_manage_posts', array($this, 'add_admin_filters'), 10, 1);
+
+		//For delisho promotion button in elementor
+		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'import_assets' ], 988 );
+	}
+
+	/**
+	 * Import assets.
+	 *
+	 * @return void
+	 */
+	public function import_assets() {
+		
+		$delisho_activated = false;
+		if ( class_exists( 'DR_Widgets_Blocks' ) ) {
+			$delisho_activated = true;
+		}
+		
+		if ( ! $delisho_activated ) {
+			wp_enqueue_script('delicious-recipes-admin', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/admin/delisho-preview.js',array( 'jquery' ));
+			wp_localize_script(
+				'delicious-recipes-admin',
+				'delisho_preview',
+				array(
+					'nonce'          => wp_create_nonce( 'delisho_preview_nonce' ),
+					'plugin_url'     => plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ),
+					'promotion_text' => sprintf(
+						__( 'Get access to all Delisho widgets and blocks. <a target="_blank" href="%s">Click here</a> to install and activate the plugin now.', 'delicious-recipes' ),
+						esc_url( admin_url( 'plugin-install.php?s=delisho&tab=search&type=term' ) ),
+					),
+					'promotion_link' => esc_url( admin_url( 'plugin-install.php?s=delisho&tab=search&type=term' ) ),
+				)
+			);
+		}
 	}
 
 	/**
@@ -1133,6 +1166,7 @@ class DeliciousAdmin {
 			'customize',
 		);
 
+
 		if ( ! isset( $wp_customize ) ) {
 			$global_settings_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/adminCSS.asset.php';
 			wp_enqueue_style( 'delicious-recipe-admin', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/adminCSS.css', $global_settings_deps['dependencies'], $global_settings_deps['version'], 'all' );
@@ -1183,6 +1217,9 @@ class DeliciousAdmin {
 			$recipe_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/recipe.asset.php';
 
 			if ( 'recipe' === $screen->id ) {
+
+				wp_enqueue_script( 'delicious-recipes-dlisho-preview', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/delisho-preview.js', $recipe_deps['dependencies'], $recipe_deps['version'], true );
+
 
 				// Recipe edit screen assets.
 				wp_register_script( 'delicious-recipe-edit', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/recipe.js', $recipe_deps['dependencies'], $recipe_deps['version'], true );
@@ -1275,6 +1312,7 @@ class DeliciousAdmin {
 
 		// Send all these data to javascript
 		wp_localize_script( 'delicious_recipes_nav_menu', 'delicious_recipes_data', $data );
+		
 	}
 
 	/**

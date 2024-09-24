@@ -50,7 +50,7 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 				array(
 					'methods'             => 'GET',
 					'callback'            => array( $this, 'get_settings' ),
-					'permission_callback' => array( $this, 'get_items_permissions_check' ),
+					'permission_callback' => array( $this, 'get_item_permissions_check' ),
 				),
 				array(
 					'methods'             => 'POST',

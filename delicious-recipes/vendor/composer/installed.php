@@ -3,7 +3,7 @@
         'name' => 'xqluz/delicious-recipes',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '84941cd09f71d03c98a837491df1902d8d197a1c',
+        'reference' => 'cf147b69893571b5679d7a2386b251aacfbe2d80',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'xqluz/delicious-recipes' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '84941cd09f71d03c98a837491df1902d8d197a1c',
+            'reference' => 'cf147b69893571b5679d7a2386b251aacfbe2d80',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

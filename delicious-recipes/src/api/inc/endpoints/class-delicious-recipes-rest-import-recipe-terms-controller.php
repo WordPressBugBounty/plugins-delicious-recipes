@@ -278,13 +278,13 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		// Insert new post meta data.
 		$new_recipe_meta                      = array();
 		$new_recipe_meta['recipeSubtitle']    = '';
-		$new_recipe_meta['recipeDescription'] = '';
-		$new_recipe_meta['recipeKeywords']    = isset( $recipe_settings['seo_description'] ) ? sanitize_text_field( $recipe_settings['seo_description'] ) : '';
+		$new_recipe_meta['recipeDescription'] = isset( $recipe_settings['seo_description'] ) ? sanitize_text_field( $recipe_settings['seo_description'] ) : '';
+		$new_recipe_meta['recipeKeywords']    = '';
 		$new_recipe_meta['difficultyLevel']   = isset( $recipe_settings['difficulty_level'] ) ? $difficulty_levels[ absint( $recipe_settings['difficulty_level'] ) ] : '';
 		$new_recipe_meta['prepTime']          = isset( $recipe_settings['prep_time'] ) ? sanitize_text_field( $recipe_settings['prep_time'] ) : '';
-		$new_recipes_meta['prepTimeUnit']     = 'min';
+		$new_recipe_meta['prepTimeUnit']     = 'min';
 		$new_recipe_meta['cookTime']          = isset( $recipe_settings['cook_time'] ) ? sanitize_text_field( $recipe_settings['cook_time'] ) : '';
-		$new_recipes_meta['cookTimeUnit']     = 'min';
+		$new_recipe_meta['cookTimeUnit']     = 'min';
 		$new_recipe_meta['cokingTemp']        = '';
 		$new_recipe_meta['cokingTempUnit']    = 'C';
 		$new_recipe_meta['restTime']          = '';
@@ -576,7 +576,11 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		// Create new recipe post.
 		$new_recipe                    = array();
 		$new_recipe['post_title']      = isset( $recipe_data->post_title ) ? sanitize_text_field( $recipe_data->post_title ) : '';
-		$new_recipe['post_name']       = isset( $recipe_data->post_name ) ? ( ( '' !== $recipe_data->post_name ) ? sanitize_title( $recipe_data->post_name ) : sanitize_title( $recipe_data->post_title ) ) : '';
+		$new_recipe['post_name']       = isset( $recipe_data->post_name )
+											? ( ( '' !== $recipe_data->post_name )
+												? sanitize_title( str_replace( 'wprm-', '', $recipe_data->post_name ) )
+												: sanitize_title( $recipe_data->post_title ) )
+											: '';
 		$new_recipe['post_content']    = $filtered_content ? $filtered_content : '';
 		$new_recipe['post_status']     = 'draft';
 		$new_recipe['post_author']     = isset( $recipe_data->post_author ) ? absint( $recipe_data->post_author ) : '';
@@ -599,7 +603,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$new_recipe_meta['cokingTemp']        = '';
 		$new_recipe_meta['cokingTempUnit']    = 'C';
 		$custom_label                         = isset( $post_meta['wprm_custom_time_label'][0] ) ? sanitize_text_field( $post_meta['wprm_custom_time_label'][0] ) : '';
-		if ( false !== strpos( $custom_label, 'rest' ) ) {
+		if ( false != strpos( $custom_label, 'rest' ) ) {
 			$new_recipe_meta['restTime'] = isset( $post_meta['wprm_custom_time'][0] ) ? sanitize_text_field( $post_meta['wprm_custom_time'][0] ) : '';
 		} else {
 			$new_recipe_meta['restTime'] = '';
@@ -876,7 +880,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 			if ( isset( $post_meta['wprm_ingredients'][0] ) && '' !== $post_meta['wprm_ingredients'][0] ) {
 				$ingredients                        = unserialize( $post_meta['wprm_ingredients'][0] );
 				$ingredient_links                   = array();
-				$delicious_recipes_ingredient_links = get_option( 'delicious_recipes_auto_link_ingredients' );
+				$delicious_recipes_ingredient_links = get_option( 'delicious_recipes_auto_link_ingredients', array() );
 				foreach ( $ingredients as $key => $ingredient ) {
 					if ( isset( $ingredient['ingredients'] ) && 0 !== count( $ingredient['ingredients'] ) ) {
 						foreach ( $ingredient['ingredients'] as $ing ) {
