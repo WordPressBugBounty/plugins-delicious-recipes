@@ -9,7 +9,7 @@
  * License URI:         https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:         delicious-recipes
  * Domain Path:         /languages
- * Version:             1.7.2
+ * Version:             1.7.3
  * Requires at least:   5.1
  * Tested up to:        6.6
  * Requires PHP:        7.4
@@ -22,17 +22,21 @@ use WP_Delicious\DeliciousRecipes;
 defined( 'ABSPATH' ) || exit;
 
 if ( ! function_exists( 'delicious_recipes_fs' ) ) {
-	// Create a helper function for easy SDK access.
+	/**
+	 * Helper function to access the instance of Delicious Recipes SDK.
+	 *
+	 * @return DeliciousRecipes
+	 */
 	function delicious_recipes_fs() {
 		global $delicious_recipes_fs;
 
 		if ( ! isset( $delicious_recipes_fs ) ) {
 			// Include Freemius SDK.
-			require_once dirname( __FILE__ ) . '/src/lib/freemius/start.php';
+			require_once __DIR__ . '/src/lib/freemius/start.php';
 
 			$first_time_activation_flag = get_option( 'delicious_recipes_first_time_activation_flag', false );
 
-			$slug = $first_time_activation_flag == false ? 'delicious-recipes-onboard' : 'delicious_recipes_global_settings';
+			$slug = false === $first_time_activation_flag ? 'delicious-recipes-onboard' : 'delicious_recipes_global_settings';
 
 			$delicious_recipes_fs = fs_dynamic_init(
 				array(

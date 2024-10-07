@@ -69,7 +69,7 @@ $recipe_paged           = is_front_page() ? get_query_var( 'page', 1 ) : get_que
 						'tax_page' => $dashboard_page,
 					);
 					delicious_recipes_get_template( 'recipes-grid.php', $data );
-					$position++;
+					++$position;
 				endwhile;
 				wp_reset_postdata();
 				?>
@@ -78,7 +78,7 @@ $recipe_paged           = is_front_page() ? get_query_var( 'page', 1 ) : get_que
 		else :
 			?>
 			<span class="no-result">
-				<?php esc_html_e( "Recipes not found.", 'delicious-recipes' ); ?>
+				<?php esc_html_e( 'Recipes not found.', 'delicious-recipes' ); ?>
 			</span>
 			<?php
 		endif;
@@ -99,7 +99,7 @@ $recipe_paged           = is_front_page() ? get_query_var( 'page', 1 ) : get_que
 					<# if ( val.thumbnail ) { #>
 						{{{val.thumbnail}}}
 					<# } else { #>
-						<?php delicious_recipes_get_fallback_svg( 'recipe-archive-grid' ); ?>
+						<?php delicious_recipes_get_fallback_svg( 'delrecipe-crop-size-1' ); ?>
 					<# } #>
 				</a>
 				<# if ( val.thumbnail && val.enable_pinit ) { #>
@@ -156,7 +156,7 @@ $recipe_paged           = is_front_page() ? get_query_var( 'page', 1 ) : get_que
 		<# }); #>
 	<# } else { #>
 		<span class="no-result">
-			<?php esc_html_e( "Recipes not found.", 'delicious-recipes' ); ?>
+			<?php esc_html_e( 'Recipes not found.', 'delicious-recipes' ); ?>
 		</span>
 	<# } #>
 </script>

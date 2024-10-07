@@ -11,12 +11,12 @@ global $recipe, $wp;
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
 // Image size.
-$img_size   = $global_toggles['enable_recipe_image_crop'] ? 'recipe-feat-gallery' : 'full';
+$img_size   = $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2' : 'full';
 $comment_id = $recipe->is_pro_active ? '#comments-' . esc_attr( $recipe->ID ) : '#comments';
 ?>
 <div class="dr-post-summary">
 	<div class="dr-recipe-summary-inner">
-		<div class="dr-image">
+		<div class="dr-image <?php echo esc_attr( $img_size ); ?>">
 			<?php
 			if ( has_post_thumbnail() ) {
 				the_post_thumbnail( $img_size );

@@ -96,6 +96,7 @@ class Delicious_Recipes_Onboard {
 				'pluginUrl'            => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
 				'permalinkStructure'   => get_option( 'permalink_structure' ),
 				'permalinkOptionsPage' => esc_url( admin_url( 'options-permalink.php' ) ),
+				'wpDeliciousImage'     => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/images/Delicious-Recipes.png' ),
 			)
 		);
 

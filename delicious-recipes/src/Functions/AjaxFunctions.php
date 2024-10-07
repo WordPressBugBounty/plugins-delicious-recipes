@@ -217,7 +217,7 @@ class AjaxFunctions {
 						array(
 							'key'     => '_dr_best_season',
 							'value'   => $season,
-							'compare' => '=',
+							'compare' => 'LIKE',
 						)
 					);
 				}
@@ -227,7 +227,7 @@ class AjaxFunctions {
 					array(
 						'key'     => '_dr_best_season',
 						'value'   => $seasons,
-						'compare' => 'IN',
+						'compare' => 'LIKE',
 					)
 				);
 			}
@@ -269,6 +269,7 @@ class AjaxFunctions {
 								'key'     => '_dr_ingredient_count',
 								'value'   => 10,
 								'compare' => '<=',
+								'type'    => 'NUMERIC',
 							)
 						);
 						break;
@@ -279,6 +280,7 @@ class AjaxFunctions {
 								'key'     => '_dr_recipe_total_time',
 								'value'   => 15,
 								'compare' => '<=',
+								'type'    => 'NUMERIC',
 							)
 						);
 						break;
@@ -289,6 +291,7 @@ class AjaxFunctions {
 								'key'     => '_dr_recipe_total_time',
 								'value'   => 30,
 								'compare' => '<=',
+								'type'    => 'NUMERIC',
 							)
 						);
 						break;
@@ -299,6 +302,7 @@ class AjaxFunctions {
 								'key'     => '_dr_ingredient_count',
 								'value'   => 7,
 								'compare' => '<=',
+								'type'    => 'NUMERIC',
 							)
 						);
 						break;
@@ -504,14 +508,20 @@ class AjaxFunctions {
 				$recipe_search_ids = array( 0 );
 			}
 
+			$seasons_meta    = array(
+				'fall'      => __( "fall", 'delicious-recipes'  ),
+				'winter'    => __( "winter", 'delicious-recipes'  ),
+				'summer'    => __( "summer", 'delicious-recipes'  ),
+				'spring'    => __( "spring", 'delicious-recipes'  ),
+				'suitable throughout the year' => __( "suitable throughout the year", 'delicious-recipes'  ),
+			);
+			$additional_seasons = get_option( 'best_season_option', array() );
+			if ( ! empty( $additional_seasons ) ) {
+				$seasons_meta = array_merge( $seasons_meta, $additional_seasons );
+			}
+
 			$recipe_search_metas = array(
-				'seasons'            => array(
-					'fall'      => $this->filter_by_meta_data( '_dr_best_season', 'fall', $recipe_search_ids ),
-					'winter'    => $this->filter_by_meta_data( '_dr_best_season', 'winter', $recipe_search_ids ),
-					'summer'    => $this->filter_by_meta_data( '_dr_best_season', 'summer', $recipe_search_ids ),
-					'spring'    => $this->filter_by_meta_data( '_dr_best_season', 'spring', $recipe_search_ids ),
-					'available' => $this->filter_by_meta_data( '_dr_best_season', 'available', $recipe_search_ids ),
-				),
+				'seasons'            => array(),
 				'difficulty_level'   => array(
 					'beginner'     => $this->filter_by_meta_data( '_dr_difficulty_level', 'beginner', $recipe_search_ids ),
 					'intermediate' => $this->filter_by_meta_data( '_dr_difficulty_level', 'intermediate', $recipe_search_ids ),
@@ -525,6 +535,10 @@ class AjaxFunctions {
 				),
 				'recipe_ingredients' => $this->filter_by_ingredients( $recipe_search_ids ),
 			);
+
+			foreach ( $seasons_meta as $season ) {
+				$recipe_search_metas['seasons'][$season] = $this->filter_by_best_season( '_dr_best_season', $season, $recipe_search_ids );
+			}
 		}
 
 		$results = array();
@@ -539,7 +553,7 @@ class AjaxFunctions {
 			// Get global toggles.
 			$global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
-			$img_size     = $global_toggles['enable_recipe_archive_image_crop'] ? 'recipe-archive-grid' : 'full';
+			$img_size     = $global_toggles['enable_recipe_archive_image_crop'] ? 'delrecipe-crop-size-1' : 'full';
 			$thumbnail_id = has_post_thumbnail( $recipe_metas->ID ) ? get_post_thumbnail_id( $recipe_metas->ID ) : '';
 			$thumbnail    = $thumbnail_id ? get_the_post_thumbnail( $recipe_metas->ID, $img_size ) : '';
 
@@ -774,6 +788,30 @@ class AjaxFunctions {
 		return $results;
 	}
 
+	/**
+	 * Filter by best season since 1.7.3
+	 *
+	 * @param string $key
+	 * @param string $value
+	 * @param array  $post_ids
+	 *
+	 * @return int
+	 */
+	private function filter_by_best_season ($key, $value = '', $post_ids = array()){
+		$args = array(
+			'post_type'        => DELICIOUS_RECIPE_POST_TYPE,
+			'posts_per_page'   => -1,
+			'suppress_filters' => false,
+			'post_status'      => 'publish',
+			'post__in'         => empty( $post_ids ) ? 0 : $post_ids,
+			'meta_key'         => $key,
+			'meta_value'       => $value,
+			'meta_compare'     => 'LIKE',
+			'fields'           => 'ids',
+		);
+		return count( get_posts( $args ) );
+	}
+
 	private function filter_by_meta_data( $key, $value = '', $post_ids = array() ) {
 		$args = array(
 			'post_type'        => DELICIOUS_RECIPE_POST_TYPE,
@@ -796,41 +834,57 @@ class AjaxFunctions {
 			'posts_per_page'   => -1,
 			'suppress_filters' => false,
 			'post_status'      => 'publish',
-			'post__in'         => empty( $post_ids ) ? 0 : $post_ids,
+			'post__in'         => !empty( $post_ids ) ? $post_ids : array(),
 			'fields'           => 'ids',
+			'meta_query'       => array(),
 		);
-
+	
 		switch ( $key ) {
 			case '10-ingredients-or-less':
-				$args['meta_key']       = '_dr_ingredient_count';
-				$args['meta_value_num'] = 10;
-				$args['meta_compare']   = '<=';
+				$args['meta_query'] = array(
+					array(
+						'key'     => '_dr_ingredient_count',
+						'value'   => 10,
+						'compare' => '<=',
+						'type'    => 'NUMERIC', // Ensures comparison as a number
+					),
+				);
 				break;
-
 			case '15-minutes-or-less':
-				$args['meta_key']       = '_dr_recipe_total_time';
-				$args['meta_value_num'] = 15;
-				$args['meta_compare']   = '<=';
+				$args['meta_query'] = array(
+					array(
+						'key'     => '_dr_recipe_total_time',
+						'value'   => 15,
+						'compare' => '<=',
+						'type'    => 'NUMERIC', // Ensures comparison as a number
+					),
+				);
 				break;
-
 			case '30-minutes-or-less':
-				$args['meta_key']       = '_dr_recipe_total_time';
-				$args['meta_value_num'] = 30;
-				$args['meta_compare']   = '<=';
+				$args['meta_query'] = array(
+					array(
+						'key'     => '_dr_recipe_total_time',
+						'value'   => 30,
+						'compare' => '<=',
+						'type'    => 'NUMERIC', // Ensures comparison as a number
+					),	
+				);
 				break;
-
 			case '7-ingredients-or-less':
-				$args['meta_key']       = '_dr_ingredient_count';
-				$args['meta_value_num'] = 7;
-				$args['meta_compare']   = '<=';
-				break;
-
-			default:
+				$args['meta_query'] = array(
+					array(
+						'key'     => '_dr_ingredient_count',
+						'value'   => 7,
+						'compare' => '<=',
+						'type'    => 'NUMERIC', // Ensures comparison as a number
+					),
+				);
 				break;
 		}
-
+	
 		return count( get_posts( $args ) );
 	}
+	
 
 	private function filter_by_ingredients( $post_ids = array() ) {
 		$args = array(
@@ -838,7 +892,7 @@ class AjaxFunctions {
 			'posts_per_page'   => -1,
 			'suppress_filters' => false,
 			'post_status'      => 'publish',
-			'post__in'         => empty( $post_ids ) ? 0 : $post_ids,
+			'post__in' => !empty( $post_ids ) ? $post_ids : array(),
 			'fields'           => 'ids',
 		);
 

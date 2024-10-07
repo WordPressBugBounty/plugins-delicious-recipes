@@ -33,7 +33,7 @@ $args = array(
 				$results            = get_posts( $args );
 				$count              = count( $results );
 				?>
-					<span class='count'>(<?php echo esc_html( $count ); ?>)</span>
+					(<?php echo esc_html( $count ); ?>)
 				<?php
 				endif;
 			?>

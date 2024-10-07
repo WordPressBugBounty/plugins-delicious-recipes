@@ -31,7 +31,7 @@ class GlobalSettings {
 	 * @return void
 	 */
 	private function init() {
-		
+
 		// Initialize hooks.
 		$this->init_hooks();
 
@@ -49,13 +49,13 @@ class GlobalSettings {
 	 */
 	private function init_hooks() {
 
-		// Add menu in settins page.
+		// Add menu in settings page.
 		add_action( 'admin_menu', array( $this, 'add_submenu_page' ), 20 );
 	}
 
 	/**
 	 * Add submenu page for form editor.
-	 * 
+	 *
 	 * @since 1.0.0
 	 * @access public
 	 *
@@ -63,12 +63,12 @@ class GlobalSettings {
 	 */
 	public function add_submenu_page() {
 
-		add_submenu_page( 
-			'delicious-recipes', 
-			__( "Settings", 'delicious-recipes' ), 
-			__( "Settings", 'delicious-recipes' ), 
-			'manage_options', 
-			'delicious_recipes_global_settings', 
+		add_submenu_page(
+			'delicious-recipes',
+			__( "Settings", 'delicious-recipes' ),
+			__( "Settings", 'delicious-recipes' ),
+			'manage_options',
+			'delicious_recipes_global_settings',
 			array( $this, 'display_submenu_page' ),
 			10
 		);
@@ -77,14 +77,14 @@ class GlobalSettings {
 
 	/**
 	 * Display submenu page template
-	 * 
+	 *
 	 * @since 1.0.0
 	 * @access public
-	 * 
+	 *
 	 * @return void
 	 */
 	public function display_submenu_page() {
-		
+
 		global $pagenow;
 
 		if ( 'admin.php' === $pagenow ) {

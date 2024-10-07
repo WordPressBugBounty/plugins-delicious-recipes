@@ -76,6 +76,9 @@
             "Notes": [
                 ""
             ],
+            "Extended Content": [
+                ""
+            ],
             "Time": [
                 ""
             ],
@@ -398,9 +401,6 @@
                 ""
             ],
             "Recipe settings has been changed. Please save the changes from Recipe Settings section before updating the recipe.": [
-                ""
-            ],
-            "Extended Content": [
                 ""
             ]
         }

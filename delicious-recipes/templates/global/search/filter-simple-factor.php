@@ -31,6 +31,8 @@ $args = array(
 								'key'     => '_dr_ingredient_count',
 								'value'   => 10,
 								'compare' => '<=',
+								'type'    => 'NUMERIC', // Ensures comparison as a number
+								'status'  => 'publish', // Ensures only published recipes are counted
 							),
 						);
 						break;
@@ -40,6 +42,8 @@ $args = array(
 								'key'     => '_dr_recipe_total_time',
 								'value'   => 15,
 								'compare' => '<=',
+								'type'    => 'NUMERIC', // Ensures comparison as a number
+								'status'  => 'publish',
 							),
 						);
 						break;
@@ -49,7 +53,9 @@ $args = array(
 								'key'     => '_dr_recipe_total_time',
 								'value'   => 30,
 								'compare' => '<=',
-							),
+								'type'    => 'NUMERIC', // Ensures comparison as a number
+								'status'  => 'publish',
+							),	
 						);
 						break;
 					case '7-ingredients-or-less':
@@ -58,6 +64,8 @@ $args = array(
 								'key'     => '_dr_ingredient_count',
 								'value'   => 7,
 								'compare' => '<=',
+								'type'    => 'NUMERIC', // Ensures comparison as a number
+								'status'  => 'publish',
 							),
 						);
 						break;

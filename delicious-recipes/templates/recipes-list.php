@@ -23,17 +23,17 @@ global $recipe;
 $global_toggles   = delicious_recipes_get_global_toggles_and_labels();
 $disable_wishlist = isset( $disable_wishlist ) && $disable_wishlist ? true : false;
 
-$img_size = $global_toggles['enable_recipe_archive_image_crop'] ? 'recipe-archive-list' : 'full';
+$img_size = $global_toggles['enable_recipe_archive_image_crop'] ? 'delrecipe-crop-size-1' : 'full';
 $img_size = apply_filters( 'recipes_list_img_size', $img_size );
 ?>
 <article class="recipe-post" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-	<figure class="post-thumbnail">
+	<figure class="post-thumbnail <?php echo esc_attr( $img_size ); ?>">
 		<a href="<?php the_permalink(); ?>">
 			<?php
 			if ( $recipe->thumbnail ) :
 				the_post_thumbnail( $img_size );
 			else :
-				delicious_recipes_get_fallback_svg( 'recipe-archive-list' );
+				delicious_recipes_get_fallback_svg( 'delrecipe-crop-size-1' );
 			endif;
 			?>
 		</a>

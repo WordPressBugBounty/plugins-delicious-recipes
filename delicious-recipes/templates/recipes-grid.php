@@ -21,7 +21,7 @@ global $recipe;
 // Get global toggles.
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
-$img_size         = $global_toggles['enable_recipe_archive_image_crop'] ? 'recipe-archive-grid' : 'full';
+$img_size         = $global_toggles['enable_recipe_archive_image_crop'] ? 'delrecipe-crop-size-1' : 'full';
 $img_size         = apply_filters( 'recipes_grid_img_size', $img_size );
 $h_tag_open       = isset( $tax_page ) && $tax_page ? '<h3 class="dr-archive-list-title" itemprop="name">' : '<h2 class="dr-archive-list-title" itemprop="name">';
 $h_tag_close      = isset( $tax_page ) && $tax_page ? '</h3>' : '</h2>';
@@ -29,13 +29,13 @@ $disable_wishlist = isset( $disable_wishlist ) && $disable_wishlist ? true : fal
 
 ?>
 <div class="dr-archive-single" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
-	<figure>
+	<figure class="<?php echo esc_attr( $img_size ); ?>">
 		<a href="<?php echo esc_url( $recipe->permalink ); ?>">
 			<?php
 			if ( $recipe->thumbnail ) :
 				the_post_thumbnail( $img_size );
 			else :
-				delicious_recipes_get_fallback_svg( 'recipe-archive-grid' );
+				delicious_recipes_get_fallback_svg( 'delrecipe-crop-size-1' );
 			endif;
 			?>
 		</a>
@@ -94,7 +94,7 @@ $disable_wishlist = isset( $disable_wishlist ) && $disable_wishlist ? true : fal
 				<svg class="icon">
 					<use xlink:href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/sprite.svg#time"></use>
 				</svg>
-				<span class="dr-meta-title"><?php echo sprintf( '%1$s', esc_html( $recipe->total_time ) ); ?></span>
+				<span class="dr-meta-title"><?php printf( '%1$s', esc_html( $recipe->total_time ) ); ?></span>
 			</span>
 		<?php endif; ?>
 		<?php if ( $recipe->difficulty_level ) : ?>    

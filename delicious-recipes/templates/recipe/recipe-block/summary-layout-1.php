@@ -11,7 +11,7 @@ global $recipe;
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
 // Image size.
-$img_size   = $global_toggles['enable_recipe_image_crop'] ? 'recipe-feat-gallery' : 'full';
+$img_size   = $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2' : 'full';
 $comment_id = $recipe->is_pro_active ? '#comments-' . esc_attr( $recipe->ID ) : '#comments';
 ?>
 <div class="dr-post-summary layout-1">
@@ -21,7 +21,7 @@ $comment_id = $recipe->is_pro_active ? '#comments-' . esc_attr( $recipe->ID ) : 
 				<?php if ( $recipe->rating_count && $global_toggles['enable_ratings'] ) : ?>
 					<span class="dr-rating dr-star-ratings-wrapper">
 						<div class="dr-star-ratings">
-							<div id="recipe-card-rating-container" data-read-only="true" data-dynamic-rating="<?php echo $recipe->rating ? esc_attr($recipe->rating) : 0; ?>" class="wpd-rating-container"></div>
+							<div id="recipe-card-rating-container" data-read-only="true" data-dynamic-rating="<?php echo $recipe->rating ? esc_attr( $recipe->rating ) : 0; ?>" class="wpd-rating-container"></div>
 						</div>
 						<?php
 							$average_rating = $recipe->rating;
@@ -48,7 +48,7 @@ $comment_id = $recipe->is_pro_active ? '#comments-' . esc_attr( $recipe->ID ) : 
 					</div>
 				<?php endif; ?>
 			</div>
-			<div class="dr-image">
+			<div class="dr-image <?php echo esc_attr( $img_size ); ?>">
 				<?php
 					/**
 					 * Recipe Badges

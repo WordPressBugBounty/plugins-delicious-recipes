@@ -7,14 +7,12 @@
 
 global $recipe;
 $recipe_global = delicious_recipes_get_global_settings();
+$recipe_meta = get_post_meta($recipe->ID, 'delicious_recipes_metadata', true);
 
 $embed_recipe_link           = isset( $recipe_global['embedRecipeLink']['0'] ) && 'yes' === $recipe_global['embedRecipeLink']['0'] ? true : false;
 $display_social_sharing_info = isset( $recipe_global['displaySocialSharingInfo']['0'] ) && 'yes' === $recipe_global['displaySocialSharingInfo']['0'] ? true : false;
 $embed_author_info           = isset( $recipe_global['embedAuthorInfo']['0'] ) && 'yes' === $recipe_global['embedAuthorInfo']['0'] ? true : false;
-$socials_enabled             = ( isset( $recipe_global['socialShare']['0']['enable']['0'] )
-&& 'yes' === $recipe_global['socialShare']['0']['enable']['0'] )
-|| ( isset( $recipe_global['socialShare']['1']['enable']['0'] )
-&& 'yes' === $recipe_global['socialShare']['1']['enable']['0'] ) ? true : false;
+$socials_enabled             = ( isset( $recipe_global['socialShare']['0']['enable']['0'] ) && 'yes' === $recipe_global['socialShare']['0']['enable']['0'] ) || ( isset( $recipe_global['socialShare']['1']['enable']['0'] ) && 'yes' === $recipe_global['socialShare']['1']['enable']['0'] ) ? true : false;
 // Get global toggles.
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
@@ -46,6 +44,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 						<h3><?php esc_html_e( "Print Options:", 'delicious-recipes' ); ?></h3>
 					<?php
 					foreach ( $print_options as $key => $print_opt ) :
+						
 						// Display the "Recipe Content" checkbox option after the "Title" option.
 						if ( 1 === $key && isset( $print_options['11'] ) ) {
 							$name   = isset( $print_options['11']['key'] ) ? $print_options['11']['key'] : '';
@@ -62,6 +61,10 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 							continue;
 						}
 
+						if ( 12 === $key && ! function_exists( 'DEL_RECIPE_PRO' )){
+							continue;
+						}
+
 						$name   = isset( $print_opt['key'] ) ? $print_opt['key'] : '';
 						$enable = isset( $print_opt['enable']['0'] ) && 'yes' === $print_opt['enable']['0'] ? true : false;
 						?>
@@ -73,6 +76,15 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 					</div>
 				<?php
 			endif;
+		else:
+			$print_options = isset( $recipe_global['printOptions'] ) ? $recipe_global['printOptions'] : array();
+			foreach( $print_options as $print_opt ){
+				$name   = isset( $print_opt['key'] ) ? $print_opt['key'] : '';
+				$enable = isset( $print_opt['enable']['0'] ) && 'yes' === $print_opt['enable']['0'] ? true : false;
+				?>
+				<input id="print_options_<?php echo esc_attr( sanitize_title( $name ) ); ?>" type="hidden" name="print_options" value="1" <?php checked( $enable, true ); ?> />
+				<?php
+			}
 		endif;
 	?>
 	<button class="dr-button" onclick="window.print();"><?php esc_html_e( "Print", 'delicious-recipes' ); ?></button>
@@ -90,8 +102,8 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 			endif;
 		?>
 			<h1 id="dr-print-title" class="dr-print-title"><?php the_title(); ?></h1>
-			<div class="dr-print-img">
-				<?php the_post_thumbnail( 'recipe-feat-print' ); ?>
+			<div class="dr-print-img <?php echo esc_attr( $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2' : 'full' ); ?>">
+				<?php the_post_thumbnail( 'delrecipe-crop-size-2' ); ?>
 			</div>
 		</div><!-- #dr-page1 -->
 
@@ -501,6 +513,17 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				<?php
 			endif;
 
+			$recipe_extended_content    = isset($recipe_meta['extendedContent']) && $recipe_meta['extendedContent'] ? $recipe_meta['extendedContent'] : '';
+			if (function_exists( 'DEL_RECIPE_PRO' ) && $recipe_extended_content) {
+				$blocks = parse_blocks($recipe_extended_content);
+				
+				$output = '';
+				foreach ($blocks as $block) {
+					$output .= do_shortcode(render_block($block));
+				}
+				echo '<div class="dr-extended-content-content">' . $output . '</div>';
+			}
+
 			/**
 			 * Action hook for additionals.
 			 */
@@ -623,6 +646,14 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 					document.getElementsByClassName('dr-content-wrap')[0].style.display = 'block';
 				} else {
 					document.getElementsByClassName('dr-content-wrap')[0].style.display = 'none';
+				}
+			}
+
+			if (printOpt.id == "print_options_extended-content" && typeof document.getElementsByClassName('dr-extended-content-content')[0] != 'undefined') {
+				if (printOpt.checked) {
+					document.getElementsByClassName('dr-extended-content-content')[0].style.display = 'block';
+				} else {
+					document.getElementsByClassName('dr-extended-content-content')[0].style.display = 'none';
 				}
 			}
 		}

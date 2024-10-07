@@ -30,6 +30,7 @@ export default function RecipeContextProvider({ children }) {
         'recipe-tag': __('Recipe Tags', 'delicious-recipes'),
         'recipe-badge': __('Recipe Badges', 'delicious-recipes'),
         'recipe-dietary': __('Recipe Dietaries', 'delicious-recipes'),
+        'recipe_keywords': __('Recipe Keywords', 'delicious-recipes'),
     };
 
     const { recipes, list, currentPage, recipesToList } = globalState;

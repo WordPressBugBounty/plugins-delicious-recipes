@@ -559,6 +559,8 @@ class Delicious_Recipes_Recipe {
 			$best_season = isset( $seasons[ $best_season ] ) ? $seasons[ $best_season ] : $best_season;
 		}
 
+		update_post_meta( $recipe_id, '_dr_best_season', $best_season );
+
 		return apply_filters( 'wp_delicious_best_season', $best_season, $recipe_id );
 	}
 
@@ -725,7 +727,7 @@ class Delicious_Recipes_Recipe {
 			$global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
 			// Image size.
-			$img_size = $global_toggles['enable_recipe_image_crop'] ? 'recipe-feat-gallery' : 'full';
+			$img_size = $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2' : 'full';
 			foreach ( $image_gallery as $key => $image ) {
 				$image_id = isset( $image['imageID'] ) ? $image['imageID'] : false;
 				if ( $image_id ) {

@@ -1032,7 +1032,7 @@ function delicious_recipes_search_taxonomy_render( $taxonomy_array, $has_childre
 				esc_html_e( $term_name, 'delicious-recipes' );
 			if ( $show_count ) :
 				?>
-					<span class='count'>(<?php echo esc_html( $tax_count ); ?>)</span>
+					(<?php echo esc_html( $tax_count ); ?>)
 				<?php
 				endif;
 

@@ -15,6 +15,11 @@
 	--success-color-rgb: 45, 142, 141;
 }
 
+img {
+	max-width: 100%;
+	height: auto;
+}
+
 .site-content-contain {
 	width: 1219px;
 	margin: 0 auto;
@@ -431,8 +436,8 @@
 	margin-bottom: 0;
 }
 
-.dr-summary-holder ol.dr-ordered-list > li::before,
-.dr-summary-holder .dr-note ol > li::before {
+.dr-summary-holder ol.dr-ordered-list>li::before,
+.dr-summary-holder .dr-note ol>li::before {
 	counter-increment: section;
 	content: counter(section);
 	font: inherit;
@@ -454,7 +459,7 @@
 	line-height: 1;
 }
 
-.dr-summary-holder .dr-note ol > li::before {
+.dr-summary-holder .dr-note ol>li::before {
 	content: counter(list-item);
 }
 
@@ -2329,6 +2334,7 @@
 .dr-fav-recipe-fig img {
 	width: 100%;
 	vertical-align: top;
+	height: auto;
 }
 
 .dr-fav-recipe-fig .dr-category {
@@ -3938,6 +3944,8 @@ body .dr-nutrition-label .dr-nut-hr {
 
 .post-thumbnail img {
 	vertical-align: top;
+	width: 100%;
+	height: auto;
 }
 
 .dr-archive-list-gridwrap article .post-thumbnail .dr-category,
@@ -5071,7 +5079,7 @@ form.comment-form label[for="rating"] {
 }
 
 /*===========================
-RECIPE BLOCK 
+RECIPE BLOCK
 ===========================*/
 .dr-gb-block-wrap .dr-archive-single a,
 .dr-summary-holder .dr-buttons a {
@@ -6292,7 +6300,7 @@ select {
 	width: 16px;
 }
 
-.cw-close{
+.cw-close {
 	position: absolute;
 	right: 32px;
 	z-index: 2;
@@ -6300,7 +6308,7 @@ select {
 	transition: opacity 0.3s ease-in-out;
 }
 
-.get-delisho{
+.get-delisho {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -6313,7 +6321,7 @@ select {
 	align-items: center;
 }
 
-.get-delisho span{
+.get-delisho span {
 	background-color: #FFFFFF;
 	padding: 16px;
 	max-width: 600px;
@@ -6322,11 +6330,11 @@ select {
 	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
 }
 
-.get-delisho span a{
+.get-delisho span a {
 	color: #F06432;
 }
 
-.cw-close:hover{
+.cw-close:hover {
 	opacity: 0.7;
 }
 
@@ -6338,4 +6346,13 @@ select {
 	to {
 		opacity: 1;
 	}
+}
+
+/* aspect ratio 3:4 */
+
+:where(.delrecipe-crop-size-1, .delrecipe-crop-size-2, .recipe-feat-thumbnail) :where(img, svg) {
+	object-fit: cover;
+	height: auto;
+	aspect-ratio: 3/4;
+	max-width: 100%;
 }

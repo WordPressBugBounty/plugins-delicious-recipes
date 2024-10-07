@@ -76,14 +76,14 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 
 	/**
 	 * Fetch and Process Recipes.
-	 * 
+	 *
 	 * @param string $post_type Post Type.
 	 */
 	public function fetch_and_process_recipes( $post_type ) {
 		$recipes = get_posts(
 			array(
 				'post_type'      => $post_type,
-				'posts_per_page' => -1,
+				'posts_per_page' => - 1,
 				'post_status'    => 'any',
 			)
 		);
@@ -97,6 +97,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		} else {
 			wp_send_json_error( __( 'There are no recipes available for import.', 'delicious-recipes' ) );
 		}
+
 		return $recipes;
 	}
 
@@ -109,14 +110,16 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$selected_option = $request->get_param( 'selectedOption' );
 		if ( 'cooked' === $selected_option ) {
 			if ( ! class_exists( 'Cooked_Plugin' ) ) {
-				wp_send_json_error( __( 'Install and activate the plugin to start the import process', 'delicious-recipes' ) );
+				wp_send_json_error( __( 'Install and activate the plugin to start the import process',
+					'delicious-recipes' ) );
 			} else {
 				$recipes = $this->fetch_and_process_recipes( 'cp_recipe' );
 			}
 		}
 		if ( 'wp-recipe-maker' === $selected_option ) {
 			if ( ! class_exists( 'WP_Recipe_Maker' ) ) {
-				wp_send_json_error( __( 'Install and activate the plugin to start the import process', 'delicious-recipes' ) );
+				wp_send_json_error( __( 'Install and activate the plugin to start the import process',
+					'delicious-recipes' ) );
 			} else {
 				$recipes = $this->fetch_and_process_recipes( 'wprm_recipe' );
 			}
@@ -156,8 +159,9 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 
 		$term_mapping = array();
 		foreach ( $recipe_fields as $field ) {
-			$from  = $field['from'];
-			$to    = $field['to'];
+			$from = $field['from'];
+			$to   = $field['to'];
+
 			$terms = get_terms(
 				array(
 					'taxonomy'   => $from,
@@ -167,6 +171,17 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 
 			if ( ! empty( $terms ) ) {
 				foreach ( $terms as $term ) {
+					// If $to is recipe_keywords then just add to term_mapping without importing and the ids.
+					if ( 'recipe_keywords' === $to ) {
+						$term_mapping[] = array(
+							'old_term_id'   => $term->term_id,
+							'new_term_id'   => 0,
+							'taxonomy_to'   => $to,
+							'taxonomy_from' => $from,
+						);
+						continue;
+					}
+
 					// Check if term already exists.
 					$term_exists = term_exists( $term->name, $to );
 					if ( $term_exists ) {
@@ -206,6 +221,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 				continue;
 			}
 		}
+
 		return array(
 			'status'  => true,
 			'message' => __( 'Terms imported successfully.', 'delicious-recipes' ),
@@ -231,13 +247,14 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		} else {
 			$imported_recipe = 'Invalid Import Option';
 		}
+
 		return $imported_recipe;
 	}
 
 	/**
 	 * Import Cooked Recipe.
 	 *
-	 * @param int   $import_recipe_id Import Recipe ID.
+	 * @param int $import_recipe_id Import Recipe ID.
 	 * @param array $imported_fields Imported Fields.
 	 */
 	public function import_cooked_recipe( $import_recipe_id, $imported_fields ) {
@@ -262,6 +279,17 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 			3 => 'advanced',
 		);
 
+		$recipeKeywords = array();
+		// Get recipe keywords from $imported_fields.
+		foreach ( $imported_fields[0] as $imported_field ) {
+			if ( 'recipe_keywords' === $imported_field['taxonomy_to'] ) {
+				$term = get_term( $imported_field['old_term_id'], $imported_field['taxonomy_from'] );
+				if ( $term ) {
+					$recipeKeywords[] = $term->name;
+				}
+			}
+		}
+
 		// Create new recipe post.
 		$new_recipe                    = array();
 		$new_recipe['post_title']      = isset( $recipe_data->post_title ) ? sanitize_text_field( $recipe_data->post_title ) : '';
@@ -279,12 +307,12 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$new_recipe_meta                      = array();
 		$new_recipe_meta['recipeSubtitle']    = '';
 		$new_recipe_meta['recipeDescription'] = isset( $recipe_settings['seo_description'] ) ? sanitize_text_field( $recipe_settings['seo_description'] ) : '';
-		$new_recipe_meta['recipeKeywords']    = '';
+		$new_recipe_meta['recipeKeywords']    = implode( ', ', $recipeKeywords ); // Join the keywords array.
 		$new_recipe_meta['difficultyLevel']   = isset( $recipe_settings['difficulty_level'] ) ? $difficulty_levels[ absint( $recipe_settings['difficulty_level'] ) ] : '';
 		$new_recipe_meta['prepTime']          = isset( $recipe_settings['prep_time'] ) ? sanitize_text_field( $recipe_settings['prep_time'] ) : '';
-		$new_recipe_meta['prepTimeUnit']     = 'min';
+		$new_recipe_meta['prepTimeUnit']      = 'min';
 		$new_recipe_meta['cookTime']          = isset( $recipe_settings['cook_time'] ) ? sanitize_text_field( $recipe_settings['cook_time'] ) : '';
-		$new_recipe_meta['cookTimeUnit']     = 'min';
+		$new_recipe_meta['cookTimeUnit']      = 'min';
 		$new_recipe_meta['cokingTemp']        = '';
 		$new_recipe_meta['cokingTempUnit']    = 'C';
 		$new_recipe_meta['restTime']          = '';
@@ -297,7 +325,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 
 		// Ingredients Data.
 		$new_recipe_meta['ingredientTitle'] = '';
-		$current_ingredient_section_index   = -1;
+		$current_ingredient_section_index   = - 1;
 		if ( isset( $recipe_settings['ingredients'] ) ) {
 			foreach ( $recipe_settings['ingredients'] as $key => $ingredient ) {
 				if ( isset( $ingredient['section_heading_name'] ) ) {
@@ -307,7 +335,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 					);
 					$current_ingredient_section_index       = count( $new_recipe_meta['recipeIngredients'] ) - 1;
 				} else {
-					if ( -1 !== $current_ingredient_section_index ) {
+					if ( - 1 !== $current_ingredient_section_index ) {
 						$new_recipe_meta['recipeIngredients'][ $current_ingredient_section_index ]['ingredients'][] = array(
 							'quantity'   => isset( $ingredient['amount'] ) ? sanitize_text_field( $ingredient['amount'] ) : '',
 							'unit'       => isset( $ingredient['measurement'] ) ? sanitize_text_field( $ingredient['measurement'] ) : '',
@@ -334,7 +362,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 
 		// Instructions Data.
 		$new_recipe_meta['instructionTitle'] = '';
-		$current_instruction_section_index   = -1;
+		$current_instruction_section_index   = - 1;
 		if ( isset( $recipe_settings['directions'] ) ) {
 			foreach ( $recipe_settings['directions'] as $key => $direction ) {
 				if ( isset( $direction['section_heading_name'] ) ) {
@@ -348,7 +376,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 					if ( isset( $direction['image'] ) && '' !== $direction['image'] ) {
 						$image_url = wp_get_attachment_image_url( $direction['image'], 'full' );
 					}
-					if ( -1 !== $current_instruction_section_index ) {
+					if ( - 1 !== $current_instruction_section_index ) {
 						$new_recipe_meta['recipeInstructions'][ $current_instruction_section_index ]['instruction'][] = array(
 							'instructionTitle' => '',
 							'instruction'      => isset( $direction['content'] ) ? wp_kses_post( $direction['content'] ) : '',
@@ -395,17 +423,15 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$new_recipe_meta['enableVideoGallery'][] = ( isset( $recipe_settings['gallery'] ) && isset( $recipe_settings['gallery']['video_url'] ) && '' !== $recipe_settings['gallery']['video_url'] ) ? 'yes' : '';
 		$video_url                               = isset( $recipe_settings['gallery']['video_url'] ) ? sanitize_text_field( $recipe_settings['gallery']['video_url'] ) : '';
 		$video_type                              = '';
+		$video_id                                = '';
+		$video_thumbnail                         = '';
 		if ( false !== strpos( $video_url, 'youtube' ) ) {
 			$video_type      = 'youtube';
-			$video_id        = '';
-			$video_thumbnail = '';
 			$video_id        = explode( '?v=', $video_url );
 			$video_id        = end( $video_id );
 			$video_thumbnail = 'https://img.youtube.com/vi/' . $video_id . '/hqdefault.jpg';
 		} elseif ( false !== strpos( $video_url, 'vimeo' ) ) {
 			$video_type      = 'vimeo';
-			$video_id        = '';
-			$video_thumbnail = '';
 			$video_id        = explode( '/', $video_url );
 			$video_id        = end( $video_id );
 			$video_thumbnail = unserialize( file_get_contents( 'http://vimeo.com/api/v2/video/' . $video_id . '.php' ) );
@@ -475,7 +501,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		// Insert new post meta data.
 		update_post_meta( $new_recipe_id, 'delicious_recipes_metadata', $new_recipe_meta );
 
-		// Updte the _thumbnail_id meta.
+		// Update the _thumbnail_id meta.
 		$thumbnail_id = get_post_meta( $import_recipe_id, '_thumbnail_id', true );
 		update_post_meta( $new_recipe_id, '_thumbnail_id', $thumbnail_id );
 
@@ -488,7 +514,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		// Insert recipe ingredients meta.
 		$ingredients = array();
 		foreach ( $recipe_settings['ingredients'] as $key => $ingredient ) {
-			if ( isset( $ingredient['name'] ) && ! empty( $ingredient['name'] ) ) {
+			if ( ! empty( $ingredient['name'] ) ) {
 				$ingredients[] = array( sanitize_text_field( $ingredient['name'] ) );
 			}
 		}
@@ -539,7 +565,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 	/**
 	 * Import WP Recipe Maker Recipe.
 	 *
-	 * @param int   $import_recipe_id Import Recipe ID.
+	 * @param int $import_recipe_id Import Recipe ID.
 	 * @param array $imported_fields Imported Fields.
 	 */
 	public function import_wp_recipe_maker_recipe( $import_recipe_id, $imported_fields ) {
@@ -558,17 +584,28 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		if ( 0 !== $parent_post_id ) {
 			$parent_post_content = get_post( $parent_post_id )->post_content;
 			if ( $parent_post_content ) {
-				$blocks = parse_blocks( $parent_post_content );
+				$blocks          = parse_blocks( $parent_post_content );
 				$filtered_blocks = array_filter(
 					$blocks,
-					function( $block ) {
+					function ( $block ) {
 						return $block['blockName'] !== 'wp-recipe-maker/recipe';
 					}
 				);
-		
+
 				$filtered_content = '';
 				foreach ( $filtered_blocks as $block ) {
 					$filtered_content .= render_block( $block );
+				}
+			}
+		}
+
+		$recipeKeywords = array();
+		// Get recipe keywords from $imported_fields.
+		foreach ( $imported_fields[0] as $imported_field ) {
+			if ( 'recipe_keywords' === $imported_field['taxonomy_to'] ) {
+				$term = get_term( $imported_field['old_term_id'], $imported_field['taxonomy_from'] );
+				if ( $term ) {
+					$recipeKeywords[] = $term->name;
 				}
 			}
 		}
@@ -577,10 +614,10 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$new_recipe                    = array();
 		$new_recipe['post_title']      = isset( $recipe_data->post_title ) ? sanitize_text_field( $recipe_data->post_title ) : '';
 		$new_recipe['post_name']       = isset( $recipe_data->post_name )
-											? ( ( '' !== $recipe_data->post_name )
-												? sanitize_title( str_replace( 'wprm-', '', $recipe_data->post_name ) )
-												: sanitize_title( $recipe_data->post_title ) )
-											: '';
+			? ( ( '' !== $recipe_data->post_name )
+				? sanitize_title( str_replace( 'wprm-', '', $recipe_data->post_name ) )
+				: sanitize_title( $recipe_data->post_title ) )
+			: '';
 		$new_recipe['post_content']    = $filtered_content ? $filtered_content : '';
 		$new_recipe['post_status']     = 'draft';
 		$new_recipe['post_author']     = isset( $recipe_data->post_author ) ? absint( $recipe_data->post_author ) : '';
@@ -594,7 +631,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$new_recipe_meta                      = array();
 		$new_recipe_meta['recipeSubtitle']    = '';
 		$new_recipe_meta['recipeDescription'] = isset( $recipe_data->post_content ) ? sanitize_text_field( $recipe_data->post_content ) : '';
-		$new_recipe_meta['recipeKeywords']    = '';
+		$new_recipe_meta['recipeKeywords']    = implode( ', ', $recipeKeywords ); // Join the keywords array.
 		$new_recipe_meta['difficultyLevel']   = '';
 		$new_recipe_meta['prepTime']          = isset( $post_meta['wprm_prep_time'][0] ) ? sanitize_text_field( $post_meta['wprm_prep_time'][0] ) : '';
 		$new_recipe_meta['prepTimeUnit']      = 'min';
@@ -708,7 +745,8 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 							if ( isset( $ins['video'] ) && 0 !== count( $ins['video'] ) ) {
 								if ( 'embed' === $ins['video']['type'] ) {
 									$video_url = $ins['video']['embed'];
-									if ( false === strpos( $video_url, 'youtube' ) && false === strpos( $video_url, 'vimeo' ) ) {
+									if ( false === strpos( $video_url, 'youtube' ) && false === strpos( $video_url,
+											'vimeo' ) ) {
 										$video_url = '';
 									}
 								}
@@ -734,8 +772,8 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		}
 
 		// Gallery Data.
-		$new_recipe_meta['enableImageGallery'] = array();
-		$new_recipe_meta['imageGalleryImages'] = array();
+		$new_recipe_meta['enableImageGallery']   = array();
+		$new_recipe_meta['imageGalleryImages']   = array();
 		$new_recipe_meta['enableVideoGallery'][] = isset( $post_meta['wprm_video_embed'][0] ) ? 'yes' : '';
 		$video_url                               = isset( $post_meta['wprm_video_embed'][0] ) ? sanitize_text_field( $post_meta['wprm_video_embed'][0] ) : '';
 		$video_type                              = '';
@@ -820,8 +858,10 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 					$equipment_meta  = array(
 						'equipmentLinkLabel' => 'Buy Now',
 						'equipmentLink'      => isset( $term_meta['wprmp_equipment_link'][0] ) ? $term_meta['wprmp_equipment_link'][0] : '',
-						'addRelNofollow'     => isset( $term_meta['wprmp_equipment_link_nofollow'][0] ) && strpos( $term_meta['wprmp_equipment_link_nofollow'][0], 'nofollow' ) !== false ? array( 'yes' ) : array(),
-						'addRelSponsored'    => isset( $term_meta['wprmp_equipment_link_nofollow'][0] ) && strpos( $term_meta['wprmp_equipment_link_nofollow'][0], 'sponsored' ) !== false ? array( 'yes' ) : array(),
+						'addRelNofollow'     => isset( $term_meta['wprmp_equipment_link_nofollow'][0] ) && strpos( $term_meta['wprmp_equipment_link_nofollow'][0],
+							'nofollow' ) !== false ? array( 'yes' ) : array(),
+						'addRelSponsored'    => isset( $term_meta['wprmp_equipment_link_nofollow'][0] ) && strpos( $term_meta['wprmp_equipment_link_nofollow'][0],
+							'sponsored' ) !== false ? array( 'yes' ) : array(),
 						'openInNewWindow'    => array(),
 					);
 					$args            = array(
@@ -833,8 +873,9 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 					if ( $equipment_query->have_posts() ) {
 						while ( $equipment_query->have_posts() ) {
 							$equipment_query->the_post();
-							$equipment_post                          = get_post();
-							$equipment_image                         = wp_get_attachment_image_url( $term_meta['wprmp_equipment_image_id'][0], 'full' );
+							$equipment_post  = get_post();
+							$equipment_image = wp_get_attachment_image_url( $term_meta['wprmp_equipment_image_id'][0],
+								'full' );
 							if ( $equipment_image ) {
 								$response = wp_remote_head( $equipment_image );
 								if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
@@ -856,7 +897,8 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 								'post_type'   => 'equipment',
 							)
 						);
-						$equipment_image = wp_get_attachment_image_url( $term_meta['wprmp_equipment_image_id'][0], 'full' );
+						$equipment_image   = wp_get_attachment_image_url( $term_meta['wprmp_equipment_image_id'][0],
+							'full' );
 						if ( $equipment_image ) {
 							$response = wp_remote_head( $equipment_image );
 							if ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
@@ -864,8 +906,12 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 							}
 						}
 						if ( ! is_wp_error( $equipment_post_id ) ) {
-							update_post_meta( $equipment_post_id, '_thumbnail_id', $term_meta['wprmp_equipment_image_id'][0] );
-							update_post_meta( $equipment_post_id, 'delicious_recipes_equipment_metadata', $equipment_meta );
+							update_post_meta( $equipment_post_id,
+								'_thumbnail_id',
+								$term_meta['wprmp_equipment_image_id'][0] );
+							update_post_meta( $equipment_post_id,
+								'delicious_recipes_equipment_metadata',
+								$equipment_meta );
 						}
 						$new_recipe_meta['recipeEquipmentIds'][] = array(
 							'equipmentID'    => $equipment_post_id,
@@ -895,17 +941,19 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 							if ( ! $already_linked ) {
 								if ( isset( $ing['link'] ) && isset( $ing['link']['url'] ) && '' !== $ing['link']['url'] ) {
 									$rel_attribute = array();
-									if ( isset( $ing['link']['nofollow'] ) && in_array( $ing['link']['nofollow'], ['nofollow', 'sponsored'], true ) ) {
+									if ( isset( $ing['link']['nofollow'] ) && in_array( $ing['link']['nofollow'],
+											[ 'nofollow', 'sponsored' ],
+											true ) ) {
 										$rel_attribute[] = $ing['link']['nofollow'];
 									}
 									$ingredient_links[] = array(
 										'ingredientsKeywords' => array(
 											isset( $ing['name'] ) ? strtolower( sanitize_text_field( $ing['name'] ) ) : '',
 										),
-										'ingredientLink' => isset( $ing['link']['url'] ) ? sanitize_text_field( $ing['link']['url'] ) : '',
-										'openInNewTab'   => '1',
-										'relAttribute'   => $rel_attribute,
-										'totalClicks'    => '0',
+										'ingredientLink'      => isset( $ing['link']['url'] ) ? sanitize_text_field( $ing['link']['url'] ) : '',
+										'openInNewTab'        => '1',
+										'relAttribute'        => $rel_attribute,
+										'totalClicks'         => '0',
 									);
 								}
 							}
@@ -928,8 +976,8 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		// Insert new post meta data.
 		update_post_meta( $new_recipe_id, 'delicious_recipes_metadata', $new_recipe_meta );
 
-		// Updte the _thumbnail_id meta.
-		$thumbnail_id = get_post_meta( $import_recipe_id, '_thumbnail_id', true );
+		// Update the _thumbnail_id meta.
+		$thumbnail_id  = get_post_meta( $import_recipe_id, '_thumbnail_id', true );
 		$thumbnail_url = wp_get_attachment_image_url( $thumbnail_id, 'full' );
 		if ( $thumbnail_url ) {
 			$response = wp_remote_head( $thumbnail_url );

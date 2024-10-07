@@ -13,7 +13,7 @@ $show_count = apply_filters( 'delicious_recipes_search_filters_show_count', true
 			echo esc_html( $ingredient );
 			if ( $show_count ) :
 				?>
-					<span class='count'>(<?php echo esc_html( $count ); ?>)</span>
+					(<?php echo esc_html( $count ); ?>)
 				<?php
 				endif;
 			?>

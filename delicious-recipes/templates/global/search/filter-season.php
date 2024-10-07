@@ -7,8 +7,13 @@ $seasons    = array(
 	'winter'    => __( "Winter", 'delicious-recipes'  ),
 	'summer'    => __( "Summer", 'delicious-recipes'  ),
 	'spring'    => __( "Spring", 'delicious-recipes'  ),
-	'available' => __( "Suitable throughout the year", 'delicious-recipes'  ),
+	'suitable throughout the year' => __( "Suitable throughout the year", 'delicious-recipes'  ),
 );
+$additional_seasons = get_option( 'best_season_option', array() );
+if ( ! empty( $additional_seasons ) ) {
+	$seasons = array_merge( $seasons, $additional_seasons );
+}
+
 $show_count = apply_filters( 'delicious_recipes_search_filters_show_count', true );
 
 $args = array(
@@ -35,7 +40,7 @@ $args = array(
 				$results            = get_posts( $args );
 				$count              = count( $results );
 				?>
-					<span class='count'>(<?php echo esc_html( $count ); ?>)</span>
+					(<?php echo esc_html( $count ); ?>)
 				<?php
 				endif;
 			?>

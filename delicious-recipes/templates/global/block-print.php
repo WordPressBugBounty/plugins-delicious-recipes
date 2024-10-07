@@ -103,7 +103,7 @@ $recipe_card_image = '';
 				} else {
 					$attachment = wp_get_attachment_image(
 						$img_id,
-						'recipe-feat-print',
+						'delrecipe-crop-size-2',
 						false,
 						array(
 							'alt'   => $alt,
@@ -134,7 +134,7 @@ $recipe_card_image = '';
 				} else {
 					$attachment = wp_get_attachment_image(
 						$img_id,
-						'recipe-feat-print',
+						'delrecipe-crop-size-2',
 						false,
 						array(
 							'alt'   => $alt,

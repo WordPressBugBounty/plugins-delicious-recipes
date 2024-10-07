@@ -865,8 +865,12 @@ function delicious_recipes_get_global_settings() {
 				),
 				'11' => array(
 					'key'    => __( 'Recipe Content', 'delicious-recipes' ),
+					'enable' => array(),
+				),
+				'12' => array(
+					'key'    => __( 'Extended Content', 'delicious-recipes' ),
 					'enable' => array(
-						'0' => 'no',
+						'0' => 'yes',
 					),
 				),
 			),

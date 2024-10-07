@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', function() {
 						).each(function (i, e) {
 							$(this).text($(e).data("title") + " (0)");
 						});
-
 						if (response.data?.terms) {
 							var terms = response.data.terms;
 							if ("object" === typeof terms) {
@@ -154,7 +153,6 @@ document.addEventListener('DOMContentLoaded', function() {
 											`select[name="${meta_name}"] option[value="${meta_value}"]`
 										);
 										var title = $option.data("title");
-
 										$option.text(`${title} (${meta})`);
 									}
 								}
@@ -476,7 +474,6 @@ document.addEventListener('DOMContentLoaded', function() {
 							.show();
 						location.reload();
 					} else {
-						console.log(response.data.error);
 						$(".delicious-recipes-error-msg")
 							.html(response.data.error)
 							.show();
@@ -868,7 +865,6 @@ if (!delicious_recipes.proEnabled) {
 			} else {
 				recaptchaResponse = grecaptcha.getResponse();
 			}
-			// console.log(recaptchaResponse);
 			if (recaptchaResponse.length === 0) {
 				return false;
 			} else {

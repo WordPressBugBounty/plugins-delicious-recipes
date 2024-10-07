@@ -1,6 +1,19 @@
+1.7.3: 2024-10-07
+- Enhancement: Updated the logo in the plugin's onboarding wizard.
+- Enhancement: Enhanced the search page Season filter to display default and custom seasons.
+- Enhancement: Added a new field Recipe Keywords in Import Recipes feature.
+- Fixes: Fixed the issue where gallery images on the Single Recipe page started from the last image.
+- Fixes: Resolved CSS issues causing List format to not display in BlockEditor component in backend.
+- Fixes: Fixed appearance-related CSS issues in the onboarding wizard.
+- Fixes: Resolved an issue where the recipe card block was missing schema data.
+- Fixes: Fixed the Simple Factor filters not functioning on the search page.
+- Fixes: Corrected alignment issues with the rating label text on the single recipe page.
+- Fixes: Fixed an issue where the Print page was not displaying content according to the settings.
+- Fixes: Addressed the issue where numerous cropped images were being generated unnecessarily.
+
 1.7.2: 2024-09-23
 - New Feature: Introduced a feature to preload the featured image on single recipe pages for improved loading speed.
-- Enhancement: Added a Delisho promotion button to the Elementor backend editor.
+- Enhancement: Added support for Delisho plugin.
 - Fixes: Resolved design issues with Layout 2 of the nutritional information section.
 - Fixes: Fixed design problems in the WP Delicious Sidebar Widgets.
 - Fixes: Updated the changelog display, now linking to a dedicated page instead of displaying directly on WP.org.
@@ -34,7 +47,7 @@
 
 1.6.8: 2024-08-14
 - Enhancement: Added option to import recipes from the WP Recipe Maker plugin.
-- Enhancement: Added option to show serving size in nutrition. 
+- Enhancement: Added option to show serving size in nutrition.
 - Enhancement: Added Classic Editor support notice to admin.
 - Fixes: Resolved single recipe editor-page gallery sortable feature.
 - Fixes: Resolved instruction counter issue.

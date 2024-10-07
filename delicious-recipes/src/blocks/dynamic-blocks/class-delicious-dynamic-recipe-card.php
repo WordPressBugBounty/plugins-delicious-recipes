@@ -157,7 +157,7 @@ class Delicious_Dynamic_Recipe_Card {
 			'difficultyTitle'      => array(
 				'type'     => 'string',
 				'selector' => '.difficulty-label',
-				'default'  => __( "Difficulty", 'delicious-recipes'  ),
+				'default'  => __( 'Difficulty', 'delicious-recipes' ),
 			),
 			'season'               => array(
 				'type'    => 'string',
@@ -166,7 +166,7 @@ class Delicious_Dynamic_Recipe_Card {
 			'seasonTitle'          => array(
 				'type'     => 'string',
 				'selector' => '.season-label',
-				'default'  => __( "Best Season", 'delicious-recipes'  ),
+				'default'  => __( 'Best Season', 'delicious-recipes' ),
 			),
 			'keywords'             => array(
 				'type'  => 'array',
@@ -181,24 +181,24 @@ class Delicious_Dynamic_Recipe_Card {
 						// 'print_btn'            => true,
 						'pin_btn'              => true,
 						'custom_author_name'   => '',
-                        'displayCourse'        => true,
-                        'displayCuisine'       => true,
-                        'displayCookingMethod' => true,
-                        'displayRecipeKey'     => true,
-                        'displayDifficulty'    => true,
-                        'displayAuthor'        => true,
-                        'displayServings'      => true,
-                        'displayPrepTime'      => true,
-                        'displayCookingTime'   => true,
-                        'displayRestTime'      => true,
-                        'displayTotalTime'     => true,
-                        'displayCalories'      => true,
-                        'displayBestSeason'    => true,
-                    )
-                ),
-                'items' => array(
-                    'type' => 'object'
-                )
+						'displayCourse'        => true,
+						'displayCuisine'       => true,
+						'displayCookingMethod' => true,
+						'displayRecipeKey'     => true,
+						'displayDifficulty'    => true,
+						'displayAuthor'        => true,
+						'displayServings'      => true,
+						'displayPrepTime'      => true,
+						'displayCookingTime'   => true,
+						'displayRestTime'      => true,
+						'displayTotalTime'     => true,
+						'displayCalories'      => true,
+						'displayBestSeason'    => true,
+					),
+				),
+				'items'   => array(
+					'type' => 'object',
+				),
 			),
 			'details'              => array(
 				'type'    => 'array',
@@ -309,12 +309,12 @@ class Delicious_Dynamic_Recipe_Card {
 		self::$recipeBlockID                  = esc_attr( $id );
 		self::$attributes                     = $attributes;
 		self::$settings                       = self::$helpers->parse_block_settings( $attributes );
-		self::$attributes['summaryTitle']     = isset( $summaryTitle ) ? $summaryTitle : __( "Description", 'delicious-recipes'  );
-		self::$attributes['ingredientsTitle'] = isset( $ingredientsTitle ) ? $ingredientsTitle : __( "Ingredients", 'delicious-recipes'  );
-		self::$attributes['directionsTitle']  = isset( $directionsTitle ) ? $directionsTitle : __( "Instructions", 'delicious-recipes'  );
-		self::$attributes['videoTitle']       = isset( $videoTitle ) ? $videoTitle : __( "Video", 'delicious-recipes'  );
-		self::$attributes['difficultyTitle']  = isset( $difficultyTitle ) ? $difficultyTitle : __( "Difficulty", 'delicious-recipes'  );
-		self::$attributes['seasonTitle']      = isset( $seasonTitle ) ? $seasonTitle : __( "Best Season", 'delicious-recipes'  );
+		self::$attributes['summaryTitle']     = isset( $summaryTitle ) ? $summaryTitle : __( 'Description', 'delicious-recipes' );
+		self::$attributes['ingredientsTitle'] = isset( $ingredientsTitle ) ? $ingredientsTitle : __( 'Ingredients', 'delicious-recipes' );
+		self::$attributes['directionsTitle']  = isset( $directionsTitle ) ? $directionsTitle : __( 'Instructions', 'delicious-recipes' );
+		self::$attributes['videoTitle']       = isset( $videoTitle ) ? $videoTitle : __( 'Video', 'delicious-recipes' );
+		self::$attributes['difficultyTitle']  = isset( $difficultyTitle ) ? $difficultyTitle : __( 'Difficulty', 'delicious-recipes' );
+		self::$attributes['seasonTitle']      = isset( $seasonTitle ) ? $seasonTitle : __( 'Best Season', 'delicious-recipes' );
 
 		$class               = 'dr-summary-holder wp-block-delicious-recipes-block-recipe-card';
 		$class              .= $hasImage && isset( $image['url'] ) ? '' : ' recipe-card-noimage';
@@ -332,7 +332,7 @@ class Delicious_Dynamic_Recipe_Card {
 		$recipe_card_image = '';
 
 		if ( $hasImage && isset( $image['url'] ) ) {
-			$img_id    = $image['id'];
+			$img_id    = $image['attachment_id'];
 			$src       = $image['url'];
 			$alt       = ( $recipeTitle ? strip_tags( $recipeTitle ) : strip_tags( $recipe_title ) );
 			$sizes     = isset( $image['sizes'] ) ? $image['sizes'] : array();
@@ -373,7 +373,7 @@ class Delicious_Dynamic_Recipe_Card {
 							( self::$settings['print_btn'] ? self::get_print_button(
 								$id,
 								array(
-									'title' => __( "Print", 'delicious-recipes'  ),
+									'title' => __( 'Print', 'delicious-recipes' ),
 									'style' => $printStyles,
 								)
 							) : '' )
@@ -423,7 +423,7 @@ class Delicious_Dynamic_Recipe_Card {
 							( self::$settings['print_btn'] ? self::get_print_button(
 								$id,
 								array(
-									'title' => __( "Print", 'delicious-recipes'  ),
+									'title' => __( 'Print', 'delicious-recipes' ),
 									'style' => $printStyles,
 								)
 							) : '' )
@@ -432,7 +432,7 @@ class Delicious_Dynamic_Recipe_Card {
 				</figure>
 			</div>';
 		} else {
-			$fallback_svg      = delicious_recipes_get_fallback_svg( 'recipe-feat-gallery', true );
+			$fallback_svg      = delicious_recipes_get_fallback_svg( 'delrecipe-crop-size-2', true );
 			$recipe_card_image = '<div class="dr-image">
 				<figure>
 					' . $fallback_svg . '
@@ -441,7 +441,7 @@ class Delicious_Dynamic_Recipe_Card {
 							( self::$settings['print_btn'] ? self::get_print_button(
 								$id,
 								array(
-									'title' => __( "Print", 'delicious-recipes'  ),
+									'title' => __( 'Print', 'delicious-recipes' ),
 									'style' => $printStyles,
 								)
 							) : '' )
@@ -456,7 +456,7 @@ class Delicious_Dynamic_Recipe_Card {
 				' . sprintf( '<h2 class="%s">%s</h2>', 'dr-title recipe-card-title', ( $recipeTitle ? strip_tags( $recipeTitle ) : strip_tags( $recipe_title ) ) ) .
 				'<div class="dr-entry-meta">' .
 					( self::$settings['displayAuthor'] ? '<span class="dr-byline"><span class="dr-meta-title">
-					<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#author"></use></svg>' . __( "Author:", 'delicious-recipes'  ) . ' ' .
+					<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#author"></use></svg>' . __( 'Author:', 'delicious-recipes' ) . ' ' .
 					'</span>' . $custom_author_name . '</span>' : '' ) .
 					( self::$settings['displayCookingMethod'] ? self::get_recipe_terms( 'recipe-cooking-method' ) : '' ) .
 					( self::$settings['displayCuisine'] ? self::get_recipe_terms( 'recipe-cuisine' ) : '' ) .
@@ -501,7 +501,7 @@ class Delicious_Dynamic_Recipe_Card {
 				'<div class="%s"><span class="%s">%s</span>%s</div>',
 				esc_attr( $keywords_class ),
 				'dr-meta-title',
-				__( "Keywords:", 'delicious-recipes'  ),
+				__( 'Keywords:', 'delicious-recipes' ),
 				implode( ', ', $keywords )
 			);
 		}
@@ -598,8 +598,6 @@ class Delicious_Dynamic_Recipe_Card {
 			$image_sizes_url  = array(
 				self::get_image_size_url( $image_id, 'full', $image_sizes ),
 				self::get_image_size_url( $image_id, 'delrecpe-structured-data-1_1', $image_sizes ),
-				self::get_image_size_url( $image_id, 'delrecpe-structured-data-4_3', $image_sizes ),
-				self::get_image_size_url( $image_id, 'delrecpe-structured-data-16_9', $image_sizes ),
 			);
 			$json_ld['image'] = array_values( array_unique( $image_sizes_url ) );
 		}
@@ -653,8 +651,6 @@ class Delicious_Dynamic_Recipe_Card {
 					$poster_sizes_url                 = array(
 						self::get_image_size_url( $poster_id, 'full' ),
 						self::get_image_size_url( $poster_id, 'delrecpe-structured-data-1_1' ),
-						self::get_image_size_url( $poster_id, 'delrecpe-structured-data-4_3' ),
-						self::get_image_size_url( $poster_id, 'delrecpe-structured-data-16_9' ),
 					);
 					$json_ld['video']['thumbnailUrl'] = array_values( array_unique( $poster_sizes_url ) );
 				}
@@ -673,8 +669,6 @@ class Delicious_Dynamic_Recipe_Card {
 						$image_sizes_url                  = array(
 							self::get_image_size_url( $image_id, 'full', $image_sizes ),
 							self::get_image_size_url( $image_id, 'delrecpe-structured-data-1_1', $image_sizes ),
-							self::get_image_size_url( $image_id, 'delrecpe-structured-data-4_3', $image_sizes ),
-							self::get_image_size_url( $image_id, 'delrecpe-structured-data-16_9', $image_sizes ),
 						);
 						$json_ld['video']['thumbnailUrl'] = array_values( array_unique( $image_sizes_url ) );
 					}
@@ -846,43 +840,43 @@ class Delicious_Dynamic_Recipe_Card {
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'time',
-				'label' => __( "Prep time", 'delicious-recipes'  ),
-				'unit'  => __( "minutes", 'delicious-recipes'  ),
+				'label' => __( 'Prep time', 'delicious-recipes' ),
+				'unit'  => __( 'minutes', 'delicious-recipes' ),
 				'value' => '30',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'time',
-				'label' => __( "Cook time", 'delicious-recipes'  ),
-				'unit'  => __( "minutes", 'delicious-recipes'  ),
+				'label' => __( 'Cook time', 'delicious-recipes' ),
+				'unit'  => __( 'minutes', 'delicious-recipes' ),
 				'value' => '40',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'time',
-				'label' => __( "Rest time", 'delicious-recipes'  ),
-				'unit'  => __( "minutes", 'delicious-recipes'  ),
+				'label' => __( 'Rest time', 'delicious-recipes' ),
+				'unit'  => __( 'minutes', 'delicious-recipes' ),
 				'value' => '40',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'time',
-				'label' => __( "Total time", 'delicious-recipes'  ),
-				'unit'  => __( "minutes", 'delicious-recipes'  ),
+				'label' => __( 'Total time', 'delicious-recipes' ),
+				'unit'  => __( 'minutes', 'delicious-recipes' ),
 				'value' => '0',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'yield',
-				'label' => __( "Servings", 'delicious-recipes'  ),
-				'unit'  => __( "servings", 'delicious-recipes'  ),
+				'label' => __( 'Servings', 'delicious-recipes' ),
+				'unit'  => __( 'servings', 'delicious-recipes' ),
 				'value' => '4',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'calories',
-				'label' => __( "Calories", 'delicious-recipes'  ),
-				'unit'  => __( "kcal", 'delicious-recipes'  ),
+				'label' => __( 'Calories', 'delicious-recipes' ),
+				'unit'  => __( 'kcal', 'delicious-recipes' ),
 				'value' => '300',
 			),
 		);
@@ -1025,11 +1019,11 @@ class Delicious_Dynamic_Recipe_Card {
 		}
 
 		$season_label = array(
-			'fall'      => __( "Fall", 'delicious-recipes'  ),
-			'winter'    => __( "Winter", 'delicious-recipes'  ),
-			'summer'    => __( "Summer", 'delicious-recipes'  ),
-			'spring'    => __( "Spring", 'delicious-recipes'  ),
-			'available' => __( "Suitable throughout the year", 'delicious-recipes'  ),
+			'fall'      => __( 'Fall', 'delicious-recipes' ),
+			'winter'    => __( 'Winter', 'delicious-recipes' ),
+			'summer'    => __( 'Summer', 'delicious-recipes' ),
+			'spring'    => __( 'Spring', 'delicious-recipes' ),
+			'available' => __( 'Suitable throughout the year', 'delicious-recipes' ),
 		);
 		$season       = isset( $season ) && self::$settings['displayBestSeason'] ? $season_label[ $season ] : '';
 
@@ -1084,14 +1078,12 @@ class Delicious_Dynamic_Recipe_Card {
 						$name
 					);
 				}
-			} else {
-				if ( ! empty( $ingredient['name'] ) ) {
+			} elseif ( ! empty( $ingredient['name'] ) ) {
 					$name    = self::wrap_ingredient_name( $ingredient['name'] );
 					$output .= sprintf(
 						'<h4 class="dr-title">%s</h4>',
 						$name
 					);
-				}
 			}
 		}
 
@@ -1126,14 +1118,12 @@ class Delicious_Dynamic_Recipe_Card {
 						$text
 					);
 				}
-			} else {
-				if ( ! empty( $step['text'] ) ) {
+			} elseif ( ! empty( $step['text'] ) ) {
 					$text    = self::wrap_direction_text( $step['text'] );
 					$output .= sprintf(
 						'<h4 class="dr-title">%s</h4>',
 						$text
 					);
-				}
 			}
 		}
 
@@ -1160,7 +1150,7 @@ class Delicious_Dynamic_Recipe_Card {
 			// $terms     = $course;
 			if ( is_array( $course ) && ! empty( $course ) ) {
 				$terms = array_map(
-					function( $term ) {
+					function ( $term ) {
 						$_term = get_term_by( 'name', $term, 'recipe-course' );
 						if ( $_term ) {
 							return '<a href="' . esc_url( get_term_link( $_term, 'recipe-course' ) ) . '" title="' . esc_attr( $term ) . '">' . $term . '</a>';
@@ -1174,7 +1164,7 @@ class Delicious_Dynamic_Recipe_Card {
 				$terms = $course;
 			}
 			$className = 'dr-category';
-			$label     = __( "Courses:", 'delicious-recipes'  );
+			$label     = __( 'Courses:', 'delicious-recipes' );
 			$svg       = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#category"></use></svg>';
 		} elseif ( 'recipe-cuisine' === $taxonomy ) {
 			if ( empty( $cuisine ) ) {
@@ -1183,7 +1173,7 @@ class Delicious_Dynamic_Recipe_Card {
 			// $terms     = $cuisine;
 			if ( is_array( $cuisine ) && ! empty( $cuisine ) ) {
 				$terms = array_map(
-					function( $term ) {
+					function ( $term ) {
 						$_term = get_term_by( 'name', $term, 'recipe-cuisine' );
 						if ( $_term ) {
 							return '<a href="' . esc_url( get_term_link( $_term, 'recipe-cuisine' ) ) . '" title="' . esc_attr( $term ) . '">' . $term . '</a>';
@@ -1197,7 +1187,7 @@ class Delicious_Dynamic_Recipe_Card {
 				$terms = $cuisine;
 			}
 			$className = 'dr-cuisine';
-			$label     = __( "Cuisine:", 'delicious-recipes'  );
+			$label     = __( 'Cuisine:', 'delicious-recipes' );
 			$svg       = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#cuisine"></use></svg>';
 		} elseif ( 'recipe-cooking-method' === $taxonomy ) {
 			if ( empty( $method ) ) {
@@ -1206,7 +1196,7 @@ class Delicious_Dynamic_Recipe_Card {
 			// $terms     = $method;
 			if ( is_array( $method ) && ! empty( $method ) ) {
 				$terms = array_map(
-					function( $term ) {
+					function ( $term ) {
 						$_term = get_term_by( 'name', $term, 'recipe-cooking-method' );
 						if ( $_term ) {
 							return '<a href="' . esc_url( get_term_link( $_term, 'recipe-cooking-method' ) ) . '" title="' . esc_attr( $term ) . '">' . $term . '</a>';
@@ -1220,7 +1210,7 @@ class Delicious_Dynamic_Recipe_Card {
 				$terms = $method;
 			}
 			$className = 'dr-method';
-			$label     = __( "Cooking Method:", 'delicious-recipes'  );
+			$label     = __( 'Cooking Method:', 'delicious-recipes' );
 			$svg       = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#cooking-method"></use></svg>';
 		} elseif ( 'recipe-key' === $taxonomy ) {
 			/**
@@ -1228,16 +1218,16 @@ class Delicious_Dynamic_Recipe_Card {
 			 * Sanitize the recipe key (@see https://developer.wordpress.org/reference/functions/sanitize_title/) to make sure the icon maps works with translation also.
 			 */
 			$recipe_key_icons = array(
-				sanitize_title( __( "Gluten Free", 'delicious-recipes'  ) ) => '<svg class="svg-icon" title="' . __( "Gluten Free", 'delicious-recipes'  ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"><g transform="translate(-1411 -3350)"><circle class="gluten-free-circle" fill="#f7bd31" cx="19" cy="19" r="19" transform="translate(1411 3350)" /><g transform="translate(1384.164 2856.629) rotate(30)"><path class="gluten-free-path" fill="#fff" d="M301.678,410.675a5.81,5.81,0,0,1,0,9.009,5.794,5.794,0,0,1,0-9.009Z" transform="translate(-5.947 -2.26)" /><path class="gluten-free-path" fill="#fff" d="M302.092,437.167a.62.62,0,0,1-.015-.083,8.772,8.772,0,0,1,.357-3.022,4.69,4.69,0,0,1,1.005-1.82,4.5,4.5,0,0,1,2.04-1.249,5.232,5.232,0,0,1,1.345-.215,5.44,5.44,0,0,1,1.27.1c.036.007.072.018.123.03.006.17.022.341.016.511-.009.227-.027.454-.059.68a4.912,4.912,0,0,1-1.3,2.775,6.345,6.345,0,0,1-1.176.948,9.312,9.312,0,0,1-3.2,1.287c-.121.025-.243.042-.365.061A.212.212,0,0,1,302.092,437.167Z" transform="translate(-6.128 -3.689)" /><path class="gluten-free-path" fill="#fff" d="M308.209,424.646a3.9,3.9,0,0,1,0,.883,5.483,5.483,0,0,1-.231,1.184,4.782,4.782,0,0,1-1.61,2.362,8.888,8.888,0,0,1-2.955,1.535,8.631,8.631,0,0,1-1.2.284c-.04.007-.08.008-.134.015-.005-.095-.013-.179-.015-.264a8.9,8.9,0,0,1,.317-2.693,5.166,5.166,0,0,1,.818-1.7,4.226,4.226,0,0,1,1.369-1.155,4.852,4.852,0,0,1,1.941-.571,5.462,5.462,0,0,1,1.616.091C308.157,424.629,308.181,424.637,308.209,424.646Z" transform="translate(-6.127 -3.244)" /><path class="gluten-free-path" fill="#fff" d="M301.114,424.657c-.245-.049-.477-.089-.706-.143a9.159,9.159,0,0,1-3.1-1.345,5.657,5.657,0,0,1-1.283-1.162,4.946,4.946,0,0,1-.946-2.095,5.51,5.51,0,0,1-.11-1.37c0-.052.009-.1.015-.167.107-.02.212-.045.318-.061a5.283,5.283,0,0,1,3.065.4,4.237,4.237,0,0,1,2.214,2.33,7.314,7.314,0,0,1,.467,1.818,9.906,9.906,0,0,1,.081,1.418C301.133,424.4,301.122,424.515,301.114,424.657Z" transform="translate(-5.623 -2.799)" /> <path class="gluten-free-path" fill="#fff" d="M295,430.9c.165-.027.333-.062.5-.08a5.649,5.649,0,0,1,.625-.045,4.843,4.843,0,0,1,3.539,1.37,4.276,4.276,0,0,1,.935,1.463,7.233,7.233,0,0,1,.452,1.775,9.98,9.98,0,0,1,.081,1.452c0,.111-.013.221-.021.347-.139-.023-.268-.04-.395-.066a9.294,9.294,0,0,1-3.317-1.355,5.753,5.753,0,0,1-1.318-1.156,4.938,4.938,0,0,1-1-2.166,5.7,5.7,0,0,1-.11-1.358.892.892,0,0,1,.006-.089C294.984,430.962,294.991,430.937,295,430.9Z" transform="translate(-5.623 -3.689)" /> <path class="gluten-free-path" fill="#fff" d="M302.085,424.648c-.006-.092-.011-.173-.013-.253a8.771,8.771,0,0,1,.34-2.79,4.989,4.989,0,0,1,.834-1.664,4.316,4.316,0,0,1,1.741-1.3,5.041,5.041,0,0,1,1.9-.392,5.532,5.532,0,0,1,1.193.1l.087.02.052.017c.006.155.021.311.018.466,0,.191-.018.381-.039.569a4.961,4.961,0,0,1-1.259,2.865,6.255,6.255,0,0,1-1.294,1.049,9.344,9.344,0,0,1-3.368,1.289l-.056.007Z" transform="translate(-6.128 -2.799)" /> <path class="gluten-free-path" fill="#fff" d="M301.108,430.909c-.076-.01-.15-.016-.221-.03a9.362,9.362,0,0,1-3.521-1.412,5.635,5.635,0,0,1-1.3-1.146,4.954,4.954,0,0,1-.984-2.137,5.561,5.561,0,0,1-.111-1.381c0-.03,0-.059.007-.089s.009-.043.018-.077c.137-.024.275-.055.414-.073a5.52,5.52,0,0,1,2.242.152,4.713,4.713,0,0,1,1.835,1,4.043,4.043,0,0,1,1,1.367,6.735,6.735,0,0,1,.545,1.888,7.454,7.454,0,0,1,.092,1.037c0,.28,0,.56,0,.84A.432.432,0,0,1,301.108,430.909Z" transform="translate(-5.623 -3.244)" /> </g> </g> </svg>',
-				sanitize_title( __( "Dairy Free", 'delicious-recipes'  ) ) => '<svg class="svg-icon" title="' . __( "Dairy Free", 'delicious-recipes'  ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>dairy-free</defs> <g data-name="Group 4626" transform="translate(-521 -148)"> <g data-name="Group 4430" transform="translate(-698 -2588)"> <circle data-name="Ellipse 97" cx="19" cy="19" r="19" transform="translate(1219 2736)" fill="#2fcde1" /> <g data-name="Group 4424" transform="translate(1814.985 2514.889)"> <path data-name="Path 30559" d="M-579.2,243.665h3.987c-.2,1.972.9,3.49,1.555,5.165a10.283,10.283,0,0,1,.79,3.37c.1,3.492.04,6.988.035,10.483,0,1.363-.27,1.626-1.6,1.626-1.929,0-3.858,0-5.787,0-.987,0-1.335-.307-1.339-1.29-.015-3.8-.063-7.606.04-11.405a8.492,8.492,0,0,1,.869-3.016C-579.97,247.015-579,245.54-579.2,243.665Z" transform="translate(0 -12.909)" fill="#fff" /> <path data-name="Path 30560" d="M-567.31,229.907c-.475,0-.952-.035-1.423.008-.677.062-.919-.172-.933-.883-.014-.753.3-.9.947-.877q1.548.049,3.1,0c.737-.024.687.435.7.935.017.528-.076.871-.718.83-.556-.036-1.116-.007-1.675-.007Z" transform="translate(-9.925)" fill="#fff" /> </g> </g> <line data-name="Line 1" x2="38" transform="translate(527.065 153.065) rotate(45)" fill="none" stroke="#fff" stroke-width="2" /> </g> </svg>',
-				sanitize_title( __( "Low Carb", 'delicious-recipes'  ) ) => '<svg class="svg-icon" title="' . __( "Low Carb", 'delicious-recipes'  ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="37" viewBox="0 0 38 37"> <g transform="translate(-1219 -2677)"> <ellipse class="low-carb-circle" fill="#a6846e" cx="19" cy="18.5" rx="19" ry="18.5" transform="translate(1219 2677)" /> <g transform="translate(1834.406 2484.021)"> <path class="low-carb-path" fil=" #fff" d="M-598.782,202.979a29.11,29.11,0,0,1,8.668,1.457,10.235,10.235,0,0,1,5.031,4.1,3.644,3.644,0,0,1,.52,1.769c.067,1.255-.076,2.523,0,3.777a4.349,4.349,0,0,1-2.155,3.938,8.076,8.076,0,0,1-4.536,1.515,32.081,32.081,0,0,1-4.259-.218,4.569,4.569,0,0,1-2.94-1.56c-.811-.878-1.646-1.737-2.409-2.656a5.206,5.206,0,0,0-3.793-1.837,17.946,17.946,0,0,1-2.187-.25,3.066,3.066,0,0,1-1.348-.6,1.752,1.752,0,0,1-.523-1.126c-.075-1.424-.009-2.856-.083-4.281a2.629,2.629,0,0,1,1.857-2.815,14.141,14.141,0,0,1,3.139-.85C-602.139,203.123-600.456,203.09-598.782,202.979Zm13.26,6.987a3.92,3.92,0,0,0-1.16-2.42,10.247,10.247,0,0,0-6.247-3.344,38.383,38.383,0,0,0-9.911-.418,9.005,9.005,0,0,0-3.915,1.06,11,11,0,0,0-1.047.741l.089.161c.2-.073.406-.149.611-.218a16.534,16.534,0,0,1,2.445-.8,30.992,30.992,0,0,1,12.314.286,9.946,9.946,0,0,1,6.185,4.126C-586,209.377-585.809,209.6-585.523,209.966Zm-.066.677a.809.809,0,0,0-.2.108c-2.037,2.3-4.723,2.808-7.607,2.725a5.907,5.907,0,0,1-4.587-2.135c-.336-.4-.733-.761-1.027-1.19a5.242,5.242,0,0,0-3.788-2.2,11.466,11.466,0,0,1-5.223-1.6,1.583,1.583,0,0,0,1.33,1.335,25.736,25.736,0,0,0,3.2.662,5.72,5.72,0,0,1,4.268,2.311,10.3,10.3,0,0,0,2.473,2.383,7.259,7.259,0,0,0,4.667.949,9.3,9.3,0,0,0,5.239-1.534A2.523,2.523,0,0,0-585.589,210.643Zm-5.87.8c.838.021,1.452-.448,1.47-1.122a1.832,1.832,0,0,0-1.875-1.579c-.842-.021-1.463.451-1.474,1.122A1.828,1.828,0,0,0-591.459,211.443Z" /> </g> </g> </svg>',
-				sanitize_title( __( "Vegetarian", 'delicious-recipes'  ) ) => '<svg class="svg-icon" title="' . __( "Vegetarian", 'delicious-recipes'  ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <g transform="translate(-1219 -2556)"> <circle class="vegeterian-meals-circle" fill="#8fbc04" cx="19" cy="19" r="19" transform="translate(1219 2556)" /> <path class="vegeterian-meals-path" fill="#fff" d="M-158.562,677.785c.064,1.227-.807,2.049-1.97,2.671-.917.491-1.944.821-2.4,1.924a6.7,6.7,0,0,0-.267,4.213c.126.531.312,1.048.457,1.576.069.251.108.511.2.957a3.814,3.814,0,0,1-2.294-1.941,21.259,21.259,0,0,1-.792-2.854c-.28-1.2-.514-1.465-1.712-1.7a4.767,4.767,0,0,1-3.946-5.026.938.938,0,0,0-.266-.674,5.845,5.845,0,0,1-2.161-5.753,5.368,5.368,0,0,1,4.085-4.451,10.571,10.571,0,0,0,3.371-1.484,5.412,5.412,0,0,1,7.328,1.285.882.882,0,0,0,.518.284,3.229,3.229,0,0,1,2.057,4.868.854.854,0,0,0,.018.664,3.9,3.9,0,0,1-.492,4.116A8.971,8.971,0,0,1-158.562,677.785Zm-5.546,8.753c0-.231,0-.462,0-.693a16.288,16.288,0,0,1,1.158-7.414,6.982,6.982,0,0,0,.353-5.056.783.783,0,0,1,.152-.6,4.4,4.4,0,0,1,2.676-1.659c.511-.1,1.033-.135,1.618-.209-1.948-.911-3.391-.046-4.788,1.223a10.388,10.388,0,0,1,.827-5.4c-1.122,1.468-2.019,3.026-1.743,4.954.142.995.464,1.963.678,2.949a11.187,11.187,0,0,1,.133,1.155c-1.5-1.773-2.841-2.488-4.411-2.193a6.434,6.434,0,0,1,3.032,1.849,2.607,2.607,0,0,1,.557,3.237C-165.079,681.226-164.828,683.9-164.108,686.538Zm-4.729-18.917a5.109,5.109,0,0,0-1.757,2.615,6.887,6.887,0,0,0,1.042,5.537,1.7,1.7,0,0,1,.235,1.44,4.088,4.088,0,0,0,3.217,4.972c-1.966-1.591-3.369-3.356-2.1-6.01C-170.45,674.16-170.689,670.645-168.837,667.62Z" transform="translate(1402.478 1898.587)" /> </g> </svg>',
-				sanitize_title( __( "Organic", 'delicious-recipes'  ) ) => '<svg class="svg-icon" title="' . __( "Organic", 'delicious-recipes'  ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>organic</defs> <g transform="translate(-953 -93)"> <circle cx="19" cy="19" r="19" transform="translate(953 93)" fill="#0f6b2b" /> <g transform="translate(952.53 98.416)"> <path d="M25.861,14.085a14.434,14.434,0,0,1,1.632,3.3l2.023.171A15.648,15.648,0,0,1,31.861,12.5a3.977,3.977,0,0,0,4.023-.391c1.7-1.566,1.54-6.311,1.1-9.051a.519.519,0,0,0-.943-.245c-2.368,3.229-6.529,3.669-6.46,6.776a2.156,2.156,0,0,0,.575,1.566,9.474,9.474,0,0,1,4.046-3.2.079.079,0,0,0,.046-.024,14.845,14.845,0,0,0-2.322,2.471,15.828,15.828,0,0,0-3.4,6.189A15.5,15.5,0,0,0,27.1,13.719,14.915,14.915,0,0,0,24.251,10c.023,0,.023,0,.046.024a8.355,8.355,0,0,1,3.38,2.862,1.778,1.778,0,0,0,.529-1.321C28.344,8.9,24.78,8.41,22.849,5.573a.457.457,0,0,0-.828.2c-.437,2.324-.713,6.385.713,7.779A3.33,3.33,0,0,0,25.861,14.085Z" transform="translate(-8.459)" fill="#fff" /> <path d="M26.207,68.05a21.1,21.1,0,0,1-2.174.587,2.458,2.458,0,0,1-1.781,1.125,3.1,3.1,0,0,1-.694.049,18.669,18.669,0,0,1-2.151-.171.374.374,0,0,1-.162-.024.41.41,0,0,1-.37-.391.4.4,0,0,1,.44-.44c.069,0,.116.024.185.024a11.448,11.448,0,0,0,2.637.122c1.157-.2,1.48-.93,1.434-1.566a.979.979,0,0,0-.972-.978,20.57,20.57,0,0,1-2.683-.122A17.243,17.243,0,0,0,17,66.191,10.876,10.876,0,0,0,12.837,68c-.763.538-1.619,1.15-2.128,1.541a.619.619,0,0,0-.116.856l2.174,3.107a.537.537,0,0,0,.787.122l.833-.66a.791.791,0,0,1,.694-.122,17.342,17.342,0,0,0,4.141.978c2.29.171,6.732-2.617,8.027-3.523A1.245,1.245,0,0,0,26.207,68.05Z" transform="translate(0 -49.219)" fill="#fff" /> </g> </g> </svg>',
-				sanitize_title( __( "Nut Free", 'delicious-recipes'  ) ) => '<svg class="svg-icon" title="' . __( "Nut Free", 'delicious-recipes'  ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>nut-free</defs> <g transform="translate(-521 -221)"> <g transform="translate(-698 -2515)"> <circle cx="19" cy="19" r="19" transform="translate(1219 2736)" fill="#ee9060" /> <g transform="translate(1201.842 2717.144)"> <path d="M43.37,52.69c-.107,3.887-3.271,9.635-7.162,9.635s-7.052-5.748-7.158-9.635Z" transform="translate(-0.892 -13.78)" fill="#fff" /> <path d="M44.8,37.451H26.42a9.257,9.257,0,0,1,9.189-9.071,9.056,9.056,0,0,1,6.5,2.748A9.286,9.286,0,0,1,44.8,37.451Z" transform="translate(-0.262)" fill="#fff" /> </g> </g> <line x2="9.435" y2="9.435" transform="translate(544.5 243.5)" fill="none" stroke="#fff" stroke-width="2" /> <line x2="7.435" y2="7.435" transform="translate(527.065 226.065)" fill="none" stroke="#fff" stroke-width="2" /> </g> </svg>',
-				sanitize_title( __( "Egg Free", 'delicious-recipes'  ) ) => '<svg class="svg-icon" title="' . __( "Egg Free", 'delicious-recipes'  ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>egg-free</defs> <g transform="translate(-751 -238)"> <g transform="translate(-468 -2498)"> <circle cx="19" cy="19" r="19" transform="translate(1219 2736)" fill="#dc9f65" /> <path d="M28.17,10.729c-3.967,0-7.181,4.462-7.181,9.966s3.214,9.967,7.181,9.967S35.349,26.2,35.349,20.7,32.135,10.729,28.17,10.729Zm3.211,10.6c.91-1.385-.593-8.228-.593-8.228,1.977,2.137,2.6,7.234,2.6,7.234Z" transform="translate(1210.011 2734.271)" fill="#fff" /> </g> <line x2="38" transform="translate(757.065 243.065) rotate(45)" fill="none" stroke="#fff" stroke-width="2" /> </g> </svg>',
-				sanitize_title( __( "High Protein", 'delicious-recipes'  ) ) => '<svg class="svg-icon" title="' . __( "High Protein", 'delicious-recipes'  ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>high-protein</defs> <g transform="translate(-953 -166)"> <circle cx="19" cy="19" r="19" transform="translate(953 166)" fill="#990216" /> <g transform="translate(964 174)"> <path d="M17.08,21.6l17.31-7.427L22.417,10.128Zm8.13-7.927a1.6,1.6,0,0,1-1.432.887,1.439,1.439,0,0,1-.429-.064,1.2,1.2,0,0,1-.75-.662,1.222,1.222,0,0,1,.021-1.014,1.6,1.6,0,0,1,1.432-.887,1.457,1.457,0,0,1,.429.064,1.2,1.2,0,0,1,.75.662A1.22,1.22,0,0,1,25.21,13.671Zm-3.953,3.412a.951.951,0,0,1,.847-.525.869.869,0,0,1,.256.038.728.728,0,0,1,.454.4.736.736,0,0,1-.013.614.95.95,0,0,1-.847.526A.863.863,0,0,1,21.7,18.1a.726.726,0,0,1-.455-.4A.737.737,0,0,1,21.257,17.083Z" transform="translate(-16.874 -10.128)" fill="#fff" /> <g transform="translate(0 4.193)"> <path d="M16.31,39.859l0,2.583v.48l.44-.189L34.078,35.3l.191-.082V25.86l-17.953,7.7,0,4.267a1.344,1.344,0,0,1,.241-.024.71.71,0,0,1,.5.17.572.572,0,0,1,.146.421A1.941,1.941,0,0,1,16.31,39.859Zm13.115-7.25a1.188,1.188,0,0,1-.867-.313,1.038,1.038,0,0,1-.283-.769,2.388,2.388,0,0,1,.571-1.454,3.2,3.2,0,0,1,1.224-.935,2.059,2.059,0,0,1,.766-.155,1.189,1.189,0,0,1,.866.313,1.041,1.041,0,0,1,.283.769,2.388,2.388,0,0,1-.571,1.454,3.2,3.2,0,0,1-1.224.935A2.059,2.059,0,0,1,29.425,32.61Zm-2.134,3.163a1.453,1.453,0,0,1,.909-1.206,1.114,1.114,0,0,1,.4-.077.646.646,0,0,1,.472.172.564.564,0,0,1,.152.418,1.454,1.454,0,0,1-.909,1.207,1.13,1.13,0,0,1-.4.077.645.645,0,0,1-.472-.172A.561.561,0,0,1,27.291,35.773Zm-7.82,3.11a1.98,1.98,0,0,1,.473-1.2,2.637,2.637,0,0,1,1.01-.769,1.724,1.724,0,0,1,.637-.128,1,1,0,0,1,.728.263.871.871,0,0,1,.237.645,1.979,1.979,0,0,1-.473,1.2,2.627,2.627,0,0,1-1.01.769,1.713,1.713,0,0,1-.637.128,1,1,0,0,1-.727-.263A.872.872,0,0,1,19.471,38.883Zm-.531-4.4a1.453,1.453,0,0,1,.909-1.207,1.126,1.126,0,0,1,.4-.077.645.645,0,0,1,.472.172.563.563,0,0,1,.153.419,1.454,1.454,0,0,1-.909,1.207,1.117,1.117,0,0,1-.4.077.643.643,0,0,1-.472-.172A.56.56,0,0,1,18.94,34.479Z" transform="translate(-16.308 -25.86)" fill="#fff" /> </g> </g> </g> </svg>',
-				sanitize_title( __( "Keto", 'delicious-recipes'  ) ) => '<svg class="svg-icon" title="' . __( "Keto", 'delicious-recipes'  ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>keto</defs> <g transform="translate(-953 -238)"> <circle cx="19" cy="19" r="19" transform="translate(953 238)" fill="#769558" /> <g transform="matrix(0.966, 0.259, -0.259, 0.966, 966.366, 243.78)"> <path d="M16.138,15.8a3.73,3.73,0,0,0-3.493,3.929,3.73,3.73,0,0,0,3.493,3.929,3.73,3.73,0,0,0,3.492-3.929A3.731,3.731,0,0,0,16.138,15.8Zm-1.751,3.183a.553.553,0,0,1-.541.433A.343.343,0,0,1,13.512,19a2.792,2.792,0,0,1,2.626-2.328,2.373,2.373,0,0,1,.436.049A2.856,2.856,0,0,0,14.387,18.985Z" transform="translate(-3.04 -3.799)" fill="#fff" /> <path d="M6.434,11.631a7.079,7.079,0,0,0,1.234-4,5.686,5.686,0,0,1,1.48-3.826c-.062-.176-.141-.346-.191-.526L8.933,3.2A4.393,4.393,0,0,0,.477,5.588l0,.006a8.4,8.4,0,0,1-.118,4.953A7.028,7.028,0,0,0,5.7,19.666a8.31,8.31,0,0,1,.732-8.035Z" transform="translate(0)" fill="#fff" /> <path d="M20.958,13.425a8.513,8.513,0,0,1-1.513-4.69V8.65a4.183,4.183,0,1,0-8.355,0v.007A8.528,8.528,0,0,1,9.5,13.391a6.989,6.989,0,1,0,11.463.034Zm-5.77,9.206a5.291,5.291,0,0,1-4.383-8.258A10.119,10.119,0,0,0,12.569,8.65a2.678,2.678,0,0,1,5.356,0v.085a10.1,10.1,0,0,0,1.7,5.663,5.236,5.236,0,0,1,.876,2.939A5.31,5.31,0,0,1,15.189,22.631Z" transform="translate(-1.975 -1.024)" fill="#fff" /> </g> </g> </svg>',
-				sanitize_title( __( "Vegan", 'delicious-recipes'  ) ) => '<svg class="svg-icon" title="' . __( "Vegan", 'delicious-recipes'  ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>vegan</defs> <g transform="translate(-953 -311)"> <circle cx="19" cy="19" r="19" transform="translate(953 311)" fill="#0dab20" /> <path d="M17.264,12.731S15.7,8.959,12.97,8.6c0,0,.408.447,1.047,1.263a37.325,37.325,0,0,1,7.157,14.979s1.982-16.407,10.9-20.481c0,0-7.873,8.7-9.635,26.758H19.907s-.55-10.681-5.4-16.848c0,0-3.744.33-5.065-2.2S8.455,6.9,6.8,4.362C19.063,3.334,17.264,12.731,17.264,12.731Z" transform="translate(952.197 317.781)" fill="#fff" /> </g> </svg>',
+				sanitize_title( __( 'Gluten Free', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'Gluten Free', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"><g transform="translate(-1411 -3350)"><circle class="gluten-free-circle" fill="#f7bd31" cx="19" cy="19" r="19" transform="translate(1411 3350)" /><g transform="translate(1384.164 2856.629) rotate(30)"><path class="gluten-free-path" fill="#fff" d="M301.678,410.675a5.81,5.81,0,0,1,0,9.009,5.794,5.794,0,0,1,0-9.009Z" transform="translate(-5.947 -2.26)" /><path class="gluten-free-path" fill="#fff" d="M302.092,437.167a.62.62,0,0,1-.015-.083,8.772,8.772,0,0,1,.357-3.022,4.69,4.69,0,0,1,1.005-1.82,4.5,4.5,0,0,1,2.04-1.249,5.232,5.232,0,0,1,1.345-.215,5.44,5.44,0,0,1,1.27.1c.036.007.072.018.123.03.006.17.022.341.016.511-.009.227-.027.454-.059.68a4.912,4.912,0,0,1-1.3,2.775,6.345,6.345,0,0,1-1.176.948,9.312,9.312,0,0,1-3.2,1.287c-.121.025-.243.042-.365.061A.212.212,0,0,1,302.092,437.167Z" transform="translate(-6.128 -3.689)" /><path class="gluten-free-path" fill="#fff" d="M308.209,424.646a3.9,3.9,0,0,1,0,.883,5.483,5.483,0,0,1-.231,1.184,4.782,4.782,0,0,1-1.61,2.362,8.888,8.888,0,0,1-2.955,1.535,8.631,8.631,0,0,1-1.2.284c-.04.007-.08.008-.134.015-.005-.095-.013-.179-.015-.264a8.9,8.9,0,0,1,.317-2.693,5.166,5.166,0,0,1,.818-1.7,4.226,4.226,0,0,1,1.369-1.155,4.852,4.852,0,0,1,1.941-.571,5.462,5.462,0,0,1,1.616.091C308.157,424.629,308.181,424.637,308.209,424.646Z" transform="translate(-6.127 -3.244)" /><path class="gluten-free-path" fill="#fff" d="M301.114,424.657c-.245-.049-.477-.089-.706-.143a9.159,9.159,0,0,1-3.1-1.345,5.657,5.657,0,0,1-1.283-1.162,4.946,4.946,0,0,1-.946-2.095,5.51,5.51,0,0,1-.11-1.37c0-.052.009-.1.015-.167.107-.02.212-.045.318-.061a5.283,5.283,0,0,1,3.065.4,4.237,4.237,0,0,1,2.214,2.33,7.314,7.314,0,0,1,.467,1.818,9.906,9.906,0,0,1,.081,1.418C301.133,424.4,301.122,424.515,301.114,424.657Z" transform="translate(-5.623 -2.799)" /> <path class="gluten-free-path" fill="#fff" d="M295,430.9c.165-.027.333-.062.5-.08a5.649,5.649,0,0,1,.625-.045,4.843,4.843,0,0,1,3.539,1.37,4.276,4.276,0,0,1,.935,1.463,7.233,7.233,0,0,1,.452,1.775,9.98,9.98,0,0,1,.081,1.452c0,.111-.013.221-.021.347-.139-.023-.268-.04-.395-.066a9.294,9.294,0,0,1-3.317-1.355,5.753,5.753,0,0,1-1.318-1.156,4.938,4.938,0,0,1-1-2.166,5.7,5.7,0,0,1-.11-1.358.892.892,0,0,1,.006-.089C294.984,430.962,294.991,430.937,295,430.9Z" transform="translate(-5.623 -3.689)" /> <path class="gluten-free-path" fill="#fff" d="M302.085,424.648c-.006-.092-.011-.173-.013-.253a8.771,8.771,0,0,1,.34-2.79,4.989,4.989,0,0,1,.834-1.664,4.316,4.316,0,0,1,1.741-1.3,5.041,5.041,0,0,1,1.9-.392,5.532,5.532,0,0,1,1.193.1l.087.02.052.017c.006.155.021.311.018.466,0,.191-.018.381-.039.569a4.961,4.961,0,0,1-1.259,2.865,6.255,6.255,0,0,1-1.294,1.049,9.344,9.344,0,0,1-3.368,1.289l-.056.007Z" transform="translate(-6.128 -2.799)" /> <path class="gluten-free-path" fill="#fff" d="M301.108,430.909c-.076-.01-.15-.016-.221-.03a9.362,9.362,0,0,1-3.521-1.412,5.635,5.635,0,0,1-1.3-1.146,4.954,4.954,0,0,1-.984-2.137,5.561,5.561,0,0,1-.111-1.381c0-.03,0-.059.007-.089s.009-.043.018-.077c.137-.024.275-.055.414-.073a5.52,5.52,0,0,1,2.242.152,4.713,4.713,0,0,1,1.835,1,4.043,4.043,0,0,1,1,1.367,6.735,6.735,0,0,1,.545,1.888,7.454,7.454,0,0,1,.092,1.037c0,.28,0,.56,0,.84A.432.432,0,0,1,301.108,430.909Z" transform="translate(-5.623 -3.244)" /> </g> </g> </svg>',
+				sanitize_title( __( 'Dairy Free', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'Dairy Free', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>dairy-free</defs> <g data-name="Group 4626" transform="translate(-521 -148)"> <g data-name="Group 4430" transform="translate(-698 -2588)"> <circle data-name="Ellipse 97" cx="19" cy="19" r="19" transform="translate(1219 2736)" fill="#2fcde1" /> <g data-name="Group 4424" transform="translate(1814.985 2514.889)"> <path data-name="Path 30559" d="M-579.2,243.665h3.987c-.2,1.972.9,3.49,1.555,5.165a10.283,10.283,0,0,1,.79,3.37c.1,3.492.04,6.988.035,10.483,0,1.363-.27,1.626-1.6,1.626-1.929,0-3.858,0-5.787,0-.987,0-1.335-.307-1.339-1.29-.015-3.8-.063-7.606.04-11.405a8.492,8.492,0,0,1,.869-3.016C-579.97,247.015-579,245.54-579.2,243.665Z" transform="translate(0 -12.909)" fill="#fff" /> <path data-name="Path 30560" d="M-567.31,229.907c-.475,0-.952-.035-1.423.008-.677.062-.919-.172-.933-.883-.014-.753.3-.9.947-.877q1.548.049,3.1,0c.737-.024.687.435.7.935.017.528-.076.871-.718.83-.556-.036-1.116-.007-1.675-.007Z" transform="translate(-9.925)" fill="#fff" /> </g> </g> <line data-name="Line 1" x2="38" transform="translate(527.065 153.065) rotate(45)" fill="none" stroke="#fff" stroke-width="2" /> </g> </svg>',
+				sanitize_title( __( 'Low Carb', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'Low Carb', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="37" viewBox="0 0 38 37"> <g transform="translate(-1219 -2677)"> <ellipse class="low-carb-circle" fill="#a6846e" cx="19" cy="18.5" rx="19" ry="18.5" transform="translate(1219 2677)" /> <g transform="translate(1834.406 2484.021)"> <path class="low-carb-path" fil=" #fff" d="M-598.782,202.979a29.11,29.11,0,0,1,8.668,1.457,10.235,10.235,0,0,1,5.031,4.1,3.644,3.644,0,0,1,.52,1.769c.067,1.255-.076,2.523,0,3.777a4.349,4.349,0,0,1-2.155,3.938,8.076,8.076,0,0,1-4.536,1.515,32.081,32.081,0,0,1-4.259-.218,4.569,4.569,0,0,1-2.94-1.56c-.811-.878-1.646-1.737-2.409-2.656a5.206,5.206,0,0,0-3.793-1.837,17.946,17.946,0,0,1-2.187-.25,3.066,3.066,0,0,1-1.348-.6,1.752,1.752,0,0,1-.523-1.126c-.075-1.424-.009-2.856-.083-4.281a2.629,2.629,0,0,1,1.857-2.815,14.141,14.141,0,0,1,3.139-.85C-602.139,203.123-600.456,203.09-598.782,202.979Zm13.26,6.987a3.92,3.92,0,0,0-1.16-2.42,10.247,10.247,0,0,0-6.247-3.344,38.383,38.383,0,0,0-9.911-.418,9.005,9.005,0,0,0-3.915,1.06,11,11,0,0,0-1.047.741l.089.161c.2-.073.406-.149.611-.218a16.534,16.534,0,0,1,2.445-.8,30.992,30.992,0,0,1,12.314.286,9.946,9.946,0,0,1,6.185,4.126C-586,209.377-585.809,209.6-585.523,209.966Zm-.066.677a.809.809,0,0,0-.2.108c-2.037,2.3-4.723,2.808-7.607,2.725a5.907,5.907,0,0,1-4.587-2.135c-.336-.4-.733-.761-1.027-1.19a5.242,5.242,0,0,0-3.788-2.2,11.466,11.466,0,0,1-5.223-1.6,1.583,1.583,0,0,0,1.33,1.335,25.736,25.736,0,0,0,3.2.662,5.72,5.72,0,0,1,4.268,2.311,10.3,10.3,0,0,0,2.473,2.383,7.259,7.259,0,0,0,4.667.949,9.3,9.3,0,0,0,5.239-1.534A2.523,2.523,0,0,0-585.589,210.643Zm-5.87.8c.838.021,1.452-.448,1.47-1.122a1.832,1.832,0,0,0-1.875-1.579c-.842-.021-1.463.451-1.474,1.122A1.828,1.828,0,0,0-591.459,211.443Z" /> </g> </g> </svg>',
+				sanitize_title( __( 'Vegetarian', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'Vegetarian', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <g transform="translate(-1219 -2556)"> <circle class="vegeterian-meals-circle" fill="#8fbc04" cx="19" cy="19" r="19" transform="translate(1219 2556)" /> <path class="vegeterian-meals-path" fill="#fff" d="M-158.562,677.785c.064,1.227-.807,2.049-1.97,2.671-.917.491-1.944.821-2.4,1.924a6.7,6.7,0,0,0-.267,4.213c.126.531.312,1.048.457,1.576.069.251.108.511.2.957a3.814,3.814,0,0,1-2.294-1.941,21.259,21.259,0,0,1-.792-2.854c-.28-1.2-.514-1.465-1.712-1.7a4.767,4.767,0,0,1-3.946-5.026.938.938,0,0,0-.266-.674,5.845,5.845,0,0,1-2.161-5.753,5.368,5.368,0,0,1,4.085-4.451,10.571,10.571,0,0,0,3.371-1.484,5.412,5.412,0,0,1,7.328,1.285.882.882,0,0,0,.518.284,3.229,3.229,0,0,1,2.057,4.868.854.854,0,0,0,.018.664,3.9,3.9,0,0,1-.492,4.116A8.971,8.971,0,0,1-158.562,677.785Zm-5.546,8.753c0-.231,0-.462,0-.693a16.288,16.288,0,0,1,1.158-7.414,6.982,6.982,0,0,0,.353-5.056.783.783,0,0,1,.152-.6,4.4,4.4,0,0,1,2.676-1.659c.511-.1,1.033-.135,1.618-.209-1.948-.911-3.391-.046-4.788,1.223a10.388,10.388,0,0,1,.827-5.4c-1.122,1.468-2.019,3.026-1.743,4.954.142.995.464,1.963.678,2.949a11.187,11.187,0,0,1,.133,1.155c-1.5-1.773-2.841-2.488-4.411-2.193a6.434,6.434,0,0,1,3.032,1.849,2.607,2.607,0,0,1,.557,3.237C-165.079,681.226-164.828,683.9-164.108,686.538Zm-4.729-18.917a5.109,5.109,0,0,0-1.757,2.615,6.887,6.887,0,0,0,1.042,5.537,1.7,1.7,0,0,1,.235,1.44,4.088,4.088,0,0,0,3.217,4.972c-1.966-1.591-3.369-3.356-2.1-6.01C-170.45,674.16-170.689,670.645-168.837,667.62Z" transform="translate(1402.478 1898.587)" /> </g> </svg>',
+				sanitize_title( __( 'Organic', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'Organic', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>organic</defs> <g transform="translate(-953 -93)"> <circle cx="19" cy="19" r="19" transform="translate(953 93)" fill="#0f6b2b" /> <g transform="translate(952.53 98.416)"> <path d="M25.861,14.085a14.434,14.434,0,0,1,1.632,3.3l2.023.171A15.648,15.648,0,0,1,31.861,12.5a3.977,3.977,0,0,0,4.023-.391c1.7-1.566,1.54-6.311,1.1-9.051a.519.519,0,0,0-.943-.245c-2.368,3.229-6.529,3.669-6.46,6.776a2.156,2.156,0,0,0,.575,1.566,9.474,9.474,0,0,1,4.046-3.2.079.079,0,0,0,.046-.024,14.845,14.845,0,0,0-2.322,2.471,15.828,15.828,0,0,0-3.4,6.189A15.5,15.5,0,0,0,27.1,13.719,14.915,14.915,0,0,0,24.251,10c.023,0,.023,0,.046.024a8.355,8.355,0,0,1,3.38,2.862,1.778,1.778,0,0,0,.529-1.321C28.344,8.9,24.78,8.41,22.849,5.573a.457.457,0,0,0-.828.2c-.437,2.324-.713,6.385.713,7.779A3.33,3.33,0,0,0,25.861,14.085Z" transform="translate(-8.459)" fill="#fff" /> <path d="M26.207,68.05a21.1,21.1,0,0,1-2.174.587,2.458,2.458,0,0,1-1.781,1.125,3.1,3.1,0,0,1-.694.049,18.669,18.669,0,0,1-2.151-.171.374.374,0,0,1-.162-.024.41.41,0,0,1-.37-.391.4.4,0,0,1,.44-.44c.069,0,.116.024.185.024a11.448,11.448,0,0,0,2.637.122c1.157-.2,1.48-.93,1.434-1.566a.979.979,0,0,0-.972-.978,20.57,20.57,0,0,1-2.683-.122A17.243,17.243,0,0,0,17,66.191,10.876,10.876,0,0,0,12.837,68c-.763.538-1.619,1.15-2.128,1.541a.619.619,0,0,0-.116.856l2.174,3.107a.537.537,0,0,0,.787.122l.833-.66a.791.791,0,0,1,.694-.122,17.342,17.342,0,0,0,4.141.978c2.29.171,6.732-2.617,8.027-3.523A1.245,1.245,0,0,0,26.207,68.05Z" transform="translate(0 -49.219)" fill="#fff" /> </g> </g> </svg>',
+				sanitize_title( __( 'Nut Free', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'Nut Free', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>nut-free</defs> <g transform="translate(-521 -221)"> <g transform="translate(-698 -2515)"> <circle cx="19" cy="19" r="19" transform="translate(1219 2736)" fill="#ee9060" /> <g transform="translate(1201.842 2717.144)"> <path d="M43.37,52.69c-.107,3.887-3.271,9.635-7.162,9.635s-7.052-5.748-7.158-9.635Z" transform="translate(-0.892 -13.78)" fill="#fff" /> <path d="M44.8,37.451H26.42a9.257,9.257,0,0,1,9.189-9.071,9.056,9.056,0,0,1,6.5,2.748A9.286,9.286,0,0,1,44.8,37.451Z" transform="translate(-0.262)" fill="#fff" /> </g> </g> <line x2="9.435" y2="9.435" transform="translate(544.5 243.5)" fill="none" stroke="#fff" stroke-width="2" /> <line x2="7.435" y2="7.435" transform="translate(527.065 226.065)" fill="none" stroke="#fff" stroke-width="2" /> </g> </svg>',
+				sanitize_title( __( 'Egg Free', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'Egg Free', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>egg-free</defs> <g transform="translate(-751 -238)"> <g transform="translate(-468 -2498)"> <circle cx="19" cy="19" r="19" transform="translate(1219 2736)" fill="#dc9f65" /> <path d="M28.17,10.729c-3.967,0-7.181,4.462-7.181,9.966s3.214,9.967,7.181,9.967S35.349,26.2,35.349,20.7,32.135,10.729,28.17,10.729Zm3.211,10.6c.91-1.385-.593-8.228-.593-8.228,1.977,2.137,2.6,7.234,2.6,7.234Z" transform="translate(1210.011 2734.271)" fill="#fff" /> </g> <line x2="38" transform="translate(757.065 243.065) rotate(45)" fill="none" stroke="#fff" stroke-width="2" /> </g> </svg>',
+				sanitize_title( __( 'High Protein', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'High Protein', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>high-protein</defs> <g transform="translate(-953 -166)"> <circle cx="19" cy="19" r="19" transform="translate(953 166)" fill="#990216" /> <g transform="translate(964 174)"> <path d="M17.08,21.6l17.31-7.427L22.417,10.128Zm8.13-7.927a1.6,1.6,0,0,1-1.432.887,1.439,1.439,0,0,1-.429-.064,1.2,1.2,0,0,1-.75-.662,1.222,1.222,0,0,1,.021-1.014,1.6,1.6,0,0,1,1.432-.887,1.457,1.457,0,0,1,.429.064,1.2,1.2,0,0,1,.75.662A1.22,1.22,0,0,1,25.21,13.671Zm-3.953,3.412a.951.951,0,0,1,.847-.525.869.869,0,0,1,.256.038.728.728,0,0,1,.454.4.736.736,0,0,1-.013.614.95.95,0,0,1-.847.526A.863.863,0,0,1,21.7,18.1a.726.726,0,0,1-.455-.4A.737.737,0,0,1,21.257,17.083Z" transform="translate(-16.874 -10.128)" fill="#fff" /> <g transform="translate(0 4.193)"> <path d="M16.31,39.859l0,2.583v.48l.44-.189L34.078,35.3l.191-.082V25.86l-17.953,7.7,0,4.267a1.344,1.344,0,0,1,.241-.024.71.71,0,0,1,.5.17.572.572,0,0,1,.146.421A1.941,1.941,0,0,1,16.31,39.859Zm13.115-7.25a1.188,1.188,0,0,1-.867-.313,1.038,1.038,0,0,1-.283-.769,2.388,2.388,0,0,1,.571-1.454,3.2,3.2,0,0,1,1.224-.935,2.059,2.059,0,0,1,.766-.155,1.189,1.189,0,0,1,.866.313,1.041,1.041,0,0,1,.283.769,2.388,2.388,0,0,1-.571,1.454,3.2,3.2,0,0,1-1.224.935A2.059,2.059,0,0,1,29.425,32.61Zm-2.134,3.163a1.453,1.453,0,0,1,.909-1.206,1.114,1.114,0,0,1,.4-.077.646.646,0,0,1,.472.172.564.564,0,0,1,.152.418,1.454,1.454,0,0,1-.909,1.207,1.13,1.13,0,0,1-.4.077.645.645,0,0,1-.472-.172A.561.561,0,0,1,27.291,35.773Zm-7.82,3.11a1.98,1.98,0,0,1,.473-1.2,2.637,2.637,0,0,1,1.01-.769,1.724,1.724,0,0,1,.637-.128,1,1,0,0,1,.728.263.871.871,0,0,1,.237.645,1.979,1.979,0,0,1-.473,1.2,2.627,2.627,0,0,1-1.01.769,1.713,1.713,0,0,1-.637.128,1,1,0,0,1-.727-.263A.872.872,0,0,1,19.471,38.883Zm-.531-4.4a1.453,1.453,0,0,1,.909-1.207,1.126,1.126,0,0,1,.4-.077.645.645,0,0,1,.472.172.563.563,0,0,1,.153.419,1.454,1.454,0,0,1-.909,1.207,1.117,1.117,0,0,1-.4.077.643.643,0,0,1-.472-.172A.56.56,0,0,1,18.94,34.479Z" transform="translate(-16.308 -25.86)" fill="#fff" /> </g> </g> </g> </svg>',
+				sanitize_title( __( 'Keto', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'Keto', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>keto</defs> <g transform="translate(-953 -238)"> <circle cx="19" cy="19" r="19" transform="translate(953 238)" fill="#769558" /> <g transform="matrix(0.966, 0.259, -0.259, 0.966, 966.366, 243.78)"> <path d="M16.138,15.8a3.73,3.73,0,0,0-3.493,3.929,3.73,3.73,0,0,0,3.493,3.929,3.73,3.73,0,0,0,3.492-3.929A3.731,3.731,0,0,0,16.138,15.8Zm-1.751,3.183a.553.553,0,0,1-.541.433A.343.343,0,0,1,13.512,19a2.792,2.792,0,0,1,2.626-2.328,2.373,2.373,0,0,1,.436.049A2.856,2.856,0,0,0,14.387,18.985Z" transform="translate(-3.04 -3.799)" fill="#fff" /> <path d="M6.434,11.631a7.079,7.079,0,0,0,1.234-4,5.686,5.686,0,0,1,1.48-3.826c-.062-.176-.141-.346-.191-.526L8.933,3.2A4.393,4.393,0,0,0,.477,5.588l0,.006a8.4,8.4,0,0,1-.118,4.953A7.028,7.028,0,0,0,5.7,19.666a8.31,8.31,0,0,1,.732-8.035Z" transform="translate(0)" fill="#fff" /> <path d="M20.958,13.425a8.513,8.513,0,0,1-1.513-4.69V8.65a4.183,4.183,0,1,0-8.355,0v.007A8.528,8.528,0,0,1,9.5,13.391a6.989,6.989,0,1,0,11.463.034Zm-5.77,9.206a5.291,5.291,0,0,1-4.383-8.258A10.119,10.119,0,0,0,12.569,8.65a2.678,2.678,0,0,1,5.356,0v.085a10.1,10.1,0,0,0,1.7,5.663,5.236,5.236,0,0,1,.876,2.939A5.31,5.31,0,0,1,15.189,22.631Z" transform="translate(-1.975 -1.024)" fill="#fff" /> </g> </g> </svg>',
+				sanitize_title( __( 'Vegan', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'Vegan', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>vegan</defs> <g transform="translate(-953 -311)"> <circle cx="19" cy="19" r="19" transform="translate(953 311)" fill="#0dab20" /> <path d="M17.264,12.731S15.7,8.959,12.97,8.6c0,0,.408.447,1.047,1.263a37.325,37.325,0,0,1,7.157,14.979s1.982-16.407,10.9-20.481c0,0-7.873,8.7-9.635,26.758H19.907s-.55-10.681-5.4-16.848c0,0-3.744.33-5.065-2.2S8.455,6.9,6.8,4.362C19.063,3.334,17.264,12.731,17.264,12.731Z" transform="translate(952.197 317.781)" fill="#fff" /> </g> </svg>',
 			);
 
 			if ( empty( $recipeKey ) ) {
@@ -1246,7 +1236,7 @@ class Delicious_Dynamic_Recipe_Card {
 			$_terms = $recipeKey;
 
 			$terms = array_map(
-				function( $term ) use ( $recipe_key_icons ) {
+				function ( $term ) use ( $recipe_key_icons ) {
 					$icon = isset( $recipe_key_icons[ sanitize_title( $term ) ] ) ? $recipe_key_icons[ sanitize_title( $term ) ] : '';
 					$key  = get_term_by( 'name', $term, 'recipe-key' );
 					if ( $key ) {
@@ -1273,7 +1263,7 @@ class Delicious_Dynamic_Recipe_Card {
 			);
 
 			$className = 'dr-category dr-recipe-keys';
-			$label     = __( "Recipe Keys:", 'delicious-recipes'  );
+			$label     = __( 'Recipe Keys:', 'delicious-recipes' );
 			$svg       = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#recipe-keys"></use></svg>';
 		}
 
@@ -1571,7 +1561,7 @@ class Delicious_Dynamic_Recipe_Card {
 			esc_attr( $PrintClasses ),
 			esc_attr( $content_id ),
 			$atts,
-			__( "Print Recipe", 'delicious-recipes'  )
+			__( 'Print Recipe', 'delicious-recipes' )
 		);
 
 		return $output;

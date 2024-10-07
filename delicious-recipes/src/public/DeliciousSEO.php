@@ -4,6 +4,7 @@
  *
  * @package Delicious_Recipes
  */
+
 namespace WP_Delicious;
 
 defined( 'ABSPATH' ) || exit;
@@ -50,7 +51,6 @@ class Delicious_SEO {
 
 		// json ld recipe schema for display on Google Search and as a Guided Recipe on the Assistant.
 		add_action( 'wp_delicious_guided_recipe_schema', array( $this, 'json_ld' ) );
-
 	}
 
 	/**
@@ -114,9 +114,7 @@ class Delicious_SEO {
 
 		if ( has_post_thumbnail( $recipe->ID ) ) :
 			$size1  = get_the_post_thumbnail_url( $recipe->ID, 'delrecpe-structured-data-1_1' );
-			$size2  = get_the_post_thumbnail_url( $recipe->ID, 'delrecpe-structured-data-4_3' );
-			$size3  = get_the_post_thumbnail_url( $recipe->ID, 'delrecpe-structured-data-16_9' );
-			$images = array( $size1, $size2, $size3 );
+			$images = array( $size1 );
 		endif;
 
 		if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
@@ -169,7 +167,7 @@ class Delicious_SEO {
 		$nutrition_facts        = $recipe->nutrition;
 		$nutri_filtered         = array_filter(
 			$nutrition_facts,
-			function( $nut ) {
+			function ( $nut ) {
 				return ! empty( $nut ) && false !== $nut;
 			}
 		);
@@ -274,7 +272,6 @@ class Delicious_SEO {
 		);
 
 		return $schema_array;
-
 	}
 
 	/**
@@ -321,5 +318,4 @@ class Delicious_SEO {
 
 		return $faq_schema_array;
 	}
-
 }

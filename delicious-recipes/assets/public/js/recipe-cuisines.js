@@ -9,7 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
         let options = {
             gap: '30px',
             perPage: 3,
-            pagination: false
+            pagination: false,
+            breakpoints: {
+                767: {
+                    perPage: 2,
+                },
+            },
         };
         if (splidesCount < 4) {
             options.type = 'slide';

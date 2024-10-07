@@ -16,7 +16,7 @@ defined( 'ABSPATH' ) || exit;
  */
 final class DeliciousRecipes {
 	/**
-	 * DeliciousRecipes verison.
+	 * DeliciousRecipes version.
 	 *
 	 * @var string
 	 */
