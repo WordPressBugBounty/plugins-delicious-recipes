@@ -8,14 +8,19 @@
 global $recipe;
 $global_settings      = delicious_recipes_get_global_settings();
 $recipe_instructions  = isset( $recipe->instructions ) ? $recipe->instructions : array();
-$instruction_title    = isset( $recipe->instruction_title ) ? $recipe->instruction_title : __( "Instructions", 'delicious-recipes'  );
+$instruction_title    = isset( $recipe->instruction_title ) ? $recipe->instruction_title : __( 'Instructions', 'delicious-recipes' );
 $enable_video_gallery = isset( $recipe->enable_video_gallery ) ? $recipe->enable_video_gallery : false;
 $video_gallery_vids   = isset( $recipe->video_gallery ) ? $recipe->video_gallery : array();
 $recipe_settings      = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
 
-$enable_multiple_images = false;
-$additionalImages       = array();
+$license_validity_bool = false;
 if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
+	$license_validity_bool = delicious_recipe_pro_check_license_status();
+}
+
+$enable_multiple_images = false;
+$additional_images      = array();
+if ( $license_validity_bool ) {
 	$enable_multiple_images = isset( $global_settings['enableMultipleInstructionImages'] ) && is_array( $global_settings['enableMultipleInstructionImages'] ) && ! empty( $global_settings['enableMultipleInstructionImages'][0] ) && 'yes' === $global_settings['enableMultipleInstructionImages'][0];
 }
 
@@ -33,16 +38,16 @@ if ( ! empty( $recipe_instructions ) ) :
 					<div class="dr-toggle-inputs">
 						<input type="checkbox" name="" checked="checked" value="yes" id="dr-vdo-toggle" class="dr-video-toggle" data-target=".dr-instruction-video-<?php echo esc_attr( $recipe->ID ); ?>">
 						<div class="knobs"><span></span></div>
-						<span class="dr-toggle-on"><?php echo esc_html__( "Off", 'delicious-recipes' ); ?></span>
-						<span class="dr-toggle-off"><?php echo esc_html__( "On", 'delicious-recipes' ); ?></span>
+						<span class="dr-toggle-on"><?php echo esc_html__( 'Off', 'delicious-recipes' ); ?></span>
+						<span class="dr-toggle-off"><?php echo esc_html__( 'On', 'delicious-recipes' ); ?></span>
 					</div>
 				</div>
 			<?php endif; ?>
 		</div>
 		<?php
 		foreach ( $recipe_instructions as $sec_key => $intruct_section ) :
-			if ($intruct_section['sectionTitle']) {
-				echo '<h4 class="dr-title">' . esc_html($intruct_section['sectionTitle']) . '</h4>';
+			if ( $intruct_section['sectionTitle'] ) {
+				echo '<h4 class="dr-title">' . esc_html( $intruct_section['sectionTitle'] ) . '</h4>';
 			}
 			if ( isset( $intruct_section['instruction'] ) && ! empty( $intruct_section['instruction'] ) ) :
 				?>
@@ -65,24 +70,23 @@ if ( ! empty( $recipe_instructions ) ) :
 							<div class="dr-instruction">
 								<?php echo wp_kses_post( do_shortcode( $instruction ) ); ?>
 							</div>
-							<!-- Place for gallery image  -->
 							<?php
 							$all_images = array();
 
-							// Add the main instruction image to the array
+							// Add the main instruction image to the array.
 							if ( $instruction_image ) {
 								$all_images[] = array(
-									'id' => $instruction_image,
+									'id'  => $instruction_image,
 									'url' => wp_get_attachment_url( $instruction_image, 'full' ),
 								);
 							}
 
-							// Add additional images to the array
-							if ( function_exists( 'DEL_RECIPE_PRO' ) && $enable_multiple_images ) {
-								$additionalImages  = isset( $instruct['additionalImages'] ) ? $instruct['additionalImages'] : array();
-								if ( ! empty( $additionalImages ) ) {
-									foreach ( $additionalImages as $key => $value ) {
-										if ( $value['instructionIndex'] == $sec_key && $value['instructionId'] == $inst_key ) {
+							// Add additional images to the array.
+							if ( $license_validity_bool && $enable_multiple_images ) {
+								$additional_images = isset( $instruct['additionalImages'] ) ? $instruct['additionalImages'] : array();
+								if ( ! empty( $additional_images ) ) {
+									foreach ( $additional_images as $key => $value ) {
+										if ( $value['instructionIndex'] === $sec_key && $value['instructionId'] === $inst_key ) {
 											if ( ! empty( $value['additionalImages'] ) ) {
 												foreach ( $value['additionalImages'] as $image ) {
 													$all_images[] = array(
@@ -95,35 +99,37 @@ if ( ! empty( $recipe_instructions ) ) :
 									}
 								}
 							}
-							?> <div class="additional-images"> <?php
-								// Display the images
+							if ( ! empty( $all_images ) ) :
+								?>
+							<div class="additional-images"> 
+								<?php
+								// Display the images.
 								$total_images = count( $all_images );
 								for ( $i = 0; $i < min( 3, $total_images ); $i++ ) {
-									$image = $all_images[ $i ];
+									$image                = $all_images[ $i ];
 									$instruct_image_small = esc_url( $image['url'] );
 									echo '<a data-fslightbox="gallery-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) . '" class="dr-lg-media-popup" href="' . $instruct_image_small . '">
 											<img src="' . $instruct_image_small . '" />
 										</a>';
 								}
 
-								// Add hidden images for fslightbox for images after the first 3
+								// Add hidden images for fslightbox for images after the first 3.
 								if ( $total_images > 3 ) {
 									for ( $i = 3; $i < $total_images; $i++ ) {
-										$image = $all_images[ $i ];
+										$image                = $all_images[ $i ];
 										$instruct_image_small = esc_url( $image['url'] );
-										echo '<a data-fslightbox="gallery-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) .'" href="' . $instruct_image_small . '" style="display:none;"></a>';
+										echo '<a data-fslightbox="gallery-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) . '" href="' . $instruct_image_small . '" style="display:none;"></a>';
 									}
 
-									// Display the remaining images count box without an href
+									// Display the remaining images count box without an href.
 									$remaining_images = $total_images - 3;
 									echo '<div class="wpd-fslightbox-images-box" id="remaining-images-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) . '" data-sec-key="' . esc_attr( $sec_key ) . '">
 											+' . esc_html( $remaining_images ) . ' photos
 										</div>';
 								}
 								?>
-								<script>
-							</script>
 							</div>
+							<?php endif; ?>
 							<?php if ( ! empty( $instruction_notes ) ) : ?>
 								<div class="dr-list-tips">
 									<?php echo esc_html( $instruction_notes ); ?>
@@ -184,9 +190,9 @@ if ( ! empty( $recipe_instructions ) ) :
 						$vid_url   = 'https://www.youtube.com/embed/' . $video['vidID'];
 						$image_url = "https://i3.ytimg.com/vi/{$video['vidID']}/maxresdefault.jpg";
 					} elseif ( 'vimeo' === $video['vidType'] ) {
-						$vid_src   = 'https://player.vimeo.com/video/' . $video['vidID'];
-						$vid_url   = '#' . $video['vidID'];
-						// get vimeo video thumbnail
+						$vid_src = 'https://player.vimeo.com/video/' . $video['vidID'];
+						$vid_url = '#' . $video['vidID'];
+						// get vimeo video thumbnail.
 						$hash      = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/{$video['vidID']}.php" ) );
 						$image_url = $hash[0]['thumbnail_large'];
 					}
@@ -205,10 +211,10 @@ if ( ! empty( $recipe_instructions ) ) :
 				endforeach;
 				foreach ( $video_gallery_vids as $key => $video ) :
 					if ( 'vimeo' === $video['vidType'] ) {
-						$vid_src   = 'https://player.vimeo.com/video/' . $video['vidID'];
-						$vid_url   = $video['vidID'];
-						// get vimeo video thumbnail
-						$hash = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/{$vid_url}.php" ) );
+						$vid_src = 'https://player.vimeo.com/video/' . $video['vidID'];
+						$vid_url = $video['vidID'];
+						// get vimeo video thumbnail.
+						$hash  = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/{$vid_url}.php" ) );
 						$thumb = $hash[0]['thumbnail_large'];
 						?>
 						<iframe
@@ -230,4 +236,5 @@ if ( ! empty( $recipe_instructions ) ) :
 		endif;
 		?>
 	</div>
-<?php endif;
+	<?php
+endif;

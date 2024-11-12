@@ -727,7 +727,7 @@ class Delicious_Recipes_Recipe {
 			$global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
 			// Image size.
-			$img_size = $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2' : 'full';
+			$img_size = $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full';
 			foreach ( $image_gallery as $key => $image ) {
 				$image_id = isset( $image['imageID'] ) ? $image['imageID'] : false;
 				if ( $image_id ) {
@@ -1025,7 +1025,7 @@ class Delicious_Recipes_Recipe {
 			return false;
 		}
 
-		$estimated_cost_currency = isset( $recipe_meta['estimatedCostCurr'] ) && $recipe_meta['estimatedCostCurr'] ? $recipe_meta['estimatedCostCurr'] : '';
+		$estimated_cost_currency = isset( $recipe_meta['estimatedCostCurr'] ) && $recipe_meta['estimatedCostCurr'] ? $recipe_meta['estimatedCostCurr'] : '$';
 
 		return apply_filters( 'wp_delicious_estimated_cost_currency', $estimated_cost_currency, $recipe_id );
 	}

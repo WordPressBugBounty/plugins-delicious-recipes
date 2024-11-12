@@ -99,7 +99,7 @@ $recipe_paged           = is_front_page() ? get_query_var( 'page', 1 ) : get_que
 					<# if ( val.thumbnail ) { #>
 						{{{val.thumbnail}}}
 					<# } else { #>
-						<?php delicious_recipes_get_fallback_svg( 'delrecipe-crop-size-1' ); ?>
+						<?php delicious_recipes_get_fallback_svg( 'wpdr-feat-thumb' ); ?>
 					<# } #>
 				</a>
 				<# if ( val.thumbnail && val.enable_pinit ) { #>

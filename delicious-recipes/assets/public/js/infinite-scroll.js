@@ -17,7 +17,7 @@ const inFiniteScrollCallable = () => {
     let appendWrapper = itemWrapper.querySelector(".dr-archive-single") ? '.dr-archive-single' : '.recipe-post';
 
     let inf = new InfiniteScroll(itemWrapper, {
-        checkLastPage: ".next",
+        // checkLastPage: ".next",
         path: ".next",
         append: appendWrapper,
         // outlayer,
@@ -26,7 +26,7 @@ const inFiniteScrollCallable = () => {
             paginationType === "load_more"
                 ? paginationContainer.querySelector(".dr-load-more")
                 : null,
-
+        history: false,
         scrollThreshold: paginationType === "infinite_scroll" ? 400 : false,
 
         onInit() {
@@ -60,6 +60,12 @@ const inFiniteScrollCallable = () => {
             });
         },
     });
+
+    // Attach to Load More button if exists
+    const loadMoreButton = document.querySelector('.dr__load-more');
+    if (loadMoreButton) {
+        loadMoreButton.addEventListener('click', () => inf.loadNextPage());
+    }
 }
 
 document.addEventListener("DOMContentLoaded", function () {

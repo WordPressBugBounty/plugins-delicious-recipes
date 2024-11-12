@@ -11,7 +11,7 @@ $recipe_meta = delicious_recipes_get_recipe( $recipe );
 // Get global toggles.
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
-$img_size = $global_toggles['enable_recipe_archive_image_crop'] ? 'delrecipe-crop-size-2' : 'full';
+$img_size = $global_toggles['enable_recipe_archive_image_crop'] ? 'large' : 'full';
 $img_size = apply_filters( 'recipes_navigation_img_size', $img_size );
 
 ?>
@@ -22,7 +22,7 @@ $img_size = apply_filters( 'recipes_navigation_img_size', $img_size );
 			if ( has_post_thumbnail( $recipe_id ) ) :
 				echo get_the_post_thumbnail( $recipe_id, $img_size );
 			else :
-				delicious_recipes_get_fallback_svg( 'delrecipe-crop-size-2' );
+				delicious_recipes_get_fallback_svg( 'large' );
 			endif;
 			?>
 			<?php if ( ! empty( $recipe_meta->recipe_keys ) ) : ?>

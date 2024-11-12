@@ -11,7 +11,7 @@ global $recipe;
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
 // Image size.
-$img_size   = $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2' : 'full';
+$img_size   = $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full';
 $comment_id = $recipe->is_pro_active ? '#comments-' . esc_attr( $recipe->ID ) : '#comments';
 ?>
 <div class="dr-post-summary layout-1">
@@ -270,7 +270,7 @@ $comment_id = $recipe->is_pro_active ? '#comments-' . esc_attr( $recipe->ID ) : 
 				<b>
 					<?php
 					if ( $recipe->estimated_cost_curr ) {
-						echo esc_html( $recipe->estimated_cost_curr ) . '&nbsp;';
+						echo esc_html( $recipe->estimated_cost_curr );
 					}
 					?>
 					<?php echo esc_html( $recipe->estimated_cost ); ?>

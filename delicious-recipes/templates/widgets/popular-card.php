@@ -21,7 +21,7 @@ global $recipe;
 // Get global toggles.
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
-$img_size = $global_toggles['enable_recipe_archive_image_crop'] ? 'delrecipe-crop-size-1' : 'full'; // Before: recipe-feat-tall Check DR-Issue: #78.
+$img_size = $global_toggles['enable_recipe_archive_image_crop'] ? 'wpdr-feat-thumb' : 'full'; // Before: recipe-feat-tall Check DR-Issue: #78.
 $img_size = apply_filters( 'popular_card_img_size', $img_size );
 
 ?>
@@ -32,7 +32,7 @@ $img_size = apply_filters( 'popular_card_img_size', $img_size );
 			if ( $recipe->thumbnail ) :
 				the_post_thumbnail( $img_size );
 			else :
-				delicious_recipes_get_fallback_svg( 'delrecipe-crop-size-1' );
+				delicious_recipes_get_fallback_svg( 'wpdr-feat-thumb' );
 			endif;
 			?>
 		</a>

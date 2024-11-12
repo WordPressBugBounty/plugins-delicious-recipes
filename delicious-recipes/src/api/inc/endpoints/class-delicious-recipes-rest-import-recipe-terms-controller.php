@@ -649,7 +649,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$new_recipe_meta['recipeCalories']    = isset( $post_meta['wprm_nutrition_calories'][0] ) ? sanitize_text_field( $post_meta['wprm_nutrition_calories'][0] ) : '';
 		$new_recipe_meta['bestSeason']        = '';
 		$recipe_cost                          = isset( $post_meta['wprm_cost'][0] ) ? sanitize_text_field( $post_meta['wprm_cost'][0] ) : '';
-		$new_recipe_meta['estimatedCost']     = preg_replace( '/[^0-9.]/', '', $recipe_cost );
+		$new_recipe_meta['estimatedCost']     = ! is_null( $recipe_cost ) ?? preg_replace( '/[^0-9.]/', '', $recipe_cost );
 		$new_recipe_meta['estimatedCostCurr'] = preg_replace( '/\d+/', '', $recipe_cost );
 		$new_recipe_meta['noOfServings']      = isset( $post_meta['wprm_servings'][0] ) ? absint( $post_meta['wprm_servings'][0] ) : '';
 

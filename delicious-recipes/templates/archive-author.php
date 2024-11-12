@@ -16,70 +16,68 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
-get_header(); 
+get_header();
 
 	$global_settings         = delicious_recipes_get_global_settings();
 	$author_profile          = isset( $global_settings['enableAuthorProfile']['0'] ) && 'yes' === $global_settings['enableAuthorProfile']['0'] ? true : false;
 	$showAuthorArchiveHeader = isset( $global_settings['showAuthorArchiveHeader']['0'] ) && 'yes' === $global_settings['showAuthorArchiveHeader']['0'] ? true : false;
 	$view_type               = delicious_recipes_get_archive_layout();
 
-	if ( $author_profile && $showAuthorArchiveHeader ) :
-		?>
+if ( $author_profile && $showAuthorArchiveHeader ) :
+	?>
 			<header class="page-header">
 				<div class="container">
-					<?php
-						/**
-						* Recipe content template load.
-						*/
-						delicious_recipes_get_template( 'recipe/author-profile.php' );
-					?>
+				<?php
+					/**
+					 * Recipe content template load.
+					 */
+					delicious_recipes_get_template( 'recipe/author-profile.php' );
+				?>
 				</div>
 			</header>
 		<?php
 	endif;
-	?>
+?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main">
 			<div class="dr-archive-list-wrapper">
 				<div class="dr-archive-list-gridwrap <?php echo esc_attr( $view_type ); ?>">
 					<?php
-						if ( have_posts() ) {
-							while ( have_posts() ) {
-								the_post();
+					if ( have_posts() ) {
+						while ( have_posts() ) {
+							the_post();
 
-								/**
-								 * Hook: delicious_recipe_archive_loop.
-								 */
-								do_action( 'delicious_recipe_archive_loop' );
-								$post_type = get_post_type( get_the_ID() );
-
-								if ( DELICIOUS_RECIPE_POST_TYPE === $post_type ) {
-									delicious_recipes_get_template_part( 'recipes', $view_type );
-								}
-
-							} // end of the loop.
 							/**
-							 * Get archive pagination.
+							 * Hook: delicious_recipe_archive_loop.
 							 */
-							delicious_recipes_get_template( 'archive/pagination.php' );
-						} else {
-							esc_html_e( "No recipes found.", 'delicious-recipes' );
-						}
+							do_action( 'delicious_recipe_archive_loop' );
+							$post_type = get_post_type( get_the_ID() );
+
+							if ( DELICIOUS_RECIPE_POST_TYPE === $post_type ) {
+								delicious_recipes_get_template_part( 'recipes', $view_type );
+							}
+						} // end of the loop.
+						/**
+						 * Get archive pagination.
+						 */
+						delicious_recipes_get_template( 'archive/pagination.php' );
+					} else {
+						esc_html_e( 'No recipes found.', 'delicious-recipes' );
+					}
 					?>
 				</div>
 			</div>
 		</main>
 	</div>
 <?php
-if (!wp_is_block_theme()) {
-	do_action('delicious_recipes_sidebar');
+if ( ! wp_is_block_theme() ) {
+	do_action( 'delicious_recipes_sidebar' );
 }
 
-// get_footer();
-if (wp_is_block_theme()) {
+if ( wp_is_block_theme() ) {
 	block_footer_area();
 	wp_footer();
 } else {

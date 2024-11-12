@@ -1,3 +1,20 @@
+1.7.4: 2024-11-12
+- Added compatibility with WordPress WP 6.7.
+- New Feature: Introduced a feature to globally set the default currency for estimated costs.
+- Enhancement: Updated SDK version to ensure compliance with WordPress.org guidelines.
+- Enhancement: Optimized image cropping by removing unnecessary image crop sizes.
+- Enhancement: Moved the "scroll to comment" feature from the Pro version to the free version.
+- Fixes: Fixed the issue where social media links on the Print Page were displayed inline instead of as a list.
+- Fixes: Resolved an "Undefined variable $recipeType" error.
+- Fixes: Fixed pagination spacing issues on the index page for improved visual consistency.
+- Fixes: Addressed a JavaScript issue occurring when the "Enable Rating" setting was disabled.
+- Fixes: Corrected the "Delicious: Recipe Categories" widget’s "Show as dropdown" option functionality.
+- Fixes: Improved mobile responsiveness for carousels on template and single recipe pages.
+- Fixes: Ensured that the primary and secondary colors set in the plugin are consistently applied across all relevant pages.
+- Fixes: Resolved issues with the 'infinite' pagination option on recipe archive pages.
+- Fixes: Enhanced theme compatibility to resolve design issues on the recipe index, template pages, and single recipe pages.
+- Fixes: Fixed responsiveness issues with Elementor templates and addressed design problems when "Enable Elementor Support" was activated.
+
 1.7.3: 2024-10-07
 - Enhancement: Updated the logo in the plugin's onboarding wizard.
 - Enhancement: Enhanced the search page Season filter to display default and custom seasons.

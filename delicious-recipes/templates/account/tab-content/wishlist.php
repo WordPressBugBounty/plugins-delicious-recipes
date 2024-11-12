@@ -65,15 +65,6 @@ $_user_meta   = get_user_meta( $current_user->ID, 'delicious_recipes_user_meta',
 	<div class="dr-archive-list grid-view">
 		<?php
 		if ( isset( $_user_meta['wishlists'] ) && ! empty( $_user_meta['wishlists'] ) ) :
-			?>
-			<!-- <form role="search" method="get" class="search-form">
-					<label>
-						<input type="search" class="search-field" placeholder="<?php esc_attr_e( "Search Favorites", 'delicious-recipes' ); ?>" value="<?php echo esc_attr( $fav_search ); ?>" name="fav">
-					</label>
-					<input type="hidden" name="tab" value="wishlist">
-					<input type="submit" class="search-submit" value="<?php esc_attr_e( "Search", 'delicious-recipes' ); ?>">
-				</form> -->
-			<?php
 			$global_settings        = delicious_recipes_get_global_settings();
 			$default_posts_per_page = isset( $global_settings['recipePerPage'] ) && ( ! empty( $global_settings['recipePerPage'] ) ) ? $global_settings['recipePerPage'] : get_option( 'posts_per_page' );
 
@@ -103,7 +94,7 @@ $_user_meta   = get_user_meta( $current_user->ID, 'delicious_recipes_user_meta',
 					$query->the_post();
 
 					$data = array(
-						'disable_wishlist' => true,
+						'disable_wishlist' => false,
 						'tax_page'         => true,
 					);
 

@@ -211,6 +211,9 @@
             "Affiliates": [
                 ""
             ],
+            "License Key is not activated": [
+                ""
+            ],
             "Display Powered By": [
                 ""
             ],
@@ -548,6 +551,12 @@
                 ""
             ],
             "Inline Related Recipes Posts feature is available in Pro version.": [
+                ""
+            ],
+            "License": [
+                ""
+            ],
+            "Shortcodes feature is available in Pro version.": [
                 ""
             ],
             "Show Nutrition Facts": [
@@ -934,6 +943,15 @@
             "Enter label": [
                 ""
             ],
+            "Estimated Cost Currency": [
+                ""
+            ],
+            "$": [
+                ""
+            ],
+            "Enter the currency to be used for displaying the estimated cost across all recipes.": [
+                ""
+            ],
             "Recipe Navigation": [
                 ""
             ],
@@ -1100,9 +1118,6 @@
                 ""
             ],
             "Recipe Archive Shortcode": [
-                ""
-            ],
-            "Shortcodes feature is available in Pro version.": [
                 ""
             ],
             "Social Sharing": [

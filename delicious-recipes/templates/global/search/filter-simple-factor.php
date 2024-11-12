@@ -3,10 +3,10 @@
  * Filter by Season.
  */
 $simple_factor = array(
-	'10-ingredients-or-less' => __( "10 ingredients or less", 'delicious-recipes'  ),
-	'15-minutes-or-less'     => __( "15 minutes or less", 'delicious-recipes'  ),
-	'30-minutes-or-less'     => __( "30 minutes or less", 'delicious-recipes'  ),
-	'7-ingredients-or-less'  => __( "7 ingredients or less", 'delicious-recipes'  ),
+	'10-ingredients-or-less' => __( '10 ingredients or less', 'delicious-recipes' ),
+	'15-minutes-or-less'     => __( '15 minutes or less', 'delicious-recipes' ),
+	'30-minutes-or-less'     => __( '30 minutes or less', 'delicious-recipes' ),
+	'7-ingredients-or-less'  => __( '7 ingredients or less', 'delicious-recipes' ),
 );
 $show_count    = apply_filters( 'delicious_recipes_search_filters_show_count', true );
 
@@ -55,7 +55,7 @@ $args = array(
 								'compare' => '<=',
 								'type'    => 'NUMERIC', // Ensures comparison as a number
 								'status'  => 'publish',
-							),	
+							),
 						);
 						break;
 					case '7-ingredients-or-less':

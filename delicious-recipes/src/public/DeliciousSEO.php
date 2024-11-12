@@ -114,7 +114,9 @@ class Delicious_SEO {
 
 		if ( has_post_thumbnail( $recipe->ID ) ) :
 			$size1  = get_the_post_thumbnail_url( $recipe->ID, 'delrecpe-structured-data-1_1' );
-			$images = array( $size1 );
+			$size2  = get_the_post_thumbnail_url( $recipe->ID, 'delrecpe-structured-data-4_3' );
+			$size3  = get_the_post_thumbnail_url( $recipe->ID, 'delrecpe-structured-data-16_9' );
+			$images = array( $size1, $size2, $size3 );
 		endif;
 
 		if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
@@ -160,7 +162,7 @@ class Delicious_SEO {
 				'ratingCount' => $recipe->rating_count,
 			);
 		else :
-			$aggregateRating = 0;
+			$aggregateRating = null;
 		endif;
 
 		$nutrition              = array();

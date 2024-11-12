@@ -183,8 +183,8 @@ class Delicious_Recipes_Template_Loader {
 			self::unsupported_theme_tax_archive_init();
 		} elseif ( is_recipe() ) {
 			self::unsupported_theme_recipe_page_init();
-		} else {
-			// self::unsupported_theme_recipe_archive_page_init();
+		} elseif ( is_post_type_archive( DELICIOUS_RECIPE_POST_TYPE ) || is_page( self::$recipe_archive_id ) ) {
+			self::unsupported_theme_recipe_archive_content_filter();
 		}
 	}
 
@@ -192,10 +192,12 @@ class Delicious_Recipes_Template_Loader {
 	 * Hook in methods to enhance the unsupported theme experience on the recipe_archive page.
 	 *
 	 * @since 1.0.0
+	 * 
+	 * Commented @since 1.7.5
 	 */
-	private static function unsupported_theme_recipe_archive_page_init() {
-		add_filter( 'the_content', array( __CLASS__, 'unsupported_theme_recipe_archive_content_filter' ), 10 );
-	}
+	// private static function unsupported_theme_recipe_archive_page_init() {
+	// 	add_filter( 'the_content', array( __CLASS__, 'unsupported_theme_recipe_archive_content_filter' ), 10 );
+	// }
 
 	/**
 	 * Hook in methods to enhance the unsupported theme experience on recipe pages.

@@ -10,6 +10,30 @@ $seasons    = array(
 	'suitable throughout the year' => __( "Suitable throughout the year", 'delicious-recipes'  ),
 );
 $additional_seasons = get_option( 'best_season_option', array() );
+
+// Exclude season if no recipe is assigned to it or assigned recipe is not published
+foreach ( $additional_seasons as $key => $value ) {
+	$args = array(
+		'post_type'        => DELICIOUS_RECIPE_POST_TYPE,
+		'posts_per_page'   => -1,
+		'suppress_filters' => false,
+		'post_status'      => 'publish',
+		'fields'           => 'ids',
+		'meta_query'       => array(
+			array(
+				'key'     => '_dr_best_season',
+				'value'   => $value,
+				'compare' => 'LIKE',
+			),
+		),
+	);
+	$results = get_posts( $args );
+	$count   = count( $results );
+	if ( $count === 0 ) {
+		unset( $additional_seasons[ $key ] );
+	}
+}
+
 if ( ! empty( $additional_seasons ) ) {
 	$seasons = array_merge( $seasons, $additional_seasons );
 }

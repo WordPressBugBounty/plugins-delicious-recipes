@@ -66,7 +66,7 @@ if ( ! function_exists( 'delicious_recipes_tax_by_type_block_render_callback' ) 
 			),
 		);
 
-		if ( $recipeType ) {
+		if ( $recipeType && ! empty($recipeType) ) {
 			$args['tax_query'] = array(
 				array(
 					'taxonomy'         => $tax,
@@ -201,7 +201,7 @@ function delicious_recipes_recipe_type_block_ajax() {
 	$recipes = array();
 	// Get global toggles.
 	$global_toggles = delicious_recipes_get_global_toggles_and_labels();
-	$img_size       = $global_toggles['enable_recipe_archive_image_crop'] ? 'delrecipe-crop-size-1' : 'full';
+	$img_size       = $global_toggles['enable_recipe_archive_image_crop'] ? 'wpdr-feat-thumb' : 'full';
 
 	if ( $recipes_query->have_posts() ) {
 
@@ -213,7 +213,7 @@ function delicious_recipes_recipe_type_block_ajax() {
 
 			$thumbnail_id = has_post_thumbnail( $recipe_metas->ID ) ? get_post_thumbnail_id( $recipe_metas->ID ) : '';
 			$thumbnail    = $thumbnail_id ? get_the_post_thumbnail( $recipe_metas->ID, $img_size ) : '';
-			$fallback_svg = delicious_recipes_get_fallback_svg( 'delrecipe-crop-size-1', true );
+			$fallback_svg = delicious_recipes_get_fallback_svg( 'wpdr-feat-thumb', true );
 
 			$recipe_keys    = array();
 			$recipe_courses = array();

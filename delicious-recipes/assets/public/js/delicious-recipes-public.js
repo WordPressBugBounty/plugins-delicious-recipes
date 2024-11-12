@@ -8,16 +8,16 @@ import LazyLoad from "vanilla-lazyload";
 import './ratings.js';
 
 // Additional Instruction Images for Recipe Instructions
-document.addEventListener('DOMContentLoaded', function() {
-    var remainingImageBoxes = document.querySelectorAll('.wpd-fslightbox-images-box');    
-    remainingImageBoxes.forEach(function(box) {
-        box.addEventListener('click', function() {
-            var lightboxLinks = this.closest('.additional-images').querySelector('.dr-lg-media-popup');
-            if (lightboxLinks) {
-                lightboxLinks.click();
-            }
-        });
-    });
+document.addEventListener('DOMContentLoaded', function () {
+	var remainingImageBoxes = document.querySelectorAll('.wpd-fslightbox-images-box');
+	remainingImageBoxes.forEach(function (box) {
+		box.addEventListener('click', function () {
+			var lightboxLinks = this.closest('.additional-images').querySelector('.dr-lg-media-popup');
+			if (lightboxLinks) {
+				lightboxLinks.click();
+			}
+		});
+	});
 });
 
 (function () {
@@ -46,17 +46,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	document.addEventListener('DOMContentLoaded', function () {
 		const splides = document.querySelectorAll('.dr-recipe-archive');
-		const splidesCount = document.querySelectorAll('.splide__slide').length;
+		const splidesCount = splides[0]?.querySelectorAll('.splide__slide').length;
 
 		let options = {
 			gap: '30px',
 			perPage: 3,
 			pagination: false,
 			direction: rtl ? 'rtl' : 'ltr', // Right-to-left support
+			breakpoints: {
+				1024: {
+					perPage: 2,
+				},
+				640: {
+					perPage: 1,
+				}
+			}
 		};
 		if (splidesCount < 4) {
 			options.type = 'slide';
-			options.arrows = false;
+			if (splidesCount === 1) {
+				options.arrow = false;
+			}
 		} else {
 			options.type = 'loop';
 		}
@@ -785,11 +795,10 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 });
 
-// for rating sets
 document.addEventListener('DOMContentLoaded', function () {
-	createRatingSystem('.wpd-rating-container');
+	createRatingSystem(null, '.wpd-rating-container');
 
-	if (!delicious_recipes.proEnabled) {
+	if (!delicious_recipes.proEnabled || !delicious_recipes.license_validity) {
 		const reviewForm = document.getElementById('respond');
 		if (reviewForm) {
 			var raitingContainers = reviewForm.querySelector('.comment-form-rating');
@@ -806,11 +815,41 @@ document.addEventListener('DOMContentLoaded', function () {
 				});
 			}
 		}
+
+		//Scroll comment section in view when ratings in header is clicked
+		const reviewSection = document.getElementById('respond');
+		if (reviewSection) {
+			['.dr-star-ratings-wrapper', '.dr-comment'].forEach(selector => {
+				const element = document.querySelector(selector);
+				if (element) {
+					element.addEventListener('click', () => {
+						document.getElementById('respond').scrollIntoView({ behavior: 'smooth' });
+					});
+				}
+			});
+		}
+
+		// Remove double comment form when elementor support toggle is enabled
+		const commentSection = document.querySelectorAll('.comments-area');
+		const enableElementorSupport = delicious_recipes.global_settings.enableElementorSupport;
+		if ( enableElementorSupport && 'yes' === enableElementorSupport[0] && commentSection !== null && commentSection.length > 1 ) {
+			commentSection[1].remove();
+		}
+
+		// Handle opening gallery with fslightbox
+		const galleryButton = document.querySelector('.view-gallery-btn');
+		if (galleryButton) {
+			galleryButton.addEventListener('click', function () {
+				if (window.fsLightboxInstances && window.fsLightboxInstances['gallery']) {
+					window.fsLightboxInstances['gallery'].open(0); // Opens from the first image
+				}
+			});
+		}
 	}
 });
 
 // reCAPTCHA for comments form
-if (!delicious_recipes.proEnabled) {
+if (!delicious_recipes.proEnabled || !delicious_recipes.license_validity) {
 	document.addEventListener('DOMContentLoaded', function () {
 		const enableRecaptchaForComments = delicious_recipes.global_settings.enableRecaptchaForComments;
 		const recaptchaSiteKey = delicious_recipes.global_settings.recaptchaSiteKey;

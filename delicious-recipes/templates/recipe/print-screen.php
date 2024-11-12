@@ -102,8 +102,8 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 			endif;
 		?>
 			<h1 id="dr-print-title" class="dr-print-title"><?php the_title(); ?></h1>
-			<div class="dr-print-img <?php echo esc_attr( $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2' : 'full' ); ?>">
-				<?php the_post_thumbnail( 'delrecipe-crop-size-2' ); ?>
+			<div class="dr-print-img <?php echo esc_attr( $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full' ); ?>">
+				<?php the_post_thumbnail( 'large' ); ?>
 			</div>
 		</div><!-- #dr-page1 -->
 

@@ -7,12 +7,12 @@
     ratingInput.type = 'hidden';
     ratingInput.value = 0;
 
-    function createRatingSystem(ratingContainer) {
-        const ratingContainers = document.querySelectorAll(ratingContainer);
-
+    function createRatingSystem(element = null, ratingContainer) {
+        const root = element || document;
         if (ratingContainer === null) {
             return;
         }
+        const ratingContainers = root.querySelectorAll(ratingContainer);
 
         ratingContainers.forEach(ratingContainer => {
             const dynamicRating = ratingContainer.dataset.dynamicRating;

@@ -54,9 +54,10 @@ global $recipe;
 		the_comments_navigation( $recipe->ID );
 
 		// If comments are closed and there are comments, let's leave a little note, shall we?
-		if ( ! comments_open( $recipe->ID ) ) : ?>
-			<p class="no-comments"><?php esc_html_e( "Comments are closed.", 'delicious-recipes' ); ?></p>
-		<?php
+		if ( ! comments_open( $recipe->ID ) ) :
+			?>
+			<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'delicious-recipes' ); ?></p>
+			<?php
 		endif;
 
 	endif; // Check for have_comments().

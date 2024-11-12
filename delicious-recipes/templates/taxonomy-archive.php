@@ -30,6 +30,9 @@ if ( wp_is_block_theme() ) {
 	get_header();
 }
 
+?>
+<div class="dr-archive-container">
+<?php
 if ( $show_archive_header ) :
 	?>
 	<header class="page-header">
@@ -67,7 +70,7 @@ endif;
 				<div id="dr-recipe-archive" class="dr-archive-list-wrapper">
 					<div class="dr-archive-list-gridwrap <?php echo esc_attr( $view_type ); ?>" itemscope itemtype="http://schema.org/ItemList">
 						<?php
-							$position = 1;
+						$position = 1;
 						if ( have_posts() ) {
 							while ( have_posts() ) {
 								the_post();
@@ -83,7 +86,7 @@ endif;
 
 								delicious_recipes_get_template( 'recipes-' . $view_type . '.php', $data );
 
-								$position++;
+								++$position;
 
 							} // end of the loop.
 						} else {
@@ -111,6 +114,7 @@ endif;
 		}
 		?>
 	</div>
+</div>
 <?php
 if ( wp_is_block_theme() ) {
 	block_footer_area();

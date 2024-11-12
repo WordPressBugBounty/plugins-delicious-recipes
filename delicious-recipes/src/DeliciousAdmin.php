@@ -50,14 +50,12 @@ class DeliciousAdmin {
 	 */
 	private function add_image_sizes() {
 		// Add image sizes.
-		add_image_size( 'delrecipe-crop-size-1', 450, 600, true ); // 450 pixels wide by 600 pixels tall, hard crop mode.
-		add_image_size( 'delrecipe-crop-size-2', 1024, 1024, true ); // 1024 pixels wide by 1024 pixels tall, hard crop mode.
-
-		// Recipe featured thumbnail.
-		add_image_size( 'recipe-feat-thumbnail', 150, 150, true ); // 150 pixels wide by 150 pixels tall, hard crop mode
+		add_image_size( 'wpdr-feat-thumb', 450, 600, true ); // 450 pixels wide by 600 pixels tall, hard crop mode.
 
 		// Add image size for recipe Schema.org markup.
-		add_image_size( 'delrecpe-structured-data-1_1', 1024, 1024, true ); // 1024 pixels wide by 1024 pixels tall, cropped to fit.
+		add_image_size( 'delrecpe-structured-data-1_1', 500, 500, true );
+		add_image_size( 'delrecpe-structured-data-4_3', 500, 375, true );
+		add_image_size( 'delrecpe-structured-data-16_9', 480, 270, true );
 	}
 
 	/**
@@ -202,6 +200,37 @@ class DeliciousAdmin {
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'import_assets' ), 988 );
 
 		add_action( 'init', array( $this, 'populate_dr_recipe_total_time' ) );
+
+		/**
+		 * Replace Recipes posts estimated cost currency symbol.
+		 *
+		 * @since 1.7.4
+		 */
+		add_action( 'init', array( $this, 'replace_recipe_estimated_cost_currency_symbol' ) );
+	}
+
+	/**
+	 * Replace Recipes posts estimated cost currency symbol with one set in global settings
+	 *
+	 * @since 1.7.4
+	 */
+	public function replace_recipe_estimated_cost_currency_symbol() {
+		$global_settings = get_option( 'delicious_recipe_settings', true );
+		$global_est_cost = isset( $global_settings['globalEstimatedCostCurr'] ) ? $global_settings['globalEstimatedCostCurr'] : '$';
+		$recipes         = get_posts(
+			array(
+				'post_type'      => DELICIOUS_RECIPE_POST_TYPE,
+				'posts_per_page' => -1,
+				'post_status'    => array( 'publish', 'draft' ),
+			)
+		);
+		foreach ( $recipes as $recipe ) {
+			$recipe_metadata = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
+			if ( ! empty( $recipe_metadata ) ) {
+				$recipe_metadata['estimatedCostCurr'] = $global_est_cost;
+				update_post_meta( $recipe->ID, 'delicious_recipes_metadata', $recipe_metadata );
+			}
+		}
 	}
 
 	/**
@@ -218,17 +247,17 @@ class DeliciousAdmin {
 			)
 		);
 		foreach ( $recipes as $recipe ) {
-			$recipe_total_time     = get_post_meta( $recipe->ID, '_dr_recipe_total_time', true );
-			$recipe_metadata       = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
+			$recipe_total_time = get_post_meta( $recipe->ID, '_dr_recipe_total_time', true );
+			$recipe_metadata   = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
 
 			// Ensure $recipe_metadata is an array.
 			if ( ! is_array( $recipe_metadata ) ) {
 				continue;
 			}
 
-			$prep_time             = $recipe_metadata['prepTime'] ?: 0;
-			$cook_time             = $recipe_metadata['cookTime'] ?: 0;
-			$rest_time             = $recipe_metadata['restTime'] ?: 0;
+			$prep_time             = isset( $recipe_metadata['prepTime'] ) ? (int) $recipe_metadata['prepTime'] : 0;
+			$cook_time             = isset( $recipe_metadata['cookTime'] ) ? (int) $recipe_metadata['cookTime'] : 0;
+			$rest_time             = isset( $recipe_metadata['restTime'] ) ? (int) $recipe_metadata['restTime'] : 0;
 			$calculated_total_time = $prep_time + $cook_time + $rest_time;
 
 			if ( empty( $recipe_total_time ) || $calculated_total_time !== $recipe_total_time ) {
@@ -1214,6 +1243,7 @@ class DeliciousAdmin {
 		if ( ! isset( $wp_customize ) ) {
 			$global_settings_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/adminCSS.asset.php';
 			wp_enqueue_style( 'delicious-recipe-admin', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/adminCSS.css', $global_settings_deps['dependencies'], $global_settings_deps['version'], 'all' );
+			wp_enqueue_style( 'delicious-recipe-admin-common', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/admin/common.css', array( 'wp-components' ), DELICIOUS_RECIPES_VERSION, 'all' );
 		}
 
 		if ( in_array( $screen->post_type, $post_types ) || in_array( $screen->id, $page_ids ) ) {
@@ -1294,6 +1324,11 @@ class DeliciousAdmin {
 
 				$global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
+				$license_validity_bool = true;
+				if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
+					$license_validity_bool = delicious_recipe_pro_check_license_status();
+				}
+
 				// Recipe global screen assets.
 				wp_register_script( 'delicious-recipe-global-settings', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/global.js', $global_deps['dependencies'], $global_deps['version'], true );
 
@@ -1308,12 +1343,11 @@ class DeliciousAdmin {
 						'pluginUrl'        => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
 						'maxUploadSize'    => esc_html( $max_upload_size ),
 						'defaultTemplates' => $default_templates,
+						'licenseValidity'  => $license_validity_bool,
 					)
 				);
 				wp_enqueue_script( 'delicious-recipe-global-settings' );
 			}
-
-			wp_enqueue_style( 'delicious-recipe-admin-common', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/admin/common.css', array( 'wp-components' ), DELICIOUS_RECIPES_VERSION, 'all' );
 
 			wp_enqueue_style( 'mCustomScrollbar', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/mcustomscrollbar/jquery.mCustomScrollbar.min.css', array(), '3.1.5', 'all' );
 

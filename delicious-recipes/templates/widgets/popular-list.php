@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
 global $recipe;
 // Get global toggles.
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
-$img_size       = $global_toggles['enable_recipe_archive_image_crop'] ? 'recipe-feat-thumbnail' : 'full';
+$img_size       = $global_toggles['enable_recipe_archive_image_crop'] ? 'thumbnail' : 'full';
 $img_size       = apply_filters( 'popular_list_img_size', $img_size );
 
 ?>
@@ -31,7 +31,7 @@ $img_size       = apply_filters( 'popular_list_img_size', $img_size );
 			if ( $recipe->thumbnail ) :
 				the_post_thumbnail( $img_size );
 			else :
-				delicious_recipes_get_fallback_svg( 'recipe-feat-thumbnail' );
+				delicious_recipes_get_fallback_svg( 'thumbnail' );
 			endif;
 			?>
 		</a>

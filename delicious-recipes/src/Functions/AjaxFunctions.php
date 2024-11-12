@@ -508,12 +508,12 @@ class AjaxFunctions {
 				$recipe_search_ids = array( 0 );
 			}
 
-			$seasons_meta    = array(
-				'fall'      => __( "fall", 'delicious-recipes'  ),
-				'winter'    => __( "winter", 'delicious-recipes'  ),
-				'summer'    => __( "summer", 'delicious-recipes'  ),
-				'spring'    => __( "spring", 'delicious-recipes'  ),
-				'suitable throughout the year' => __( "suitable throughout the year", 'delicious-recipes'  ),
+			$seasons_meta       = array(
+				'fall'                         => __( 'fall', 'delicious-recipes' ),
+				'winter'                       => __( 'winter', 'delicious-recipes' ),
+				'summer'                       => __( 'summer', 'delicious-recipes' ),
+				'spring'                       => __( 'spring', 'delicious-recipes' ),
+				'suitable throughout the year' => __( 'suitable throughout the year', 'delicious-recipes' ),
 			);
 			$additional_seasons = get_option( 'best_season_option', array() );
 			if ( ! empty( $additional_seasons ) ) {
@@ -537,7 +537,7 @@ class AjaxFunctions {
 			);
 
 			foreach ( $seasons_meta as $season ) {
-				$recipe_search_metas['seasons'][$season] = $this->filter_by_best_season( '_dr_best_season', $season, $recipe_search_ids );
+				$recipe_search_metas['seasons'][ $season ] = $this->filter_by_best_season( '_dr_best_season', $season, $recipe_search_ids );
 			}
 		}
 
@@ -553,7 +553,7 @@ class AjaxFunctions {
 			// Get global toggles.
 			$global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
-			$img_size     = $global_toggles['enable_recipe_archive_image_crop'] ? 'delrecipe-crop-size-1' : 'full';
+			$img_size     = $global_toggles['enable_recipe_archive_image_crop'] ? 'wpdr-feat-thumb' : 'full';
 			$thumbnail_id = has_post_thumbnail( $recipe_metas->ID ) ? get_post_thumbnail_id( $recipe_metas->ID ) : '';
 			$thumbnail    = $thumbnail_id ? get_the_post_thumbnail( $recipe_metas->ID, $img_size ) : '';
 
@@ -620,7 +620,7 @@ class AjaxFunctions {
 					'format'    => '?paged=%#%',
 					'current'   => $current_page,
 					'total'     => absint( $total_pages ),
-					'prev_text' => __( "Prev", 'delicious-recipes'  ) .
+					'prev_text' => __( 'Prev', 'delicious-recipes' ) .
 					'<svg xmlns="http://www.w3.org/2000/svg" width="18.479" height="12.689" viewBox="0 0 18.479 12.689">
 						<g transform="translate(17.729 11.628) rotate(180)">
 							<path d="M7820.11-1126.021l5.284,5.284-5.284,5.284" transform="translate(-7808.726 1126.021)" fill="none"
@@ -629,7 +629,7 @@ class AjaxFunctions {
 								stroke-linecap="round" stroke-width="1.5" />
 						</g>
 					</svg>',
-					'next_text' => __( "Next", 'delicious-recipes'  ) .
+					'next_text' => __( 'Next', 'delicious-recipes' ) .
 					'<svg xmlns="http://www.w3.org/2000/svg" width="18.479" height="12.689" viewBox="0 0 18.479 12.689"><g transform="translate(0.75 1.061)">
 							<path d="M7820.11-1126.021l5.284,5.284-5.284,5.284" transform="translate(-7808.726 1126.021)" fill="none"
 								stroke="#374757" stroke-linecap="round" stroke-width="1.5" />
@@ -688,7 +688,7 @@ class AjaxFunctions {
 					'delicious_recipes_changelogs_list',
 					array(
 						array(
-							'title'     => __( "Plugin", 'delicious-recipes'  ),
+							'title'     => __( 'Plugin', 'delicious-recipes' ),
 							'changelog' => $changelog,
 						),
 					)
@@ -797,7 +797,7 @@ class AjaxFunctions {
 	 *
 	 * @return int
 	 */
-	private function filter_by_best_season ($key, $value = '', $post_ids = array()){
+	private function filter_by_best_season( $key, $value = '', $post_ids = array() ) {
 		$args = array(
 			'post_type'        => DELICIOUS_RECIPE_POST_TYPE,
 			'posts_per_page'   => -1,
@@ -834,11 +834,11 @@ class AjaxFunctions {
 			'posts_per_page'   => -1,
 			'suppress_filters' => false,
 			'post_status'      => 'publish',
-			'post__in'         => !empty( $post_ids ) ? $post_ids : array(),
+			'post__in'         => ! empty( $post_ids ) ? $post_ids : array(),
 			'fields'           => 'ids',
 			'meta_query'       => array(),
 		);
-	
+
 		switch ( $key ) {
 			case '10-ingredients-or-less':
 				$args['meta_query'] = array(
@@ -867,7 +867,7 @@ class AjaxFunctions {
 						'value'   => 30,
 						'compare' => '<=',
 						'type'    => 'NUMERIC', // Ensures comparison as a number
-					),	
+					),
 				);
 				break;
 			case '7-ingredients-or-less':
@@ -881,10 +881,10 @@ class AjaxFunctions {
 				);
 				break;
 		}
-	
+
 		return count( get_posts( $args ) );
 	}
-	
+
 
 	private function filter_by_ingredients( $post_ids = array() ) {
 		$args = array(
@@ -892,7 +892,7 @@ class AjaxFunctions {
 			'posts_per_page'   => -1,
 			'suppress_filters' => false,
 			'post_status'      => 'publish',
-			'post__in' => !empty( $post_ids ) ? $post_ids : array(),
+			'post__in'         => ! empty( $post_ids ) ? $post_ids : array(),
 			'fields'           => 'ids',
 		);
 

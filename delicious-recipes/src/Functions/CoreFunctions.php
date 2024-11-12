@@ -329,7 +329,7 @@ function delicious_recipes_get_page_id( $page ) {
  * @return bool
  */
 function is_recipe_taxonomy() {
-	 return is_tax( get_object_taxonomies( DELICIOUS_RECIPE_POST_TYPE ) );
+	return is_tax( get_object_taxonomies( DELICIOUS_RECIPE_POST_TYPE ) );
 }
 
 /**
@@ -679,6 +679,7 @@ function delicious_recipes_get_global_settings() {
 					),
 				),
 			),
+			'globalEstimatedCostCurr' 	 => '$',
 			'enableNavigation'             => array(
 				'0' => 'yes',
 			),

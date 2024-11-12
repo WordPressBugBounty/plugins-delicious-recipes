@@ -35,7 +35,7 @@ if ( empty( $author_name ) && empty( $author_image ) && empty( $author_descripti
 	<div class="author-img-wrap">
 	<?php if ( $author_image ) : ?>
 		<figure class="author-img">
-			<?php echo wp_get_attachment_image( $author_image ); ?>
+			<?php echo wp_get_attachment_image( $author_image, 'full', false, array( 'class' => 'attachment-full size-full' ) ); ?>
 		</figure>
 	<?php endif; ?>
 			<?php

@@ -29,7 +29,6 @@ $dr_dashboard_permalink = delicious_recipes_get_page_permalink_by_id( delicious_
 						</div>
 						<div class="dr-ud__user-text">
 							<div class="dr-ud__user-name"><?php echo esc_html( $dr_current_user->user_nicename ); ?></div>
-							<a href="<?php echo esc_url( wp_logout_url( $dr_dashboard_permalink ) ); ?>" class="user-logout"><span><?php esc_html_e( "Log Out", 'delicious-recipes' ); ?></span></a>
 						</div>
 					</div>
 					<div class="dr-ud__user-menu">
@@ -57,8 +56,6 @@ $dr_dashboard_permalink = delicious_recipes_get_page_permalink_by_id( delicious_
 							?>
 						</ul>
 					</div>
-				</div>
-				<div class="dr-ud__sidebar-footer">
 					<button type="button" class="dr-sidebar-toggle-btn">
 						<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 44 44">
 							<g id="Group_6066" data-name="Group 6066" transform="translate(-305 -896)">
@@ -72,6 +69,11 @@ $dr_dashboard_permalink = delicious_recipes_get_page_permalink_by_id( delicious_
 							</g>
 						</svg>
 					</button>
+					<div class="dr-ud__sidebar-footer">
+						<div class="dr-ud__sidebar-footer-inner">
+							<a href="<?php echo esc_url( wp_logout_url( $dr_dashboard_permalink ) ); ?>" class="user-logout"><span><?php esc_html_e( "Log Out", 'delicious-recipes' ); ?></span></a>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="dr-ud__main dr-ud__main-wrap">

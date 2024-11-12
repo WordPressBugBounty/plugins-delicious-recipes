@@ -21,7 +21,7 @@ global $recipe;
 // Get global toggles.
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
-$img_size         = $global_toggles['enable_recipe_archive_image_crop'] ? 'delrecipe-crop-size-1' : 'full';
+$img_size         = $global_toggles['enable_recipe_archive_image_crop'] ? 'wpdr-feat-thumb' : 'full';
 $img_size         = apply_filters( 'recipes_grid_img_size', $img_size );
 $h_tag_open       = isset( $tax_page ) && $tax_page ? '<h3 class="dr-archive-list-title" itemprop="name">' : '<h2 class="dr-archive-list-title" itemprop="name">';
 $h_tag_close      = isset( $tax_page ) && $tax_page ? '</h3>' : '</h2>';
@@ -35,7 +35,7 @@ $disable_wishlist = isset( $disable_wishlist ) && $disable_wishlist ? true : fal
 			if ( $recipe->thumbnail ) :
 				the_post_thumbnail( $img_size );
 			else :
-				delicious_recipes_get_fallback_svg( 'delrecipe-crop-size-1' );
+				delicious_recipes_get_fallback_svg( 'wpdr-feat-thumb' );
 			endif;
 			?>
 		</a>

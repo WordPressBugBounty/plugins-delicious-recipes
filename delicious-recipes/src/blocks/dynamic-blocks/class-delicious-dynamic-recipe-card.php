@@ -432,7 +432,7 @@ class Delicious_Dynamic_Recipe_Card {
 				</figure>
 			</div>';
 		} else {
-			$fallback_svg      = delicious_recipes_get_fallback_svg( 'delrecipe-crop-size-2', true );
+			$fallback_svg      = delicious_recipes_get_fallback_svg( 'large', true );
 			$recipe_card_image = '<div class="dr-image">
 				<figure>
 					' . $fallback_svg . '
@@ -598,6 +598,8 @@ class Delicious_Dynamic_Recipe_Card {
 			$image_sizes_url  = array(
 				self::get_image_size_url( $image_id, 'full', $image_sizes ),
 				self::get_image_size_url( $image_id, 'delrecpe-structured-data-1_1', $image_sizes ),
+				self::get_image_size_url( $image_id, 'delrecpe-structured-data-4_3', $image_sizes ),
+				self::get_image_size_url( $image_id, 'delrecpe-structured-data-16_9', $image_sizes ),
 			);
 			$json_ld['image'] = array_values( array_unique( $image_sizes_url ) );
 		}
@@ -651,6 +653,8 @@ class Delicious_Dynamic_Recipe_Card {
 					$poster_sizes_url                 = array(
 						self::get_image_size_url( $poster_id, 'full' ),
 						self::get_image_size_url( $poster_id, 'delrecpe-structured-data-1_1' ),
+						self::get_image_size_url( $poster_id, 'delrecpe-structured-data-4_3' ),
+						self::get_image_size_url( $poster_id, 'delrecpe-structured-data-16_9' ),
 					);
 					$json_ld['video']['thumbnailUrl'] = array_values( array_unique( $poster_sizes_url ) );
 				}
@@ -669,6 +673,8 @@ class Delicious_Dynamic_Recipe_Card {
 						$image_sizes_url                  = array(
 							self::get_image_size_url( $image_id, 'full', $image_sizes ),
 							self::get_image_size_url( $image_id, 'delrecpe-structured-data-1_1', $image_sizes ),
+							self::get_image_size_url( $image_id, 'delrecpe-structured-data-4_3', $image_sizes ),
+							self::get_image_size_url( $image_id, 'delrecpe-structured-data-16_9', $image_sizes ),
 						);
 						$json_ld['video']['thumbnailUrl'] = array_values( array_unique( $image_sizes_url ) );
 					}

@@ -121,6 +121,10 @@ img {
 	float: none;
 }
 
+.single-recipe{
+	max-width: 100%;
+}
+
 .single-recipe .dr-entry-header {
 	margin-bottom: 40px;
 }
@@ -1375,6 +1379,11 @@ img {
 	padding: 40px 0 0;
 }
 
+.dr-nutrition-output-area .dr-nutrition-facts {
+	position: sticky;
+	top: 0;
+}
+
 .dr-nutrition-facts .dr-title-wrap {
 	display: flex;
 	-webkit-align-items: center;
@@ -2302,7 +2311,7 @@ img {
 	height: 13px;
 	margin-right: 5px;
 	vertical-align: middle;
-	fill: #e84e3b;
+	fill: var(--secondary-color);
 	-webkit-filter: drop-shadow(0 3px 6px rgba(232, 78, 59, 0.26));
 	filter: drop-shadow(0 3px 6px rgba(232, 78, 59, 0.26));
 	display: inline-block;
@@ -3272,7 +3281,6 @@ body .dr-nutrition-label .dr-nut-hr {
 .dr-advance-search .page-header .search-form,
 .dr-advance-search .page-header .searchform {
 	background: var(--white-color);
-	box-shadow: 0 11px 56px rgba(var(--black-color-rgb), 0.06);
 	display: flex;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -3280,6 +3288,8 @@ body .dr-nutrition-label .dr-nut-hr {
 	align-items: center;
 	max-width: 100%;
 	position: relative;
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 100px;
 }
 
 .dr-advance-search .search-form label,
@@ -3294,22 +3304,22 @@ body .dr-nutrition-label .dr-nut-hr {
 .dr-advance-search .search-form .search-field,
 .dr-advance-search .searchform input[type="text"] {
 	border: none;
-	height: 70px;
-	padding-left: 30px;
-	padding-right: 30px;
-	font-size: 1em;
+	height: 64px;
+	padding-left: 24px;
+	padding-right: 24px;
+	font-size: 16px;
 	color: var(--font-color);
 	width: 100%;
 	font-weight: normal;
 	float: none;
-	background-color: #fff;
+	background: none;
 }
 
 .dr-advance-search .search-form .search-submit,
 .dr-advance-search .searchform input[type="submit"] {
 	cursor: pointer;
-	width: 70px;
-	height: 70px;
+	width: 64px;
+	height: 64px;
 	background-image: none !important;
 	background-color: var(--primary-color);
 	border: none;
@@ -3334,8 +3344,8 @@ body .dr-nutrition-label .dr-nut-hr {
 .dr-advance-search .advance-search-options {
 	border-top: 1px solid rgba(var(--primary-color-rgb), 0.1);
 	border-bottom: 1px solid rgba(var(--primary-color-rgb), 0.1);
-	padding: 45px 0;
-	margin-bottom: 45px;
+	padding: 32px 0;
+	margin-bottom: 32px;
 }
 
 .dr-advance-search .advance-search-options .container {
@@ -3360,18 +3370,18 @@ body .dr-nutrition-label .dr-nut-hr {
 
 .dr-advance-search .advance-search-options .advance-search-title {
 	display: block;
-	font-size: 0.7778em;
-	font-weight: 600;
+	font-size: 14px;
+	font-weight: 500;
 	letter-spacing: 0.15px;
 	line-height: 1.3;
-	margin-bottom: 15px;
+	margin-bottom: 8px;
 }
 
 .advance-search-field .select2-container--default .select2-selection--multiple,
 .advance-search-field .select2-container--default .select2-selection--single {
 	border: none;
 	border-radius: 0;
-	min-height: 50px;
+	min-height: 44px;
 	/* padding-right: 30px; */
 	display: -webkit-box;
 	display: flex;
@@ -3389,6 +3399,7 @@ body .dr-nutrition-label .dr-nut-hr {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+	border-radius: 4px;
 }
 
 .advance-search-field .select2-container .selection {
@@ -4324,7 +4335,7 @@ body .dr-nutrition-label .dr-nut-hr {
 }
 
 .dr-advance-search .page-header {
-	margin-bottom: 60px;
+	margin-bottom: 32px;
 }
 
 .dr-advance-search .dr-search-item-wrap article .entry-header {
@@ -4729,7 +4740,7 @@ body .dr-nutrition-label .dr-nut-hr {
 	height: 15px;
 	margin-right: 5px;
 	vertical-align: middle;
-	fill: #e84e3b;
+	fill: var(--secondary-color);
 	-webkit-filter: drop-shadow(0 3px 6px rgba(232, 78, 59, 0.26));
 	filter: drop-shadow(0 3px 6px rgba(232, 78, 59, 0.26));
 	display: inline-block;
@@ -6350,7 +6361,7 @@ select {
 
 /* aspect ratio 3:4 */
 
-:where(.delrecipe-crop-size-1, .delrecipe-crop-size-2, .recipe-feat-thumbnail) :where(img, svg) {
+:where(.wpdr-feat-thumb, .thumbnail, .large) :where(img, svg) {
 	object-fit: cover;
 	height: auto;
 	aspect-ratio: 3/4;

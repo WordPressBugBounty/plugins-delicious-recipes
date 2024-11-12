@@ -3528,15 +3528,11 @@ select[name="wprecipemaker-dr-importRecipe_length"] {
 
 	.dr-nutrition-content .dr-form-content {
 		width: calc(100% - 285px);
-		padding-right: 20px;
-		margin-left: -15px;
+		padding-right: 16px;
 	}
 
 	.dr-nutrition-content .dr-form-content .dr-field {
-		margin-left: 15px;
-		margin-right: 15px;
-		width: calc(43% - 15px);
-		margin-bottom: 15px;
+		width: calc(43% - 16px);
 	}
 
 	.dr-nutrition-content .dr-form-content .dr-field:nth-child(2n) {

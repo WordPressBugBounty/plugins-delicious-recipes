@@ -17,7 +17,7 @@ if ( ! isset( $recipe->thumbnail_id ) || empty( $recipe->thumbnail_id ) || ! iss
 }
 
 // Image size.
-$img_size = $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2' : 'full';
+$img_size = $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full';
 
 ?>
 <figure class="dr-feature-image <?php echo esc_attr( $img_size ); ?>">
@@ -44,7 +44,7 @@ $img_size = $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2
 		<?php endforeach; ?>
 		
 		<!-- Visible button to open the lightbox -->
-		<a type="button" class="view-gallery-btn" onclick="openFsLightbox();">
+		<a type="button" class="view-gallery-btn">
 			<b><?php echo esc_html__( 'View Gallery', 'delicious-recipes' ); ?></b>
 			<span>
 				<?php
@@ -61,13 +61,4 @@ $img_size = $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2
 		</a>
 	<?php endif; ?>
 </figure>
-
-<script>
-	function openFsLightbox() {
-		// Trigger the lightbox to open from the first image in the gallery
-		if (window.fsLightboxInstances && window.fsLightboxInstances['gallery']) {
-			window.fsLightboxInstances['gallery'].open(0); // Opens from the first image
-		}
-	}
-</script>
 <?php

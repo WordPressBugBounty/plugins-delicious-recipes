@@ -16,7 +16,7 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
 get_header( 'recipe' ); ?>
@@ -28,21 +28,22 @@ get_header( 'recipe' ); ?>
 	do_action( 'delicious_recipes_before_main_content' );
 	?>
 
-	<?php while (have_posts()) : ?>
+	<?php while ( have_posts() ) : ?>
 		<?php the_post(); ?>
 
-		<?php delicious_recipes_get_template_part('content', 'single-recipe'); ?>
+		<?php delicious_recipes_get_template_part( 'content', 'single-recipe' ); ?>
 
-	<?php endwhile; // end of the loop. 
+		<?php
+	endwhile; // end of the loop.
 	?>
 
 	<?php
 	/**
 	 * delicious_recipes_after_main_content hook.
 	 *
-	 * @hooked 
+	 * @hooked
 	 */
-	do_action('delicious_recipes_after_main_content');
+	do_action( 'delicious_recipes_after_main_content' );
 	?>
 
 	<?php

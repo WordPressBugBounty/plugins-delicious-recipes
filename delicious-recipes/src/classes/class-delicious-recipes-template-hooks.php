@@ -133,7 +133,6 @@ class Delicious_Recipes_Template_Hooks {
 				<main class="site-main">
 				<?php
 			endif;
-			
 
 		if ( is_post_type_archive( DELICIOUS_RECIPE_POST_TYPE ) ) :
 			?>
@@ -335,7 +334,6 @@ class Delicious_Recipes_Template_Hooks {
 		$global_toggles = delicious_recipes_get_global_toggles_and_labels();
 		if ( $global_toggles['enable_comments'] ) { // Removed current theme supports case.
 			comments_template();
-
 		}
 	}
 

@@ -23,7 +23,12 @@ $enable_ingredients_checkbox = isset( $global_settings['enableIngredientsCheckbo
 $ingredients_column          = isset( $global_settings['ingredientsColumn'] ) && ! empty( $global_settings['ingredientsColumn'] ) ? $global_settings['ingredientsColumn'] : '1';
 $affiliate = '';
 
-if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
+$license_validity_bool = false;
+if ( function_exists( 'DEL_RECIPE_PRO' ) ){
+	$license_validity_bool = delicious_recipe_pro_check_license_status();
+}
+
+if ( $license_validity_bool ) {
 	$enable_affiliate_links_indicator = isset( $global_settings['enableAffiliateLinkIndicator'] ) && ! empty( $global_settings['enableAffiliateLinkIndicator'] ) && 'yes' === $global_settings['enableAffiliateLinkIndicator'][0];
 	if ( $enable_affiliate_links_indicator ) {
 		$affiliate = '*';
@@ -36,6 +41,8 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 	$default_unit_system   = isset( $global_settings['defaultUnitSystem'] ) && ! empty( $global_settings['defaultUnitSystem'] ) ? $global_settings['defaultUnitSystem'] : 'usCustomary';
 }
 
+
+
 $recipe_post_meta = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
 
 if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
@@ -47,7 +54,7 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 			<h3 class="dr-title"><?php echo esc_html( $ingredient_title ); ?></h3>
 
 			<?php
-			if ( function_exists( 'DEL_RECIPE_PRO' ) && $unit_conversion && isset( $recipe_post_meta['recipeUnitConversion'] ) && ! empty( $recipe_post_meta['recipeUnitConversion'] ) && is_array( $recipe_post_meta['recipeUnitConversion'] ) ) {
+			if ( $license_validity_bool && $unit_conversion && isset( $recipe_post_meta['recipeUnitConversion'] ) && ! empty( $recipe_post_meta['recipeUnitConversion'] ) && is_array( $recipe_post_meta['recipeUnitConversion'] ) ) {
 				?>
 				<div class="dr-unit-conversion-wrapper">
 					<label for="usCustomary">
@@ -63,7 +70,7 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 			}
 			?>
 
-			<?php ( function_exists( 'DEL_RECIPE_PRO' ) && $cookmode ) && cookmode(); ?>
+			<?php ( $cookmode && $license_validity_bool ) && cookmode(); ?>
 
 			<?php if ( $show_adjustable_serving ) { ?>
 				<div class="dr-ingredients-scale" data-serving-value="<?php echo esc_attr( $servings_value ); ?>">
@@ -106,7 +113,7 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 				>
 					<?php
 					foreach ( $ingre as $ingre_key => $ingredient ) :
-						if ( function_exists( 'DEL_RECIPE_PRO' ) && $show_ingredient_image ) {
+						if ( $license_validity_bool && $show_ingredient_image ) {
 							foreach ( $ingredient_images as $ingredient_image ) {
 								foreach ( $ingredient_image['keywords'] as $keyword ) {
 									if ( strtolower( $ingredient['ingredient'] ) === strtolower( $keyword ) ) {
@@ -123,7 +130,7 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 						$ingredient_unit = isset( $ingredient['unit'] ) ? $ingredient['unit'] : '';
 						$unit_text       = ! empty( $ingredient_unit ) ? $ingredient_unit : '';
 
-						if ( function_exists( 'DEL_RECIPE_PRO' ) && ! empty( $ingredient_links ) ) {
+						if ( $license_validity_bool && ! empty( $ingredient_links ) ) {
 							foreach ( $ingredient_links as $key => $ingredient_link ) {
 								if ( is_array( $ingredient_link ) && isset( $ingredient_link['ingredientsKeywords'] ) && is_array( $ingredient_link['ingredientsKeywords'] ) ) {
 									$ingredient_keywords = $ingredient_link['ingredientsKeywords'];
@@ -150,7 +157,7 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 						);
 						$ingre_string    = str_replace( array_keys( $ingredient_keys ), $ingredient_keys, $ingredient_string_format );
 						?>
-						<?php if ( $show_ingredient_image && $ingredient_found ) { ?>
+						<?php if ( $show_ingredient_image && $license_validity_bool && $ingredient_found ) { ?>
 							<li class="recipe-ingredient<?php echo $show_ingredient_image && $ingredient_found ? ' dr-ingredients-image-list-item' : ''; ?>">
 								<div class="wpdelicious-gallery-item small">
 									<img class="wpdelicious-gallery-image" src="<?php echo esc_url( $ingredient_image_url ); ?>" alt="<?php echo esc_attr( $ingredient['ingredient'] ); ?>">
@@ -158,7 +165,7 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 								<label for="dr-ing-<?php echo esc_attr( $ingre_key ); ?>-<?php echo esc_attr( $rand_key ); ?>"><?php echo wp_kses_post( $ingre_string ); ?></label>
 								<?php $ingredient_found = false; ?>
 							</li>
-						<?php } elseif ( $show_ingredient_image && ! $ingredient_found ) { ?>
+						<?php } elseif ( $show_ingredient_image && $license_validity_bool && ! $ingredient_found ) { ?>
 							<li class="recipe-ingredient<?php echo $show_ingredient_image && ! $ingredient_found ? ' dr-ingredients-image-list-item' : ''; ?>">
 								<div class="wpdelicious-gallery-item small">
 									<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/images/ingredient-placeholder.png' ); ?>" alt="placeholder-ingredient" class="wpdelicious-gallery-image">
@@ -183,7 +190,7 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 <?php endif; ?>
 
 <?php
-if ( function_exists( 'DEL_RECIPE_PRO' ) && ! empty( $ingredient_links ) ) {
+if ( $license_validity_bool && ! empty( $ingredient_links ) ) {
 	?>
 	<script>
 		document.addEventListener(

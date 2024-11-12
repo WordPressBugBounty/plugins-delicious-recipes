@@ -197,7 +197,7 @@
     height: 13px;
     margin-right: 7px;
     vertical-align: middle;
-    fill: #e84e3b;
+    fill: var(--secondary-color);
     -webkit-filter: drop-shadow(0 3px 6px #e84e3b36);
 	filter: drop-shadow(0 3px 6px #e84e3b36);
     display: inline-block;

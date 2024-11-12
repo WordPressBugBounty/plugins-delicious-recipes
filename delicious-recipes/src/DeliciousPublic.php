@@ -179,13 +179,17 @@ class DeliciousPublic {
 
 				// Add 'lazy' class if not present.
 				if ( strpos( $img_tag, 'class=' ) !== false ) {
-					$img_tag = preg_replace( '/class="([^"]*)"/i', 'class="$1 lazy"', $img_tag );
-				} else {
-					$img_tag = str_replace( '<img', '<img class="lazy"', $img_tag );
+					if ( ! is_null( $img_tag ) ) {
+						$img_tag = preg_replace( '/class="([^"]*)"/i', 'class="$1 lazy"', $img_tag );
+					}
+				} elseif ( ! is_null( $img_tag ) ) {
+						$img_tag = str_replace( '<img', '<img class="lazy"', $img_tag );
 				}
 
 				// Replace src with data-src.
-				return preg_replace( '/src="([^"]*)"/i', 'src="" data-src="$1"', $img_tag );
+				if ( ! is_null( $img_tag ) ) {
+					return preg_replace( '/src="([^"]*)"/i', 'src="$1" data-src="$1"', $img_tag );
+				}
 			},
 			$html
 		);
@@ -199,7 +203,7 @@ class DeliciousPublic {
 	public static function add_preload_featured_image() {
 		$global_settings = get_option( 'delicious_recipe_settings', true );
 		$global_toggles  = delicious_recipes_get_global_toggles_and_labels();
-		$img_size        = $global_toggles['enable_recipe_image_crop'] ? 'delrecipe-crop-size-2' : 'full';
+		$img_size        = $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full';
 
 		if ( isset( $global_settings['enablePreloadFeaturedImage'] ) && array( 'yes' ) !== $global_settings['enablePreloadFeaturedImage'] && ! is_singular( DELICIOUS_RECIPE_POST_TYPE ) ) {
 			return;
@@ -341,10 +345,12 @@ class DeliciousPublic {
 
 		$enable_autoload     = isset( $global_settings['autoloadRecipes']['0'] ) && 'yes' === $global_settings['autoloadRecipes']['0'] ? true : false;
 		$infiniteScroll_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/infiniteScroll.asset.php';
-		if ( isset( $global_settings['autoloadRecipes'] ) && $global_settings['autoloadRecipes'] === array( 'yes' ) ) {
-			wp_register_script( 'delicious-recipes-infiniteScroll', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/infiniteScroll.js', $infiniteScroll_deps['dependencies'], $infiniteScroll_deps['version'], true );
+		if ( ( isset( $global_settings['autoloadRecipes'] ) && 'yes' === $global_settings['autoloadRecipes'] ) || is_front_page()
+		|| ( isset( $global_settings['archivePaginationStyle'] ) && 'infinite_scroll' === $global_settings['archivePaginationStyle'] ) ) {
+			wp_enqueue_script( 'delicious-recipes-infiniteScroll', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/infiniteScroll.js', $infiniteScroll_deps['dependencies'], $infiniteScroll_deps['version'], true );
 		}
 
+		$license_validity              = function_exists( 'DEL_RECIPE_PRO' ) ? delicious_recipe_pro_check_license_status() : true;
 		$publicJS_deps                 = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicJS.asset.php';
 		$publicJS_deps['dependencies'] = array_merge( $publicJS_deps['dependencies'], array( 'jquery', 'wp-util', 'select2', 'parsley' ) );
 		$delicious_recipes             = array(
@@ -355,6 +361,7 @@ class DeliciousPublic {
 			'global_settings'      => $global_settings, // @since 1.4.7
 			'nutritionFacts'       => delicious_recipes_get_nutrition_facts(),
 			'proEnabled'           => function_exists( 'DEL_RECIPE_PRO' ),
+			'license_validity'     => $license_validity,
 		);
 
 		wp_enqueue_style( 'delicious-recipes-single', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/public/css' . $asset_script_path . 'delicious-recipes-public' . $min_prefix . '.css', array(), DELICIOUS_RECIPES_VERSION, 'all' );
@@ -448,7 +455,12 @@ class DeliciousPublic {
 			$global_toggles = delicious_recipes_get_global_toggles_and_labels();
 			// check if pro is enabled
 			$pro_enabled = function_exists( 'DEL_RECIPE_PRO' );
-			if ( ! $pro_enabled && $global_toggles['enable_ratings'] ) :
+			// added condition to check if pro is activated but license is not valid
+			$license_validity_bool = true;
+			if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
+				$license_validity_bool = delicious_recipe_pro_check_license_status();
+			}
+			if ( ( ! $pro_enabled || ! $license_validity_bool ) && $global_toggles['enable_ratings'] ) :
 				?>
 			<div class="comment-form-rating">
 				<label for="rating"><?php echo esc_html( $global_toggles['ratings_lbl'] ); ?></label>

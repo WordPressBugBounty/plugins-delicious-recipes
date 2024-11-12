@@ -20,15 +20,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $ran = rand( 1, 1000 );
-$ran++;
+++$ran;
 $dropdown_id = "dr-category-dropdown-{$ran}";
-$type_attr   = current_theme_supports( 'html5', 'script' ) ? '' : ' type="text/javascript"';
+$type_attr   = current_theme_supports( 'html5', 'script' ) ? '' : 'text/javascript';
 
 ?>
 <label class="screen-reader-text" for="<?php echo esc_attr( $dropdown_id ); ?>"><?php echo esc_html( $title ); ?></label>
 
 <select name="dr-recipe-cat-dropdown" id="<?php echo esc_attr( $dropdown_id ); ?>">
-	<option value=""><?php echo esc_html__( "Select Category", 'delicious-recipes' ); ?></option>
+	<option value=""><?php echo esc_html__( 'Select Category', 'delicious-recipes' ); ?></option>
 	<?php
 	foreach ( $categories as $key => $value ) {
 
@@ -43,7 +43,7 @@ $type_attr   = current_theme_supports( 'html5', 'script' ) ? '' : ' type="text/j
 			<?php echo esc_html( $category->name ); ?>
 			<?php
 			if ( $show_counts ) {
-				echo sprintf( '(%1$s)', esc_html( $category->count ) );
+				printf( '(%1$s)', esc_html( $category->count ) );
 			}
 			?>
 		</option>
@@ -51,17 +51,22 @@ $type_attr   = current_theme_supports( 'html5', 'script' ) ? '' : ' type="text/j
 	<?php } ?>
 </select>
 
-<script<?php echo esc_attr( $type_attr ); ?>>
+<script type=<?php echo esc_attr( $type_attr ); ?>>
 /* <![CDATA[ */
-(function() {
-	var dropdown = document.getElementById( "<?php echo esc_js( $dropdown_id ); ?>" );
-	function onSelectChange() {
-		if ( dropdown.options[ dropdown.selectedIndex ].value !== '' ) {
-			document.location.href = this.options[ this.selectedIndex ].value;
-		}
+document.addEventListener('DOMContentLoaded', () => {
+	const dropdown = document.getElementById("<?php echo esc_js( $dropdown_id ); ?>");
+
+	if (dropdown) {
+		dropdown.addEventListener('change', () => {
+			const selectedValue = dropdown.value;
+			if (selectedValue) {
+				window.location.href = selectedValue;
+			}
+		});
+	} else {
+		console.error("Dropdown element not found");
 	}
-	dropdown.onchange = onSelectChange;
-})();
+});
 /* ]]> */
 </script>
 
