@@ -28,24 +28,24 @@ class Delicious_Recipes_User_Account {
 	 * @return array Menus.
 	 */
 	private static function dashboard_menus() {
-		$dashboard_menus = array(
-			'browse' => array(
-				'menu_title'      => __( "Browse Recipes", 'delicious-recipes'  ),
+		$dashboard_menus        = array(
+			'browse'   => array(
+				'menu_title'      => __( 'Browse Recipes', 'delicious-recipes' ),
 				'menu_class'      => 'dr-ud_tab browse',
 				'menu_content_cb' => array( __CLASS__, 'dashboard_menu_browse_recipes_tab' ),
 				'priority'        => 10,
 				'svg'             => delicious_recipes_get_svg( 'browse', 'dashboard', '#000000' ),
 			),
 			'wishlist' => array(
-				'menu_title'      => __( "Favorites", 'delicious-recipes'  ),
+				'menu_title'      => __( 'Favorites', 'delicious-recipes' ),
 				'menu_class'      => 'dr-ud_tab wishlist',
 				'menu_content_cb' => array( __CLASS__, 'dashboard_menu_wishlist_tab' ),
 				'priority'        => 20,
 				'svg'             => delicious_recipes_get_svg( 'wishlist', 'dashboard', '#000000' ),
 			),
-			'profile' => array(
-				'menu_title'      => __( "Edit Profile", 'delicious-recipes'  ),
-				'menu_class'       => 'dr-ud_tab profile',
+			'profile'  => array(
+				'menu_title'      => __( 'Edit Profile', 'delicious-recipes' ),
+				'menu_class'      => 'dr-ud_tab profile',
 				'menu_content_cb' => array( __CLASS__, 'dashboard_menu_profile_tab' ),
 				'priority'        => 30,
 				'svg'             => delicious_recipes_get_svg( 'edit-profile', 'dashboard', '#000000' ),
@@ -74,31 +74,29 @@ class Delicious_Recipes_User_Account {
 	public static function output() {
 
 		global $wp;
-		$global_toggles  = delicious_recipes_get_global_toggles_and_labels();
+		$global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
 		if ( ! is_user_logged_in() ) {
 			// After password reset, add confirmation message.
 			if ( ! empty( $_GET['password-reset'] ) ) {
 				?>
-					<div class="delicious-recipes-success-msg"><?php esc_html_e( "Your Password has been updated successfully. Please Log in to continue.", 'delicious-recipes' ); ?></div>
+					<div class="delicious-recipes-success-msg"><?php esc_html_e( 'Your Password has been updated successfully. Please Log in to continue.', 'delicious-recipes' ); ?></div>
 				<?php
 			}
 
 			if ( isset( $_GET['action'] ) && 'lost-pass' == $_GET['action'] ) {
 				// Get lost password form.
 				self::lost_password();
-			}
-			elseif ( isset( $_GET['register'] ) && $global_toggles['enable_user_registration'] ) {
+			} elseif ( isset( $_GET['register'] ) && $global_toggles['enable_user_registration'] ) {
 				// Get user registration.
 				delicious_recipes_get_template( 'account/form-registration.php' );
 			} else {
 				// Get user login.
 				delicious_recipes_get_template( 'account/form-login.php' );
 			}
-		}
-		else {
-			$current_user = wp_get_current_user();
-			$args['current_user'] = $current_user;
+		} else {
+			$current_user            = wp_get_current_user();
+			$args['current_user']    = $current_user;
 			$args['dashboard_menus'] = self::dashboard_menus();
 			// Get user Dashboard.
 			delicious_recipes_get_template( 'account/content-dashboard.php', $args );
@@ -119,16 +117,19 @@ class Delicious_Recipes_User_Account {
 			*/
 		} elseif ( ! empty( $_GET['show-reset-form'] ) ) {
 			if ( isset( $_COOKIE[ 'wp-resetpass-' . COOKIEHASH ] ) && 0 < strpos( $_COOKIE[ 'wp-resetpass-' . COOKIEHASH ], ':' ) ) {
-				list( $rp_login, $rp_key ) = array_map( 'delicious_recipes_clean_vars', explode( ':', sanitize_text_field(wp_unslash( $_COOKIE[ 'wp-resetpass-' . COOKIEHASH ] )), 2 ) );
-				$user = self::check_password_reset_key( $rp_key, $rp_login );
+				list( $rp_login, $rp_key ) = array_map( 'delicious_recipes_clean_vars', explode( ':', sanitize_text_field( wp_unslash( $_COOKIE[ 'wp-resetpass-' . COOKIEHASH ] ) ), 2 ) );
+				$user                      = self::check_password_reset_key( $rp_key, $rp_login );
 
 				// reset key / login is correct, display reset password form with hidden key / login values
 				if ( is_object( $user ) ) {
 
-					delicious_recipes_get_template( 'account/form-reset-password.php', array(
-						'key'   => $rp_key,
-						'login' => $rp_login,
-					) );
+					delicious_recipes_get_template(
+						'account/form-reset-password.php',
+						array(
+							'key'   => $rp_key,
+							'login' => $rp_login,
+						)
+					);
 
 					return;
 				}
@@ -155,7 +156,7 @@ class Delicious_Recipes_User_Account {
 		$user = check_password_reset_key( $key, $login );
 
 		if ( is_wp_error( $user ) ) {
-			DEL_RECIPE()->notices->add( __( "Error : ", 'delicious-recipes'  )  . __( "This key is invalid or has already been used. Please reset your password again if needed.", 'delicious-recipes'  ), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Error : ', 'delicious-recipes' ) . __( 'This key is invalid or has already been used. Please reset your password again if needed.', 'delicious-recipes' ), 'error' );
 			return false;
 		}
 
@@ -172,13 +173,13 @@ class Delicious_Recipes_User_Account {
 	 */
 	public static function retrieve_password() {
 
-		if ( isset( $_POST['user_login'] )){
+		if ( isset( $_POST['user_login'] ) ) {
 			$login = sanitize_user( $_POST['user_login'] );
 		}
 
 		if ( empty( $login ) ) {
 
-			DEL_RECIPE()->notices->add( __( "Error : ", 'delicious-recipes'  )  . __( "Enter an email or username.", 'delicious-recipes'  ), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Error : ', 'delicious-recipes' ) . __( 'Enter an email or username.', 'delicious-recipes' ), 'error' );
 
 			return false;
 
@@ -198,20 +199,20 @@ class Delicious_Recipes_User_Account {
 
 		if ( $errors->get_error_code() ) {
 
-			DEL_RECIPE()->notices->add( __( "Error : ", 'delicious-recipes'  )  . $errors->get_error_message(), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Error : ', 'delicious-recipes' ) . $errors->get_error_message(), 'error' );
 
 			return false;
 		}
 
 		if ( ! $user_data ) {
 
-			DEL_RECIPE()->notices->add( __( "Error : ", 'delicious-recipes'  )  . __( "Invalid username or email.", 'delicious-recipes'  ), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Error : ', 'delicious-recipes' ) . __( 'Invalid username or email.', 'delicious-recipes' ), 'error' );
 
 			return false;
 		}
 
 		if ( is_multisite() && ! is_user_member_of_blog( $user_data->ID, get_current_blog_id() ) ) {
-			DEL_RECIPE()->notices->add( __( "Error : ", 'delicious-recipes'  )  . __( "Invalid username or email.", 'delicious-recipes'  ), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Error : ', 'delicious-recipes' ) . __( 'Invalid username or email.', 'delicious-recipes' ), 'error' );
 
 			return false;
 		}
@@ -225,13 +226,13 @@ class Delicious_Recipes_User_Account {
 
 		if ( ! $allow ) {
 
-			DEL_RECIPE()->notices->add( __( "Error : ", 'delicious-recipes'  )  . __( "Password reset is not allowed for this user.", 'delicious-recipes'  ), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Error : ', 'delicious-recipes' ) . __( 'Password reset is not allowed for this user.', 'delicious-recipes' ), 'error' );
 
 			return false;
 
 		} elseif ( is_wp_error( $allow ) ) {
 
-			DEL_RECIPE()->notices->add( __( "Error : ", 'delicious-recipes'  )  . $allow->get_error_message(), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Error : ', 'delicious-recipes' ) . $allow->get_error_message(), 'error' );
 
 			return false;
 		}
@@ -268,8 +269,8 @@ class Delicious_Recipes_User_Account {
 	public static function set_reset_password_cookie( $value = '' ) {
 		$rp_cookie = 'wp-resetpass-' . COOKIEHASH;
 
-		if ( isset( $_SERVER['REQUEST_URI'] )){
-			$rp_path   = current( explode( '?', wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
+		if ( isset( $_SERVER['REQUEST_URI'] ) ) {
+			$rp_path = current( explode( '?', wp_unslash( $_SERVER['REQUEST_URI'] ) ) );
 		}
 
 		if ( $value ) {
@@ -278,5 +279,4 @@ class Delicious_Recipes_User_Account {
 			setcookie( $rp_cookie, ' ', time() - YEAR_IN_SECONDS, $rp_path, COOKIE_DOMAIN, is_ssl(), true );
 		}
 	}
-
 }

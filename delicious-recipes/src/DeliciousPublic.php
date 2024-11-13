@@ -4,6 +4,7 @@
  *
  * @package Delicious_Recipes
  */
+
 namespace WP_Delicious;
 
 defined( 'ABSPATH' ) || exit;
@@ -350,7 +351,7 @@ class DeliciousPublic {
 			wp_enqueue_script( 'delicious-recipes-infiniteScroll', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/infiniteScroll.js', $infiniteScroll_deps['dependencies'], $infiniteScroll_deps['version'], true );
 		}
 
-		$license_validity              = function_exists( 'DEL_RECIPE_PRO' ) ? delicious_recipe_pro_check_license_status() : true;
+		$license_validity              = ( function_exists( 'DEL_RECIPE_PRO' ) && version_compare( DELICIOUS_RECIPES_PRO_VERSION, '2.2.2', '>=' ) ) ? delicious_recipe_pro_check_license_status() : true;
 		$publicJS_deps                 = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicJS.asset.php';
 		$publicJS_deps['dependencies'] = array_merge( $publicJS_deps['dependencies'], array( 'jquery', 'wp-util', 'select2', 'parsley' ) );
 		$delicious_recipes             = array(
@@ -379,7 +380,7 @@ class DeliciousPublic {
 
 		wp_enqueue_style( 'delicious-recipe-styles', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicCSS.css', array(), DELICIOUS_RECIPES_VERSION, 'all' );
 
-		// Enable/Disable FA Icons JS
+		// Enable/Disable FA Icons JS.
 		$disable_fa_icons_js = isset( $global_settings['disableFAIconsJS']['0'] ) && 'yes' === $global_settings['disableFAIconsJS']['0'] ? true : false;
 		if ( ! $disable_fa_icons_js ) {
 			wp_enqueue_script( 'all', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/fontawesome/all.min.js', array( 'jquery' ), '5.14.0', true );
@@ -453,11 +454,13 @@ class DeliciousPublic {
 	public function dr_comment_form_rating_fields() {
 		if ( is_singular( DELICIOUS_RECIPE_POST_TYPE ) ) {
 			$global_toggles = delicious_recipes_get_global_toggles_and_labels();
-			// check if pro is enabled
+
+			// Check if pro is enabled.
 			$pro_enabled = function_exists( 'DEL_RECIPE_PRO' );
-			// added condition to check if pro is activated but license is not valid
+
+			// Added condition to check if pro is activated but license is not valid.
 			$license_validity_bool = true;
-			if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
+			if ( function_exists( 'DEL_RECIPE_PRO' ) && version_compare( DELICIOUS_RECIPES_PRO_VERSION, '2.2.2', '>=' ) ) {
 				$license_validity_bool = delicious_recipe_pro_check_license_status();
 			}
 			if ( ( ! $pro_enabled || ! $license_validity_bool ) && $global_toggles['enable_ratings'] ) :

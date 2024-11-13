@@ -23,8 +23,8 @@ $enable_ingredients_checkbox = isset( $global_settings['enableIngredientsCheckbo
 $ingredients_column          = isset( $global_settings['ingredientsColumn'] ) && ! empty( $global_settings['ingredientsColumn'] ) ? $global_settings['ingredientsColumn'] : '1';
 $affiliate = '';
 
-$license_validity_bool = false;
-if ( function_exists( 'DEL_RECIPE_PRO' ) ){
+$license_validity_bool = true;
+if ( function_exists( 'DEL_RECIPE_PRO' ) && version_compare( DELICIOUS_RECIPES_PRO_VERSION, '2.2.2', '>=' ) ) {
 	$license_validity_bool = delicious_recipe_pro_check_license_status();
 }
 

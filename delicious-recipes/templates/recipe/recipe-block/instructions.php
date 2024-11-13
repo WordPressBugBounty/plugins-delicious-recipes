@@ -13,8 +13,8 @@ $enable_video_gallery = isset( $recipe->enable_video_gallery ) ? $recipe->enable
 $video_gallery_vids   = isset( $recipe->video_gallery ) ? $recipe->video_gallery : array();
 $recipe_settings      = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
 
-$license_validity_bool = false;
-if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
+$license_validity_bool = true;
+if ( function_exists( 'DEL_RECIPE_PRO' ) && version_compare( DELICIOUS_RECIPES_PRO_VERSION, '2.2.2', '>=' ) ) {
 	$license_validity_bool = delicious_recipe_pro_check_license_status();
 }
 

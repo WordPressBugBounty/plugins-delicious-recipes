@@ -66,7 +66,8 @@ if ( ! function_exists( 'delicious_recipes_tax_by_type_block_render_callback' ) 
 			),
 		);
 
-		if ( $recipeType && ! empty($recipeType) ) {
+		$recipeType = isset( $attributes['recipeType'] ) ? $attributes['recipeType'] : null;
+		if ( $recipeType && ! empty( $recipeType ) ) {
 			$args['tax_query'] = array(
 				array(
 					'taxonomy'         => $tax,

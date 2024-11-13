@@ -1,3 +1,7 @@
+1.7.5: 2024-11-13
+- Fixes: Resolved a fatal error triggered by license mandatory check conditions.
+- Fixes: Fixed an undefined variable issue in the "Recipe by Taxonomy" block.
+
 1.7.4: 2024-11-12
 - Added compatibility with WordPress WP 6.7.
 - New Feature: Introduced a feature to globally set the default currency for estimated costs.

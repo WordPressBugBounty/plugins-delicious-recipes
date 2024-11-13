@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Delicious 1.7.4\n"
+"Project-Id-Version: WP Delicious 1.7.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/delicious-recipes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-11-12T05:48:40+00:00\n"
+"POT-Creation-Date: 2024-11-13T07:28:34+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
 "X-Generator: WP-CLI 2.10.0\n"
@@ -1100,7 +1100,7 @@ msgid "Handpicked Recipes"
 msgstr ""
 
 #: src/blocks/handpicked-recipes/block.php:98
-#: src/blocks/recipe-by-tax/block.php:114
+#: src/blocks/recipe-by-tax/block.php:115
 #: templates/global/searchpage-content.php:81
 #: templates/global/searchpage-content.php:159
 #: templates/pages/taxonomy/terms-carousal.php:88
@@ -1208,6 +1208,7 @@ msgstr ""
 #: src/DeliciousAdmin.php:1514
 #: src/Functions/CoreFunctions.php:972
 #: src/Functions/HelperFunctions.php:1195
+#: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:27
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:437
 #: assets/admin/contexts/recipe-contexts.jsx:30
 #: assets/build/global.js:1214
@@ -1375,13 +1376,13 @@ msgstr ""
 #: src/dashboard/class-delicious-recipes-form-handler.php:56
 #: src/dashboard/class-delicious-recipes-form-handler.php:168
 #: src/dashboard/class-delicious-recipes-form-handler.php:182
-#: src/dashboard/class-delicious-recipes-user-account.php:158
-#: src/dashboard/class-delicious-recipes-user-account.php:181
-#: src/dashboard/class-delicious-recipes-user-account.php:201
-#: src/dashboard/class-delicious-recipes-user-account.php:208
-#: src/dashboard/class-delicious-recipes-user-account.php:214
-#: src/dashboard/class-delicious-recipes-user-account.php:228
-#: src/dashboard/class-delicious-recipes-user-account.php:234
+#: src/dashboard/class-delicious-recipes-user-account.php:159
+#: src/dashboard/class-delicious-recipes-user-account.php:182
+#: src/dashboard/class-delicious-recipes-user-account.php:202
+#: src/dashboard/class-delicious-recipes-user-account.php:209
+#: src/dashboard/class-delicious-recipes-user-account.php:215
+#: src/dashboard/class-delicious-recipes-user-account.php:229
+#: src/dashboard/class-delicious-recipes-user-account.php:235
 #: src/dashboard/delicious-recipes-user-dashboard-functions.php:100
 msgid "Error : "
 msgstr ""
@@ -1499,20 +1500,20 @@ msgstr ""
 msgid "Your Password has been updated successfully. Please Log in to continue."
 msgstr ""
 
-#: src/dashboard/class-delicious-recipes-user-account.php:158
+#: src/dashboard/class-delicious-recipes-user-account.php:159
 msgid "This key is invalid or has already been used. Please reset your password again if needed."
 msgstr ""
 
-#: src/dashboard/class-delicious-recipes-user-account.php:181
+#: src/dashboard/class-delicious-recipes-user-account.php:182
 msgid "Enter an email or username."
 msgstr ""
 
-#: src/dashboard/class-delicious-recipes-user-account.php:208
-#: src/dashboard/class-delicious-recipes-user-account.php:214
+#: src/dashboard/class-delicious-recipes-user-account.php:209
+#: src/dashboard/class-delicious-recipes-user-account.php:215
 msgid "Invalid username or email."
 msgstr ""
 
-#: src/dashboard/class-delicious-recipes-user-account.php:228
+#: src/dashboard/class-delicious-recipes-user-account.php:229
 msgid "Password reset is not allowed for this user."
 msgstr ""
 
@@ -2111,32 +2112,32 @@ msgstr ""
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: src/DeliciousPublic.php:358
+#: src/DeliciousPublic.php:359
 msgid "Select filters"
 msgstr ""
 
-#: src/DeliciousPublic.php:359
+#: src/DeliciousPublic.php:360
 msgid "Click here or Drop new image to update your profile picture"
 msgstr ""
 
-#: src/DeliciousPublic.php:441
+#: src/DeliciousPublic.php:442
 msgid "Leave a Comment"
 msgstr ""
 
 #. translators: %s is username.
-#: src/DeliciousPublic.php:444
+#: src/DeliciousPublic.php:445
 msgid "Leave a Comment to %s"
 msgstr ""
 
-#: src/DeliciousPublic.php:512
+#: src/DeliciousPublic.php:515
 msgid "Please rate the recipe."
 msgstr ""
 
-#: src/DeliciousPublic.php:579
+#: src/DeliciousPublic.php:582
 msgid "Rating"
 msgstr ""
 
-#: src/DeliciousPublic.php:667
+#: src/DeliciousPublic.php:670
 #: src/Functions/CoreFunctions.php:716
 #: assets/admin/components/global-settings/global-tabs/global-recipe-index.jsx:13
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:237
@@ -4135,7 +4136,7 @@ msgstr ""
 msgid "License"
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:19
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:18
 #: assets/admin/components/global-settings/global-tabs/global-shortcodes.jsx:162
 #: assets/build/global.js:1214
 msgid "Shortcodes feature is available in Pro version."
@@ -4838,6 +4839,10 @@ msgstr ""
 msgid "Estimated Cost Currency"
 msgstr ""
 
+#: assets/admin/components/global-settings/global-tabs/global-recipes-post.jsx:190
+msgid "New"
+msgstr ""
+
 #: assets/admin/components/global-settings/global-tabs/global-recipes-post.jsx:198
 #: assets/build/global.js:1212
 msgid "$"
@@ -5136,9 +5141,23 @@ msgstr ""
 msgid "Carousel Shortcode"
 msgstr ""
 
+#: assets/admin/components/global-settings/global-tabs/global-shortcodes.jsx:81
+#: assets/admin/components/global-settings/global-tabs/global-shortcodes.jsx:113
+#: assets/admin/components/global-settings/global-tabs/global-shortcodes.jsx:144
+msgid "Copy Shortcode!"
+msgstr ""
+
+#: assets/admin/components/global-settings/global-tabs/global-shortcodes.jsx:85
+msgid "Use [dr_recipe_archives num_posts=x carousel=true] to display the recipes in carousel format."
+msgstr ""
+
 #: assets/admin/components/global-settings/global-tabs/global-shortcodes.jsx:94
 #: assets/build/global.js:1214
 msgid "List Shortcode"
+msgstr ""
+
+#: assets/admin/components/global-settings/global-tabs/global-shortcodes.jsx:117
+msgid "Use [dr_recipe_archives layout=list num_posts=x] to display the recipes in list format."
 msgstr ""
 
 #: assets/admin/components/global-settings/global-tabs/global-shortcodes.jsx:126
@@ -5791,6 +5810,11 @@ msgstr ""
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:128
 #: assets/build/recipe.js:517
 msgid "Recipe Description"
+msgstr ""
+
+#: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:137
+#: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:147
+msgid "Enter content here"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:151

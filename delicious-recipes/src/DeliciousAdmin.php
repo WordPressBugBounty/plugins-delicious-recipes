@@ -1325,7 +1325,7 @@ class DeliciousAdmin {
 				$global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
 				$license_validity_bool = true;
-				if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
+				if ( function_exists( 'DEL_RECIPE_PRO' ) && version_compare( DELICIOUS_RECIPES_PRO_VERSION, '2.2.2', '>=' ) ) {
 					$license_validity_bool = delicious_recipe_pro_check_license_status();
 				}
 

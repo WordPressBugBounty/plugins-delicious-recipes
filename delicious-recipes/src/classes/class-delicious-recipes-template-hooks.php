@@ -331,9 +331,13 @@ class Delicious_Recipes_Template_Hooks {
 	 * @return void
 	 */
 	public function get_comments() {
-		$global_toggles = delicious_recipes_get_global_toggles_and_labels();
-		if ( $global_toggles['enable_comments'] ) { // Removed current theme supports case.
-			comments_template();
+		global $recipe;
+		$comment_status = get_post( $recipe->ID )->comment_status;
+		if ( 'closed' !== $comment_status ) {
+			$global_toggles = delicious_recipes_get_global_toggles_and_labels();
+			if ( $global_toggles['enable_comments'] ) { // Removed current theme supports case.
+				comments_template();
+			}
 		}
 	}
 
