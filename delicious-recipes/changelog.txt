@@ -1,3 +1,16 @@
+1.7.6: 2024-12-04
+- Enhancement: Improved the design of Nutrition Facts panel.
+- Enhancement: Made minor design adjustments on the Single Recipe Page.
+- Fixes: Resolved `_load_textdomain_just_in_time` warning.
+- Fixes: Addressed issue with recipe reviews displaying even when the comment form is disabled.
+- Fixes: Corrected sticky behavior of the nutrition facts panel on the Single Recipe Page.
+- Fixes: Fixed CSS conflict in the theme license activation field.
+- Fixes: Removed PHP deprecation warning.
+- Fixes: Resolved issue with the Social Share section in responsive view on the Single Recipe Page.
+- Fixes: Fixed issue with empty taxonomy icon.
+- Fixes: Addressed display issue in the Q&A section where replies were not being displayed accurately.
+- Fixes: Fixed issue with the Print Page where Print Options toggles weren't working as expected when Print Options label were translated.
+
 1.7.5: 2024-11-13
 - Fixes: Resolved a fatal error triggered by license mandatory check conditions.
 - Fixes: Fixed an undefined variable issue in the "Recipe by Taxonomy" block.

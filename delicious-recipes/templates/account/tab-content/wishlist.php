@@ -16,13 +16,13 @@ $_user_meta   = get_user_meta( $current_user->ID, 'delicious_recipes_user_meta',
 ?>
 <div class="dr-archive-list-wrapper" id="wishlist">
 	<header class="dr-archive-header">
-		<h2 class="dr-archive-title"><?php esc_html_e( "Favorites", 'delicious-recipes' ); ?></h2>
+		<h2 class="dr-archive-title"><?php esc_html_e( 'Favorites', 'delicious-recipes' ); ?></h2>
 
 		<?php if ( isset( $_user_meta['wishlists'] ) && ! empty( $_user_meta['wishlists'] ) ) : ?>
 			<div class="dr-archive-filter-area">
 				<div class="dr-archive-filter-top">
 					<div class="view-layout-buttons">
-						<span class="view-layout-title"><?php esc_html_e( "View by:", 'delicious-recipes' ); ?></span>
+						<span class="view-layout-title"><?php esc_html_e( 'View by:', 'delicious-recipes' ); ?></span>
 						<button type="button" id="grid-view" class="view-layout-btn grid-view active">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
 								<g id="Group_5889" data-name="Group 5889" transform="translate(0.188 -0.325)">
@@ -56,82 +56,83 @@ $_user_meta   = get_user_meta( $current_user->ID, 'delicious_recipes_user_meta',
 		<?php endif; ?>
 		<form role="search" method="get" class="search-form">
 			<label style="margin: 0;">
-				<input type="search" class="search-field" placeholder="<?php esc_attr_e( "Search Favorites", 'delicious-recipes' ); ?>" value="<?php echo esc_attr( $fav_search ); ?>" name="fav">
+				<input type="search" class="search-field" placeholder="<?php esc_attr_e( 'Search Favorites', 'delicious-recipes' ); ?>" value="<?php echo esc_attr( $fav_search ); ?>" name="fav">
 			</label>
 			<input type="hidden" name="tab" value="wishlist">
-			<input type="submit" class="search-submit" value="<?php esc_attr_e( "Search", 'delicious-recipes' ); ?>">
+			<input type="submit" class="search-submit" value="<?php esc_attr_e( 'Search', 'delicious-recipes' ); ?>">
 		</form>
 	</header>
-	<div class="dr-archive-list grid-view">
+	<?php
+	if ( isset( $_user_meta['wishlists'] ) && ! empty( $_user_meta['wishlists'] ) ) :
+		?>
+		<div class="dr-archive-list grid-view">
 		<?php
-		if ( isset( $_user_meta['wishlists'] ) && ! empty( $_user_meta['wishlists'] ) ) :
-			$global_settings        = delicious_recipes_get_global_settings();
-			$default_posts_per_page = isset( $global_settings['recipePerPage'] ) && ( ! empty( $global_settings['recipePerPage'] ) ) ? $global_settings['recipePerPage'] : get_option( 'posts_per_page' );
+		$global_settings        = delicious_recipes_get_global_settings();
+		$default_posts_per_page = isset( $global_settings['recipePerPage'] ) && ( ! empty( $global_settings['recipePerPage'] ) ) ? $global_settings['recipePerPage'] : get_option( 'posts_per_page' );
 
-			$cat = get_theme_mod( 'exclude_categories' );
-			if ( $cat ) {
-				$cat = array_diff( array_unique( $cat ), array( '' ) );
-			}
+		$cat = get_theme_mod( 'exclude_categories' );
+		if ( $cat ) {
+			$cat = array_diff( array_unique( $cat ), array( '' ) );
+		}
 
-			$current_paged = get_query_var( 'paged', 1 );
+		$current_paged = get_query_var( 'paged', 1 );
 
-			$args = array(
-				'post_type'           => DELICIOUS_RECIPE_POST_TYPE,
-				'post_status'         => 'publish',
-				'posts_per_page'      => absint( $default_posts_per_page ),
-				'post__in'            => $_user_meta['wishlists'],
-				'ignore_sticky_posts' => true,
-				'category__not_in'    => $cat,
-				's'                   => $fav_search,
-				'paged'               => get_query_var( 'paged', 1 ),
-			);
+		$args = array(
+			'post_type'           => DELICIOUS_RECIPE_POST_TYPE,
+			'post_status'         => 'publish',
+			'posts_per_page'      => absint( $default_posts_per_page ),
+			'post__in'            => $_user_meta['wishlists'],
+			'ignore_sticky_posts' => true,
+			'category__not_in'    => $cat,
+			's'                   => $fav_search,
+			'paged'               => get_query_var( 'paged', 1 ),
+		);
 
-			$query = new WP_Query( $args );
+		$query = new WP_Query( $args );
 
-			if ( $query->have_posts() ) :
+		if ( $query->have_posts() ) :
 
-				while ( $query->have_posts() ) :
-					$query->the_post();
+			while ( $query->have_posts() ) :
+				$query->the_post();
 
-					$data = array(
-						'disable_wishlist' => false,
-						'tax_page'         => true,
-					);
+				$data = array(
+					'disable_wishlist' => false,
+					'tax_page'         => true,
+				);
 
-					delicious_recipes_get_template( 'recipes-grid.php', $data );
+				delicious_recipes_get_template( 'recipes-grid.php', $data );
 				endwhile;
 
-				wp_reset_postdata();
-			else :
-				?>
+			wp_reset_postdata();
+		else :
+			?>
 
-				<div class="dr-archive-single">
-					<h3><?php esc_html_e( "No recipes found", 'delicious-recipes' ); ?></h3>
-				</div>
+			<div class="dr-archive-single">
+				<h3><?php esc_html_e( 'No recipes found', 'delicious-recipes' ); ?></h3>
+			</div>
 
-				<?php
-			endif;
-
+			<?php
+		endif;
+		?>
+		</div>
+		<?php
 		else :
 			?>
 
 			<div class="dr-archive-desc">
 				<?php
 				/* translators: %1$s: <a> tag open %2$s: </a> tag close */
-				echo sprintf( esc_html__( 'No recipes found in your wishlist. You can add recipes from %1$s Recipe Archive. %2$s', 'delicious-recipes' ), '<a href="' . esc_url_raw( get_post_type_archive_link( DELICIOUS_RECIPE_POST_TYPE ) ) . '">', '</a>' );
+				printf( esc_html__( 'No recipes found in your wishlist. You can add recipes from %1$s Recipe Archive. %2$s', 'delicious-recipes' ), '<a href="' . esc_url_raw( get_post_type_archive_link( DELICIOUS_RECIPE_POST_TYPE ) ) . '">', '</a>' );
 				?>
 			</div>
 
 			<?php
-		endif;
-		?>
-	</div>
+	endif;
 
-	<?php
-	the_posts_pagination();
+		the_posts_pagination();
 
 	$wp_query = $wp_query_backup;  // @phpcs:ignore
 
-	?>
+		?>
 </div>
 <?php

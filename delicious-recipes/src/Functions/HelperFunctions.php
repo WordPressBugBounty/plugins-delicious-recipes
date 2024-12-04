@@ -542,11 +542,12 @@ function delicious_recipes_get_nutrition_facts() {
 					'type'        => 'number',
 					'measurement' => 'kcal',
 				),
-				'caloriesFromFat' => array(
-					'name'        => esc_html__( "Calories from Fat", 'delicious-recipes' ),
-					'type'        => 'number',
-					'measurement' => 'kcal',
-				),
+// removed due to new nutrition layout design not having this field
+//				'caloriesFromFat' => array(
+//					'name'        => esc_html__( "Calories from Fat", 'delicious-recipes' ),
+//					'type'        => 'number',
+//					'measurement' => 'kcal',
+//				),
 			),
 
 			'main'   => array(
@@ -618,7 +619,7 @@ function delicious_recipes_get_nutrition_facts() {
 				'vitaminA'        => array(
 					'name'        => esc_html__( "Vitamin A", 'delicious-recipes' ),
 					'type'        => 'number',
-					'measurement' => 'IU', // As mentioned in https://gitlab.com/wp-delicious/delicious-recipes/-/issues/80
+					'measurement' => 'IU',
 				),
 				'vitaminC'        => array(
 					'name'        => esc_html__( "Vitamin C", 'delicious-recipes' ),
@@ -698,22 +699,22 @@ function delicious_recipes_get_nutrition_facts() {
 				'iodine'          => array(
 					'name'        => esc_html__( "Iodine", 'delicious-recipes' ),
 					'type'        => 'number',
-					'measurement' => 'g',
+					'measurement' => 'mcg',
 				),
 				'magnesium'       => array(
 					'name'        => esc_html__( "Magnesium", 'delicious-recipes' ),
 					'type'        => 'number',
-					'measurement' => 'mmol',
+					'measurement' => 'mg',
 				),
 				'zinc'            => array(
 					'name'        => esc_html__( "Zinc", 'delicious-recipes' ),
 					'type'        => 'number',
-					'measurement' => 'mcg',
+					'measurement' => 'mg',
 				),
 				'selenium'        => array(
 					'name'        => esc_html__( "Selenium", 'delicious-recipes' ),
 					'type'        => 'number',
-					'measurement' => 'mg',
+					'measurement' => 'mcg',
 				),
 				'copper'          => array(
 					'name'        => esc_html__( "Copper", 'delicious-recipes' ),
@@ -733,12 +734,12 @@ function delicious_recipes_get_nutrition_facts() {
 				'molybdenum'      => array(
 					'name'        => esc_html__( "Molybdenum", 'delicious-recipes' ),
 					'type'        => 'number',
-					'measurement' => 'mg',
+					'measurement' => 'mcg',
 				),
 				'chloride'        => array(
 					'name'        => esc_html__( "Chloride", 'delicious-recipes' ),
 					'type'        => 'number',
-					'measurement' => 'mmol',
+					'measurement' => 'mg',
 				),
 			),
 		)
@@ -978,7 +979,7 @@ function delicious_recipes_get_unit_text( $unit, $qty ) {
 	}
 
 	return $unit;
-	
+
 	$ingredien_units = delicious_recipes_get_ingredient_units();
 
 	if ( isset( $ingredien_units[ $unit ] ) ) {
@@ -1504,3 +1505,51 @@ function delicious_nutrition_chart_layout() {
 			return;
 	}
 }
+
+/**
+ * Get the breadcrumbs.
+ * @since 2.2.3
+ */
+function get_breadcrumbs($home = 'Home', $delimiter = ' &raquo; ', $before = '<span class="current">', $after = '</span>', $show_front = 'page', $post_page = false) {
+    $depth = 1; // Starting depth for home
+    
+    // Start of breadcrumb container
+    echo '<div class="breadcrumb-wrapper"><div id="crumbs" itemscope itemtype="https://schema.org/BreadcrumbList">';
+    
+    // Home breadcrumb
+    echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+    echo '<a href="' . esc_url(home_url()) . '" itemprop="item"><span itemprop="name" class="home-text">' . esc_html($home) . '</span></a><meta itemprop="position" content="' . absint($depth) . '" />' . $delimiter . '</span>';
+    $depth++;
+
+    // Single recipe post page
+    if (is_singular('recipe')) {
+        echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+        echo '<a href="' . esc_url(get_post_type_archive_link('recipe')) . '" itemprop="item"><span itemprop="name">Recipe</span></a><meta itemprop="position" content="' . absint($depth) . '" />' . $delimiter . '</span>';
+        $depth++;
+
+        $post = get_post();
+        echo $before . '<a itemprop="item" href="' . esc_url(get_permalink($post->ID)) . '"><span itemprop="name">' . esc_html(get_the_title($post->ID)) . '</span></a><meta itemprop="position" content="' . absint($depth) . '" />' . $after;
+        $depth++;
+    }
+
+    // Single post page for other post types
+    elseif (is_single()) {
+        $depth = 2;
+        $post = get_post();
+        $category = get_the_category($post->ID);
+        $category = !empty($category) ? $category[0] : null;
+
+        if ($category) {
+            echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="' . esc_url(get_category_link($category->term_id)) . '"><span itemprop="name">' . esc_html($category->name) . '</span></a><meta itemprop="position" content="' . absint($depth) . '" />' . $delimiter . '</span>';
+            $depth++;
+        }
+
+        echo $before . '<a itemprop="item" href="' . esc_url(get_permalink($post->ID)) . '"><span itemprop="name">' . esc_html(get_the_title($post->ID)) . '</span></a><meta itemprop="position" content="' . absint($depth) . '" />' . $after;
+        $depth++;
+    }
+
+    // End breadcrumb container
+    echo '</div></div>';
+}
+
+

@@ -20,14 +20,11 @@ if( $recipe_single ) : echo '<div class="dr-add-to-wishlist-single">'; endif;
 ?>
     <div class="dr-recipe-wishlist">
         <span id="dr-wishlist-id-<?php echo esc_attr( $id ); ?>" data-recipe-id="<?php echo esc_attr( $id ) ?>" class="<?php echo esc_attr( $wishlist_classes ); ?>">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <g id="bookmark-icon" transform="translate(-599.281 -1176)">
-                    <circle id="Ellipse_104" data-name="Ellipse 104" cx="12" cy="12" r="12" transform="translate(599.281 1176)" fill="#fff"/>
-                    <path id="Path_30691" data-name="Path 30691" d="M16.308,5h-9.9A.412.412,0,0,0,6,5.412V16.957a.412.412,0,0,0,.676.317l4.684-3.9,4.684,3.9a.412.412,0,0,0,.264.1.418.418,0,0,0,.175-.039.412.412,0,0,0,.237-.374V5.412A.412.412,0,0,0,16.308,5ZM15.9,16.078l-4.272-3.56a.412.412,0,0,0-.528,0l-4.272,3.56V5.825H15.9Z" transform="translate(600.281 1177)" fill="#232323"/>
-                </g>
-            </svg>
             <span class="dr-wishlist-total"><?php echo esc_html( $wishlists_count ); ?></span>
             <span class="dr-wishlist-info"><?php echo esc_html( $add_to_wishlist_lbl ); ?></span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.16663 6.5C4.16663 5.09987 4.16663 4.3998 4.43911 3.86502C4.67879 3.39462 5.06124 3.01217 5.53165 2.77248C6.06643 2.5 6.76649 2.5 8.16663 2.5H11.8333C13.2334 2.5 13.9335 2.5 14.4683 2.77248C14.9387 3.01217 15.3211 3.39462 15.5608 3.86502C15.8333 4.3998 15.8333 5.09987 15.8333 6.5V17.5L9.99996 14.1667L4.16663 17.5V6.5Z" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
         </span>
     </div>
 <?php

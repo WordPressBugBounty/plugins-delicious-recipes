@@ -7,17 +7,19 @@ global $recipe;
 
 // Get global toggles.
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
-
+$recipe_global  = delicious_recipes_get_global_settings();
 // Image size.
 $img_size   = $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full';
 $comment_id = $recipe->is_pro_active ? '#comments-' . esc_attr( $recipe->ID ) : '#comments';
+$enableComments = isset( $recipe_global['enableComments'] ) && ['yes'] === $recipe_global['enableComments'] ? true : false;
+
 ?>
 <div class="dr-post-summary layout-2">
 	<div class="dr-recipe-summary-inner">
 		<div class="dr-recipe-summary-header">
 			<div class="dr-title-wrap">
 				<h2 class="dr-title"><?php echo esc_html( $recipe->name ); ?></h2>
-				<?php if ( $recipe->rating_count && $global_toggles['enable_ratings'] ) : ?>
+				<?php if ( $recipe->rating_count && $global_toggles['enable_ratings'] && $enableComments && comments_open($recipe->ID) ) : ?>
 					<span class="dr-rating dr-star-ratings-wrapper">
 						<div class="dr-star-ratings">
 						<div id="recipe-card-rating-container" data-read-only="true" data-dynamic-rating="<?php echo $recipe->rating ? esc_attr( $recipe->rating ) : 0; ?>" class="wpd-rating-container"></div>

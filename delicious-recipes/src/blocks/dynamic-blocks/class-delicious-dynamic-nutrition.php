@@ -337,10 +337,11 @@ class Delicious_Dynamic_Nutrition {
 				'id'    => 'servings',
 				'label' => __( "Servings", 'delicious-recipes'  ),
 			),
-			array(
-				'id'    => 'calories',
-				'label' => __( "Calories", 'delicious-recipes'  ),
-			),
+// removed due to new nutrition layout design not having this field
+//			array(
+//				'id'    => 'calories',
+//				'label' => __( "Calories", 'delicious-recipes'  ),
+//			),
 			array(
 				'id'    => 'caloriesFromFat',
 				'label' => __( "Calories from Fat", 'delicious-recipes'  ),

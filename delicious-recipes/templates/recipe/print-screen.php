@@ -7,7 +7,7 @@
 
 global $recipe;
 $recipe_global = delicious_recipes_get_global_settings();
-$recipe_meta = get_post_meta($recipe->ID, 'delicious_recipes_metadata', true);
+$recipe_meta   = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
 
 $embed_recipe_link           = isset( $recipe_global['embedRecipeLink']['0'] ) && 'yes' === $recipe_global['embedRecipeLink']['0'] ? true : false;
 $display_social_sharing_info = isset( $recipe_global['displaySocialSharingInfo']['0'] ) && 'yes' === $recipe_global['displaySocialSharingInfo']['0'] ? true : false;
@@ -27,8 +27,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 ?><!DOCTYPE html>
 <html>
 <head>
-	<title><?php the_title(); ?></title>
-	<link rel="stylesheet" href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/public/css' . $asset_script_path . 'recipe-print' . $min_prefix . '.css'; ?>" media="screen,print">
+	<title><?php the_title(); ?></title> <link rel="stylesheet" href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/public/css' . $asset_script_path . 'recipe-print' . $min_prefix . '.css'; ?>" media="screen,print">
 	<?php delicious_recipes_get_template( 'global/dynamic-css.php' ); ?>
 	<meta name="robots" content="noindex">
 </head>
@@ -41,18 +40,18 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 		if ( ! empty( $print_options ) ) :
 			?>
 					<div id="dr-print-options" class="dr-clearfix">
-						<h3><?php esc_html_e( "Print Options:", 'delicious-recipes' ); ?></h3>
+						<h3><?php esc_html_e( 'Print Options:', 'delicious-recipes' ); ?></h3>
 					<?php
 					foreach ( $print_options as $key => $print_opt ) :
-						
+
 						// Display the "Recipe Content" checkbox option after the "Title" option.
 						if ( 1 === $key && isset( $print_options['11'] ) ) {
 							$name   = isset( $print_options['11']['key'] ) ? $print_options['11']['key'] : '';
 							$enable = isset( $print_options['11']['enable']['0'] ) && 'yes' === $print_options['11']['enable']['0'] ? true : false;
 							?>
 							<div class="dr-print-block">
-								<input id="print_options_<?php echo esc_attr( sanitize_title( $name ) ); ?>" type="checkbox" name="print_options" value="1" <?php checked( $enable, true ); ?> />
-								<label for="print_options_<?php echo esc_attr( sanitize_title( $name ) ); ?>"><?php echo esc_html( $name ); ?></label>
+								<input id="print_options_11" type="checkbox" name="print_options" value="1" <?php checked( $enable, true ); ?> />
+								<label for="print_options_11"><?php esc_html_e( $name, 'delicious-recipes' ); ?></label>
 							</div>
 							<?php
 						}
@@ -61,7 +60,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 							continue;
 						}
 
-						if ( 12 === $key && ! function_exists( 'DEL_RECIPE_PRO' )){
+						if ( 12 === $key && ! function_exists( 'DEL_RECIPE_PRO' ) ) {
 							continue;
 						}
 
@@ -69,16 +68,16 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 						$enable = isset( $print_opt['enable']['0'] ) && 'yes' === $print_opt['enable']['0'] ? true : false;
 						?>
 							<div class="dr-print-block">
-								<input id="print_options_<?php echo esc_attr( sanitize_title( $name ) ); ?>" type="checkbox" name="print_options" value="1" <?php checked( $enable, true ); ?> />
-								<label for="print_options_<?php echo esc_attr( sanitize_title( $name ) ); ?>"><?php echo esc_html( $name ); ?></label>
+								<input id="print_options_<?php echo esc_attr( sanitize_title( $key ) ); ?>" type="checkbox" name="print_options" value="1" <?php checked( $enable, true ); ?> />
+								<label for="print_options_<?php echo esc_attr( sanitize_title( $key ) ); ?>"><?php esc_html_e( $name, 'delicious-recipes' ); ?></label>
 							</div>
 						<?php endforeach; ?>
 					</div>
 				<?php
 			endif;
-		else:
+		else :
 			$print_options = isset( $recipe_global['printOptions'] ) ? $recipe_global['printOptions'] : array();
-			foreach( $print_options as $print_opt ){
+			foreach ( $print_options as $print_opt ) {
 				$name   = isset( $print_opt['key'] ) ? $print_opt['key'] : '';
 				$enable = isset( $print_opt['enable']['0'] ) && 'yes' === $print_opt['enable']['0'] ? true : false;
 				?>
@@ -86,20 +85,19 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				<?php
 			}
 		endif;
-	?>
-	<button class="dr-button" onclick="window.print();"><?php esc_html_e( "Print", 'delicious-recipes' ); ?></button>
+		?>
+	<button class="dr-button" onclick="window.print();"><?php esc_html_e( 'Print', 'delicious-recipes' ); ?></button>
 	<div class="dr-print-outer-wrap">
 		<div id="dr-page1" class="dr-print-header">
 		<?php
-			$print_logo_image = isset( $recipe_global['printLogoImage'] ) && ! empty( $recipe_global['printLogoImage'] ) ? $recipe_global['printLogoImage'] : false;
-
+		$print_logo_image = isset( $recipe_global['printLogoImage'] ) && ! empty( $recipe_global['printLogoImage'] ) ? $recipe_global['printLogoImage'] : false;
 		if ( $print_logo_image ) :
 			?>
-				<div class="dr-logo">
-				<?php echo wp_get_attachment_image( $print_logo_image, 'full' ); ?>
-				</div>
+			<div class="dr-logo">
+			<?php echo wp_get_attachment_image( $print_logo_image, 'full' ); ?>
+			</div>
 			<?php
-			endif;
+		endif;
 		?>
 			<h1 id="dr-print-title" class="dr-print-title"><?php the_title(); ?></h1>
 			<div class="dr-print-img <?php echo esc_attr( $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full' ); ?>">
@@ -124,7 +122,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 						<svg class="icon">
 							<use xlink:href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/sprite.svg#star-gray"></use>
 						</svg>
-						<b><?php esc_html_e( "Ratings", 'delicious-recipes' ); ?></b>
+						<b><?php esc_html_e( 'Ratings', 'delicious-recipes' ); ?></b>
 						<span>
 						<?php
 							/* translators: %1$s: rating %2$s: total ratings count */
@@ -175,7 +173,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 							<svg class="icon">
 								<use xlink:href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/sprite.svg#time"></use>
 							</svg>
-							<b><?php esc_html_e( "Time", 'delicious-recipes' ); ?></b>
+							<b><?php esc_html_e( 'Time', 'delicious-recipes' ); ?></b>
 						</div>
 						<div class="meta-wrap">
 							<?php if ( ! empty( $recipe->prep_time ) && $global_toggles['enable_prep_time'] ) : ?>
@@ -282,7 +280,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 					<div class="dr-print-block dr-description-wrap">
 						<div class="dr-pring-block-header">
 							<div class="dr-print-block-title">
-								<span><?php esc_html_e( "Description", 'delicious-recipes' ); ?></span>
+								<span><?php esc_html_e( 'Description', 'delicious-recipes' ); ?></span>
 							</div>
 						</div>
 						<div class="dr-pring-block-content">
@@ -411,7 +409,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 					<?php
 				endif;
 				?>
-			</divr
+			</div>
 			<?php
 			if ( $display_social_sharing_info && $socials_enabled ) :
 				$recipe_share_title = isset( $recipe_global['recipeShareTitle'] ) ? $recipe_global['recipeShareTitle'] : '';
@@ -513,13 +511,13 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				<?php
 			endif;
 
-			$recipe_extended_content    = isset($recipe_meta['extendedContent']) && $recipe_meta['extendedContent'] ? $recipe_meta['extendedContent'] : '';
-			if (function_exists( 'DEL_RECIPE_PRO' ) && $recipe_extended_content) {
-				$blocks = parse_blocks($recipe_extended_content);
-				
+			$recipe_extended_content = isset( $recipe_meta['extendedContent'] ) && $recipe_meta['extendedContent'] ? $recipe_meta['extendedContent'] : '';
+			if ( function_exists( 'DEL_RECIPE_PRO' ) && $recipe_extended_content ) {
+				$blocks = parse_blocks( $recipe_extended_content );
+
 				$output = '';
-				foreach ($blocks as $block) {
-					$output .= do_shortcode(render_block($block));
+				foreach ( $blocks as $block ) {
+					$output .= do_shortcode( render_block( $block ) );
 				}
 				echo '<div class="dr-extended-content-content">' . $output . '</div>';
 			}
@@ -545,7 +543,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 
 		function update_print_options( printOpt ){
 
-			if (printOpt.id == "print_options_title" && typeof document.getElementById('dr-print-title') != 'undefined') {
+			if (printOpt.id == "print_options_0" && typeof document.getElementById('dr-print-title') != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementById('dr-print-title').style.display = 'block';
 				} else {
@@ -553,7 +551,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_nutrition" && typeof document.getElementsByClassName('dr-wrp-only-nut')[0] != 'undefined') {
+			if (printOpt.id == "print_options_6" && typeof document.getElementsByClassName('dr-wrp-only-nut')[0] != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-wrp-only-nut')[0].style.display = 'block';
 				} else {
@@ -561,7 +559,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_info" && typeof document.getElementsByClassName('dr-ingredient-meta-wrap')[0] != 'undefined') {
+			if (printOpt.id == "print_options_1" && typeof document.getElementsByClassName('dr-ingredient-meta-wrap')[0] != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-ingredient-meta-wrap')[0].style.display = 'flex';
 				} else {
@@ -569,7 +567,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_description" && typeof document.getElementsByClassName('dr-description-wrap')[0] != 'undefined') {
+			if (printOpt.id == "print_options_2" && typeof document.getElementsByClassName('dr-description-wrap')[0] != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-description-wrap')[0].style.display = 'block';
 				} else {
@@ -577,7 +575,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_images" && typeof document.getElementsByClassName('dr-print-img')[0] != 'undefined') {
+			if (printOpt.id == "print_options_3" && typeof document.getElementsByClassName('dr-print-img')[0] != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-print-img')[0].style.display = 'block';
 					var print_images = document.getElementsByTagName('img');
@@ -593,7 +591,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_ingredients" && typeof document.getElementsByClassName('dr-ingredients-wrap')[0] != 'undefined') {
+			if (printOpt.id == "print_options_4" && typeof document.getElementsByClassName('dr-ingredients-wrap')[0] != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-ingredients-wrap')[0].style.display = 'block';
 				} else {
@@ -601,7 +599,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_instructions" && typeof document.getElementsByClassName('dr-print-instructions')[0] != 'undefined' ) {
+			if (printOpt.id == "print_options_5" && typeof document.getElementsByClassName('dr-print-instructions')[0] != 'undefined' ) {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-print-instructions')[0].style.display = 'block';
 				} else {
@@ -609,7 +607,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_notes" && typeof document.getElementsByClassName('dr-wrap-notes-keywords')[0] != 'undefined') {
+			if (printOpt.id == "print_options_7" && typeof document.getElementsByClassName('dr-wrap-notes-keywords')[0] != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-wrap-notes-keywords')[0].style.display = 'block';
 				} else {
@@ -617,7 +615,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_social-share" && typeof document.getElementsByClassName('dr-wrap-social-share')[0] != 'undefined') {
+			if (printOpt.id == "print_options_8" && typeof document.getElementsByClassName('dr-wrap-social-share')[0] != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-wrap-social-share')[0].style.display = 'block';
 				} else {
@@ -625,7 +623,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_author-bio" && typeof document.getElementsByClassName('dr-wrap-author-profile')[0] != 'undefined') {
+			if (printOpt.id == "print_options_9" && typeof document.getElementsByClassName('dr-wrap-author-profile')[0] != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-wrap-author-profile')[0].style.display = 'block';
 				} else {
@@ -633,7 +631,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_thank-you-note" && typeof document.getElementsByClassName('dr-wrap-thankyou')[0] != 'undefined') {
+			if (printOpt.id == "print_options_10" && typeof document.getElementsByClassName('dr-wrap-thankyou')[0] != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-wrap-thankyou')[0].style.display = 'block';
 				} else {
@@ -641,7 +639,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_recipe-content" && typeof document.getElementsByClassName('dr-content-wrap')[0] != 'undefined') {
+			if (printOpt.id == "print_options_11" && typeof document.getElementsByClassName('dr-content-wrap')[0] != 'undefined') {
 				if ( printOpt.checked ){
 					document.getElementsByClassName('dr-content-wrap')[0].style.display = 'block';
 				} else {
@@ -649,7 +647,7 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 				}
 			}
 
-			if (printOpt.id == "print_options_extended-content" && typeof document.getElementsByClassName('dr-extended-content-content')[0] != 'undefined') {
+			if (printOpt.id == "print_options_12" && typeof document.getElementsByClassName('dr-extended-content-content')[0] != 'undefined') {
 				if (printOpt.checked) {
 					document.getElementsByClassName('dr-extended-content-content')[0].style.display = 'block';
 				} else {

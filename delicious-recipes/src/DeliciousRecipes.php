@@ -16,13 +16,6 @@ defined( 'ABSPATH' ) || exit;
  */
 final class DeliciousRecipes {
 	/**
-	 * DeliciousRecipes version.
-	 *
-	 * @var string
-	 */
-	public $version;
-
-	/**
 	 * The single instance of the class.
 	 *
 	 * @var DeliciousRecipes
@@ -114,15 +107,11 @@ final class DeliciousRecipes {
 	 * DeliciousRecipes Constructor.
 	 */
 	public function __construct() {
-
-		$this->version = get_plugin_data( DELICIOUS_RECIPES_PLUGIN_FILE )['Version'];
-
 		$this->define_constants();
 		$this->init_hooks();
 		$this->includes();
 
 		add_action( 'plugins_loaded', array( $this, 'on_plugins_loaded' ), 9 );
-
 	}
 
 	/**
@@ -171,7 +160,6 @@ final class DeliciousRecipes {
 		$this->define( 'DELICIOUS_RECIPES_PLUGIN_NAME', 'delicious-recipes' );
 		$this->define( 'DELICIOUS_RECIPES_ABSPATH', dirname( DELICIOUS_RECIPES_PLUGIN_FILE ) . '/' );
 		$this->define( 'DELICIOUS_RECIPES_PLUGIN_BASENAME', plugin_basename( DELICIOUS_RECIPES_PLUGIN_FILE ) );
-		$this->define( 'DELICIOUS_RECIPES_VERSION', $this->version );
 		$this->define( 'DELICIOUS_RECIPES_TEMPLATE_DEBUG_MODE', false );
 		$this->define( 'DELICIOUS_RECIPES_PLUGIN_URL', $this->plugin_url() );
 		$this->define( 'DELICIOUS_RECIPE_POST_TYPE', 'recipe' );

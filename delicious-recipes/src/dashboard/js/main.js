@@ -91,11 +91,16 @@
         });
 
         DZOBJ_profile_img.on("success", function (file, response) {
-            if (response !== "error") {
-                var file_data = JSON.parse(response);
-                thisDZContainer_profile_img.find(".img").html("<img src='" + file_data.url + "'>");
-                thisDZContainer_profile_img.find("input[name='profile_image']").val(file_data.file);
-                thisDZContainer_profile_img.find("input[name='profile_image_url']").val(file_data.url);
+            if ( response.success ) {
+                // Update profile image preview
+                $('.dr-profile-img-holder img').attr('src', response.data.url);
+                
+                // Store attachment ID and url
+                $('input[name="profile_image"]').val(response.data.id);
+                $('input[name="profile_image_url"]').val(response.data.url);
+            } else {
+                toastr.error('Image upload failed. Please try again.');
+                DZOBJ_profile_img.removeFile(file);
             }
         });
 

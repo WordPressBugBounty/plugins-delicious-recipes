@@ -15,8 +15,8 @@
 }
 
 #Path_23588,
-#Path_23589, 
-.cls-1, 
+#Path_23589,
+.cls-1,
 .block-editor-block-icon svg.icon {
 	fill: #2db68d;
 }
@@ -312,7 +312,7 @@
 	margin-right: 0;
 }
 
-.te-post-wrap-outer .recipe-post .entry-meta > span .icon, 
+.te-post-wrap-outer .recipe-post .entry-meta > span .icon,
 .te-post-wrap-outer .recipe-post .entry-footer > span .icon {
     width: 15px;
     height: 15px;
@@ -422,7 +422,6 @@
 	display: inline-block;
 	margin-top: 10px;
 	margin-right: 20px;
-	font-family: var(--secondary-font);
 	font-size: 0.7778em;
 	letter-spacing: 0.5px;
 	color: rgba(0, 0, 0, 0.8);
@@ -710,7 +709,6 @@
 	padding: 30px 20px;
 	font-size: 15px;
 	color: rgba(35, 35, 35, 0.9);
-	font-family: var(--secondary-font);
 	width: 33.33%;
 	margin-top: -1px;
 }
@@ -835,7 +833,6 @@
 	font-size: 1.1111em;
 	font-weight: 600;
 	color: #232323;
-	font-family: var(--secondary-font);
 	line-height: 1.55;
 }
 
@@ -852,7 +849,6 @@
 .dr-ingredients-scale label {
 	display: inline-block;
 	margin: 0 6px 0;
-	font-family: var(--secondary-font);
 	letter-spacing: 0.5px;
 	font-size: 0.83333em;
 	color: rgba(35, 35, 35, 0.9);
@@ -1008,7 +1004,6 @@
 	font-size: 0.83333em;
 	font-weight: 600;
 	color: rgba(35, 35, 35, 0.9);
-	font-family: var(--secondary-font);
 	margin-right: 8px;
 }
 
@@ -1273,7 +1268,7 @@
 	color: #2db68d;
 }
 
-#dr-dynamic-recipe-card .dr-extra-meta .dr-sim-metaa select:hover option, 
+#dr-dynamic-recipe-card .dr-extra-meta .dr-sim-metaa select:hover option,
 .recipe-card-details.dr-extra-meta .dr-sim-metaa select:hover option {
     color: #32373c;
 }
@@ -1369,7 +1364,7 @@
 	margin-top: 20px;
 }
 
-.ingredient-buttons, 
+.ingredient-buttons,
 .direction-buttons {
     margin-top: 30px;
 }
@@ -1439,7 +1434,7 @@
 	color: #fff;
 }
 
-.dr-summary-holder .dr-extra-meta .icon, 
+.dr-summary-holder .dr-extra-meta .icon,
 .recipe-card-details .icon {
     width: 20px;
     height: 20px;
@@ -1452,7 +1447,7 @@
     display: inline-block;
 }
 
-.dr-summary-holder .dr-extra-meta .dr-season .icon, 
+.dr-summary-holder .dr-extra-meta .dr-season .icon,
 .recipe-card-details .dr-season .icon {
 	width: 25px;
 }
@@ -1501,7 +1496,7 @@
 	margin-bottom: 0;
 }
 
-.recipe-card-ingredients .rich-text.dr-title, 
+.recipe-card-ingredients .rich-text.dr-title,
 .recipe-card-directions .rich-text.dr-title {
     margin-top: 0;
 }
@@ -1510,7 +1505,7 @@
     margin-top: -20px;
 }
 
-.recipe-card-directions h4.rich-text, 
+.recipe-card-directions h4.rich-text,
 .recipe-card-directions h4.rich-text + .direction-step-controls-container {
     margin-left: -1em;
 }
@@ -1528,7 +1523,7 @@
 }
 
 .delicious-recipes-seo-settings .components-form-token-field__help,
-.delicious-recipes-details .components-panel__row .description, 
+.delicious-recipes-details .components-panel__row .description,
 .delicious-recipes-settings .components-panel__row .description {
 	margin-top: 0;
 	background: rgba(0, 0, 0, 0.03);
@@ -1536,7 +1531,7 @@
 	border-left: 3px solid #02acff;
 }
 
-.delicious-recipes-details .components-panel__row .description, 
+.delicious-recipes-details .components-panel__row .description,
 .delicious-recipes-settings .components-panel__row .description {
 	font-style: italic;
 	margin-top: 10px;
@@ -1546,7 +1541,7 @@
 .delicious-recipes-video-settings .components-base-control__label,
 .delicious-recipes-seo-settings .components-base-control__label,
 .delicious-recipes-details .components-base-control__label,
-.delicious-recipes-seo-settings .components-form-token-field__label, 
+.delicious-recipes-seo-settings .components-form-token-field__label,
 .delicious-recipes-settings .components-base-control__label {
 	font-weight: 600;
 }
@@ -1606,32 +1601,32 @@
     height: 20px;
 }
 
-.delicious-recipes-details .components-toggle-control, 
+.delicious-recipes-details .components-toggle-control,
 .delicious-recipes-settings .components-toggle-control {
 	margin-bottom: 0;
 }
 
-.delicious-recipes-details > .components-base-control, 
+.delicious-recipes-details > .components-base-control,
 .delicious-recipes-settings > .components-base-control {
 	border-top: 1px solid rgba(0, 0, 0, 0.05);
 	padding-top: 24px;
 }
 
-.delicious-recipes-details .components-panel__row, 
+.delicious-recipes-details .components-panel__row,
 .delicious-recipes-settings .components-panel__row {
 	flex-wrap: wrap;
 	margin-bottom: 24px;
 	align-items: initial;
 }
 
-.delicious-recipes-details .components-panel__row:empty, 
+.delicious-recipes-details .components-panel__row:empty,
 .delicious-recipes-settings .components-panel__row:empty {
     height: 0;
     min-height: 0;
     margin-bottom: 12px;
 }
 
-.delicious-recipes-details .components-panel__row > .components-base-control, 
+.delicious-recipes-details .components-panel__row > .components-base-control,
 .delicious-recipes-settings .components-panel__row > .components-base-control {
 	background: rgba(0, 0, 0, 0.05);
 	padding: 10px;
@@ -1639,7 +1634,7 @@
 	flex: 1;
 }
 
-.delicious-recipes-details .components-panel__row > .components-base-control:first-child, 
+.delicious-recipes-details .components-panel__row > .components-base-control:first-child,
 .delicious-recipes-settings .components-panel__row > .components-base-control:first-child {
 	width: 100%;
 	flex: auto;
@@ -1649,7 +1644,7 @@
 .delicious-recipes-details
 	.components-panel__row
 	> .components-base-control
-	+ .components-base-control, 
+	+ .components-base-control,
 	.delicious-recipes-settings .components-panel__row
 	> .components-base-control
 	+ .components-base-control {
@@ -1659,7 +1654,7 @@
 .delicious-recipes-details
 	.components-panel__row
 	> .components-base-control:first-child
-	+ .components-base-control, 
+	+ .components-base-control,
 	.delicious-recipes-settings .components-panel__row
 	> .components-base-control:first-child
 	+ .components-base-control {
@@ -1669,7 +1664,7 @@
 .delicious-recipes-details
 	.components-panel__row
 	> .components-base-control
-	+ span, 
+	+ span,
 	.delicious-recipes-settings .components-panel__row
 	> .components-base-control
 	+ span {
@@ -1681,7 +1676,7 @@
 	justify-content: flex-end;
 }
 
-.delicious-recipes-details .components-panel__row .editor-calculate-total-time, 
+.delicious-recipes-details .components-panel__row .editor-calculate-total-time,
 .delicious-recipes-settings .components-panel__row .editor-calculate-total-time {
 	margin-top: 10px;
 }
@@ -1689,7 +1684,7 @@
 .delicious-recipes-details
 	.components-base-control__field
 	.components-toggle-control
-	+ .components-base-control, 
+	+ .components-base-control,
 	.delicious-recipes-settings .components-base-control__field
 	.components-toggle-control
 	+ .components-base-control {

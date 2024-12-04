@@ -42,7 +42,7 @@ if (!empty($recipe_tax_terms)) :
                         </div>
                     </header>
 
-                    <section class="dr-cuisines-carousel splide">
+                    <section class="dr-cuisines-carousel splide" data-splide-count="<?php echo esc_html($term->count) ?>">
                         <div class="splide__arrows">
 		                    <button class="splide__arrow splide__arrow--prev">
                                 <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">

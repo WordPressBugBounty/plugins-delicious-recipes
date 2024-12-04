@@ -167,7 +167,22 @@ class Delicious_Recipes_Template_Hooks {
 	 * @return void
 	 */
 	public function recipe_get_single_header() {
-		delicious_recipes_get_template( 'recipe/header.php' );
+		$global_settings        = delicious_recipes_get_global_settings();
+		$selected_banner_layout = array();
+		$banner_layout_id       = 'default';
+		if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
+			$license_validity_bool = delicious_recipe_pro_check_license_status();
+			if ( $license_validity_bool ) {
+				$selected_banner_layout = isset( $global_settings['selectedBannerLayout'] ) ? $global_settings['selectedBannerLayout'] : array();
+				$banner_layout_id 	 = isset( $selected_banner_layout['id'] ) ? $selected_banner_layout['id'] : 'default';
+			}
+		}
+		$enable_elementor_support = isset( $global_settings['enableElementorSupport'] ) ? $global_settings['enableElementorSupport'] : false;
+		if ( isset( $selected_banner_layout ) && isset( $banner_layout_id ) && 'default' !== $banner_layout_id && ! $enable_elementor_support ) {
+			return;
+		} else {
+			delicious_recipes_get_template( 'recipe/header.php' );
+		}
 	}
 
 	/**
@@ -176,6 +191,14 @@ class Delicious_Recipes_Template_Hooks {
 	 * @return void
 	 */
 	public function recipe_get_gallery() {
+		global $recipe;
+		if ( isset( $recipe->recipe_subtitle ) && ! empty( $recipe->recipe_subtitle ) ) :
+			?>
+			<div class="dr-info">
+				<?php echo wp_kses_post( $recipe->recipe_subtitle ); ?>
+			</div>
+			<?php
+		endif;
 		delicious_recipes_get_template( 'recipe/gallery.php' );
 	}
 
@@ -191,7 +214,7 @@ class Delicious_Recipes_Template_Hooks {
 	/**
 	 * Get recipe summary template.
 	 *
-	 * @return void
+	 * @param string $card_layout Card layout.
 	 */
 	public function recipe_main_summary( $card_layout = '' ) {
 		$global_settings    = delicious_recipes_get_global_settings();
@@ -199,9 +222,9 @@ class Delicious_Recipes_Template_Hooks {
 		$card_layout        = $card_layout ? $card_layout : $global_card_layout;
 
 		$free_layouts = array( 'default', 'layout-1', 'layout-2' );
-		$card_layout  = in_array( $card_layout, $free_layouts ) ? $card_layout : ( delicious_recipes_is_pro_activated() ? $card_layout : 'default' );
+		$card_layout  = in_array( $card_layout, $free_layouts, true ) ? $card_layout : ( delicious_recipes_is_pro_activated() ? $card_layout : 'default' );
 
-		if ( ! in_array( $card_layout, $free_layouts ) && function_exists( 'delicious_recipes_pro_get_template_part' ) ) {
+		if ( ! in_array( $card_layout, $free_layouts, true ) && function_exists( 'delicious_recipes_pro_get_template_part' ) ) {
 			delicious_recipes_pro_get_template_part( 'recipe/recipe-block/summary', $card_layout );
 		} else {
 			delicious_recipes_get_template_part( 'recipe/recipe-block/summary', $card_layout );

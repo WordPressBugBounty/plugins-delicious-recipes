@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @category    Class
  */
 class Delicious_Recipes_Form_Handler {
-
 	/**
 	 * Hook in methods.
 	 */
@@ -24,7 +23,7 @@ class Delicious_Recipes_Form_Handler {
 		add_action( 'wp_loaded', array( __CLASS__, 'process_lost_password' ), 20 );
 		add_action( 'wp_loaded', array( __CLASS__, 'process_reset_password' ), 20 );
 
-		// add_action( 'wp_ajax_delicious_recipes_profile_image_upload', array( __CLASS__, 'upload_profile_image' ) );
+		add_action( 'wp_ajax_delicious_recipes_profile_image_upload', array( __CLASS__, 'upload_profile_image' ) );
 		add_action( 'wp_ajax_nopriv_delicious_recipes_process_login', array( __CLASS__, 'process_login' ) );
 	}
 
@@ -37,23 +36,23 @@ class Delicious_Recipes_Form_Handler {
 		$nonce_value = isset( $_POST['delicious_recipes_user_login_nonce'] ) ? $_POST['delicious_recipes_user_login_nonce'] : $nonce_value;
 
 		if ( ! empty( $_POST['login'] ) && wp_verify_nonce( $nonce_value, 'delicious_recipes_user_login' ) ) {
-			
+
 			try {
 				$creds = array(
-					'user_login'    => sanitize_user( wp_unslash($_POST['username']) ),
+					'user_login'    => sanitize_user( wp_unslash( $_POST['username'] ) ),
 					'user_password' => $_POST['password'],
 					'remember'      => isset( $_POST['rememberme'] ),
 				);
 
 				$validation_error = new WP_Error();
-				$validation_error = apply_filters( 'delicious_recipes_process_login_errors', $validation_error, sanitize_user(wp_unslash($_POST['username'])), $_POST['password'] );
+				$validation_error = apply_filters( 'delicious_recipes_process_login_errors', $validation_error, sanitize_user( wp_unslash( $_POST['username'] ) ), $_POST['password'] );
 
 				if ( $validation_error->get_error_code() ) {
-					throw new Exception( __( "Error : ", 'delicious-recipes'  ) . $validation_error->get_error_message() );
+					throw new Exception( __( 'Error : ', 'delicious-recipes' ) . $validation_error->get_error_message() );
 				}
 
 				if ( empty( $creds['user_login'] ) ) {
-					throw new Exception( __( "Error : ", 'delicious-recipes'  ) . __( "Username is required.", 'delicious-recipes'  ) );
+					throw new Exception( __( 'Error : ', 'delicious-recipes' ) . __( 'Username is required.', 'delicious-recipes' ) );
 				}
 
 				// On multisite, ensure user exists on current site, if not add them before allowing login.
@@ -77,14 +76,14 @@ class Delicious_Recipes_Form_Handler {
 
 					wp_send_json_success(
 						array(
-							'success' => __( "Success :  Login Successful", 'delicious-recipes'  ),
+							'success' => __( 'Success :  Login Successful', 'delicious-recipes' ),
 						)
 					);
 
 				} else {
 
 					if ( ! empty( $_POST['redirect'] ) ) {
-						$redirect = wp_sanitize_redirect(wp_unslash($_POST['redirect']));
+						$redirect = wp_sanitize_redirect( wp_unslash( $_POST['redirect'] ) );
 					} elseif ( delicious_recipes_get_raw_referer() ) {
 						$redirect = delicious_recipes_get_raw_referer();
 					} else {
@@ -101,16 +100,16 @@ class Delicious_Recipes_Form_Handler {
 
 					wp_send_json_error(
 						array(
-							'error' => __( "Error :  Invalid Username or Password", 'delicious-recipes'  ),
+							'error' => __( 'Error :  Invalid Username or Password', 'delicious-recipes' ),
 						)
 					);
 				}
-				DEL_RECIPE()->notices->add( apply_filters( 'delicious_recipes_login_errors', __( "Error :  Invalid Username or Password", 'delicious-recipes'  ) ), 'error' );
+				DEL_RECIPE()->notices->add( apply_filters( 'delicious_recipes_login_errors', __( 'Error :  Invalid Username or Password', 'delicious-recipes' ) ), 'error' );
 
 			}
 		} elseif ( isset( $_POST['username'] ) && empty( $_POST['username'] ) && wp_verify_nonce( $nonce_value, 'delicious_recipes_user_login' ) ) {
 
-			DEL_RECIPE()->notices->add( apply_filters( 'delicious_recipes_login_errors', __( "Error :  Username can not be empty", 'delicious-recipes'  ) ), 'error' );
+			DEL_RECIPE()->notices->add( apply_filters( 'delicious_recipes_login_errors', __( 'Error :  Username can not be empty', 'delicious-recipes' ) ), 'error' );
 
 		}
 	}
@@ -125,16 +124,16 @@ class Delicious_Recipes_Form_Handler {
 		if ( ! empty( $_POST['register'] ) && wp_verify_nonce( $nonce_value, 'delicious-recipes-user-register' ) ) {
 			$global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
-			$username = $global_toggles['generate_username'] ? '' : sanitize_user( wp_unslash($_POST['username'] ) );
+			$username = $global_toggles['generate_username'] ? '' : sanitize_user( wp_unslash( $_POST['username'] ) );
 			$password = $global_toggles['generate_password'] ? '' : $_POST['password'];
-			$email    = sanitize_email( wp_unslash($_POST['email']) );
+			$email    = sanitize_email( wp_unslash( $_POST['email'] ) );
 
 			try {
 				$validation_error = new WP_Error();
 				$validation_error = apply_filters( 'delicious_recipes_process_registration_errors', $validation_error, $username, $password, $email );
 
 				if ( $password && ( $_POST['password'] !== $_POST['c-password'] ) ) {
-					throw new Exception( __( "Passwords do not match", 'delicious-recipes'  ) );
+					throw new Exception( __( 'Passwords do not match', 'delicious-recipes' ) );
 				}
 
 				if ( $validation_error->get_error_code() ) {
@@ -154,7 +153,7 @@ class Delicious_Recipes_Form_Handler {
 				}
 
 				if ( ! empty( $_POST['redirect'] ) ) {
-					$redirect = wp_sanitize_redirect( wp_unslash($_POST['redirect']) );
+					$redirect = wp_sanitize_redirect( wp_unslash( $_POST['redirect'] ) );
 				} elseif ( delicious_recipes_get_raw_referer() ) {
 					$redirect = delicious_recipes_get_raw_referer();
 				} else {
@@ -165,7 +164,7 @@ class Delicious_Recipes_Form_Handler {
 				exit;
 
 			} catch ( Exception $e ) {
-				DEL_RECIPE()->notices->add( __( "Error : ", 'delicious-recipes'  ) . $e->getMessage(), 'error' );
+				DEL_RECIPE()->notices->add( __( 'Error : ', 'delicious-recipes' ) . $e->getMessage(), 'error' );
 			}
 		}
 	}
@@ -179,7 +178,7 @@ class Delicious_Recipes_Form_Handler {
 			try {
 				self::verify_recaptcha();
 			} catch ( Exception $errors ) {
-				DEL_RECIPE()->notices->add( __( "Error : ", 'delicious-recipes'  ) . $errors->getMessage(), 'error' );
+				DEL_RECIPE()->notices->add( __( 'Error : ', 'delicious-recipes' ) . $errors->getMessage(), 'error' );
 				return;
 			}
 
@@ -214,11 +213,11 @@ class Delicious_Recipes_Form_Handler {
 
 		if ( $user instanceof WP_User ) {
 			if ( empty( $posted_fields['password_1'] ) ) {
-				DEL_RECIPE()->notices->add( __( "Error :  Please enter your password.", 'delicious-recipes'  ), 'error' );
+				DEL_RECIPE()->notices->add( __( 'Error :  Please enter your password.', 'delicious-recipes' ), 'error' );
 			}
 
 			if ( $posted_fields['password_1'] !== $posted_fields['password_2'] ) {
-				DEL_RECIPE()->notices->add( __( "Error :  Passwords do not match", 'delicious-recipes'  ), 'error' );
+				DEL_RECIPE()->notices->add( __( 'Error :  Passwords do not match', 'delicious-recipes' ), 'error' );
 			}
 
 			$errors = new WP_Error();
@@ -245,7 +244,7 @@ class Delicious_Recipes_Form_Handler {
 
 		if ( delicious_recipes_is_account_page() && ! empty( $_GET['key'] ) && ! empty( $_GET['login'] ) ) {
 
-			$value = sprintf( '%s:%s', sanitize_text_field(wp_unslash( $_GET['login'] )), sanitize_text_field(wp_unslash( $_GET['key'] )) );
+			$value = sprintf( '%s:%s', sanitize_text_field( wp_unslash( $_GET['login'] ) ), sanitize_text_field( wp_unslash( $_GET['key'] ) ) );
 			Delicious_Recipes_User_Account::set_reset_password_cookie( $value );
 
 			wp_safe_redirect( add_query_arg( 'show-reset-form', 'true', delicious_recipes_lostpassword_url() ) );
@@ -257,6 +256,7 @@ class Delicious_Recipes_Form_Handler {
 	 * Save the password/account details and redirect back to the user dashboard page.
 	 */
 	public static function save_edit_profile_details() {
+
 		if ( isset( $_SERVER['REQUEST_METHOD'] ) && 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
 			return;
 		}
@@ -283,9 +283,9 @@ class Delicious_Recipes_Form_Handler {
 		$current_last_name  = $current_user->last_name;
 		$current_email      = $current_user->user_email;
 
-		$account_username     = ! empty( $_POST['username'] ) ? sanitize_user( wp_unslash($_POST['username']) ) : '';
-		$account_email        = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash($_POST['email']) ) : '';
-		$account_display_name = ! empty( $_POST['name'] ) ? sanitize_text_field( wp_unslash($_POST['name']) ) : '';
+		$account_username     = ! empty( $_POST['username'] ) ? sanitize_user( wp_unslash( $_POST['username'] ) ) : '';
+		$account_email        = ! empty( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
+		$account_display_name = ! empty( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
 		$pass_cur             = ! empty( $_POST['current_password'] ) ? $_POST['current_password'] : '';
 		$pass1                = ! empty( $_POST['new_password'] ) ? $_POST['new_password'] : '';
 		$pass2                = ! empty( $_POST['confirm_password'] ) ? $_POST['confirm_password'] : '';
@@ -302,8 +302,8 @@ class Delicious_Recipes_Form_Handler {
 		$required_fields = apply_filters(
 			'delicious_recipes_edit_profile_required_fields',
 			array(
-				'username' => __( "Username", 'delicious-recipes'  ),
-				'email'    => __( "Email", 'delicious-recipes'  ),
+				'username' => __( 'Username', 'delicious-recipes' ),
+				'email'    => __( 'Email', 'delicious-recipes' ),
 			)
 		);
 
@@ -317,27 +317,27 @@ class Delicious_Recipes_Form_Handler {
 		if ( $account_email ) {
 			$account_email = sanitize_email( $account_email );
 			if ( ! is_email( $account_email ) ) {
-				DEL_RECIPE()->notices->add( __( "Please provide a valid email address", 'delicious-recipes'  ), 'error' );
+				DEL_RECIPE()->notices->add( __( 'Please provide a valid email address', 'delicious-recipes' ), 'error' );
 			} elseif ( email_exists( $account_email ) && $account_email !== $current_user->user_email ) {
-				DEL_RECIPE()->notices->add( __( "The email address is already registered", 'delicious-recipes'  ), 'error' );
+				DEL_RECIPE()->notices->add( __( 'The email address is already registered', 'delicious-recipes' ), 'error' );
 			}
 			$user->user_email = $account_email;
 		}
 
 		if ( ! empty( $pass_cur ) && empty( $pass1 ) && empty( $pass2 ) ) {
-			DEL_RECIPE()->notices->add( __( "Please Fill Out All Password Fields.", 'delicious-recipes'  ), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Please Fill Out All Password Fields.', 'delicious-recipes' ), 'error' );
 			$save_pass = false;
 		} elseif ( ! empty( $pass1 ) && empty( $pass_cur ) ) {
-			DEL_RECIPE()->notices->add( __( "Please Enter Your Current Password", 'delicious-recipes'  ), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Please Enter Your Current Password', 'delicious-recipes' ), 'error' );
 			$save_pass = false;
 		} elseif ( ! empty( $pass1 ) && empty( $pass2 ) ) {
-			DEL_RECIPE()->notices->add( __( "Please re-enter your password", 'delicious-recipes'  ), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Please re-enter your password', 'delicious-recipes' ), 'error' );
 			$save_pass = false;
 		} elseif ( ( ! empty( $pass1 ) || ! empty( $pass2 ) ) && $pass1 !== $pass2 ) {
-			DEL_RECIPE()->notices->add( __( "New Passwords do not match", 'delicious-recipes'  ), 'error' );
+			DEL_RECIPE()->notices->add( __( 'New Passwords do not match', 'delicious-recipes' ), 'error' );
 			$save_pass = false;
 		} elseif ( ! empty( $pass1 ) && ! wp_check_password( $pass_cur, $current_user->user_pass, $current_user->ID ) ) {
-			DEL_RECIPE()->notices->add( __( "Your current password is incorrect", 'delicious-recipes'  ), 'error' );
+			DEL_RECIPE()->notices->add( __( 'Your current password is incorrect', 'delicious-recipes' ), 'error' );
 			$save_pass = false;
 		}
 
@@ -345,29 +345,10 @@ class Delicious_Recipes_Form_Handler {
 			$user->user_pass = $pass1;
 		}
 
-		$_user_meta = get_user_meta( $user_id, 'delicious_recipes_user_meta', true );
-
-		if ( ! is_array( $_user_meta ) || empty( $_user_meta ) ) :
-			$_user_meta = array();
-		endif;
-		if ( ! empty( $_FILES['profile_image']['name'] ) ) {
-			$uploaded_file = wp_handle_upload( $_FILES['profile_image'], array( 'test_form' => false ) );
-
-			if ( isset( $uploaded_file['file'] ) ) {
-				$file_path = $uploaded_file['file'];
-				$attach_id = self::set_profile_image( $file_path, $user_id );
-
-				if ( ! $attach_id ) {
-					DEL_RECIPE()->notices->add( __( "There was an issue updating your profile photo.", 'delicious-recipes'  ), 'error' );
-				} else {
-					$_user_meta['profile_image_id'] = absint( $attach_id );
-					update_user_meta( $user_id, 'delicious_recipes_user_meta', $_user_meta );
-				}
-			}
-		} elseif ( isset( $_user_meta['profile_image_id'] ) && is_numeric( $_user_meta['profile_image_id'] ) ) {
-			wp_delete_attachment( $_user_meta['profile_image_id'] );
-			$_user_meta['profile_image_id'] = false;
-			update_user_meta( $user_id, 'delicious_recipes_user_meta', $_user_meta );
+		// Update user avatar.
+		if ( isset( $_POST['profile_image'] ) && is_numeric( $_POST['profile_image'] ) ) {
+			$profile_image_id = absint( $_POST['profile_image'] );
+			update_user_meta( $user_id, 'user_avatar', $profile_image_id );
 		}
 
 		// Allow plugins to return their own errors.
@@ -383,8 +364,7 @@ class Delicious_Recipes_Form_Handler {
 		if ( delicious_recipes_get_notice_count( 'error' ) === 0 ) {
 			wp_update_user( $user );
 
-			DEL_RECIPE()->notices->add( __( "Account Details Updated Successfully", 'delicious-recipes'  ), 'success' );
-
+			DEL_RECIPE()->notices->add( __( 'Account Details Updated Successfully', 'delicious-recipes' ), 'success' );
 			do_action( 'delicious_recipes_edit_profile', $user->ID );
 		}
 
@@ -397,9 +377,8 @@ class Delicious_Recipes_Form_Handler {
 	/**
 	 * Set user dashboard profile image
 	 *
-	 * @param boolean $image_url
-	 * @param boolean $user_id
-	 * @return void
+	 * @param boolean $image_url Image URL.
+	 * @param boolean $user_id User ID.
 	 */
 	public static function set_profile_image( $image_url = false, $user_id = false ) {
 
@@ -458,7 +437,6 @@ class Delicious_Recipes_Form_Handler {
 		endif;
 
 		return false;
-
 	}
 
 	/**
@@ -467,57 +445,48 @@ class Delicious_Recipes_Form_Handler {
 	 * @return void
 	 */
 	public static function upload_profile_image() {
+		if ( ! isset( $_FILES['file'] ) || ! isset( $_REQUEST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['nonce'] ) ), 'delicious-recipes-profile-image-nonce' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Invalid request. Nonce verification failed.', 'delicious-recipes' ) ) );
+		}
+		// Check the file type and size.
+		$allowed_filetypes = array( 'image/jpeg', 'image/png', 'image/gif', 'image/webp' );
+		if ( isset( $_FILES['file']['type'] ) && ! in_array( $_FILES['file']['type'], $allowed_filetypes, true ) ) {
+			wp_send_json_error( array( 'message' => __( 'Unsupported file type uploaded.', 'delicious-recipes' ) ) );
+		}
 
-		if ( ! empty( $_FILES ) && wp_verify_nonce( $_REQUEST['nonce'], 'delicious-recipes-profile-image-nonce' ) ) :
-			
-			$allowed_filetypes = array( 'image/jpeg', 'image/png', 'image/gif', 'image/webp' );
+		if ( isset( $_FILES['file']['size'] ) && $_FILES['file']['size'] > wp_max_upload_size() ) {
+			wp_send_json_error( array( 'message' => __( 'File size too large.', 'delicious-recipes' ) ) );
+		}
 
-			$_uploads   = wp_upload_dir();
-			$dr_tmp_dir = trailingslashit( $_uploads['basedir'] ) . 'delicious-recipes/tmp';
-			$dr_tmp_url = str_replace( array( 'http://', 'https://' ), '//', trailingslashit( $_uploads['baseurl'] ) . 'delicious-recipes/tmp' );
+		// Use WordPress functions to handle the file upload.
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
 
-			if ( isset( $_FILES['file']['tmp_name'] ) ) {
-				$source      = $_FILES['file']['tmp_name'];
-			}
+		$attachment_id = media_handle_upload( 'file', 0 );
 
-			if ( isset( $_FILES['file']['name'] ) ) {
-				$salt        = md5( $_FILES['file']['name'] . time() );
-				$file_name   = $salt . '-' . $_FILES['file']['name'];
-				$destination = trailingslashit( $dr_tmp_dir ) . $file_name;
-			}
+		if ( is_wp_error( $attachment_id ) ) {
+			wp_send_json_error( array( 'message' => $attachment_id->get_error_message() ) );
+		}
 
-			$upload_url        = trailingslashit( $dr_tmp_url ) . $file_name;
-			$uploaded_filetype = wp_check_filetype( basename( $destination ), null );
+		$attachment_url = wp_get_attachment_url( $attachment_id );
+		$file_type      = wp_check_filetype( basename( $attachment_url ), null );
 
-			$uploaded_filesize = $_FILES['file']['size'];
-			$max_upload_size   = wp_max_upload_size();
-
-			if ( $uploaded_filesize > $max_upload_size ) {
-				wp_send_json_error( array( 'message' => __( "File size too large.", 'delicious-recipes'  ) ) );
-			}
-
-			if ( ! in_array( $uploaded_filetype['type'], $allowed_filetypes ) ) {
-				wp_send_json_error( array( 'message' => __( "Unsupported file type uploaded.", 'delicious-recipes'  ) ) );
-			}
-
-			if ( wp_mkdir_p( $dr_tmp_dir ) ) :
-				if ( move_uploaded_file( $source, $destination ) ) :
-
-					$file_array = array(
-						'file' => $destination,
-						'url'  => $upload_url,
-						'type' => $uploaded_filetype,
-					);
-					echo json_encode( $file_array );
-					wp_die();
-
-				endif;
-			endif;
-		endif;
-
-		wp_send_json_error( __( "Invalid request. Nonce verification failed.", 'delicious-recipes'  ) );
+		wp_send_json_success(
+			array(
+				'file' => $attachment_url,
+				'url'  => $attachment_url,
+				'type' => $file_type,
+				'id'   => $attachment_id,
+			)
+		);
 	}
 
+	/**
+	 * Verify reCAPTCHA.
+	 *
+	 * @throws Exception If reCAPTCHA validation fails.
+	 */
 	private static function verify_recaptcha() {
 		$global_settings = delicious_recipes_get_global_settings();
 
@@ -527,7 +496,7 @@ class Delicious_Recipes_Form_Handler {
 		}
 
 		if ( $google_recaptcha_enabled ) {
-			$google_token = isset( $_POST['g-recaptcha-response'] ) ? sanitize_text_field(wp_unslash($_POST['g-recaptcha-response'])) : false;
+			$google_token = isset( $_POST['g-recaptcha-response'] ) ? sanitize_text_field( wp_unslash( $_POST['g-recaptcha-response'] ) ) : false;
 
 			$google_secret = isset( $global_settings['recaptchaSecretKey'] ) && ! empty( $global_settings['recaptchaSecretKey'] ) ? $global_settings['recaptchaSecretKey'] : false;
 
@@ -550,18 +519,17 @@ class Delicious_Recipes_Form_Handler {
 				$google_response_code = wp_remote_retrieve_response_code( $google_response );
 
 				if ( 200 !== $google_response_code ) {
-					throw new Exception( __( "Google reCAPTCHA validation failed.", 'delicious-recipes'  ) );
+					throw new Exception( __( 'Google reCAPTCHA validation failed.', 'delicious-recipes' ) );
 				}
 
 				$google_response_body = json_decode( wp_remote_retrieve_body( $google_response ), true );
 
 				if ( ! isset( $google_response_body['success'] ) || true !== $google_response_body['success'] ) {
-					throw new Exception( __( "Google reCAPTCHA validation failed.", 'delicious-recipes'  ) );
+					throw new Exception( esc_html__( 'Google reCAPTCHA validation failed.', 'delicious-recipes' ) );
 				}
 			}
 		}
 	}
-
 }
 // Run the show.
 Delicious_Recipes_Form_Handler::init();

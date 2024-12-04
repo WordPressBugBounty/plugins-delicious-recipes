@@ -97,7 +97,7 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return new \WP_Error(
 				'rest_forbidden_context',
-				esc_html__( "You cannot view the ingredients resource.", 'delicious-recipes' ),
+				esc_html__( 'You cannot view the ingredients resource.', 'delicious-recipes' ),
 				array( 'status' => rest_authorization_required_code() )
 			);
 		}
@@ -119,13 +119,22 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 		while ( $recipes->have_posts() ) {
 			$recipes->the_post();
 			$recipe_metadata = get_post_meta( get_the_ID(), 'delicious_recipes_metadata', true );
-			$ingredients_sec = $recipe_metadata['recipeIngredients'];
-			foreach ( $ingredients_sec as $ingredients ) {
-				foreach ( $ingredients['ingredients'] as $ingredient ) {
-					$arr[] = $ingredient['ingredient'];
+			$ingredients_sec = isset( $recipe_metadata['recipeIngredients'] ) ? $recipe_metadata['recipeIngredients'] : array();
+
+			if ( is_array( $ingredients_sec ) ) {
+				foreach ( $ingredients_sec as $ingredients ) {
+					if ( is_array( $ingredients ) ) {
+						foreach ( $ingredients['ingredients'] as $ingredient ) {
+							if ( is_array( $ingredient ) && isset( $ingredient['ingredient'] ) ) {
+								$arr[] = $ingredient['ingredient'];
+							}
+						}
+					}
 				}
 			}
 		}
+		// Remove any empty values from the array.
+		$arr = array_filter( $arr );
 		$arr = $this->delicious_recipes_sort_array_by_count( $arr );
 		wp_reset_postdata();
 		return $arr;
@@ -175,7 +184,7 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 
 		$data = array(
 			'success' => true,
-			'message' => __( "Recipes Found.", 'delicious-recipes'  ),
+			'message' => __( 'Recipes Found.', 'delicious-recipes' ),
 			'data'    => array(),
 		);
 
@@ -183,7 +192,7 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 			return rest_ensure_response(
 				array(
 					'success' => false,
-					'message' => __( "No Recipes Found.", 'delicious-recipes'  ),
+					'message' => __( 'No Recipes Found.', 'delicious-recipes' ),
 					'data'    => array(),
 				)
 			);
@@ -214,13 +223,13 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 
 		$data = array(
 			'success' => true,
-			'message' => __( "Recipe Found.", 'delicious-recipes'  ),
+			'message' => __( 'Recipe Found.', 'delicious-recipes' ),
 		);
 		if ( empty( $post ) ) {
 			return rest_ensure_response(
 				array(
 					'success' => false,
-					'message' => __( "Recipe not found by ID.", 'delicious-recipes'  ),
+					'message' => __( 'Recipe not found by ID.', 'delicious-recipes' ),
 					'data'    => array(),
 				)
 			);
@@ -243,7 +252,7 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 			return rest_ensure_response(
 				array(
 					'success' => false,
-					'message' => __( "Recipe not found by ID.", 'delicious-recipes'  ),
+					'message' => __( 'Recipe not found by ID.', 'delicious-recipes' ),
 					'data'    => array(),
 				)
 			);
@@ -254,14 +263,14 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 
 		$data = array(
 			'success'  => true,
-			'message'  => __( "Recipe Settings Saved Successfully.", 'delicious-recipes'  ),
+			'message'  => __( 'Recipe Settings Saved Successfully.', 'delicious-recipes' ),
 			'post_url' => get_the_permalink( $id ),
 		);
 		if ( empty( $post ) ) {
 			return rest_ensure_response(
 				array(
 					'success' => false,
-					'message' => __( "Recipe not found by ID.", 'delicious-recipes'  ),
+					'message' => __( 'Recipe not found by ID.', 'delicious-recipes' ),
 					'data'    => array(),
 				)
 			);
@@ -358,7 +367,7 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 	public function get_collection_params() {
 		return array(
 			'page'     => array(
-				'description'       => __( "Current page of the collection.", 'delicious-recipes'  ),
+				'description'       => __( 'Current page of the collection.', 'delicious-recipes' ),
 				'type'              => 'integer',
 				'default'           => 1,
 				'sanitize_callback' => 'absint',
@@ -366,7 +375,7 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 				'minimum'           => 1,
 			),
 			'per_page' => array(
-				'description'       => __( "Maximum number of items to be returned in result set.", 'delicious-recipes'  ),
+				'description'       => __( 'Maximum number of items to be returned in result set.', 'delicious-recipes' ),
 				'type'              => 'integer',
 				'default'           => 10,
 				'minimum'           => 1,
@@ -417,7 +426,7 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 			// In JSON Schema you can specify object properties in the properties attribute.
 			'properties' => array(
 				'id'           => array(
-					'description' => __( "Unique identifier for the object.", 'delicious-recipes'  ),
+					'description' => __( 'Unique identifier for the object.', 'delicious-recipes' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit', 'embed' ),
 					'readonly'    => true,
@@ -429,7 +438,7 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 					'context'     => array( 'view', 'edit', 'embed' ),
 				),
 				'title'        => array(
-					'description' => __( "The title for the object.", 'delicious-recipes'  ),
+					'description' => __( 'The title for the object.', 'delicious-recipes' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit', 'embed' ),
 					'arg_options' => array(
@@ -438,12 +447,12 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 					),
 					'properties'  => array(
 						'raw'      => array(
-							'description' => __( "Title for the object, as it exists in the database.", 'delicious-recipes'  ),
+							'description' => __( 'Title for the object, as it exists in the database.', 'delicious-recipes' ),
 							'type'        => 'string',
 							'context'     => array( 'edit' ),
 						),
 						'rendered' => array(
-							'description' => __( "HTML title for the object, transformed for display.", 'delicious-recipes'  ),
+							'description' => __( 'HTML title for the object, transformed for display.', 'delicious-recipes' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit', 'embed' ),
 							'readonly'    => true,
@@ -451,7 +460,7 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 					),
 				),
 				'link'         => array(
-					'description' => __( "URL to the object.", 'delicious-recipes'  ),
+					'description' => __( 'URL to the object.', 'delicious-recipes' ),
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'view', 'edit', 'embed' ),
@@ -465,20 +474,20 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 					'readonly'    => true,
 				),
 				'modified_gmt' => array(
-					'description' => __( "The date the object was last modified, as GMT.", 'delicious-recipes'  ),
+					'description' => __( 'The date the object was last modified, as GMT.', 'delicious-recipes' ),
 					'type'        => 'string',
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'status'       => array(
-					'description' => __( "A named status for the object.", 'delicious-recipes'  ),
+					'description' => __( 'A named status for the object.', 'delicious-recipes' ),
 					'type'        => 'string',
 					'enum'        => array_keys( get_post_stati( array( 'internal' => false ) ) ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'type'         => array(
-					'description' => __( "Type of Post for the object.", 'delicious-recipes'  ),
+					'description' => __( 'Type of Post for the object.', 'delicious-recipes' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit', 'embed' ),
 					'readonly'    => true,
@@ -509,7 +518,6 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 
 		return $schema;
 	}
-
 }
 
 /**

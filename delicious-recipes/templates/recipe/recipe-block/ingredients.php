@@ -8,7 +8,7 @@
 global $recipe;
 $global_settings         = delicious_recipes_get_global_settings();
 $show_adjustable_serving = ! empty( $global_settings['showAdjustableServing'][0] ) && 'yes' === $global_settings['showAdjustableServing'][0];
-$ingredient_title        = isset( $recipe->ingredient_title ) ? $recipe->ingredient_title : __( "Ingredients", 'delicious-recipes'  );
+$ingredient_title        = isset( $recipe->ingredient_title ) ? $recipe->ingredient_title : __( 'Ingredients', 'delicious-recipes' );
 $ingredient_links        = get_option( 'delicious_recipes_auto_link_ingredients', array() );
 
 $cookmode              = false;
@@ -21,10 +21,10 @@ $ingredient_image_url  = '';
 
 $enable_ingredients_checkbox = isset( $global_settings['enableIngredientsCheckbox'] ) && ! empty( $global_settings['enableIngredientsCheckbox'] ) && 'yes' === $global_settings['enableIngredientsCheckbox'][0];
 $ingredients_column          = isset( $global_settings['ingredientsColumn'] ) && ! empty( $global_settings['ingredientsColumn'] ) ? $global_settings['ingredientsColumn'] : '1';
-$affiliate = '';
+$affiliate                   = '';
 
-$license_validity_bool = true;
-if ( function_exists( 'DEL_RECIPE_PRO' ) && version_compare( DELICIOUS_RECIPES_PRO_VERSION, '2.2.2', '>=' ) ) {
+$license_validity_bool = false;
+if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 	$license_validity_bool = delicious_recipe_pro_check_license_status();
 }
 
@@ -59,11 +59,11 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 				<div class="dr-unit-conversion-wrapper">
 					<label for="usCustomary">
 						<input id="usCustomary" type="radio" name="unit-conversion" value="usCustomary" <?php echo esc_attr( 'usCustomary' === $default_unit_system ? 'checked' : '' ); ?>>
-						<span><?php echo esc_html__( "US Customary", 'delicious-recipes' ); ?></span>
+						<span><?php echo esc_html__( 'US Customary', 'delicious-recipes' ); ?></span>
 					</label>
 					<label for="metric">
 						<input id="metric" type="radio" name="unit-conversion" value="metric" <?php echo esc_attr( 'metric' === $default_unit_system ? 'checked' : '' ); ?>>
-						<span><?php echo esc_html__( "Metric", 'delicious-recipes' ); ?></span>
+						<span><?php echo esc_html__( 'Metric', 'delicious-recipes' ); ?></span>
 					</label>
 				</div>
 				<?php
@@ -75,10 +75,10 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 			<?php if ( $show_adjustable_serving ) { ?>
 				<div class="dr-ingredients-scale" data-serving-value="<?php echo esc_attr( $servings_value ); ?>">
 					<?php if ( ! empty( $global_settings['adjustableServingType'] ) && 'increment' === $global_settings['adjustableServingType'] ) { ?>
-						<label for="select"><?php esc_html_e( "Servings", 'delicious-recipes' ); ?></label>
+						<label for="select"><?php esc_html_e( 'Servings', 'delicious-recipes' ); ?></label>
 						<input type="number" data-original="<?php echo esc_attr( $servings_value ); ?>" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" value="<?php echo esc_attr( $servings_value ); ?>" step="1" min="1" class="dr-scale-ingredients">
 					<?php } else { ?>
-						<label for="select"><?php esc_html_e( "Scale", 'delicious-recipes' ); ?></label>
+						<label for="select"><?php esc_html_e( 'Scale', 'delicious-recipes' ); ?></label>
 						<div class="scale-btn-wrapper">
 
 							<button class="" data-scale="0.5" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" type="button">1/2x</button>
@@ -102,8 +102,12 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 				$section_title = isset( $ingre_section['sectionTitle'] ) ? $ingre_section['sectionTitle'] : '';
 				$ingre         = isset( $ingre_section['ingredients'] ) ? $ingre_section['ingredients'] : array();
 				?>
-				<?php if ( $section_title) { ?> <h4 class="dr-title"><?php echo esc_html( $section_title ); ?></h4><?php } ?>
-				<?php if ( ! $ingre ) {
+				<?php
+				if ( $section_title ) {
+					?>
+					<h4 class="dr-title"><?php echo esc_html( $section_title ); ?></h4><?php } ?>
+				<?php
+				if ( ! $ingre ) {
 					continue;
 				}
 				?>
@@ -142,7 +146,7 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 												$rel_attribute = implode( ' ', $ingredient_link['relAttribute'] );
 											}
 											$total_clicks             = isset( $ingredient_link['totalClicks'] ) ? $ingredient_link['totalClicks'] : 0;
-											$ingredient['ingredient'] = '<a class="ingredient-link" data-ingredient-link-id="' . $key . '" data-clicks="' . $total_clicks . '" href="' . esc_url( $ingredient_link['ingredientLink'] ) . '" ' . $open_in_new_tab . ' rel="' . esc_attr( $rel_attribute ) . '">' . $ingredient['ingredient']  . esc_html( $affiliate ) . '</a>';
+											$ingredient['ingredient'] = '<a class="ingredient-link" data-ingredient-link-id="' . $key . '" data-clicks="' . $total_clicks . '" href="' . esc_url( $ingredient_link['ingredientLink'] ) . '" ' . $open_in_new_tab . ' rel="' . esc_attr( $rel_attribute ) . '">' . $ingredient['ingredient'] . esc_html( $affiliate ) . '</a>';
 										}
 									}
 								}

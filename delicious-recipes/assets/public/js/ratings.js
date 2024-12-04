@@ -1,7 +1,7 @@
 ; (function () {
     // star
     const star = document.createElement('span');
-    star.innerHTML = "<svg class='star' width='18' height='19' viewBox='0 0 18 19' fill='#ccc' xmlns='http://www.w3.org/2000/svg'><path d='M9 0.94043L11.751 6.61643L18 7.47968L13.452 11.8507L14.562 18.0599L9 15.0847L3.43725 18.0599L4.548 11.8507L0 7.47968L6.249 6.61643L9 0.94043Z' /></svg>";
+    star.innerHTML = "<svg class='star' width='18' height='19' viewBox='0 0 18 19' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M9 0.94043L11.751 6.61643L18 7.47968L13.452 11.8507L14.562 18.0599L9 15.0847L3.43725 18.0599L4.548 11.8507L0 7.47968L6.249 6.61643L9 0.94043Z' /></svg>";
     const ratingInput = document.createElement('input');
     ratingInput.name = 'rating';
     ratingInput.type = 'hidden';
@@ -45,14 +45,14 @@
             stars.forEach((star, index) => {
                 const rating = index + 1;
                 star.addEventListener('mouseover', () => {
-                    stars.forEach(star => star.querySelector('path').setAttribute('fill', '#ccc'));
+                    stars.forEach(star => star.querySelector('path').setAttribute('fill', 'none'));
                     ratingContainer.setAttribute('data-dynamic-rating', rating);
                     ratingInput.setAttribute('value', rating)
                     fillStar(rating);
                 });
 
                 star.addEventListener('mouseout', () => {
-                    stars.forEach(star => star.querySelector('path').setAttribute('fill', '#ccc'));
+                    stars.forEach(star => star.querySelector('path').setAttribute('fill', 'none'));
                     fillStar(selectedRating > 0 ? selectedRating : rating)
                 });
 

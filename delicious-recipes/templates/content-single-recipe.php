@@ -30,8 +30,10 @@ if ( post_password_required() ) {
 	echo get_the_password_form(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	return;
 }
+
 ?>
 <div id="recipe-<?php the_ID(); ?>" <?php post_class( array( 'single-recipe', 'dr-single-recipe' ), $recipe ); ?> data-id="<?php the_ID(); ?>">
+	
 	<?php
 		/**
 		 * Hook - Recipe Single page header.

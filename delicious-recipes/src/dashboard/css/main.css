@@ -652,11 +652,6 @@ button.dr-btn:hover,
   font-weight: normal;
 }
 
-.dr-ud__header .dr-ud__desc {
-  font-size: 20px;
-  line-height: 36px;
-}
-
 .dr-status {
   font-size: 12px;
   line-height: 1;

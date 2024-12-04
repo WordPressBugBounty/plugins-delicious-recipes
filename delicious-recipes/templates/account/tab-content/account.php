@@ -9,9 +9,9 @@
 delicious_recipes_print_notices();
 
 global $wp, $post;
-$current_user  = wp_get_current_user();
+$current_user  = wp_get_current_user(); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 $_user_meta    = get_user_meta( $current_user->ID, 'delicious_recipes_user_meta', true );
-$custom_avatar = isset( $_user_meta['profile_image_id'] ) && $_user_meta['profile_image_id'] ? $_user_meta['profile_image_id'] : '';
+$custom_avatar = isset( $_user_meta['profile_image_id'] ) ? $_user_meta['profile_image_id'] : get_user_meta( $current_user->ID, 'user_avatar', true );
 
 if ( ! empty( $current_user ) ) :
 

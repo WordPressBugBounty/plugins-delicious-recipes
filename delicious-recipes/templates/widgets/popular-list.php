@@ -42,31 +42,31 @@ $img_size       = apply_filters( 'popular_list_img_size', $img_size );
 				<?php echo esc_html( $recipe->name ); ?>
 			</a>
 		</h3>
-		<div class="dr-mst-pop-meta">
-
-			<?php if ( $recipe->total_time ) : ?>
-				<span class="dr-mst-pop-time">
-					<svg class="icon">
-						<use xlink:href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/sprite.svg#time"></use>
-					</svg>
-					<span class="dr-mst-pop-timedsc">
-						<?php
-							echo esc_html( $recipe->total_time );
-						?>
+		<div class="dr-fav-header">
+			<div class="dr-entry-meta" style="justify-content: unset;">
+				<?php if ( $recipe->total_time ) : ?>
+					<span class="dr-time">
+						<svg class="icon">
+							<use xlink:href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/sprite.svg#time"></use>
+						</svg>
+						<span class="dr-meta-title">
+							<?php
+								echo esc_html( $recipe->total_time );
+							?>
+						</span>
 					</span>
-				</span>
-			<?php endif; ?>
-
-			<?php if ( $recipe->difficulty_level ) : ?>
-				<span class="dr-mst-pop-diffic">
-					<svg class="icon">
-						<use xlink:href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/sprite.svg#difficulty"></use>
-					</svg>
-					<span class="dr-mst-pop-difffdsc">
-						<?php echo esc_html( $recipe->difficulty_level ); ?>
+				<?php endif; ?>
+				<?php if ( $recipe->difficulty_level ) : ?>
+					<span class="dr-level">
+						<svg class="icon">
+							<use xlink:href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/sprite.svg#difficulty"></use>
+						</svg>
+						<span class="dr-meta-title">
+							<?php echo esc_html( $recipe->difficulty_level ); ?>
+						</span>
 					</span>
-				</span>
-			<?php endif; ?>
+				<?php endif; ?>
+			</div>
 		</div>
 	</div>
 </li>

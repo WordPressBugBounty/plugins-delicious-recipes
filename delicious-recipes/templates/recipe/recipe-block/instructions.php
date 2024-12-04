@@ -13,7 +13,7 @@ $enable_video_gallery = isset( $recipe->enable_video_gallery ) ? $recipe->enable
 $video_gallery_vids   = isset( $recipe->video_gallery ) ? $recipe->video_gallery : array();
 $recipe_settings      = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
 
-$license_validity_bool = true;
+$license_validity_bool = false;
 if ( function_exists( 'DEL_RECIPE_PRO' ) && version_compare( DELICIOUS_RECIPES_PRO_VERSION, '2.2.2', '>=' ) ) {
 	$license_validity_bool = delicious_recipe_pro_check_license_status();
 }
@@ -33,15 +33,10 @@ if ( ! empty( $recipe_instructions ) ) :
 		<div class="dr-instrc-title-wrap">
 			<h3 class="dr-title"><?php echo esc_html( $instruction_title ); ?></h3>
 			<?php if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] ) : ?>
-				<div class="dr-instructions-toggle">
-					<span class="dr-inst-label"><?php echo esc_html( $global_toggles['video_lbl'] ); ?></span>
-					<div class="dr-toggle-inputs">
-						<input type="checkbox" name="" checked="checked" value="yes" id="dr-vdo-toggle" class="dr-video-toggle" data-target=".dr-instruction-video-<?php echo esc_attr( $recipe->ID ); ?>">
-						<div class="knobs"><span></span></div>
-						<span class="dr-toggle-on"><?php echo esc_html__( 'Off', 'delicious-recipes' ); ?></span>
-						<span class="dr-toggle-off"><?php echo esc_html__( 'On', 'delicious-recipes' ); ?></span>
-					</div>
-				</div>
+			<div class="dr-instructions-toggle">
+				<span class="dr-inst-label"><?php echo esc_html( $global_toggles['video_lbl'] ); ?></span>
+				<button data-target=".dr-instruction-video-<?php echo esc_attr( $recipe->ID ); ?>" class="dr-switch-btn dr-video-toggle" data-switch="on" data-switch-on="<?php echo esc_attr__( 'ON', 'delicious-recipes' ); ?>" data-switch-off="<?php echo esc_attr__( 'OFF', 'delicious-recipes' ); ?>"><?php echo esc_html__( 'ON', 'delicious-recipes' ); ?></button>
+			</div>
 			<?php endif; ?>
 		</div>
 		<?php
@@ -101,7 +96,7 @@ if ( ! empty( $recipe_instructions ) ) :
 							}
 							if ( ! empty( $all_images ) ) :
 								?>
-							<div class="additional-images"> 
+							<div class="additional-images">
 								<?php
 								// Display the images.
 								$total_images = count( $all_images );

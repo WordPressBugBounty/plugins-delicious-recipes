@@ -556,7 +556,7 @@
             "License": [
                 ""
             ],
-            "Shortcodes feature is available in Pro version.": [
+            "Upgrade to Pro to activate plugin license.": [
                 ""
             ],
             "Show Nutrition Facts": [
@@ -578,6 +578,9 @@
                 ""
             ],
             "Enable this option to display the serving size on the recipe post.": [
+                ""
+            ],
+            "The collapsible nutrition chart feature is available in the Pro version.": [
                 ""
             ],
             "Nutrition Chart Layout": [
@@ -946,6 +949,9 @@
             "Estimated Cost Currency": [
                 ""
             ],
+            "New": [
+                ""
+            ],
             "$": [
                 ""
             ],
@@ -974,12 +980,6 @@
                 ""
             ],
             "Enable this option to display the recipe published date.": [
-                ""
-            ],
-            "Display Comments": [
-                ""
-            ],
-            "Enable this option to display the comment section for your recipe posts.": [
                 ""
             ],
             "Single Recipe Image Crop": [
@@ -1043,6 +1043,12 @@
                 ""
             ],
             "Review Ratings": [
+                ""
+            ],
+            "Display Comments": [
+                ""
+            ],
+            "Enable this option to display the comment section for your recipe posts.": [
                 ""
             ],
             "Enable Comment Ratings": [
@@ -1114,10 +1120,22 @@
             "Carousel Shortcode": [
                 ""
             ],
+            "Copy Shortcode!": [
+                ""
+            ],
+            "Use [dr_recipe_archives num_posts=x carousel=true] to display the recipes in carousel format.": [
+                ""
+            ],
             "List Shortcode": [
                 ""
             ],
+            "Use [dr_recipe_archives layout=list num_posts=x] to display the recipes in list format.": [
+                ""
+            ],
             "Recipe Archive Shortcode": [
+                ""
+            ],
+            "Shortcodes feature is available in Pro version.": [
                 ""
             ],
             "Social Sharing": [
@@ -1214,6 +1232,9 @@
                 ""
             ],
             "Enter Terms and Conditions here..": [
+                ""
+            ],
+            "Dashboard Portal feature is available in Pro version": [
                 ""
             ],
             "Upload Your Login Form Photo": [
