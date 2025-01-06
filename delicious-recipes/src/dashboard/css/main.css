@@ -398,7 +398,8 @@ button.dr-btn:hover,
   padding: 0;
   width: 30px;
   height: 30px;
-  display: block;
+  display: flex;
+  align-items: center;
   border: none;
   background: none;
   position: absolute;
@@ -406,6 +407,7 @@ button.dr-btn:hover,
   right: 5px;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
+  cursor: pointer;
 }
 
 .dr-form__field .dr-input-wrap.has-pw-toggle-btn.pw-show .pw-toggle-btn svg g {

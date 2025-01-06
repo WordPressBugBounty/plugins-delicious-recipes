@@ -294,13 +294,13 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 			</div>
 		</div>
 		<?php if ( $enable_collapsible_nutrition_chart ) : ?>
-
+		<!-- Unclosed divs are closed here -->
 		</div>
 	</div>
 <?php endif; ?>
 
 <script>
-	document.getElementById('collapsible-nutrition-chart-label').addEventListener('click', function() {
+	document.getElementById('collapsible-nutrition-chart-label')?.addEventListener('click', function() {
 		document.querySelector('.dr-nutrition-collapse-section').classList.toggle('show');
 	});
 </script>

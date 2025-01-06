@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Initialize LazyLoad
 	const lazyLoadInstance = new LazyLoad({
-		elements_selector: ".lazy", // Apply to elements with the class 'lazy'
+		elements_selector: ".dr-lazy", // Apply to elements with the class 'lazy'
 	});
 	lazyLoadInstance.update();
 
@@ -50,26 +50,23 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		let options = {
 			gap: '30px',
-			perPage: 3,
 			pagination: false,
-			direction: rtl ? 'rtl' : 'ltr', // Right-to-left support
+			perPage: 3,
+			arrows: splidesCount > 3,
+			type: splidesCount > 3 ? 'loop' : 'slide',
 			breakpoints: {
 				1024: {
-					perPage: 2,
-				},
-				640: {
-					perPage: 1,
-				}
-			}
+                    perPage: 2,
+                    arrows: splidesCount > 2,
+                    type: splidesCount > 2 ? 'loop' : 'slide', // Conditional loop
+                },
+                640: {
+                    perPage: 1,
+                    arrows: splidesCount > 1,
+                    type: splidesCount > 1 ? 'loop' : 'slide', // Conditional loop
+                }
+			},
 		};
-		if (splidesCount < 4) {
-			options.type = 'slide';
-			if (splidesCount === 1) {
-				options.arrow = false;
-			}
-		} else {
-			options.type = 'loop';
-		}
 
 		splides.forEach(splide => {
 			new Splide(splide, options).mount();

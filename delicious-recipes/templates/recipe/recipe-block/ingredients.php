@@ -52,21 +52,21 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 	<div class="dr-ingredients-list">
 		<div class="dr-ingrd-title-wrap wpd-gap-1">
 			<h3 class="dr-title"><?php echo esc_html( $ingredient_title ); ?></h3>
-
+			<div class="dr-ingredients-toolbar">
 			<?php
 			if ( $license_validity_bool && $unit_conversion && isset( $recipe_post_meta['recipeUnitConversion'] ) && ! empty( $recipe_post_meta['recipeUnitConversion'] ) && is_array( $recipe_post_meta['recipeUnitConversion'] ) ) {
 				?>
-				<div class="dr-unit-conversion-wrapper">
-					<label for="usCustomary">
-						<input id="usCustomary" type="radio" name="unit-conversion" value="usCustomary" <?php echo esc_attr( 'usCustomary' === $default_unit_system ? 'checked' : '' ); ?>>
-						<span><?php echo esc_html__( 'US Customary', 'delicious-recipes' ); ?></span>
-					</label>
-					<label for="metric">
-						<input id="metric" type="radio" name="unit-conversion" value="metric" <?php echo esc_attr( 'metric' === $default_unit_system ? 'checked' : '' ); ?>>
-						<span><?php echo esc_html__( 'Metric', 'delicious-recipes' ); ?></span>
-					</label>
-				</div>
-				<?php
+					<div class="dr-unit-conversion-wrapper">
+						<label for="usCustomary">
+							<input id="usCustomary" type="radio" name="unit-conversion" value="usCustomary" <?php echo esc_attr( 'usCustomary' === $default_unit_system ? 'checked' : '' ); ?>>
+							<span><?php echo esc_html__( 'US Customary', 'delicious-recipes' ); ?></span>
+						</label>
+						<label for="metric">
+							<input id="metric" type="radio" name="unit-conversion" value="metric" <?php echo esc_attr( 'metric' === $default_unit_system ? 'checked' : '' ); ?>>
+							<span><?php echo esc_html__( 'Metric', 'delicious-recipes' ); ?></span>
+						</label>
+					</div>
+					<?php
 			}
 			?>
 
@@ -94,6 +94,7 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 				</div>
 			<?php } ?>
 		</div>
+		</div>
 
 		<div class="recipe-ingredients">
 			<?php
@@ -105,7 +106,7 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 				<?php
 				if ( $section_title ) {
 					?>
-					<h4 class="dr-title"><?php echo esc_html( $section_title ); ?></h4><?php } ?>
+					<h4><?php echo esc_html( $section_title ); ?></h4><?php } ?>
 				<?php
 				if ( ! $ingre ) {
 					continue;

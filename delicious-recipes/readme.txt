@@ -5,7 +5,7 @@ Tags: recipe, food, cooking, chef, ingredients
 Requires at least: 5.1
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.7.6
+Stable tag: 1.7.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -115,6 +115,16 @@ The WordPress recipe plugin includes 9 Gutenberg Recipe Blocks that offer you th
 
 * **_Recipe Card_** - This block allows you to embed your published recipes within posts or pages.
 
+== Delisho - Recipe Widgets and Blocks ==
+
+[youtube https://youtu.be/IfC_3peQ8xQ]
+
+Supercharge your recipe website with [Delisho](https://wordpress.org/plugins/dr-widgets-blocks/)! This companion plugin for WP Delicious adds 4 Gutenberg blocks and over 35 Elementor widgets, making it incredibly easy to create stunning recipe layouts.
+
+Just drag, drop, and publish these elements directly to your website. These include sliders, grid modules, accordions, carousels, and much more.
+
+These widgets and blocks are all easy to implement onto your website. It also offers pre-designed layouts with lots of customization control to help create your dream recipe site.
+
 == WP Delicious Pro Features  ==
 * **_Front End Recipe Submission_** - It enables recipe submission on your site to make it easier for your readers to submit recipes.
 
@@ -127,6 +137,35 @@ The WordPress recipe plugin includes 9 Gutenberg Recipe Blocks that offer you th
 * **_Advanced Rating System_** - With the Pro version, your readers can easily rate your recipes or ask questions. It also allows your readers to upload images while leaving the rating.
 
 👉 [Upgrade to WP Delicious Pro](https://wpdelicious.com/pricing/)
+
+### Other Plugin by WP Delicious
+
+== PixifyAI - AI Image Generator ==
+
+[youtube https://youtu.be/0sg7ahbzv8o]
+
+[PixifyAI](https://wpdelicious.com/add-ons/pixifyai/) is an AI-powered tool for generating images specifically for recipes.
+
+You can create images by providing custom text prompts and adjusting generation parameters or using a simplified keyword-based approach for quicker image creation.
+
+With PixifyAI, you can:
+
+* Instantly produce high-resolution recipe images using AI.
+* Create detailed prompts with the built-in prompt generator for more customized images.
+* Generate recipe images for your website in seconds.
+* Fine-tune settings to create more precise, personalized recipe images.
+* Organize all your generated images in one convenient location; the PixifyAI Gallery.
+
+== AI Recipe Assistant ==
+
+[AI Recipe Assistant](https://wpdelicious.com/add-ons/ai-recipe-assistant/) is designed to transform your ideas into detailed and easy-to-follow recipes. This recipe generator uses AI to generate recipes, making it perfect for updating your website with fresh content.
+
+With AI Recipe Assistant, you can:
+
+* Instantly create detailed, unique recipes with AI.
+* Generate step-by-step recipes either using simple titles or detailed prompts.
+* Publish generated recipes directly onto your website.
+* Generate entire recipes with clear instructions in no time.
 
 ### GET HELP
 

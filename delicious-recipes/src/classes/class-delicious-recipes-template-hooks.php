@@ -59,11 +59,11 @@ class Delicious_Recipes_Template_Hooks {
 		add_action( 'delicious_recipes_instructions', array( $this, 'recipe_main_instructions' ) );
 		add_action( 'delicious_recipes_nutrition', array( $this, 'recipe_main_nutrition' ) );
 		add_action( 'delicious_recipes_notes', array( $this, 'recipe_main_notes' ) );
-
-		add_action( 'delicious_recipes_single_after_content_end', array( $this, 'recipe_faqs' ), 5 );
+		add_action( 'delicious_recipes_single_after_content_end', array( $this, 'extended_content' ), 5 );
 		add_action( 'delicious_recipes_single_after_content_end', array( $this, 'recipe_share' ), 10 );
 		add_action( 'delicious_recipes_single_after_content_end', array( $this, 'recipe_tags' ), 30 );
 		add_action( 'delicious_recipes_single_after_content_end', array( $this, 'recipe_powered_by' ), 40 );
+		add_action( 'delicious_recipes_single_after_content_end', array( $this, 'recipe_faqs' ),40 );
 		add_action( 'delicious_recipes_single_after_content_end', array( $this, 'call_to_action' ), 45 );
 		add_action( 'delicious_recipes_single_after_content_end', array( $this, 'recipe_author' ), 50 );
 		add_action( 'delicious_recipes_single_after_content_end', array( $this, 'recipe_navigation' ), 70 );
@@ -292,6 +292,15 @@ class Delicious_Recipes_Template_Hooks {
 	 */
 	public function call_to_action() {
 		do_action( 'delicious_recipes_cta_image' );
+	}
+
+	/**
+	 * Get Recipe page main card template.
+	 *
+	 * @return void
+	 */
+	public function extended_content() {
+		do_action( 'delicious_recipes_extended_content' );
 	}
 
 	/**

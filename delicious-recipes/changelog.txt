@@ -1,3 +1,12 @@
+1.7.7: 2025-01-06
+- Enhancement: Design improvements of License Activation page.
+- Fixes: Resolved issue with Recipe Import feature when using the Cooked plugin.
+- Fixes: Addressed issue where a warning about Recipe Settings changes appeared without any actual changes.
+- Fixes: Fixed issue with Estimated Cost field not accepting comma(,) as input.
+- Fixes: Resolved CPU Limit exceeded error.
+- Fixes: Addressed issue where the Recipe post editor did not support Custom Fields.
+- Fixes: Corrected issue with Recipe Keys images not displaying properly when using custom icons.
+
 1.7.6: 2024-12-04
 - Enhancement: Improved the design of Nutrition Facts panel.
 - Enhancement: Made minor design adjustments on the Single Recipe Page.

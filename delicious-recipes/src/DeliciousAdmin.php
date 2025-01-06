@@ -199,6 +199,11 @@ class DeliciousAdmin {
 		 */
 		add_action( 'elementor/editor/before_enqueue_scripts', array( $this, 'import_assets' ), 988 );
 
+		/**
+		 * Update Recipe's Total Time Post Meta.
+		 * 
+		 * @since 1.7.4
+		 */
 		add_action( 'init', array( $this, 'populate_dr_recipe_total_time' ) );
 
 		/**
@@ -239,13 +244,18 @@ class DeliciousAdmin {
 	 * @return void
 	 */
 	public function populate_dr_recipe_total_time() {
+		$batch_size = 50; // Number of posts to process at a time
+		$offset = get_transient('dr_recipe_offset') ?: 0; // Get the current offset
+
 		$recipes = get_posts(
 			array(
 				'post_type'      => 'recipe',
-				'posts_per_page' => -1,
+				'posts_per_page' => $batch_size,
 				'post_status'    => 'publish',
+				'offset'         => $offset,
 			)
 		);
+
 		foreach ( $recipes as $recipe ) {
 			$recipe_total_time = get_post_meta( $recipe->ID, '_dr_recipe_total_time', true );
 			$recipe_metadata   = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
@@ -263,6 +273,14 @@ class DeliciousAdmin {
 			if ( empty( $recipe_total_time ) || $calculated_total_time !== $recipe_total_time ) {
 				update_post_meta( $recipe->ID, '_dr_recipe_total_time', $calculated_total_time );
 			}
+		}
+
+		// Update the offset for the next batch
+		$offset += $batch_size;
+		if ( count($recipes) === $batch_size ) {
+			set_transient('dr_recipe_offset', $offset, 12 * HOUR_IN_SECONDS); // Store the offset for the next run
+		} else {
+			delete_transient('dr_recipe_offset'); // Reset the offset if all posts have been processed
 		}
 	}
 
@@ -700,7 +718,7 @@ class DeliciousAdmin {
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => 30,
-			'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments' ),
+			'supports'           => array( 'title', 'editor', 'author', 'thumbnail', 'excerpt', 'comments', 'custom-fields' ),
 		);
 
 		register_post_type( DELICIOUS_RECIPE_POST_TYPE, $args );
@@ -1337,13 +1355,15 @@ class DeliciousAdmin {
 					'delicious-recipe-global-settings',
 					'DeliciousRecipes',
 					array(
-						'svgAllowed'       => $global_toggles['svg_allowed'],
-						'proEnabled'       => function_exists( 'DEL_RECIPE_PRO' ),
-						'siteURL'          => esc_url( home_url( '/' ) ),
-						'pluginUrl'        => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
-						'maxUploadSize'    => esc_html( $max_upload_size ),
-						'defaultTemplates' => $default_templates,
-						'licenseValidity'  => $license_validity_bool,
+						'svgAllowed'         => $global_toggles['svg_allowed'],
+						'proEnabled'         => function_exists( 'DEL_RECIPE_PRO' ),
+						'AIAssistantEnabled' => function_exists( 'WP_DEL_AI_RECIPE_ASSISTANT' ),
+						'AIImageEnabled'     => function_exists( 'PixifyAI' ),
+						'siteURL'            => esc_url( home_url( '/' ) ),
+						'pluginUrl'          => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
+						'maxUploadSize'      => esc_html( $max_upload_size ),
+						'defaultTemplates'   => $default_templates,
+						'licenseValidity'    => $license_validity_bool,
 					)
 				);
 				wp_enqueue_script( 'delicious-recipe-global-settings' );

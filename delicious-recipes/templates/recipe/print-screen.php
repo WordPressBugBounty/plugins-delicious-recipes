@@ -404,7 +404,14 @@ if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 					?>
 						<div class="dr-keywords">
 							<span class="dr-meta-title"><?php echo esc_html( $global_toggles['keywords_lbl'] ); ?>:</span>
-							<?php echo wp_kses_post( $recipe->keywords ); ?>
+							<?php
+							// Check if the keywords is an array.
+							if ( is_array( $recipe->keywords ) ) {
+								echo implode( ', ', $recipe->keywords );
+							} else {
+								echo wp_kses_post( $recipe->keywords );
+							}
+							?>
 						</div>
 					<?php
 				endif;

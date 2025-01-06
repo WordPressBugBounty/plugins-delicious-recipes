@@ -226,7 +226,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 <?php endif; ?>
 
 <script>
-	document.getElementById('collapsible-nutrition-chart-label').addEventListener('click', function() {
+	document.getElementById('collapsible-nutrition-chart-label')?.addEventListener('click', function() {
 		document.querySelector('.dr-nutrition-collapse-section').classList.toggle('show');
 	});
 </script>

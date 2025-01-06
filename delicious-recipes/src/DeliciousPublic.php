@@ -180,10 +180,10 @@ class DeliciousPublic {
 				// Add 'lazy' class if not present.
 				if ( strpos( $img_tag, 'class=' ) !== false ) {
 					if ( ! is_null( $img_tag ) ) {
-						$img_tag = preg_replace( '/class="([^"]*)"/i', 'class="$1 lazy"', $img_tag );
+						$img_tag = preg_replace( '/class="([^"]*)"/i', 'class="$1 dr-lazy"', $img_tag );
 					}
 				} elseif ( ! is_null( $img_tag ) ) {
-						$img_tag = str_replace( '<img', '<img class="lazy"', $img_tag );
+						$img_tag = str_replace( '<img', '<img class="dr-lazy"', $img_tag );
 				}
 
 				// Replace src with data-src.

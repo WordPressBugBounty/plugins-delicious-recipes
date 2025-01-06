@@ -42,7 +42,7 @@ if ( ! empty( $recipe_instructions ) ) :
 		<?php
 		foreach ( $recipe_instructions as $sec_key => $intruct_section ) :
 			if ( $intruct_section['sectionTitle'] ) {
-				echo '<h4 class="dr-title">' . esc_html( $intruct_section['sectionTitle'] ) . '</h4>';
+				echo '<h4>' . esc_html( $intruct_section['sectionTitle'] ) . '</h4>';
 			}
 			if ( isset( $intruct_section['instruction'] ) && ! empty( $intruct_section['instruction'] ) ) :
 				?>
