@@ -40,8 +40,6 @@ if ( ! function_exists( 'delicious_recipes_recipe_card_block_render' ) ) {
 
 		extract( $attributes );
 
-		json_ld( $attributes );
-
 		$latest_recipe = get_posts( 'post_type=recipe&numberposts=1' );
 		$post_id       = $latest_recipe[0]->ID;
 
@@ -56,6 +54,8 @@ if ( ! function_exists( 'delicious_recipes_recipe_card_block_render' ) ) {
 		}
 
 		ob_start();
+
+		json_ld( $attributes );
 
 		echo '<div class="dr-recipes-card-block ' . esc_attr( $className ) . '">';
 

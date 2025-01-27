@@ -183,15 +183,24 @@ function delicious_recipes_get_custom_avatar( $avatar, $id_or_email, $size, $def
 
 add_filter( 'get_avatar', 'delicious_recipes_get_custom_avatar', 1, 5 );
 
-function delicious_recipes_get_custom_avatar_url( $url, $id_or_email, $args ){
-	$user_id = delicious_recipes_get_user_by_id_or_email( $id_or_email );
-	$_user_meta = get_user_meta( $user_id, 'delicious_recipes_user_meta', true );
-	if ( isset($_user_meta['profile_image_id']) && $_user_meta['profile_image_id'] ):
-		$url = wp_get_attachment_image_src( $_user_meta['profile_image_id'], 'full' );
-		$url = ( isset($url[0]) && $url[0] ? $url[0] : $url );
-	endif;
-	return $url;
+/**
+ * Filter to override gravatar image
+ * Commented @since 1.7.8
+ * 
+ */
+// function delicious_recipes_get_custom_avatar_url( $url, $id_or_email, $args ){
+// 	echo '<pre>';
+// 	print_r( $url );
+// 	echo '</pre>';
+// 	die;
+// 	$user_id = delicious_recipes_get_user_by_id_or_email( $id_or_email );
+// 	$_user_meta = get_user_meta( $user_id, 'delicious_recipes_user_meta', true );
+// 	if ( isset($_user_meta['profile_image_id']) && $_user_meta['profile_image_id'] ):
+// 		$url = wp_get_attachment_image_src( $_user_meta['profile_image_id'], 'full' );
+// 		$url = ( isset($url[0]) && $url[0] ? $url[0] : $url );
+// 	endif;
+// 	return $url;
 
-}
+// }
 
-add_filter( 'get_avatar_url', 'delicious_recipes_get_custom_avatar_url', 1, 3 );
+// add_filter( 'get_avatar_url', 'delicious_recipes_get_custom_avatar_url', 1, 3 );

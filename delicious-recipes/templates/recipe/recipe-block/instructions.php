@@ -134,6 +134,8 @@ if ( ! empty( $recipe_instructions ) ) :
 							if ( $instruction_video && $global_toggles['enable_video'] ) :
 								$instruction_video_data = delicious_recipes_parse_videos( $instruction_video );
 								$instruction_video_attr = isset( $instruction_video_data['0'] ) && ! empty( $instruction_video_data['0'] ) ? $instruction_video_data['0'] : array();
+								$vid_url                = '';
+								$image_url              = '';
 								if ( ! empty( $instruction_video_attr ) ) :
 									if ( 'youtube' === $instruction_video_attr['type'] ) {
 										$vid_url   = 'https://www.youtube.com/embed/' . $instruction_video_attr['id'];
@@ -177,6 +179,8 @@ if ( ! empty( $recipe_instructions ) ) :
 			endif;
 		endforeach;
 		if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] ) :
+			$vid_url   = '';
+			$image_url = '';
 			?>
 			<div id="dr-video-gallery-<?php echo esc_attr( $recipe->ID ); ?>" class="dr-video-gallery">
 				<?php

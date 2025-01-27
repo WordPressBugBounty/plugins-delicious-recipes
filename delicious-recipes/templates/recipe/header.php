@@ -21,6 +21,7 @@ $enable_nutrition_value = false;
 $enable_recipe_keys     = false;
 $background_color       = '#f5f5f5';
 $text_color             = '#000000';
+$enable_recipe_info     = true;
 
 if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 	$license_validity_bool = delicious_recipe_pro_check_license_status();
@@ -35,17 +36,18 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 		);
 		foreach ( $selected_banner_layout as $layout ) {
 			$banner_layout_id       = $layout['id'];
-			$enable_breadcrumb      = isset( $layout['enableBannerBreadcrumb'] ) && true == $layout['enableBannerBreadcrumb'] ? true : false;
-			$enable_nutrition_value = isset( $layout['enableBannerNutritionalValues'] ) && true == $layout['enableBannerNutritionalValues'] ? true : false;
-			$enable_recipe_keys     = isset( $layout['enableBannerRecipeKeys'] ) && true == $layout['enableBannerRecipeKeys'] ? true : false;
+			$enable_breadcrumb      = isset( $layout['enableBannerBreadcrumb'] ) && true === $layout['enableBannerBreadcrumb'] ? true : false;
+			$enable_nutrition_value = isset( $layout['enableBannerNutritionalValues'] ) && true === $layout['enableBannerNutritionalValues'] ? true : false;
+			$enable_recipe_keys     = isset( $layout['enableBannerRecipeKeys'] ) && true === $layout['enableBannerRecipeKeys'] ? true : false;
 			$background_color       = isset( $layout['backgroundColor'] ) ? $layout['backgroundColor'] : '';
 			$text_color             = isset( $layout['textColor'] ) ? $layout['textColor'] : '';
+			$enable_recipe_info     = isset( $layout['enableBannerRecipeInfo'] ) ? $layout['enableBannerRecipeInfo'] : $enable_recipe_info;
 		}
 	}
 }
 
 ?>
-<div class="wpdelicious-recipe-banner <?php echo $banner_layout_id; ?>" style="--background-color: <?php echo $background_color; ?>; --text-color: <?php echo $text_color; ?>;">
+<div class="wpdelicious-recipe-banner <?php echo esc_attr( $banner_layout_id ); ?>" style="--background-color: <?php echo esc_attr( $background_color ); ?>; --text-color: <?php echo esc_attr( $text_color ); ?>;">
 	<div class="container">
 		<div class="wpdelicious-recipe-banner-inner">
 			<?php
@@ -148,7 +150,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 				<div class="wpdelicious-recipe-info-metas">
 					<!-- For Servings -->
 					<?php
-					if ( ! empty( $recipe->no_of_servings ) && $global_toggles['enable_servings'] ) :
+					if ( ! empty( $recipe->no_of_servings ) && $global_toggles['enable_servings'] && $enable_recipe_info ) :
 						?>
 						<span class="wpdelicious-meta dr-yields">
 							<svg class="icon">
@@ -156,7 +158,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 							</svg>
 							<span>
 								<?php echo esc_html( $global_toggles['servings_lbl'] ); ?>:
-								<?php echo esc_html( $recipe->no_of_servings ); ?>
+								<b><?php echo esc_html( $recipe->no_of_servings ); ?></b>
 							</span>
 						</span>
 						<?php
@@ -165,7 +167,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 
 					<!-- For Total time -->
 					<?php
-					if ( ! empty( $recipe->total_time ) ) :
+					if ( ! empty( $recipe->total_time ) && $enable_recipe_info ) :
 						?>
 						<span class="wpdelicious-meta dr-cook-time">
 							<svg class="icon">
@@ -175,7 +177,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 							if ( ! empty( $recipe->total_time ) && $global_toggles['enable_total_time'] ) :
 								?>
 								<span>
-									<?php echo esc_html( $global_toggles['total_time_lbl'] ); ?>: <?php echo esc_html( $recipe->total_time ); ?>
+									<?php echo esc_html( $global_toggles['total_time_lbl'] ); ?>: <b><?php echo esc_html( $recipe->total_time ); ?></b>
 								</span>
 							<?php endif; ?>
 						</span>
@@ -184,14 +186,14 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 					?>
 
 					<!-- For Difficulty level -->
-					<?php if ( ! empty( $recipe->difficulty_level ) && $global_toggles['enable_difficulty_level'] ) : ?>
+					<?php if ( ! empty( $recipe->difficulty_level ) && $global_toggles['enable_difficulty_level'] && $enable_recipe_info ) : ?>
 						<span class="wpdelicious-meta dr-label">
 							<svg class="icon">
 								<use xlink:href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/sprite.svg#difficulty"></use>
 							</svg>
 							<span>
 								<?php echo esc_html( $global_toggles['difficulty_level_lbl'] ) . ': '; ?>
-								<?php echo esc_html( $recipe->difficulty_level ); ?>
+								<b><?php echo esc_html( $recipe->difficulty_level ); ?></b>
 							</span>
 						</span>
 						<?php
@@ -243,7 +245,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 							?>
 							<span class="wpdelicious-fact dr-calorie">
 								<span class="dr-meta-title">
-									<?php echo __( 'Protein', 'delicious-recipes' ); ?>:
+									<?php echo esc_html__( 'Protein', 'delicious-recipes' ); ?>:
 								</span>
 								<b><?php echo esc_html( __( $recipe->nutrition['protein'] . 'g', 'delicious-recipes' ) ); ?></b>
 							</span>
@@ -256,7 +258,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 							?>
 							<span class="wpdelicious-fact dr-calorie">
 								<span class="dr-meta-title">
-									<?php echo __( 'Carbs', 'delicious-recipes' ); ?>:
+									<?php echo esc_html__( 'Carbs', 'delicious-recipes' ); ?>:
 								</span>
 								<b><?php echo esc_html( __( $recipe->nutrition['carbs'] . 'g', 'delicious-recipes' ) ); ?></b>
 							</span>
@@ -295,7 +297,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 							?>
 							<span class="wpdelicious-fact dr-calorie">
 								<span class="dr-meta-title">
-									<?php echo __( 'Sugar', 'delicious-recipes' ); ?>:
+									<?php echo esc_html__( 'Sugar', 'delicious-recipes' ); ?>:
 								</span>
 								<b><?php echo esc_html( __( $recipe->nutrition['sugars'] . 'g', 'delicious-recipes' ) ); ?></b>
 							</span>

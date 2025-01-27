@@ -123,7 +123,7 @@ class Delicious_Dynamic_Nutrition {
 			'<div id="%1$s" class="%2$s">
 				<div class="dr-title-wrap" %3$s>
 					<div class="dr-title dr-print-block-title">
-						<b>%4$s</b>
+						<h3 class="dr-title">%4$s</h3>
 					</div>
 				</div>
 				<div class="dr-nutrition-list">

@@ -151,18 +151,18 @@ class DeliciousAdmin {
 		add_filter( 'upload_mimes', array( $this, 'add_svg_support' ) );
 
 		/**
-		 * Add a notice for the Chicory integration.
+		 * Add a notice for the AI integration Promotion.
 		 *
-		 * @since 1.6.2
+		 * @since 1.7.8
 		 */
-		add_action( 'admin_notices', array( $this, 'delicious_recipes_chicory_integration_notice' ) );
+		add_action( 'admin_notices', array( $this, 'delicious_recipes_ai_integration_notice' ), 99999 );
 
 		/**
-		 * Dismiss the notice for the Chicory integration.
+		 * Dismiss the notice for AI Integration Promotion.
 		 *
-		 * @since 1.6.2
+		 * @since 1.7.8
 		 */
-		add_action( 'admin_init', array( $this, 'dismiss_chicory_notice' ) );
+		add_action( 'admin_init', array( $this, 'dismiss_ai_integration_notice' ) );
 
 		/**
 		 * Add a notice for the Classic Editor Plugin.
@@ -201,17 +201,73 @@ class DeliciousAdmin {
 
 		/**
 		 * Update Recipe's Total Time Post Meta.
-		 * 
+		 *
 		 * @since 1.7.4
 		 */
-		add_action( 'init', array( $this, 'populate_dr_recipe_total_time' ) );
+		add_action( 'plugin_update', array( $this, 'populate_dr_recipe_total_time' ) );
 
 		/**
 		 * Replace Recipes posts estimated cost currency symbol.
 		 *
 		 * @since 1.7.4
 		 */
-		add_action( 'init', array( $this, 'replace_recipe_estimated_cost_currency_symbol' ) );
+		add_action( 'plugin_update', array( $this, 'replace_recipe_estimated_cost_currency_symbol' ) );
+
+		/**
+		 * Filter to override gravatar image.
+		 */
+		add_filter( 'get_avatar_url', array( $this, 'delicious_recipes_get_custom_avatar_url' ), 3, 999 );
+
+		/**
+		 * Delete user meta of Chicory notice on plugin update.
+		 *
+		 * @since 1.7.8
+		 */
+		add_action( 'plugin_update', array( $this, 'delete_user_meta_for_chicory_notice' ) );
+	}
+
+	/**
+	 * Filter to override gravatar image
+	 *
+	 * @param string $url The URL of the avatar.
+	 * @param string $id_or_email The ID or email of the user.
+	 * @param array  $args The arguments for the avatar.
+	 * @return string The URL of the avatar.
+	 */
+	public function delicious_recipes_get_custom_avatar_url( $url, $id_or_email, $args ) {
+		$current_user = wp_get_current_user();
+		if ( $current_user->exists() ) {
+			$user_id = isset( $current_user->ID ) ? $current_user->ID : '';
+		} else {
+			return esc_url( $url );
+		}
+
+		if ( isset( $id_or_email ) ) {
+			$user    = false;
+			$user_id = false;
+			if ( is_numeric( $id_or_email ) ) :
+				$id   = (int) $id_or_email;
+				$user = get_user_by( 'id', $id );
+			elseif ( is_object( $id_or_email ) ) :
+				if ( ! empty( $id_or_email->user_id ) ) :
+					$id   = (int) $id_or_email->user_id;
+					$user = get_user_by( 'id', $id );
+				endif;
+			else :
+				$user = get_user_by( 'email', $id_or_email );
+			endif;
+
+			if ( $user && is_object( $user ) ) :
+				$user_id = $user->data->ID;
+			endif;
+		}
+
+		$user_avatar_url = get_user_meta( $user_id, 'uploaded_user_avatar_url', true );
+		if ( isset( $user_avatar_url ) && ! empty( $user_avatar_url ) ) {
+			return esc_url_raw( set_url_scheme( $user_avatar_url ) );
+		}
+
+		return esc_url( $url );
 	}
 
 	/**
@@ -244,8 +300,8 @@ class DeliciousAdmin {
 	 * @return void
 	 */
 	public function populate_dr_recipe_total_time() {
-		$batch_size = 50; // Number of posts to process at a time
-		$offset = get_transient('dr_recipe_offset') ?: 0; // Get the current offset
+		$batch_size = 50; // Number of posts to process at a time.
+		$offset     = get_transient( 'dr_recipe_offset' ) ?: 0; // Get the current offset.
 
 		$recipes = get_posts(
 			array(
@@ -275,12 +331,12 @@ class DeliciousAdmin {
 			}
 		}
 
-		// Update the offset for the next batch
+		// Update the offset for the next batch.
 		$offset += $batch_size;
-		if ( count($recipes) === $batch_size ) {
-			set_transient('dr_recipe_offset', $offset, 12 * HOUR_IN_SECONDS); // Store the offset for the next run
+		if ( count( $recipes ) === $batch_size ) {
+			set_transient( 'dr_recipe_offset', $offset, 12 * HOUR_IN_SECONDS ); // Store the offset for the next run.
 		} else {
-			delete_transient('dr_recipe_offset'); // Reset the offset if all posts have been processed
+			delete_transient( 'dr_recipe_offset' ); // Reset the offset if all posts have been processed.
 		}
 	}
 
@@ -384,54 +440,67 @@ class DeliciousAdmin {
 	}
 
 	/**
-	 * Add a notice for the Chicory integration.
+	 * Add a notice for the AI integration Promotion.
 	 *
-	 * @since 1.6.2
+	 * @since 1.7.8
 	 */
-	public function delicious_recipes_chicory_integration_notice() {
+	public function delicious_recipes_ai_integration_notice() {
 		// Get the current user ID.
 		$user_id = get_current_user_id();
 
 		// Check if the user has already dismissed the notice.
-		if ( get_user_meta( $user_id, 'dismissed_chicory_notice', true ) ) {
+		if ( get_user_meta( $user_id, 'dismissed_ai_integration_notice', true ) ) {
 			return;
 		}
 		?>
-		<div class="notice notice-info is-dismissible">
-			<h3><?php esc_html_e( 'Relevant In-Recipe Ads and Shoppability with Chicory', 'delicious-recipes' ); ?></h3>
-			<p>
-				<?php
-				printf(
-					/* translators: %s: URL to the Chicory integration settings */
-					esc_html__( 'The latest version of WP Delicious includes a new integration with Chicory, a solution that combines the best of contextual advertising with recipe shoppability.', 'delicious-recipes' ),
-				);
-				?>
-			</p>
-			<p>
-				<a class="dr-btn" href="<?php echo esc_url( admin_url( 'admin.php?page=delicious_recipes_global_settings&&tab=dr-recipe-ingredients' ) ); ?>" class="dr-dismiss-notice">
-					<?php echo esc_html__( 'Learn More', 'delicious-recipes' ); ?>
-				</a>
-				<a class="dr-btn dr-ghost" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'dismiss_notice', '1' ), 'dismiss_notice_action' ) ); ?>" class="dr-dismiss-notice">
-					<strong><?php echo esc_html__( 'Dismiss this notice', 'delicious-recipes' ); ?></strong>
-				</a>
-			</p>
+		<div class="notice dr-dissmiss-notice notice-info is-dismissible">
+			<div class="dimiss-wrapper">
+				<div class="content">
+					<h3><?php esc_html_e( 'Effortless Recipe Creation and Stunning Food Images with AI', 'delicious-recipes' ); ?></h3>
+					<p>
+						<?php echo esc_html__( 'Meet PixifyAI and AI Recipe Assistant - your ultimate tools for creating stunning food images and generating engaging recipe content effortlessly.', 'delicious-recipes' ); ?>
+					</p>
+					<div class="button-wrapper">
+						<a class="dr-btn" href="<?php echo esc_url( 'https://wpdelicious.com/add-ons/?utm_source=free_plugin&utm_medium=admin_notice&utm_campaign=ai_promo' ); ?>" class="dr-dismiss-notice" target="_blank">
+							<?php echo esc_html__( 'Let\'s get started', 'delicious-recipes' ); ?>
+						</a>
+						<a class="dr-btn dr-ghost" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'dismiss_ai_notice', '1' ), 'dismiss_ai_notice_action' ) ); ?>" class="dr-dismiss-notice">
+							<strong><?php echo esc_html__( 'Dismiss this notice', 'delicious-recipes' ); ?></strong>
+						</a>
+					</div>
+				</div>
+				<div class="image">
+					<img src="<?php echo plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/images/AI-integration-promotion.webp'; ?>" alt=<?php echo esc_html__( 'AI-integration-promotion', 'delicious-recipes' ); ?>>
+				</div>
+			</div>
 		</div>
 		<?php
 	}
 
 	/**
-	 * Dismiss the notice for the Chicory integration.
+	 * Dismiss the notice for AI Integration Promotion.
 	 *
-	 * @since 1.6.2
+	 * @since 1.7.8
 	 */
-	public function dismiss_chicory_notice() {
-		if ( isset( $_GET['dismiss_notice'] ) && '1' === $_GET['dismiss_notice'] ) {
-			if ( ! check_admin_referer( 'dismiss_notice_action' ) ) {
+	public function dismiss_ai_integration_notice() {
+		if ( isset( $_GET['dismiss_ai_notice'] ) && '1' === $_GET['dismiss_ai_notice'] ) {
+			if ( ! check_admin_referer( 'dismiss_ai_notice_action' ) ) {
 				wp_die( 'Nonce Verification Failed.' );
 			}
+			update_user_meta( get_current_user_id(), 'dismissed_ai_integration_notice', true );
+		}
+	}
 
-			$user_id = get_current_user_id();
-			update_user_meta( $user_id, 'dismissed_chicory_notice', true );
+	/**
+	 * Delete user meta of Chicory notice.
+	 *
+	 * @since 1.7.8
+	 */
+	public function delete_user_meta_for_chicory_notice() {
+		$user_id = get_current_user_id();
+		// Check plugin version.
+		if ( DELICIOUS_RECIPES_VERSION >= '1.7.8' ) {
+			delete_user_meta( $user_id, 'dismissed_chicory_notice' );
 		}
 	}
 
@@ -443,7 +512,7 @@ class DeliciousAdmin {
 	 */
 	public function delicious_recipes_deactivation_notice() {
 		$user_id = get_current_user_id();
-		delete_user_meta( $user_id, 'dismissed_chicory_notice' );
+		delete_user_meta( $user_id, 'dismissed_ai_integration_notice' );
 	}
 
 	/**
@@ -1359,6 +1428,7 @@ class DeliciousAdmin {
 						'proEnabled'         => function_exists( 'DEL_RECIPE_PRO' ),
 						'AIAssistantEnabled' => function_exists( 'WP_DEL_AI_RECIPE_ASSISTANT' ),
 						'AIImageEnabled'     => function_exists( 'PixifyAI' ),
+						'CategoryPages'      => function_exists( 'cpwpd_category_pages' ),
 						'siteURL'            => esc_url( home_url( '/' ) ),
 						'pluginUrl'          => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
 						'maxUploadSize'      => esc_html( $max_upload_size ),
@@ -1372,6 +1442,28 @@ class DeliciousAdmin {
 			wp_enqueue_style( 'mCustomScrollbar', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/mcustomscrollbar/jquery.mCustomScrollbar.min.css', array(), '3.1.5', 'all' );
 
 			wp_enqueue_style( 'select2', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/select2/select2.min.css', array(), '4.0.13', 'all' );
+		}
+
+		if ( in_array( get_current_screen()->post_type, array( 'post', 'page', 'recipe' ) ) ) {
+			// Promotion Buttons for Pixify AI and AI Assistant for WP Delicious
+			$ai_assistant_plugin_path   = WP_PLUGIN_DIR . '/ai-recipe-assistant-for-wp-delicious/ai-recipe-assistant-for-wp-delicious.php';
+			$pixify_ai_plugin_path      = WP_PLUGIN_DIR . '/pixifyai/pixifyai.php';
+			$ai_assistant_plugin_exists = file_exists( $ai_assistant_plugin_path );
+			$pixify_ai_plugin_exists    = file_exists( $pixify_ai_plugin_path );
+
+			if ( ! $pixify_ai_plugin_exists || ! $ai_assistant_plugin_exists ) {
+				wp_enqueue_script( 'delicious-recipe-ai-promotion-buttons', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/promotionButtonsJS.js', array( 'jquery', 'wp-element', 'wp-components', 'wp-plugins', 'wp-edit-post' ), '1.10.22', true );
+			}
+			wp_localize_script(
+				'delicious-recipe-ai-promotion-buttons',
+				'PromotionButtons',
+				array(
+					'AIAssistantPluginExists' => $ai_assistant_plugin_exists,
+					'PixifyAIPluginExists'    => $pixify_ai_plugin_exists,
+					'IsRecipePostType'        => get_current_screen()->post_type === 'recipe',
+					'pluginUrl'               => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
+				)
+			);
 		}
 
 		$screen = get_current_screen();

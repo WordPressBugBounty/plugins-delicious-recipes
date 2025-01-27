@@ -224,9 +224,9 @@ class Delicious_Recipes_Recipe {
 
 	private function difficulty_levels() {
 		$levels = array(
-			'beginner'     => __( "Beginner", 'delicious-recipes'  ),
-			'intermediate' => __( "Intermediate", 'delicious-recipes'  ),
-			'advanced'     => __( "Advanced", 'delicious-recipes'  ),
+			'beginner'     => __( 'Beginner', 'delicious-recipes' ),
+			'intermediate' => __( 'Intermediate', 'delicious-recipes' ),
+			'advanced'     => __( 'Advanced', 'delicious-recipes' ),
 		);
 
 		$levels = apply_filters( 'wp_delicious_difficulty_level_options', $levels );
@@ -509,13 +509,13 @@ class Delicious_Recipes_Recipe {
 	/**
 	 * Get recipe calories.
 	 */
-	private function best_seasons() {
+	public static function best_seasons() {
 		$seasons = array(
-			'fall'      => __( "Fall", 'delicious-recipes'  ),
-			'winter'    => __( "Winter", 'delicious-recipes'  ),
-			'summer'    => __( "Summer", 'delicious-recipes'  ),
-			'spring'    => __( "Spring", 'delicious-recipes'  ),
-			'available' => __( "Suitable throughout the year", 'delicious-recipes'  ),
+			'fall'      => __( 'Fall', 'delicious-recipes' ),
+			'winter'    => __( 'Winter', 'delicious-recipes' ),
+			'summer'    => __( 'Summer', 'delicious-recipes' ),
+			'spring'    => __( 'Spring', 'delicious-recipes' ),
+			'available' => __( 'Suitable throughout the year', 'delicious-recipes' ),
 		);
 
 		$custom_seasons = get_option( 'best_season_option' );
@@ -550,7 +550,7 @@ class Delicious_Recipes_Recipe {
 
 		if ( is_array( $best_season ) && ! empty( $best_season ) ) {
 			$best_season = array_map(
-				function( $season ) use ( $seasons ) {
+				function ( $season ) use ( $seasons ) {
 					return isset( $seasons[ $season ] ) ? $seasons[ $season ] : $season;
 				},
 				$best_season
@@ -582,7 +582,7 @@ class Delicious_Recipes_Recipe {
 			return false;
 		}
 
-		$ingredient_title = isset( $recipe_meta['ingredientTitle'] ) && $recipe_meta['ingredientTitle'] ? $recipe_meta['ingredientTitle'] : __( "Ingredients", 'delicious-recipes'  );
+		$ingredient_title = isset( $recipe_meta['ingredientTitle'] ) && $recipe_meta['ingredientTitle'] ? $recipe_meta['ingredientTitle'] : __( 'Ingredients', 'delicious-recipes' );
 
 		return apply_filters( 'wp_delicious_ingredient_title', $ingredient_title, $recipe_id );
 	}
@@ -651,7 +651,7 @@ class Delicious_Recipes_Recipe {
 			return false;
 		}
 
-		$instruction_title = isset( $recipe_meta['instructionsTitle'] ) && $recipe_meta['instructionsTitle'] ? $recipe_meta['instructionsTitle'] : __( "Instructions", 'delicious-recipes'  );
+		$instruction_title = isset( $recipe_meta['instructionsTitle'] ) && $recipe_meta['instructionsTitle'] ? $recipe_meta['instructionsTitle'] : __( 'Instructions', 'delicious-recipes' );
 
 		return apply_filters( 'wp_delicious_instruction_title', $instruction_title, $recipe_id );
 	}
@@ -866,7 +866,7 @@ class Delicious_Recipes_Recipe {
 			return false;
 		}
 
-		$faqs_title = isset( $recipe_meta['faqsTitle'] ) ? $recipe_meta['faqsTitle'] : __( "Frequently Asked Questions", 'delicious-recipes'  );
+		$faqs_title = isset( $recipe_meta['faqsTitle'] ) ? $recipe_meta['faqsTitle'] : __( 'Frequently Asked Questions', 'delicious-recipes' );
 
 		return apply_filters( 'wp_delicious_recipe_faqs_title', $faqs_title, $recipe_id );
 	}
@@ -976,11 +976,16 @@ class Delicious_Recipes_Recipe {
 		$cooking_temp_unit = isset( $recipe_meta['cookingTempUnit'] ) && $recipe_meta['cookingTempUnit'] ? $recipe_meta['cookingTempUnit'] : 'C';
 
 		$temp_unit = array(
-			'C' => __( "&deg;C", 'delicious-recipes'  ),
-			'F' => __( "&deg;F", 'delicious-recipes'  ),
+			'C' => __( '&deg;C', 'delicious-recipes' ),
+			'F' => __( '&deg;F', 'delicious-recipes' ),
 		);
 
-		$cooking_temp_unit = $cooking_temp_unit ? $temp_unit[ $cooking_temp_unit ] : $cooking_temp_unit;
+		// Checck if $cooking_temp_unit is set in $temp_unit array.
+		if ( ! array_key_exists( $cooking_temp_unit, $temp_unit ) ) {
+			$cooking_temp_unit = 'C';
+		} else {
+			$cooking_temp_unit = $cooking_temp_unit;
+		}
 
 		return apply_filters( 'wp_delicious_cooking_temp_unit', $cooking_temp_unit, $recipe_id );
 	}

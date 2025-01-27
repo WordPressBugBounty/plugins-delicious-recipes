@@ -262,7 +262,7 @@
             "Select the default card layout for recipe card.": [
                 ""
             ],
-            "More Recipe Card Layouts available in Pro version": [
+            "More Recipe Card Layouts and Banner Layouts are available in Pro version": [
                 ""
             ],
             "Author Settings": [
@@ -364,7 +364,7 @@
             "Upload your photo to display in the author profile. Leave it blank, if you don't want to display in the profile.": [
                 ""
             ],
-            "Supports: .JPG, .PNG, .WEBP images": [
+            "Supports: .JPG, .PNG, .WEBP, .AVIF images": [
                 ""
             ],
             "Autoload Recipes": [
@@ -415,7 +415,7 @@
             "Upload your custom icon(s) to choose for the Taxonomy Icons. Recommended format is PNG of size 40x40px.": [
                 ""
             ],
-            "Max. file size %1$s Supports: PNG, JPEG%2$s": [
+            "Max. file size %1$s Supports: PNG, JPEG, AVIF%2$s": [
                 ""
             ],
             "Allow SVG Icons": [
@@ -578,6 +578,12 @@
                 ""
             ],
             "Automate recipe image creation with customized, ai-generated pictures of recipes for your website.": [
+                ""
+            ],
+            "Category Pages": [
+                ""
+            ],
+            "Create stunning, custom category pages that engage visitors and boost SEO with WP Delicious Category Page Add-On.": [
                 ""
             ],
             "Show Nutrition Facts": [
@@ -935,6 +941,24 @@
                 ""
             ],
             "Custom Recipe Index Page feature is available in Pro version.": [
+                ""
+            ],
+            "Recipe Index Templates": [
+                ""
+            ],
+            "Recipe Template 1": [
+                ""
+            ],
+            "Recipe Template 2": [
+                ""
+            ],
+            "Recipe Template 3": [
+                ""
+            ],
+            "Recipe Template 4": [
+                ""
+            ],
+            " View Template": [
                 ""
             ],
             "Recipe Post": [

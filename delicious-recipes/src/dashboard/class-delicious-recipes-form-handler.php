@@ -351,6 +351,10 @@ class Delicious_Recipes_Form_Handler {
 			update_user_meta( $user_id, 'user_avatar', $profile_image_id );
 		}
 
+		if ( isset( $_POST['profile_image_url'] ) ) {
+			update_user_meta( $user_id, 'uploaded_user_avatar_url', sanitize_text_field( wp_unslash( $_POST['profile_image_url'] ) ) );
+		}
+
 		// Allow plugins to return their own errors.
 		$errors = new WP_Error();
 		do_action_ref_array( 'delicious_recipes_edit_profile_errors', array( &$errors, &$user ) );

@@ -66,13 +66,13 @@ $recipe_card_image = '';
 			Delicious_Dynamic_Recipe_Card::$attributes    = $attributes;
 			Delicious_Dynamic_Recipe_Card::$settings      = $settings;
 
-			Delicious_Dynamic_Recipe_Card::$attributes['summaryTitle']     = isset( $summary_title ) ? $summary_title : __( "Description", 'delicious-recipes' );
-			Delicious_Dynamic_Recipe_Card::$attributes['ingredientsTitle'] = isset( $ingredients_title ) ? $ingredients_title : __( "Ingredients", 'delicious-recipes' );
-			Delicious_Dynamic_Recipe_Card::$attributes['directionsTitle']  = isset( $directions_title ) ? $directions_title : __( "Instructions", 'delicious-recipes' );
-			Delicious_Dynamic_Recipe_Card::$attributes['videoTitle']       = isset( $video_title ) ? $video_title : __( "Video", 'delicious-recipes' );
-			Delicious_Dynamic_Recipe_Card::$attributes['difficultyTitle']  = isset( $difficulty_title ) ? $difficulty_title : __( "Difficulty", 'delicious-recipes' );
-			Delicious_Dynamic_Recipe_Card::$attributes['seasonTitle']      = isset( $season_title ) ? $season_title : __( "Best Season", 'delicious-recipes' );
-			Delicious_Dynamic_Recipe_Card::$attributes['notesTitle']       = isset( $notes_title ) ? $notes_title : __( "Notes", 'delicious-recipes' );
+			Delicious_Dynamic_Recipe_Card::$attributes['summaryTitle']     = isset( $summary_title ) ? $summary_title : __( 'Description', 'delicious-recipes' );
+			Delicious_Dynamic_Recipe_Card::$attributes['ingredientsTitle'] = isset( $ingredients_title ) ? $ingredients_title : __( 'Ingredients', 'delicious-recipes' );
+			Delicious_Dynamic_Recipe_Card::$attributes['directionsTitle']  = isset( $directions_title ) ? $directions_title : __( 'Instructions', 'delicious-recipes' );
+			Delicious_Dynamic_Recipe_Card::$attributes['videoTitle']       = isset( $video_title ) ? $video_title : __( 'Video', 'delicious-recipes' );
+			Delicious_Dynamic_Recipe_Card::$attributes['difficultyTitle']  = isset( $difficulty_title ) ? $difficulty_title : __( 'Difficulty', 'delicious-recipes' );
+			Delicious_Dynamic_Recipe_Card::$attributes['seasonTitle']      = isset( $season_title ) ? $season_title : __( 'Best Season', 'delicious-recipes' );
+			Delicious_Dynamic_Recipe_Card::$attributes['notesTitle']       = isset( $notes_title ) ? $notes_title : __( 'Notes', 'delicious-recipes' );
 
 			$class               = 'dr-summary-holder wp-block-delicious-recipes-block-recipe-card';
 			$class              .= $has_image && isset( $image['url'] ) ? '' : ' recipe-card-noimage';
@@ -195,7 +195,7 @@ $recipe_card_image = '';
 			}
 
 			$difficulty       = isset( $difficulty ) && $settings['displayDifficulty'] ? $difficulty : '';
-			$difficulty_title = isset( $difficulty_title ) ? $difficulty_title : __( "Difficulty", 'delicious-recipes' );
+			$difficulty_title = isset( $difficulty_title ) ? $difficulty_title : __( 'Difficulty', 'delicious-recipes' );
 			if ( $difficulty ) {
 				$svg              = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#difficulty"></use></svg>';
 				$details_content .= sprintf(
@@ -269,7 +269,7 @@ $recipe_card_image = '';
 			}
 
 			$season       = isset( $season ) && $settings['displayBestSeason'] ? $season : '';
-			$season_title = isset( $season_title ) ? $season_title : __( "Best Season", 'delicious-recipes' );
+			$season_title = isset( $season_title ) ? $season_title : __( 'Best Season', 'delicious-recipes' );
 			if ( $season ) {
 				$svg              = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#season"></use></svg>';
 				$details_content .= sprintf(
@@ -286,7 +286,7 @@ $recipe_card_image = '';
 			$steps_content       = Delicious_Dynamic_Recipe_Card::get_steps_content( $steps );
 
 			$summary_text  = '';
-			$summary_title = isset( $summary_title ) ? $summary_title : __( "Description", 'delicious-recipes' );
+			$summary_title = isset( $summary_title ) ? $summary_title : __( 'Description', 'delicious-recipes' );
 			if ( ! empty( $summary ) ) {
 				$summary_class = 'dr-pring-block-header';
 				$summary_text  = sprintf(
@@ -301,7 +301,7 @@ $recipe_card_image = '';
 
 			$strip_tags_notes = isset( $notes ) ? strip_tags( $notes ) : '';
 			$notes            = isset( $notes ) ? str_replace( '<li></li>', '', $notes ) : '';     // remove empty list item
-			$notes_title      = isset( $notes_title ) ? $notes_title : __( "Notes", 'delicious-recipes' );
+			$notes_title      = isset( $notes_title ) ? $notes_title : __( 'Notes', 'delicious-recipes' );
 			$notes_content    = ! empty( $strip_tags_notes ) ?
 				sprintf(
 					'<div class="dr-note">

@@ -160,9 +160,16 @@ class DeliciousPublic {
 	 */
 	public static function add_lazyload_attributes( string $html ): string {
 
-		$global_settings = get_option( 'delicious_recipe_settings', true );
+		$lazyload_enabled = get_theme_mod( 'has_lazy_load', false ); // The second parameter is the default value if not set
+		$global_settings  = get_option( 'delicious_recipe_settings', true );
+
 		// Check if the current page is a WP Travel Engine single post and lazy loading is enabled.
 		if ( isset( $global_settings['enableLazyLoading'] ) && array( 'yes' ) !== $global_settings['enableLazyLoading'] ) {
+			return $html;
+		}
+
+		// Check if lazy load is enabled from theme, if yes then return the HTML as it is.
+		if ( $lazyload_enabled ) {
 			return $html;
 		}
 
@@ -364,10 +371,15 @@ class DeliciousPublic {
 			wp_enqueue_script( 'delicious-recipes-infiniteScroll', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/infiniteScroll.js', $infiniteScroll_deps['dependencies'], $infiniteScroll_deps['version'], true );
 		}
 
-		$license_validity              = ( function_exists( 'DEL_RECIPE_PRO' ) && version_compare( DELICIOUS_RECIPES_PRO_VERSION, '2.2.2', '>=' ) ) ? delicious_recipe_pro_check_license_status() : true;
-		$publicJS_deps                 = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicJS.asset.php';
-		$publicJS_deps['dependencies'] = array_merge( $publicJS_deps['dependencies'], array( 'jquery', 'wp-util', 'select2', 'parsley' ) );
-		$delicious_recipes             = array(
+		$license_validity = ( function_exists( 'DEL_RECIPE_PRO' ) && version_compare( DELICIOUS_RECIPES_PRO_VERSION, '2.2.2', '>=' ) ) ? delicious_recipe_pro_check_license_status() : true;
+		$publicJS_deps    = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicJS.asset.php';
+
+		if ( is_array( $publicJS_deps ) && ! empty( $publicJS_deps ) ) {
+			$publicJS_deps['dependencies'] = array_merge( $publicJS_deps['dependencies'], array( 'jquery', 'wp-util', 'select2', 'parsley' ) );
+		} else {
+			$publicJS_deps = array( 'dependencies' => array( 'jquery', 'wp-util', 'select2', 'parsley' ) );
+		}
+		$delicious_recipes = array(
 			'ajax_url'             => admin_url( 'admin-ajax.php' ),
 			'search_placeholder'   => __( 'Select filters', 'delicious-recipes' ),
 			'edit_profile_pic_msg' => __( 'Click here or Drop new image to update your profile picture', 'delicious-recipes' ),

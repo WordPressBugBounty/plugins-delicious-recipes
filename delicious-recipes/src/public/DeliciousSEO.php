@@ -214,6 +214,9 @@ class Delicious_SEO {
 		if ( $recipe->enable_video_gallery && isset( $recipe->video_gallery['0'] ) ) :
 			$video_obj = $recipe->video_gallery['0'];
 
+			$vid_url   = '';
+			$image_url = '';
+
 			if ( 'youtube' === $video_obj['vidType'] ) {
 				$vid_url   = 'https://www.youtube.com/watch?v=' . $video_obj['vidID'];
 				$image_url = "https://i3.ytimg.com/vi/{$video_obj['vidID']}/maxresdefault.jpg";

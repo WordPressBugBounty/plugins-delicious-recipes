@@ -8,24 +8,26 @@
 /**
  * Get time format.
  *
- * @param int    $minutes.
- * @param string $format.
+ * @param int    $minutes The number of minutes to format.
+ * @param string $format The format to use.
  *
- * @return void
+ * @return string The formatted time.
  */
 function delicious_recipes_time_format( $minutes, $format ) {
 
 	ob_start();
+	$hours_left   = 0;
+	$minutes_left = 0;
 
 	if ( $minutes < 60 ) :
-		if ( $format === 'iso' ) :
+		if ( 'iso' === $format ) :
 			return 'PT0H' . $minutes . 'M';
 		endif;
 
 	elseif ( $minutes < 1440 ) :
 		$hours        = floor( $minutes / 60 );
 		$minutes_left = $minutes - ( $hours * 60 );
-		if ( $format === 'iso' ) :
+		if ( 'iso' === $format ) :
 			return 'PT' . $hours . 'H' . ( $minutes_left ? $minutes_left : 0 ) . 'M';
 		endif;
 
@@ -36,14 +38,13 @@ function delicious_recipes_time_format( $minutes, $format ) {
 			$hours_left   = floor( $minutes_left / 60 );
 			$minutes_left = $minutes_left - ( $hours_left * 60 );
 		endif;
-		if ( $format === 'iso' ) :
+		if ( 'iso' === $format ) :
 			return 'P' . $days . 'DT' . ( $hours_left ? $hours_left : 0 ) . 'H' . ( $minutes_left ? $minutes_left : 0 ) . 'M';
 		endif;
 
 	endif;
 
 	return ob_get_clean();
-
 }
 
 /**
@@ -251,7 +252,7 @@ function delicious_recipes_get_single_ingredients( $recipe_id ) {
 
 					$ingredient = strip_tags( preg_replace( '~(?:\[/?)[^/\]]+/?\]~s', '', $ingredients['ingredient'] ) );
 					if ( ! in_array( $ingredient, array_values( $ingres_per_recipe ) ) ) {
-						$ingres_per_recipe[] = $ingredient ;
+						$ingres_per_recipe[] = $ingredient;
 					}
 				}
 			}
@@ -527,88 +528,88 @@ function delicious_recipes_get_nutrition_facts() {
 
 			'top'    => array(
 				'servings'    => array(
-					'name' => esc_html__( "Servings", 'delicious-recipes' ),
+					'name' => esc_html__( 'Servings', 'delicious-recipes' ),
 					'type' => 'number',
 				),
 				'servingSize' => array(
-					'name' => esc_html__( "Serving Size", 'delicious-recipes' ),
+					'name' => esc_html__( 'Serving Size', 'delicious-recipes' ),
 					'type' => 'text',
 				),
 			),
 
 			'mid'    => array(
-				'calories'        => array(
-					'name'        => esc_html__( "Calories", 'delicious-recipes' ),
+				'calories' => array(
+					'name'        => esc_html__( 'Calories', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'kcal',
 				),
-// removed due to new nutrition layout design not having this field
-//				'caloriesFromFat' => array(
-//					'name'        => esc_html__( "Calories from Fat", 'delicious-recipes' ),
-//					'type'        => 'number',
-//					'measurement' => 'kcal',
-//				),
+			// removed due to new nutrition layout design not having this field
+			// 'caloriesFromFat' => array(
+			// 'name'        => esc_html__( "Calories from Fat", 'delicious-recipes' ),
+			// 'type'        => 'number',
+			// 'measurement' => 'kcal',
+			// ),
 			),
 
 			'main'   => array(
 				'totalFat'          => array(
-					'name'        => esc_html__( "Total Fat", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Total Fat', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'g',
 					'pdv'         => apply_filters( 'wp_delicious_pdv_fat', 65 ),
 					'subs'        => array(
 						'saturatedFat' => array(
-							'name'        => esc_html__( "Saturated Fat", 'delicious-recipes' ),
+							'name'        => esc_html__( 'Saturated Fat', 'delicious-recipes' ),
 							'type'        => 'number',
 							'measurement' => 'g',
 							'pdv'         => apply_filters( 'wp_delicious_pdv_satfat', 20 ),
 						),
 						'transFat'     => array(
-							'name'        => esc_html__( "Trans Fat", 'delicious-recipes' ),
+							'name'        => esc_html__( 'Trans Fat', 'delicious-recipes' ),
 							'type'        => 'number',
 							'measurement' => 'g',
 						),
 					),
 				),
 				'cholesterol'       => array(
-					'name'        => esc_html__( "Cholesterol", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Cholesterol', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 					'pdv'         => apply_filters( 'wp_delicious_pdv_cholesterol', 300 ),
 				),
 				'sodium'            => array(
-					'name'        => esc_html__( "Sodium", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Sodium', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 					'pdv'         => apply_filters( 'wp_delicious_pdv_sodium', 2400 ),
 				),
 				'potassium'         => array(
-					'name'        => esc_html__( "Potassium", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Potassium', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 					'pdv'         => apply_filters( 'wp_delicious_pdv_potassium', 3500 ),
 				),
 				'totalCarbohydrate' => array(
-					'name'        => esc_html__( "Total Carbohydrate", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Total Carbohydrate', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'g',
 					'pdv'         => apply_filters( 'wp_delicious_pdv_carbs', 300 ),
 					'subs'        => array(
 						'dietaryFiber' => array(
-							'name'        => esc_html__( "Dietary Fiber", 'delicious-recipes' ),
+							'name'        => esc_html__( 'Dietary Fiber', 'delicious-recipes' ),
 							'type'        => 'number',
 							'measurement' => 'g',
 							'pdv'         => apply_filters( 'wp_delicious_pdv_fiber', 25 ),
 						),
 						'sugars'       => array(
-							'name'        => esc_html__( "Sugars", 'delicious-recipes' ),
+							'name'        => esc_html__( 'Sugars', 'delicious-recipes' ),
 							'type'        => 'number',
 							'measurement' => 'g',
 						),
 					),
 				),
 				'protein'           => array(
-					'name'        => esc_html__( "Protein", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Protein', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'g',
 					'pdv'         => apply_filters( 'wp_delicious_pdv_protein', 50 ),
@@ -617,127 +618,127 @@ function delicious_recipes_get_nutrition_facts() {
 
 			'bottom' => array(
 				'vitaminA'        => array(
-					'name'        => esc_html__( "Vitamin A", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Vitamin A', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'IU',
 				),
 				'vitaminC'        => array(
-					'name'        => esc_html__( "Vitamin C", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Vitamin C', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'calcium'         => array(
-					'name'        => esc_html__( "Calcium", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Calcium', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'iron'            => array(
-					'name'        => esc_html__( "Iron", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Iron', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'vitaminD'        => array(
-					'name'        => esc_html__( "Vitamin D", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Vitamin D', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'IU',
 				),
 				'vitaminE'        => array(
-					'name'        => esc_html__( "Vitamin E", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Vitamin E', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'IU',
 				),
 				'vitaminK'        => array(
-					'name'        => esc_html__( "Vitamin K", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Vitamin K', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mcg',
 				),
 				'thiamin'         => array(
-					'name'        => esc_html__( "Thiamin", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Thiamin', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'riboflavin'      => array(
-					'name'        => esc_html__( "Riboflavin", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Riboflavin', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'niacin'          => array(
-					'name'        => esc_html__( "Niacin", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Niacin', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'vitaminB6'       => array(
-					'name'        => esc_html__( "Vitamin B6", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Vitamin B6', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'folate'          => array(
-					'name'        => esc_html__( "Folate", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Folate', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mcg',
 				),
 				'vitaminB12'      => array(
-					'name'        => esc_html__( "Vitamin B12", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Vitamin B12', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mcg',
 				),
 				'biotin'          => array(
-					'name'        => esc_html__( "Biotin", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Biotin', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mcg',
 				),
 				'pantothenicAcid' => array(
-					'name'        => esc_html__( "Pantothenic Acid", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Pantothenic Acid', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'phosphorus'      => array(
-					'name'        => esc_html__( "Phosphorus", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Phosphorus', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'iodine'          => array(
-					'name'        => esc_html__( "Iodine", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Iodine', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mcg',
 				),
 				'magnesium'       => array(
-					'name'        => esc_html__( "Magnesium", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Magnesium', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'zinc'            => array(
-					'name'        => esc_html__( "Zinc", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Zinc', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'selenium'        => array(
-					'name'        => esc_html__( "Selenium", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Selenium', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mcg',
 				),
 				'copper'          => array(
-					'name'        => esc_html__( "Copper", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Copper', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'manganese'       => array(
-					'name'        => esc_html__( "Manganese", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Manganese', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
 				'chromium'        => array(
-					'name'        => esc_html__( "Chromium", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Chromium', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mcg',
 				),
 				'molybdenum'      => array(
-					'name'        => esc_html__( "Molybdenum", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Molybdenum', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mcg',
 				),
 				'chloride'        => array(
-					'name'        => esc_html__( "Chloride", 'delicious-recipes' ),
+					'name'        => esc_html__( 'Chloride', 'delicious-recipes' ),
 					'type'        => 'number',
 					'measurement' => 'mg',
 				),
@@ -746,7 +747,6 @@ function delicious_recipes_get_nutrition_facts() {
 	);
 
 	return $nutrition_facts;
-
 }
 
 /**
@@ -826,7 +826,6 @@ function delicious_recipes_get_png_icons() {
 		)
 	);
 	return $png_icons;
-
 }
 
 add_filter( 'delicious_recipes_png_icons', 'delicious_recipes_get_custom_icons' );
@@ -893,7 +892,7 @@ function delicious_recipes_comments_callback( $comment, $args, $depth ) {
 					</a>
 				</div>
 				<?php if ( $comment->comment_approved == '0' ) : ?>
-					<p class="comment-awaiting-moderation"><?php _e( "Your comment is awaiting moderation.", 'delicious-recipes' ); ?></p>
+					<p class="comment-awaiting-moderation"><?php _e( 'Your comment is awaiting moderation.', 'delicious-recipes' ); ?></p>
 					<br />
 				<?php endif; ?>
 				<div class="reply">
@@ -945,7 +944,7 @@ function delicious_recipes_get_average_rating( $id, $return_total_votes = false,
 		foreach ( $comments as $comment ) {
 			$rate = get_comment_meta( $comment->comment_ID, 'rating', true );
 			if ( isset( $rate ) && '' !== $rate && 0 != $rate ) {
-				$i++;
+				++$i;
 				$total += $rate;
 			}
 		}
@@ -1189,13 +1188,13 @@ function delicious_recipes_social_share() {
 */
 function delicious_recipes_get_taxonomies() {
 	$taxonomies = array(
-		'recipe-course'         => __( "Recipe Courses", 'delicious-recipes'  ),
-		'recipe-cuisine'        => __( "Recipe Cuisines", 'delicious-recipes'  ),
-		'recipe-cooking-method' => __( "Recipe Cooking Methods", 'delicious-recipes'  ),
-		'recipe-key'            => __( "Recipe Keys", 'delicious-recipes'  ),
-		'recipe-tag'            => __( "Recipe Tags", 'delicious-recipes'  ),
-		'recipe-badge'          => __( "Recipe Badges", 'delicious-recipes'  ),
-		'recipe-dietary'        => __( "Recipe Dietary", 'delicious-recipes'  ),
+		'recipe-course'         => __( 'Recipe Courses', 'delicious-recipes' ),
+		'recipe-cuisine'        => __( 'Recipe Cuisines', 'delicious-recipes' ),
+		'recipe-cooking-method' => __( 'Recipe Cooking Methods', 'delicious-recipes' ),
+		'recipe-key'            => __( 'Recipe Keys', 'delicious-recipes' ),
+		'recipe-tag'            => __( 'Recipe Tags', 'delicious-recipes' ),
+		'recipe-badge'          => __( 'Recipe Badges', 'delicious-recipes' ),
+		'recipe-dietary'        => __( 'Recipe Dietary', 'delicious-recipes' ),
 	);
 	return $taxonomies;
 }
@@ -1225,19 +1224,19 @@ if ( ! function_exists( 'delicious_recipes_block_is_registered' ) ) {
 function get_surprise_me_options( $type = 'widget', $key = 'string' ) {
 	$options = array(
 		'show_icon'      => array(
-			'string'  => __( "Displays icon", 'delicious-recipes'  ),
+			'string'  => __( 'Displays icon', 'delicious-recipes' ),
 			'default' => 1,
 		),
 		'show_text'      => array(
-			'string'  => __( "Displays text", 'delicious-recipes'  ),
+			'string'  => __( 'Displays text', 'delicious-recipes' ),
 			'default' => 1,
 		),
 		'show_text_icon' => array(
-			'string'  => __( "Displays text & icon", 'delicious-recipes'  ),
+			'string'  => __( 'Displays text & icon', 'delicious-recipes' ),
 			'default' => 1,
 		),
 		'show_posts'     => array(
-			'string'  => __( "Randomize posts", 'delicious-recipes'  ),
+			'string'  => __( 'Randomize posts', 'delicious-recipes' ),
 			'default' => 0,
 		),
 	);
@@ -1415,7 +1414,7 @@ function delicious_recipes_get_notice_count( $notice_type = '' ) {
 	if ( ! empty( $all_notices ) && is_array( $all_notices ) ) {
 
 		foreach ( $all_notices as $key => $notices ) {
-			$notice_count++;
+			++$notice_count;
 		}
 	}
 
@@ -1474,7 +1473,7 @@ function delicious_recipes_get_template_content( $email_template_type = 'new_acc
  */
 add_filter(
 	'safe_style_css',
-	function( $styles ) {
+	function ( $styles ) {
 		$styles[] = 'display';
 		return $styles;
 	}
@@ -1508,48 +1507,47 @@ function delicious_nutrition_chart_layout() {
 
 /**
  * Get the breadcrumbs.
+ *
  * @since 2.2.3
  */
-function get_breadcrumbs($home = 'Home', $delimiter = ' &raquo; ', $before = '<span class="current">', $after = '</span>', $show_front = 'page', $post_page = false) {
-    $depth = 1; // Starting depth for home
-    
-    // Start of breadcrumb container
-    echo '<div class="breadcrumb-wrapper"><div id="crumbs" itemscope itemtype="https://schema.org/BreadcrumbList">';
-    
-    // Home breadcrumb
-    echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-    echo '<a href="' . esc_url(home_url()) . '" itemprop="item"><span itemprop="name" class="home-text">' . esc_html($home) . '</span></a><meta itemprop="position" content="' . absint($depth) . '" />' . $delimiter . '</span>';
-    $depth++;
+function get_breadcrumbs( $home = 'Home', $delimiter = ' &raquo; ', $before = '<span class="current">', $after = '</span>', $show_front = 'page', $post_page = false ) {
+	$depth = 1; // Starting depth for home
 
-    // Single recipe post page
-    if (is_singular('recipe')) {
-        echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-        echo '<a href="' . esc_url(get_post_type_archive_link('recipe')) . '" itemprop="item"><span itemprop="name">Recipe</span></a><meta itemprop="position" content="' . absint($depth) . '" />' . $delimiter . '</span>';
-        $depth++;
+	// Start of breadcrumb container
+	echo '<div class="breadcrumb-wrapper"><div id="crumbs" itemscope itemtype="https://schema.org/BreadcrumbList">';
 
-        $post = get_post();
-        echo $before . '<a itemprop="item" href="' . esc_url(get_permalink($post->ID)) . '"><span itemprop="name">' . esc_html(get_the_title($post->ID)) . '</span></a><meta itemprop="position" content="' . absint($depth) . '" />' . $after;
-        $depth++;
-    }
+	// Home breadcrumb
+	echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+	echo '<a href="' . esc_url( home_url() ) . '" itemprop="item"><span itemprop="name" class="home-text">' . esc_html( $home ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . $delimiter . '</span>';
+	++$depth;
 
-    // Single post page for other post types
-    elseif (is_single()) {
-        $depth = 2;
-        $post = get_post();
-        $category = get_the_category($post->ID);
-        $category = !empty($category) ? $category[0] : null;
+	// Single recipe post page
+	if ( is_singular( 'recipe' ) ) {
+		echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
+		echo '<a href="' . esc_url( get_post_type_archive_link( 'recipe' ) ) . '" itemprop="item"><span itemprop="name">Recipe</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . $delimiter . '</span>';
+		++$depth;
 
-        if ($category) {
-            echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="' . esc_url(get_category_link($category->term_id)) . '"><span itemprop="name">' . esc_html($category->name) . '</span></a><meta itemprop="position" content="' . absint($depth) . '" />' . $delimiter . '</span>';
-            $depth++;
-        }
+		$post = get_post();
+		echo $before . '<a itemprop="item" href="' . esc_url( get_permalink( $post->ID ) ) . '"><span itemprop="name">' . esc_html( get_the_title( $post->ID ) ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . $after;
+		++$depth;
+	}
 
-        echo $before . '<a itemprop="item" href="' . esc_url(get_permalink($post->ID)) . '"><span itemprop="name">' . esc_html(get_the_title($post->ID)) . '</span></a><meta itemprop="position" content="' . absint($depth) . '" />' . $after;
-        $depth++;
-    }
+	// Single post page for other post types
+	elseif ( is_single() ) {
+		$depth    = 2;
+		$post     = get_post();
+		$category = get_the_category( $post->ID );
+		$category = ! empty( $category ) ? $category[0] : null;
 
-    // End breadcrumb container
-    echo '</div></div>';
+		if ( $category ) {
+			echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_category_link( $category->term_id ) ) . '"><span itemprop="name">' . esc_html( $category->name ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . $delimiter . '</span>';
+			++$depth;
+		}
+
+		echo $before . '<a itemprop="item" href="' . esc_url( get_permalink( $post->ID ) ) . '"><span itemprop="name">' . esc_html( get_the_title( $post->ID ) ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . $after;
+		++$depth;
+	}
+
+	// End breadcrumb container
+	echo '</div></div>';
 }
-
-

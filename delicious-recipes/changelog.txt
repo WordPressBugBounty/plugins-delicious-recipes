@@ -1,3 +1,17 @@
+1.7.8: 2025-01-27
+- New Feature: Added feature to import recipes from CSV file.
+- New Feature: Added feature to import recipes from Tasty Recipe Plugin
+- Fixes: Resolved fatal error caused by plugin conflict with the SureDash plugin.
+- Fixes: Disabled Pro features in the recipe editor when WP Delicius Pro license is inactive.
+- Fixes: Added missing H3 tag for Nutrition Facts section title.
+- Fixes: Resolved issue with the recipe card block not being saved.
+- Fixes: Fixed Pinterest URL issue.
+- Fixes: Addressed lazy loading conflict with theme's lazy loading feature.
+- Fixes: Resolved issue where profile images updated via the WP Delicious dashboard were not reflected site-wide.
+- Fixes: Fixed PHP deprecated warning.
+- Fixes: Corrected the issue where the gluten-free icon for taxonomies reverted to old icon after saving.
+- Fixes: Resolved undefined variable $hours_left issue.
+
 1.7.7: 2025-01-06
 - Enhancement: Design improvements of License Activation page.
 - Fixes: Resolved issue with Recipe Import feature when using the Cooked plugin.

@@ -1128,6 +1128,12 @@ button.dr-btn:hover,
   margin-right: 12px;
 }
 
+.dr-user-dashboard-wrapper .dr-ud__grid .dr-ud__sidebar .dr-ud__sidebar-inner .dr-ud__user-wrap .dr-ud__user-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .dr-user-dashboard-wrapper .dr-ud__grid .dr-ud__sidebar .dr-ud__sidebar-inner .dr-ud__user-wrap .dr-ud__user-img .img-holder {
   width: 64px;
   height: 64px;
@@ -1668,7 +1674,8 @@ button.dr-btn:hover,
 }
 
 .dr-archive-list-wrapper .dr-archive-list .dr-archive-single figure img {
-  /* width: 100%; */ /* removed due to pinit label being distorted */
+  /* width: 100%; */
+  /* removed due to pinit label being distorted */
   vertical-align: top;
 }
 

@@ -175,7 +175,7 @@
             "to upload": [
                 ""
             ],
-            "Supports: JPG, PNG, WEBP. Max. file size %s": [
+            "Supports: JPG, PNG, WEBP, AVIF. Max. file size %s": [
                 ""
             ],
             " hour(s) ": [
@@ -346,7 +346,7 @@
             "Upload Image": [
                 ""
             ],
-            "Supports: .JPG, .PNG , .WEBP images": [
+            "Supports: .JPG, .PNG , .WEBP, .AVIF images": [
                 ""
             ],
             "Instruction Title": [

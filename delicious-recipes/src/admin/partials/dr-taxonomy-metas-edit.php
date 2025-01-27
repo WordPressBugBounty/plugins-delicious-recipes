@@ -12,14 +12,14 @@ $tax_image         = isset( $dr_taxonomy_metas['taxonomy_image'] ) ? $dr_taxonom
 $tax_svg           = isset( $dr_taxonomy_metas['taxonomy_svg'] ) ? $dr_taxonomy_metas['taxonomy_svg'] : '';
 ?>
 <tr class="form-field term-tax-color-wrap">
-	<th scope="row"><label for="tax-color"><?php esc_html_e( "Taxonomy Color", 'delicious-recipes' ); ?></label></th>
+	<th scope="row"><label for="tax-color"><?php esc_html_e( 'Taxonomy Color', 'delicious-recipes' ); ?></label></th>
 	<td><input class="dr-colorpickr" type="text" name="dr_taxonomy_metas[taxonomy_color]" id="dr_taxonomy_metas[taxonomy_color]" value="<?php echo esc_attr( $tax_color ); ?>" />
-		<p class="description"><?php esc_html_e( "Choose color for the taxonomy.", 'delicious-recipes' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Choose color for the taxonomy.', 'delicious-recipes' ); ?></p>
 	</td>
 </tr>
 
 <tr class="form-field term-tax-image-wrap">
-	<th scope="row"><label for="tax-image"><?php esc_html_e( "Taxonomy Image", 'delicious-recipes' ); ?></label></th>
+	<th scope="row"><label for="tax-image"><?php esc_html_e( 'Taxonomy Image', 'delicious-recipes' ); ?></label></th>
 	<td>
 		<input type="hidden" id="dr_taxonomy_metas[taxonomy_image]" name="dr_taxonomy_metas[taxonomy_image]" class="dr_tax_image_media_id" value="<?php echo esc_attr( $tax_image ); ?>">
 		<div id="dr-tax-image-wrapper">
@@ -30,19 +30,20 @@ $tax_svg           = isset( $dr_taxonomy_metas['taxonomy_svg'] ) ? $dr_taxonomy_
 			}
 			?>
 		</div>
-		<input type="button" class="button button-secondary dr_tax_add_media_button" id="dr_tax_add_media_button" name="dr_tax_add_media_button" value="<?php esc_attr_e( "Add/Replace Image", 'delicious-recipes' ); ?>" />
-		<input type="button" class="button button-secondary dr_tax_remove_media_remove" id="dr_tax_remove_media_remove" name="dr_tax_remove_media_remove" value="<?php esc_attr_e( "Remove Image", 'delicious-recipes' ); ?>" />
-		<p class="description"><?php esc_html_e( "Choose image for the taxonomy.", 'delicious-recipes' ); ?></p>
+		<input type="button" class="button button-secondary dr_tax_add_media_button" id="dr_tax_add_media_button" name="dr_tax_add_media_button" value="<?php esc_attr_e( 'Add/Replace Image', 'delicious-recipes' ); ?>" />
+		<input type="button" class="button button-secondary dr_tax_remove_media_remove" id="dr_tax_remove_media_remove" name="dr_tax_remove_media_remove" value="<?php esc_attr_e( 'Remove Image', 'delicious-recipes' ); ?>" />
+		<p class="description"><?php esc_html_e( 'Choose image for the taxonomy.', 'delicious-recipes' ); ?></p>
 	</td>
 </tr>
 
 <tr class="form-field term-tax-svg-wrap">
-	<th scope="row"><label for="tax-svg"><?php esc_html_e( "Taxonomy SVG Icon", 'delicious-recipes' ); ?></label></th>
+	<th scope="row"><label for="tax-svg"><?php esc_html_e( 'Taxonomy SVG Icon', 'delicious-recipes' ); ?></label></th>
 	<td>
 		<span class="dr-icon-holder">
 			<?php
+			$icons = Delicious_Recipes_SVG::get_recipe_keys_icons();
 			if ( $tax_svg ) {
-				$svg       = delicious_recipes_get_svg( $tax_svg, 'recipe-keys', '#000000' );
+				$svg       = isset( $icons[ $tax_svg ] ) ? $icons[ $tax_svg ] : false;
 				$png_array = delicious_recipes_get_png_icons();
 				$png       = isset( $png_array[ $tax_svg ] ) ? $png_array[ $tax_svg ] : false;
 				if ( $svg ) {
@@ -67,14 +68,14 @@ $tax_svg           = isset( $dr_taxonomy_metas['taxonomy_svg'] ) ? $dr_taxonomy_
 		<input class="taxonomy_svg" type="text" name="dr_taxonomy_metas[taxonomy_svg]" id="dr_taxonomy_metas[taxonomy_svg]" value="<?php echo esc_attr( $tax_svg ); ?>" autocomplete="off" />
 		<div class="dr-recipe-icons-wrap">
 			<ul class="dr-tab-titles">
-				<li class="active-tab"><?php esc_html_e( "SVG", 'delicious-recipes' ); ?></li>
-				<li><?php esc_html_e( "FontAwesome", 'delicious-recipes' ); ?></li>
-				<li><?php esc_html_e( "PNG / Custom Icons", 'delicious-recipes' ); ?></li>
+				<li class="active-tab"><?php esc_html_e( 'SVG', 'delicious-recipes' ); ?></li>
+				<li><?php esc_html_e( 'FontAwesome', 'delicious-recipes' ); ?></li>
+				<li><?php esc_html_e( 'PNG / Custom Icons', 'delicious-recipes' ); ?></li>
 			</ul>
 
 			<div class="dr-tabs-content">
 				<div class="dr-tab-content-inn">
-					<input class="dr-adm-ico-search adm-ico-search" type="text" placeholder="<?php esc_attr_e( "Search here...", 'delicious-recipes' ); ?>" value="">
+					<input class="dr-adm-ico-search adm-ico-search" type="text" placeholder="<?php esc_attr_e( 'Search here...', 'delicious-recipes' ); ?>" value="">
 					<?php
 					$icons = Delicious_Recipes_SVG::get_recipe_keys_icons();
 					if ( $icons ) {
@@ -88,7 +89,7 @@ $tax_svg           = isset( $dr_taxonomy_metas['taxonomy_svg'] ) ? $dr_taxonomy_
 					?>
 				</div>
 				<div class="dr-tab-content-inn">
-					<input class="dr-adm-ico-search fa-icon-search" type="text" placeholder="<?php esc_attr_e( "Search here...", 'delicious-recipes' ); ?>" value="">
+					<input class="dr-adm-ico-search fa-icon-search" type="text" placeholder="<?php esc_attr_e( 'Search here...', 'delicious-recipes' ); ?>" value="">
 					<?php
 					$fontawesome_icons = delicious_recipes_get_fontawesome_icons();
 					if ( ! empty( $fontawesome_icons ) ) {
@@ -102,7 +103,7 @@ $tax_svg           = isset( $dr_taxonomy_metas['taxonomy_svg'] ) ? $dr_taxonomy_
 					?>
 				</div>
 				<div class="dr-tab-content-inn">
-					<input class="dr-adm-ico-search adm-png-search" type="text" placeholder="<?php esc_attr_e( "Search here...", 'delicious-recipes' ); ?>" value="">
+					<input class="dr-adm-ico-search adm-png-search" type="text" placeholder="<?php esc_attr_e( 'Search here...', 'delicious-recipes' ); ?>" value="">
 					<?php
 					$png_icons = delicious_recipes_get_png_icons();
 					if ( ! empty( $png_icons ) ) {
@@ -125,6 +126,6 @@ $tax_svg           = isset( $dr_taxonomy_metas['taxonomy_svg'] ) ? $dr_taxonomy_
 				</div>
 			</div>
 		</div>
-		<p class="description"><?php esc_html_e( "Choose svg icon for the taxonomy.", 'delicious-recipes' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Choose svg icon for the taxonomy.', 'delicious-recipes' ); ?></p>
 	</td>
 </tr>

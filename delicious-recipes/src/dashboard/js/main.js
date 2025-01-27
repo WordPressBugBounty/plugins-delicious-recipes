@@ -65,18 +65,42 @@
     if (document.querySelector('#profile-img')) {
         var thisDZContainer_profile_img = $("#profile-img");
 
+        toastr.options.positionClass = "toast-bottom-full-width";
+        toastr.options.timeOut = "5000";
+
         var DZOBJ_profile_img = new Dropzone("#profile-img", {
-            acceptedFiles: "image/jpeg, image/gif, image/png, image/webp",
+            acceptedFiles: "image/jpeg, image/gif, image/png, image/webp, image/avif",
             maxFiles: 1,
             url: delicious_recipes.ajax_url,
             uploadMultiple: false,
-            resizeWidth: 1500,
+            resizeWidth: 300,
             resizeMimeType: 'image/jpeg',
             resizeMethod: 'crop',
             resizeQuality: 65,
             createImageThumbnails: false,
             maxFilesize: 2,
-            dictDefaultMessage: delicious_recipes.edit_profile_pic_msg
+            dictDefaultMessage: delicious_recipes.edit_profile_pic_msg,
+        });
+
+        DZOBJ_profile_img.on("addedfile", function (file) {
+            // Create an image object to load the image and check its dimensions
+            var img = new Image();
+            img.onload = function () {
+                const width = img.width;
+                const height = img.height;
+        
+                // Define the allowed dimensions (example: 400px x 400px)
+                const allowedWidth = 150;
+                const allowedHeight = 150;
+        
+                // Check if the image meets the dimension requirements
+                if (width > allowedWidth || height > allowedHeight) {
+                    // Remove the file from Dropzone if it doesn't meet the dimension criteria
+                    DZOBJ_profile_img.removeFile(file);
+                    toastr.error("Please upload an image with dimensions " + allowedWidth + "x" + allowedHeight + " pixels.");
+                }
+            };
+            img.src = URL.createObjectURL(file);
         });
 
         DZOBJ_profile_img.on("sending", function (file, xhr, formData) {
@@ -116,7 +140,6 @@
     }
 
     $(document).on('click', '.dr-profile-btns .dr-profile-img-delete', function (e) {
-
         DZOBJ_profile_img.removeAllFiles();
         thisDZContainer_profile_img.find("input[name='profile_image']").val('');
         thisDZContainer_profile_img.find("input[name='profile_image_url']").val('');

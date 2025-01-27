@@ -8,22 +8,18 @@
  * @since 1.0.0
  */
 
-if (!class_exists('Delicious_Recipes_SVG')) {
+if ( ! class_exists( 'Delicious_Recipes_SVG' ) ) {
 	/**
 	 * SVG ICONS CLASS
 	 * Retrieve the SVG code for the specified icon. Based on a solution in Twenty Nineteen.
 	 */
-	class Delicious_Recipes_SVG
-	{
-
-
+	class Delicious_Recipes_SVG {
 		/**
 		 * Returns svg icons.
 		 *
 		 * @return array
 		 */
-		public static function get_recipe_keys_icons()
-		{
+		public static function get_recipe_keys_icons() {
 			return self::$recipe_keys_icons;
 		}
 
@@ -35,24 +31,23 @@ if (!class_exists('Delicious_Recipes_SVG')) {
 		 * @param string $group Icon group.
 		 * @param string $color Color.
 		 */
-		public static function get_svg($icon, $group = 'recipe-keys', $color = '#1A1A1B')
-		{
-			if ('recipe-keys' === $group) {
+		public static function get_svg( $icon, $group = 'recipe-keys', $color = '#1A1A1B' ) {
+			if ( 'recipe-keys' === $group ) {
 				$arr = self::$recipe_keys_icons;
-			} elseif ('recipe-cats' === $group) {
+			} elseif ( 'recipe-cats' === $group ) {
 				$arr = self::$recipe_category_icons;
-			} elseif ('dashboard' === $group) {
-				$arr = apply_filters('delicious_recipes_user_dashboard_svgs', self::$dashboard_svg_icons);
+			} elseif ( 'dashboard' === $group ) {
+				$arr = apply_filters( 'delicious_recipes_user_dashboard_svgs', self::$dashboard_svg_icons );
 			} else {
 				$arr = array();
 			}
-			if (array_key_exists($icon, $arr)) {
+			if ( array_key_exists( $icon, $arr ) ) {
 				$repl = '<svg class="svg-icon" aria-hidden="true" role="img" focusable="false" ';
-				$svg  = preg_replace('/^<svg /', $repl, trim($arr[$icon])); // Add extra attributes to SVG code.
-				$svg  = str_replace('#1A1A1B', $color, $svg);   // Replace the color.
+				$svg  = preg_replace( '/^<svg /', $repl, trim( $arr[ $icon ] ) ); // Add extra attributes to SVG code.
+				$svg  = str_replace( '#1A1A1B', $color, $svg );   // Replace the color.
 				// $svg  = str_replace( '#', '%23', $svg );          // Urlencode hashes.
-				$svg = preg_replace("/([\n\t]+)/", ' ', $svg); // Remove newlines & tabs.
-				$svg = preg_replace('/>\s*</', '><', $svg);    // Remove whitespace between SVG tags.
+				$svg = preg_replace( "/([\n\t]+)/", ' ', $svg ); // Remove newlines & tabs.
+				$svg = preg_replace( '/>\s*</', '><', $svg );    // Remove whitespace between SVG tags.
 				return $svg;
 			}
 			return '';

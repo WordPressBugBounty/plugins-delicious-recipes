@@ -37,7 +37,7 @@ abstract class Delicious_Recipes_API_Controller {
 	 */
 	public function get_items_permissions_check( $request ) {
 		if ( ! current_user_can( 'read' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( "You cannot view the post resource.", 'delicious-recipes' ), array( 'status' => $this->authorization_status_code() ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource.', 'delicious-recipes' ), array( 'status' => $this->authorization_status_code() ) );
 		}
 		return true;
 	}
@@ -59,7 +59,7 @@ abstract class Delicious_Recipes_API_Controller {
 	public function post_item_permissions_check( $request ) {
 		// Check edit prevlages.
 		if ( ! current_user_can( 'edit_posts' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( "You cannot view the post resource.", 'delicious-recipes' ), array( 'status' => $this->authorization_status_code() ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource.', 'delicious-recipes' ), array( 'status' => $this->authorization_status_code() ) );
 		}
 		return true;
 	}
@@ -72,7 +72,7 @@ abstract class Delicious_Recipes_API_Controller {
 	public function update_settings_permissions_check( $request ) {
 		// Check manage_options prevlages.
 		if ( ! current_user_can( 'manage_options' ) ) {
-			return new WP_Error( 'rest_forbidden', esc_html__( "You cannot update the site settings.", 'delicious-recipes' ), array( 'status' => $this->authorization_status_code() ) );
+			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot update the site settings.', 'delicious-recipes' ), array( 'status' => $this->authorization_status_code() ) );
 		}
 		return true;
 	}
