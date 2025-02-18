@@ -531,7 +531,8 @@ function recipeScripts() {
 					elTarget && elTarget != this;
 					elTarget = elTarget.parentNode
 				) {
-					if (elTarget.matches(selector)) {
+					// Check if elTarget is an Element before calling matches
+					if (elTarget instanceof Element && elTarget.matches(selector)) {
 						callback.call(elTarget, event);
 						break;
 					}
@@ -575,7 +576,6 @@ function recipeScripts() {
 				buttonsWrapper.querySelectorAll('button').forEach(e => e.classList.remove('active'));
 				const servingValue = document.querySelector('.dr-ingredients-scale').getAttribute('data-serving-value');
 				const ingredientLists = document.querySelectorAll('.dr-ingredients-list .dr-unordered-list li');
-				// let ingredientUnits = document.querySelectorAll(".dr-ingredients-list .dr-unordered-list .ingredient_unit");
 				event.preventDefault();
 
 				scaleBtns.forEach((item) => item.classList.remove('active'));
@@ -707,7 +707,7 @@ function handleFaqAccordion(e) {
 	// faq accordion
 	["dr-faq-title-wrap", "dr-title"].forEach(function (cls) {
 		if (e.target.classList.contains(cls)) {
-			if (e.target.closest(".dr-faq-item").matches(".faq-active")) {
+			if (e.target.closest(".dr-faq-item") && e.target.closest(".dr-faq-item").matches(".faq-active")) {
 				e.target.closest(".dr-faq-item").classList.remove("faq-active");
 			} else {
 				e.target.closest(".dr-faq-item").classList.add("faq-active");

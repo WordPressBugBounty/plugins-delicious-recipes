@@ -16,6 +16,27 @@
             "Best Season": [
                 ""
             ],
+            "Fall": [
+                ""
+            ],
+            "Winter": [
+                ""
+            ],
+            "Summer": [
+                ""
+            ],
+            "Spring": [
+                ""
+            ],
+            "Suitable throughout the year": [
+                ""
+            ],
+            "Cooking Temp": [
+                ""
+            ],
+            "Estimated Cost": [
+                ""
+            ],
             "Calories": [
                 ""
             ],
@@ -34,21 +55,6 @@
             "Instructions": [
                 ""
             ],
-            "Fall": [
-                ""
-            ],
-            "Winter": [
-                ""
-            ],
-            "Summer": [
-                ""
-            ],
-            "Spring": [
-                ""
-            ],
-            "Suitable throughout the year": [
-                ""
-            ],
             "Beginner": [
                 ""
             ],
@@ -62,12 +68,6 @@
                 ""
             ],
             "Rest Time": [
-                ""
-            ],
-            "Cooking Temp": [
-                ""
-            ],
-            "Estimated Cost": [
                 ""
             ],
             "Nutrition": [
@@ -98,9 +98,6 @@
                 ""
             ],
             "The automatic nutrition calculator feature is available in the Pro version.": [
-                ""
-            ],
-            "Save Changes": [
                 ""
             ],
             "The feature to promote CTA with affiliate link is available in Pro version.": [
@@ -401,9 +398,6 @@
                 ""
             ],
             "Recipe settings saved successfully !!": [
-                ""
-            ],
-            "Recipe settings has been changed. Please save the changes from Recipe Settings section before updating the recipe.": [
                 ""
             ]
         }

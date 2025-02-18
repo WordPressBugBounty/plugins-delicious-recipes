@@ -9,7 +9,6 @@ global $recipe;
 $global_settings         = delicious_recipes_get_global_settings();
 $show_adjustable_serving = ! empty( $global_settings['showAdjustableServing'][0] ) && 'yes' === $global_settings['showAdjustableServing'][0];
 $ingredient_title        = isset( $recipe->ingredient_title ) ? $recipe->ingredient_title : __( 'Ingredients', 'delicious-recipes' );
-$ingredient_links        = get_option( 'delicious_recipes_auto_link_ingredients', array() );
 
 $cookmode              = false;
 $unit_conversion       = false;
@@ -18,6 +17,7 @@ $ingredient_images     = array();
 $show_ingredient_image = false;
 $ingredient_found      = false;
 $ingredient_image_url  = '';
+$ingredient_links      = array();
 
 $enable_ingredients_checkbox = isset( $global_settings['enableIngredientsCheckbox'] ) && ! empty( $global_settings['enableIngredientsCheckbox'] ) && 'yes' === $global_settings['enableIngredientsCheckbox'][0];
 $ingredients_column          = isset( $global_settings['ingredientsColumn'] ) && ! empty( $global_settings['ingredientsColumn'] ) ? $global_settings['ingredientsColumn'] : '1';
@@ -25,10 +25,14 @@ $affiliate                   = '';
 
 $license_validity_bool = false;
 if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
-	$license_validity_bool = delicious_recipe_pro_check_license_status();
+	// Check if function exists before calling it.
+	if ( function_exists( 'delicious_recipe_pro_check_license_status' ) ) {
+		$license_validity_bool = delicious_recipe_pro_check_license_status();
+	}
 }
 
 if ( $license_validity_bool ) {
+	$ingredient_links                 = get_option( 'delicious_recipes_auto_link_ingredients', array() );
 	$enable_affiliate_links_indicator = isset( $global_settings['enableAffiliateLinkIndicator'] ) && ! empty( $global_settings['enableAffiliateLinkIndicator'] ) && 'yes' === $global_settings['enableAffiliateLinkIndicator'][0];
 	if ( $enable_affiliate_links_indicator ) {
 		$affiliate = '*';
@@ -41,13 +45,57 @@ if ( $license_validity_bool ) {
 	$default_unit_system   = isset( $global_settings['defaultUnitSystem'] ) && ! empty( $global_settings['defaultUnitSystem'] ) ? $global_settings['defaultUnitSystem'] : 'usCustomary';
 }
 
+$recipe_post_meta   = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
+$recipe_ingredients = isset( $recipe_post_meta['recipeIngredients'] ) && ! empty( $recipe_post_meta['recipeIngredients'] ) ? $recipe_post_meta['recipeIngredients'] : array();
 
+if ( ! empty( $recipe_ingredients ) ) :
+	// First, remove empty sections.
+	$recipe_ingredients = array_filter(
+		$recipe_ingredients,
+		function ( $section ) {
+			return ! (
+				( ! isset( $section['sectionTitle'] ) || empty( $section['sectionTitle'] ) ) &&
+				( ! isset( $section['ingredients'] ) || empty( $section['ingredients'] ) )
+			);
+		}
+	);
 
-$recipe_post_meta = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
+	// Then reorganize remaining ingredients.
+	$reorganized_ingredients = array();
+	$temp_ingredients        = array();
 
-if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
+	foreach ( $recipe_ingredients as $section ) {
+		if ( ! isset( $section['sectionTitle'] ) && isset( $section['ingredients'] ) ) {
+			// Collect all ingredients from sections without titles.
+			$temp_ingredients = array_merge( $temp_ingredients, $section['ingredients'] );
+		} else {
+			// If we have collected ingredients and find a section with title, add collected ingredients first.
+			if ( ! empty( $temp_ingredients ) ) {
+				$reorganized_ingredients[] = array(
+					'ingredients' => $temp_ingredients,
+				);
+				$temp_ingredients          = array();
+			}
+			// Add the section with title.
+			$reorganized_ingredients[] = $section;
+		}
+	}
+
+	// Add the last collected ingredients if any.
+	if ( ! empty( $temp_ingredients ) ) {
+		$reorganized_ingredients[] = array(
+			'ingredients' => $temp_ingredients,
+		);
+	}
+
+	// Now $reorganized_ingredients contains the ingredients with sections and without sections.
+	$recipe_ingredients = $reorganized_ingredients;
+
+	// Update the post meta with the updated ingredients.
+	$recipe_post_meta['recipeIngredients'] = $reorganized_ingredients;
+	update_post_meta( $recipe->ID, 'delicious_recipes_metadata', $recipe_post_meta );
+
 	$servings_value = ! empty( $recipe->no_of_servings ) ? esc_attr( $recipe->no_of_servings ) : 1;
-
 	?>
 	<div class="dr-ingredients-list">
 		<div class="dr-ingrd-title-wrap wpd-gap-1">
@@ -66,47 +114,51 @@ if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) ) :
 							<span><?php echo esc_html__( 'Metric', 'delicious-recipes' ); ?></span>
 						</label>
 					</div>
-					<?php
-			}
-			?>
+				<?php } ?>
 
-			<?php ( $cookmode && $license_validity_bool ) && cookmode(); ?>
+				<?php ( $cookmode && $license_validity_bool ) && cookmode(); ?>
 
-			<?php if ( $show_adjustable_serving ) { ?>
-				<div class="dr-ingredients-scale" data-serving-value="<?php echo esc_attr( $servings_value ); ?>">
-					<?php if ( ! empty( $global_settings['adjustableServingType'] ) && 'increment' === $global_settings['adjustableServingType'] ) { ?>
-						<label for="select"><?php esc_html_e( 'Servings', 'delicious-recipes' ); ?></label>
-						<input type="number" data-original="<?php echo esc_attr( $servings_value ); ?>" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" value="<?php echo esc_attr( $servings_value ); ?>" step="1" min="1" class="dr-scale-ingredients">
-					<?php } else { ?>
-						<label for="select"><?php esc_html_e( 'Scale', 'delicious-recipes' ); ?></label>
-						<div class="scale-btn-wrapper">
+				<?php if ( $show_adjustable_serving ) { ?>
+					<div class="dr-ingredients-scale" data-serving-value="<?php echo esc_attr( $servings_value ); ?>">
+						<?php if ( ! empty( $global_settings['adjustableServingType'] ) && 'increment' === $global_settings['adjustableServingType'] ) { ?>
+							<label for="select"><?php esc_html_e( 'Servings', 'delicious-recipes' ); ?></label>
+							<input type="number" data-original="<?php echo esc_attr( $servings_value ); ?>" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" value="<?php echo esc_attr( $servings_value ); ?>" step="1" min="1" class="dr-scale-ingredients">
+						<?php } else { ?>
+							<label for="select"><?php esc_html_e( 'Scale', 'delicious-recipes' ); ?></label>
+							<div class="scale-btn-wrapper">
 
-							<button class="" data-scale="0.5" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" type="button">1/2x</button>
-							<?php
-							for ( $i = 1; $i < 4; $i++ ) {
-								?>
-								<button class="<?php echo 1 === $i ? 'active' : ''; ?>" data-scale="<?php echo esc_attr( $i ); ?>" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" type="button"><?php echo esc_html( "{$i}x" ); ?></button>
+								<button class="" data-scale="0.5" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" type="button">1/2x</button>
 								<?php
-							}
-							?>
-						</div>
-					<?php } ?>
-				</div>
-			<?php } ?>
-		</div>
+								for ( $i = 1; $i < 4; $i++ ) {
+									?>
+									<button class="<?php echo 1 === $i ? 'active' : ''; ?>" data-scale="<?php echo esc_attr( $i ); ?>" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" type="button">
+										<?php echo esc_html( "{$i}x" ); ?>
+									</button>
+									<?php
+								}
+								?>
+							</div>
+						<?php } ?>
+					</div>
+				<?php } ?>
+			</div>
 		</div>
 
 		<div class="recipe-ingredients">
 			<?php
 			$ingredient_string_format = isset( $global_settings['ingredientStringFormat'] ) ? $global_settings['ingredientStringFormat'] : '{qty} {unit} {ingredient} {notes}';
-			foreach ( $recipe->ingredients as $key => $ingre_section ) :
+			foreach ( $recipe_ingredients as $key => $ingre_section ) :
 				$section_title = isset( $ingre_section['sectionTitle'] ) ? $ingre_section['sectionTitle'] : '';
 				$ingre         = isset( $ingre_section['ingredients'] ) ? $ingre_section['ingredients'] : array();
-				?>
-				<?php
+
 				if ( $section_title ) {
 					?>
-					<h4><?php echo esc_html( $section_title ); ?></h4><?php } ?>
+					<h4 class="dr-title">
+						<?php
+							echo esc_html( $section_title );
+						?>
+					</h4>
+				<?php } ?>
 				<?php
 				if ( ! $ingre ) {
 					continue;

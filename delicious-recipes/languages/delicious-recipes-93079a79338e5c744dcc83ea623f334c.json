@@ -16,25 +16,16 @@
             "Best Season": [
                 ""
             ],
+            "Cooking Temp": [
+                ""
+            ],
             "Servings": [
                 ""
             ],
+            "Estimated Cost": [
+                ""
+            ],
             "Calories": [
-                ""
-            ],
-            "Fall": [
-                ""
-            ],
-            "Winter": [
-                ""
-            ],
-            "Summer": [
-                ""
-            ],
-            "Spring": [
-                ""
-            ],
-            "Suitable throughout the year": [
                 ""
             ],
             "Beginner": [
@@ -53,6 +44,9 @@
                 ""
             ],
             "Cooking Time": [
+                ""
+            ],
+            "Add": [
                 ""
             ],
             "Italian": [
@@ -163,6 +157,18 @@
             "Calculate Total Time": [
                 ""
             ],
+            "Display Cooking Temp": [
+                ""
+            ],
+            "Cooking Temp Label": [
+                ""
+            ],
+            "Temperature Value": [
+                ""
+            ],
+            "Temperature Unit": [
+                ""
+            ],
             "Display Servings": [
                 ""
             ],
@@ -173,6 +179,18 @@
                 ""
             ],
             "Servings Unit": [
+                ""
+            ],
+            "Display Estimated Cost": [
+                ""
+            ],
+            "Estimated Cost Label": [
+                ""
+            ],
+            "Estimated Cost Value": [
+                ""
+            ],
+            "Estimated Cost Unit": [
                 ""
             ],
             "Display Calories": [
@@ -188,6 +206,9 @@
                 ""
             ],
             "Best Season Label": [
+                ""
+            ],
+            "Enter season": [
                 ""
             ]
         }

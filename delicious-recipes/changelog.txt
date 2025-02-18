@@ -1,8 +1,19 @@
+1.7.9: 2025-02-18
+- Fixes: Resolved design issues in Handpicked Recipes and Recipe by Taxonomy blocks.
+- Fixes: Updated Recipe Card block design and improved search functionality.
+- Fixes: Improved design and functionality across multiple recipe-related blocks, including Dynamic Recipe Card, Recipe Nutrition, Recipe Details, Recipe Ingredients, and Recipe Instructions blocks.
+- Fixes: Fixed double slash issue in URLs affecting changes to WP Delicious settings from being saved.
+- Fixes: Addressed image size issue in the Review section.
+- Fixes: Resolved issue with two-column ingredient display on Single Recipe Page.
+- Fixes: Removed 'Save Changes' button and integrated WordPress's default post save button.
+- Fixes: Resolved compatibility issue with Divi Visual Builder.
+- Fixes: Fixed Print Page settings issue affecting the print options function.
+
 1.7.8: 2025-01-27
 - New Feature: Added feature to import recipes from CSV file.
 - New Feature: Added feature to import recipes from Tasty Recipe Plugin
 - Fixes: Resolved fatal error caused by plugin conflict with the SureDash plugin.
-- Fixes: Disabled Pro features in the recipe editor when WP Delicius Pro license is inactive.
+- Fixes: Disabled Pro features in the recipe editor when WP Delicious Pro license is inactive.
 - Fixes: Added missing H3 tag for Nutrition Facts section title.
 - Fixes: Resolved issue with the recipe card block not being saved.
 - Fixes: Fixed Pinterest URL issue.

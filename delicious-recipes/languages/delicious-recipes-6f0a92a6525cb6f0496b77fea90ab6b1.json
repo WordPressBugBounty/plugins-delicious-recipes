@@ -10,6 +10,27 @@
                 "lang": "en",
                 "plural-forms": "nplurals=2; plural=(n != 1);"
             },
+            "Name": [
+                ""
+            ],
+            "Add Ingredients in Bulk": [
+                ""
+            ],
+            "Section Heading": [
+                ""
+            ],
+            "Paste the Ingredients List": [
+                ""
+            ],
+            "1 tbsp Olive Oil (extra virgin)": [
+                ""
+            ],
+            "Press 'Enter' to add new ingredient.": [
+                ""
+            ],
+            "Add Bulk Ingredient": [
+                ""
+            ],
             "New ingredient added": [
                 ""
             ],
@@ -20,6 +41,9 @@
                 ""
             ],
             "Add ingredient section": [
+                ""
+            ],
+            "Add ingredients in bulk": [
                 ""
             ],
             "Write Ingredients title": [

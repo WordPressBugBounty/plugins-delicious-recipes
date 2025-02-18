@@ -462,7 +462,7 @@ class DeliciousAdmin {
 					</p>
 					<div class="button-wrapper">
 						<a class="dr-btn" href="<?php echo esc_url( 'https://wpdelicious.com/add-ons/?utm_source=free_plugin&utm_medium=admin_notice&utm_campaign=ai_promo' ); ?>" class="dr-dismiss-notice" target="_blank">
-							<?php echo esc_html__( 'Let\'s get started', 'delicious-recipes' ); ?>
+							<?php echo esc_html__( 'Get started', 'delicious-recipes' ); ?>
 						</a>
 						<a class="dr-btn dr-ghost" href="<?php echo esc_url( wp_nonce_url( add_query_arg( 'dismiss_ai_notice', '1' ), 'dismiss_ai_notice_action' ) ); ?>" class="dr-dismiss-notice">
 							<strong><?php echo esc_html__( 'Dismiss this notice', 'delicious-recipes' ); ?></strong>
@@ -1394,7 +1394,7 @@ class DeliciousAdmin {
 					'DeliciousRecipes',
 					array(
 						'proEnabled'     => function_exists( 'DEL_RECIPE_PRO' ),
-						'siteURL'        => esc_url( home_url( '/' ) ),
+						'siteURL'        => esc_url( rtrim( home_url(), '/' ) ),
 						'pluginUrl'      => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
 						'maxUploadSize'  => esc_html( $max_upload_size ),
 						'globalSettings' => $global_settings,
@@ -1429,11 +1429,12 @@ class DeliciousAdmin {
 						'AIAssistantEnabled' => function_exists( 'WP_DEL_AI_RECIPE_ASSISTANT' ),
 						'AIImageEnabled'     => function_exists( 'PixifyAI' ),
 						'CategoryPages'      => function_exists( 'cpwpd_category_pages' ),
-						'siteURL'            => esc_url( home_url( '/' ) ),
+						'DelishoDiviModule'  => function_exists( 'delisho_divi_modules' ),
+						'siteURL'            => esc_url( rtrim( home_url(), '/' ) ),
 						'pluginUrl'          => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
 						'maxUploadSize'      => esc_html( $max_upload_size ),
 						'defaultTemplates'   => $default_templates,
-						'licenseValidity'    => $license_validity_bool,
+						'licenseValidity'    => $license_validity_bool, 
 					)
 				);
 				wp_enqueue_script( 'delicious-recipe-global-settings' );

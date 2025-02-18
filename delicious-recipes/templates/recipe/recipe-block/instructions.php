@@ -178,61 +178,70 @@ if ( ! empty( $recipe_instructions ) ) :
 				<?php
 			endif;
 		endforeach;
-		if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] ) :
-			$vid_url   = '';
-			$image_url = '';
+		
+		?>
+	</div>
+	<?php
+endif;
+if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] ) :
+	$vid_url   = '';
+	$image_url = '';
+	?>
+	<div id="dr-video-gallery-<?php echo esc_attr( $recipe->ID ); ?>" class="dr-video-gallery">
+		<!-- <div class="dr-instrc-title-wrap"> -->
+			<?php if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] && empty($recipe_instructions) ) : ?>
+			<div class="dr-instructions-toggle">
+				<span class="dr-inst-label"><?php echo esc_html( $global_toggles['video_lbl'] ); ?></span>
+				<button data-target=".dr-instruction-video-<?php echo esc_attr( $recipe->ID ); ?>" class="dr-switch-btn dr-video-toggle" data-switch="on" data-switch-on="<?php echo esc_attr__( 'ON', 'delicious-recipes' ); ?>" data-switch-off="<?php echo esc_attr__( 'OFF', 'delicious-recipes' ); ?>"><?php echo esc_html__( 'ON', 'delicious-recipes' ); ?></button>
+			</div>
+			<?php endif; ?>
+		<!-- </div> -->
+		<?php
+		foreach ( $video_gallery_vids as $key => $video ) :
+			if ( 'youtube' === $video['vidType'] ) {
+				$vid_url   = 'https://www.youtube.com/embed/' . $video['vidID'];
+				$image_url = "https://i3.ytimg.com/vi/{$video['vidID']}/maxresdefault.jpg";
+			} elseif ( 'vimeo' === $video['vidType'] ) {
+				$vid_src = 'https://player.vimeo.com/video/' . $video['vidID'];
+				$vid_url = '#' . $video['vidID'];
+				// get vimeo video thumbnail.
+				$hash      = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/{$video['vidID']}.php" ) );
+				$image_url = $hash[0]['thumbnail_large'];
+			}
 			?>
-			<div id="dr-video-gallery-<?php echo esc_attr( $recipe->ID ); ?>" class="dr-video-gallery">
-				<?php
-				foreach ( $video_gallery_vids as $key => $video ) :
-					if ( 'youtube' === $video['vidType'] ) {
-						$vid_url   = 'https://www.youtube.com/embed/' . $video['vidID'];
-						$image_url = "https://i3.ytimg.com/vi/{$video['vidID']}/maxresdefault.jpg";
-					} elseif ( 'vimeo' === $video['vidType'] ) {
-						$vid_src = 'https://player.vimeo.com/video/' . $video['vidID'];
-						$vid_url = '#' . $video['vidID'];
-						// get vimeo video thumbnail.
-						$hash      = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/{$video['vidID']}.php" ) );
-						$image_url = $hash[0]['thumbnail_large'];
-					}
-					?>
-					<div class="dr-instructions-video dr-instruction-video-<?php echo esc_attr( $recipe->ID ); ?>">
-						<div class="dr-vdo-thumbnail">
-							<img class="avoid-lazy-load" src="<?php echo esc_url( $image_url ); ?>">
-							<a data-fslightbox="custom-vimeo" class="dr-instruction-videopop dr-lg-media-popup" href="<?php echo esc_url( $vid_url ); ?>" data-iframe="true">
-								<svg xmlns="http://www.w3.org/2000/svg" width="18.095" height="20.894" viewBox="0 0 18.095 20.894">
-									<path id="Path_26366" data-name="Path 26366" d="M107.992,76.108l18.095,10.447L107.992,97Z" transform="translate(-107.992 -76.108)" fill="#fff" />
-								</svg>
-							</a>
-						</div>
-					</div>
-					<?php
-				endforeach;
-				foreach ( $video_gallery_vids as $key => $video ) :
-					if ( 'vimeo' === $video['vidType'] ) {
-						$vid_src = 'https://player.vimeo.com/video/' . $video['vidID'];
-						$vid_url = $video['vidID'];
-						// get vimeo video thumbnail.
-						$hash  = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/{$vid_url}.php" ) );
-						$thumb = $hash[0]['thumbnail_large'];
-						?>
-						<iframe
-							src="<?php echo esc_url( $vid_src ); ?>"
-							id="<?php echo esc_attr( $vid_url ); ?>"
-							frameBorder="0"
-							width="1920px"
-							height="1080px"
-							class="fslightbox-source"
-							allow="autoplay; fullscreen"
-							allowFullScreen
-						></iframe>
-						<?php
-					}
-				endforeach;
-				?>
+			<div class="dr-instructions-video dr-instruction-video-<?php echo esc_attr( $recipe->ID ); ?>">
+				<div class="dr-vdo-thumbnail">
+					<img class="avoid-lazy-load" src="<?php echo esc_url( $image_url ); ?>">
+					<a data-fslightbox="custom-vimeo" class="dr-instruction-videopop dr-lg-media-popup" href="<?php echo esc_url( $vid_url ); ?>" data-iframe="true">
+						<svg xmlns="http://www.w3.org/2000/svg" width="18.095" height="20.894" viewBox="0 0 18.095 20.894">
+							<path id="Path_26366" data-name="Path 26366" d="M107.992,76.108l18.095,10.447L107.992,97Z" transform="translate(-107.992 -76.108)" fill="#fff" />
+						</svg>
+					</a>
+				</div>
 			</div>
 			<?php
-		endif;
+		endforeach;
+		foreach ( $video_gallery_vids as $key => $video ) :
+			if ( 'vimeo' === $video['vidType'] ) {
+				$vid_src = 'https://player.vimeo.com/video/' . $video['vidID'];
+				$vid_url = $video['vidID'];
+				// get vimeo video thumbnail.
+				$hash  = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/{$vid_url}.php" ) );
+				$thumb = $hash[0]['thumbnail_large'];
+				?>
+				<iframe
+					src="<?php echo esc_url( $vid_src ); ?>"
+					id="<?php echo esc_attr( $vid_url ); ?>"
+					frameBorder="0"
+					width="1920px"
+					height="1080px"
+					class="fslightbox-source"
+					allow="autoplay; fullscreen"
+					allowFullScreen
+				></iframe>
+				<?php
+			}
+		endforeach;
 		?>
 	</div>
 	<?php

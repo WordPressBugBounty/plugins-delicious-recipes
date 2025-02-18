@@ -391,7 +391,13 @@ class DeliciousPublic {
 		);
 
 		wp_enqueue_style( 'delicious-recipes-single', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/public/css' . $asset_script_path . 'delicious-recipes-public' . $min_prefix . '.css', array(), DELICIOUS_RECIPES_VERSION, 'all' );
-		wp_enqueue_script( 'delicious-recipes-single', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicJS.js', $publicJS_deps['dependencies'], $publicJS_deps['version'], true );
+		wp_enqueue_script(
+			'delicious-recipes-single',
+			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicJS.js',
+			$publicJS_deps['dependencies'],
+			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicJS.js' ),
+			true
+		);
 		wp_localize_script( 'delicious-recipes-single', 'delicious_recipes', $delicious_recipes );
 		wp_register_script( 'math-min', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/public/js/math.min.js', array( 'jquery' ), '10.6.1', true );
 		wp_register_script( 'parsley', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/parsley/parsley.min.js', array( 'jquery' ), '2.9.2', true );

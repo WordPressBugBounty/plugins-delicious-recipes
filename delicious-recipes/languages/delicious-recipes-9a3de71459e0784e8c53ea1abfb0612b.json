@@ -25,7 +25,16 @@
             "Best Season": [
                 ""
             ],
+            "Cooking Temp": [
+                ""
+            ],
             "Servings": [
+                ""
+            ],
+            "Estimated Cost": [
+                ""
+            ],
+            "$": [
                 ""
             ],
             "Calories": [
@@ -128,12 +137,6 @@
                 ""
             ],
             "Add to Favorites": [
-                ""
-            ],
-            "Cooking Temp": [
-                ""
-            ],
-            "Estimated Cost": [
                 ""
             ],
             "Dietary": [
@@ -484,7 +487,7 @@
             "Enable Elementor Support": [
                 ""
             ],
-            "Enable this option to exclusively support the Elementor template. Enabling this option will disable support for the default recipe template, custom templates, and FSE templates.'": [
+            "Enable this option to exclusively support the Elementor template. Enabling this option will disable support for the default recipe template, custom templates, and FSE templates.": [
                 ""
             ],
             "Ingredient line format": [
@@ -584,6 +587,12 @@
                 ""
             ],
             "Create stunning, custom category pages that engage visitors and boost SEO with WP Delicious Category Page Add-On.": [
+                ""
+            ],
+            "Delisho Divi Modules": [
+                ""
+            ],
+            "Create and customize visually stunning recipe pages and layouts with Delisho Divi Modules for Divi Builder.": [
                 ""
             ],
             "Show Nutrition Facts": [
@@ -995,9 +1004,6 @@
                 ""
             ],
             "New": [
-                ""
-            ],
-            "$": [
                 ""
             ],
             "Enter the currency to be used for displaying the estimated cost across all recipes.": [

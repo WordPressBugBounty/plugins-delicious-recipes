@@ -10,6 +10,9 @@
                 "lang": "en",
                 "plural-forms": "nplurals=2; plural=(n != 1);"
             },
+            "Add Video": [
+                ""
+            ],
             "Delete step": [
                 ""
             ],
@@ -23,6 +26,12 @@
                 ""
             ],
             "Enter instruction description": [
+                ""
+            ],
+            "Enter YouTube or Vimeo video URL": [
+                ""
+            ],
+            "Enter notes": [
                 ""
             ],
             "Enter section title": [

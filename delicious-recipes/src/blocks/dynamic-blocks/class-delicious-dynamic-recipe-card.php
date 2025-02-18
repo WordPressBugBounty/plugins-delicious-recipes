@@ -150,6 +150,12 @@ class Delicious_Dynamic_Recipe_Card {
 					'type' => 'string',
 				),
 			),
+			'recipeDietary'        => array(
+				'type'  => 'array',
+				'items' => array(
+					'type' => 'string',
+				),
+			),
 			'difficulty'           => array(
 				'type'    => 'string',
 				'default' => 'beginner',
@@ -160,13 +166,38 @@ class Delicious_Dynamic_Recipe_Card {
 				'default'  => __( 'Difficulty', 'delicious-recipes' ),
 			),
 			'season'               => array(
-				'type'    => 'string',
-				'default' => 'summer',
+				'type'    => 'array',
+				'default' => array( 'summer' ),
 			),
 			'seasonTitle'          => array(
 				'type'     => 'string',
 				'selector' => '.season-label',
 				'default'  => __( 'Best Season', 'delicious-recipes' ),
+			),
+			'seasonOptions'        => array(
+				'type'    => 'array',
+				'default' => array(
+					array(
+						'label' => __( 'Fall', 'delicious-recipes' ),
+						'value' => 'fall',
+					),
+					array(
+						'label' => __( 'Winter', 'delicious-recipes' ),
+						'value' => 'winter',
+					),
+					array(
+						'label' => __( 'Summer', 'delicious-recipes' ),
+						'value' => 'summer',
+					),
+					array(
+						'label' => __( 'Spring', 'delicious-recipes' ),
+						'value' => 'spring',
+					),
+					array(
+						'label' => __( 'Suitable throughout the year', 'delicious-recipes' ),
+						'value' => 'available',
+					),
+				),
 			),
 			'keywords'             => array(
 				'type'  => 'array',
@@ -174,31 +205,110 @@ class Delicious_Dynamic_Recipe_Card {
 					'type' => 'string',
 				),
 			),
-			'settings'             => array(
-				'type'    => 'array',
-				'default' => array(
-					array(
-						// 'print_btn'            => true,
-						'pin_btn'              => true,
-						'custom_author_name'   => '',
-						'displayCourse'        => true,
-						'displayCuisine'       => true,
-						'displayCookingMethod' => true,
-						'displayRecipeKey'     => true,
-						'displayDifficulty'    => true,
-						'displayAuthor'        => true,
-						'displayServings'      => true,
-						'displayPrepTime'      => true,
-						'displayCookingTime'   => true,
-						'displayRestTime'      => true,
-						'displayTotalTime'     => true,
-						'displayCalories'      => true,
-						'displayBestSeason'    => true,
-					),
-				),
-				'items'   => array(
-					'type' => 'object',
-				),
+			// ! LEGACY CODE
+			// 'settings'             => array(
+			// 'type'    => 'array',
+			// 'default' => array(
+			// array(
+			// 'print_btn'            => true,
+			// 'pin_btn'              => true,
+			// 'custom_author_name'   => '',
+			// 'displayCourse'        => true,
+			// 'displayCuisine'       => true,
+			// 'displayCookingMethod' => true,
+			// 'displayRecipeKey'     => true,
+			// 'displayRecipeDietary' => true,
+			// 'displayDifficulty'    => true,
+			// 'displayAuthor'        => true,
+			// 'displayServings'      => true,
+			// 'displayPrepTime'      => true,
+			// 'displayCookingTime'   => true,
+			// 'displayRestTime'      => true,
+			// 'displayTotalTime'     => true,
+			// 'displayCalories'      => true,
+			// 'displayBestSeason'    => true,
+			// 'displayCookingTemp'   => true,
+			// 'displayEstimatedCost' => true,
+			// ),
+			// ),
+			// 'items'   => array(
+			// 'type' => 'object',
+			// ),
+			// ),
+			'print_btn'            => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'pin_btn'              => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'custom_author_name'   => array(
+				'type' => 'string',
+			),
+			'displayCourse'        => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayCuisine'       => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayCookingMethod' => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayRecipeKey'     => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayRecipeDietary' => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayDifficulty'    => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayAuthor'        => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayServings'      => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayPrepTime'      => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayCookingTime'   => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayRestTime'      => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayTotalTime'     => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayCalories'      => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayBestSeason'    => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayCookingTemp'   => array(
+				'type'    => 'boolean',
+				'default' => true,
+			),
+			'displayEstimatedCost' => array(
+				'type'    => 'boolean',
+				'default' => true,
 			),
 			'details'              => array(
 				'type'    => 'array',
@@ -217,7 +327,7 @@ class Delicious_Dynamic_Recipe_Card {
 			),
 			'ingredients'          => array(
 				'type'    => 'array',
-				'default' => self::get_ingredients_default(),
+				'default' => array(),
 				'items'   => array(
 					'type' => 'object',
 				),
@@ -232,7 +342,7 @@ class Delicious_Dynamic_Recipe_Card {
 			),
 			'steps'                => array(
 				'type'    => 'array',
-				'default' => self::get_steps_default(),
+				'default' => array(),
 				'items'   => array(
 					'type' => 'object',
 				),
@@ -295,7 +405,7 @@ class Delicious_Dynamic_Recipe_Card {
 		// add default value if not exists.
 		$recipeTitle = isset( $recipeTitle ) ? $recipeTitle : '';
 		$summary     = isset( $summary ) ? $summary : '';
-		$className   = isset( $className ) ? $className : '';
+		$class_name  = isset( $class_name ) ? $class_name : '';
 		$hasImage    = isset( $hasImage ) ? $hasImage : false;
 		$course      = isset( $course ) ? $course : array();
 		$cuisine     = isset( $cuisine ) ? $cuisine : array();
@@ -306,9 +416,14 @@ class Delicious_Dynamic_Recipe_Card {
 		$steps       = isset( $steps ) ? $steps : array();
 
 		// Store variables.
-		self::$recipeBlockID                  = esc_attr( $id );
-		self::$attributes                     = $attributes;
-		self::$settings                       = self::$helpers->parse_block_settings( $attributes );
+		self::$recipeBlockID = esc_attr( $id );
+		self::$attributes    = $attributes;
+
+		// ! LEGACY CODE
+		// ! Now we have an attributes for each setting so self::$settings is not needed anymore.
+		// self::$settings                       = self::$helpers->parse_block_settings( $attributes );
+		self::$settings = $attributes;
+
 		self::$attributes['summaryTitle']     = isset( $summaryTitle ) ? $summaryTitle : __( 'Description', 'delicious-recipes' );
 		self::$attributes['ingredientsTitle'] = isset( $ingredientsTitle ) ? $ingredientsTitle : __( 'Ingredients', 'delicious-recipes' );
 		self::$attributes['directionsTitle']  = isset( $directionsTitle ) ? $directionsTitle : __( 'Instructions', 'delicious-recipes' );
@@ -318,7 +433,7 @@ class Delicious_Dynamic_Recipe_Card {
 
 		$class               = 'dr-summary-holder wp-block-delicious-recipes-block-recipe-card';
 		$class              .= $hasImage && isset( $image['url'] ) ? '' : ' recipe-card-noimage';
-		$RecipeCardClassName = implode( ' ', array( $class, $className ) );
+		$RecipeCardClassName = implode( ' ', array( $class, $class_name ) );
 
 		$custom_author_name = $recipe_author_name;
 		if ( ! empty( self::$settings['custom_author_name'] ) ) {
@@ -332,7 +447,7 @@ class Delicious_Dynamic_Recipe_Card {
 		$recipe_card_image = '';
 
 		if ( $hasImage && isset( $image['url'] ) ) {
-			$img_id    = $image['attachment_id'];
+			$img_id    = $image['id'];
 			$src       = $image['url'];
 			$alt       = ( $recipeTitle ? strip_tags( $recipeTitle ) : strip_tags( $recipe_title ) );
 			$sizes     = isset( $image['sizes'] ) ? $image['sizes'] : array();
@@ -462,6 +577,7 @@ class Delicious_Dynamic_Recipe_Card {
 					( self::$settings['displayCuisine'] ? self::get_recipe_terms( 'recipe-cuisine' ) : '' ) .
 					( self::$settings['displayCourse'] ? self::get_recipe_terms( 'recipe-course' ) : '' ) .
 					( self::$settings['displayRecipeKey'] ? self::get_recipe_terms( 'recipe-key' ) : '' ) .
+					( self::$settings['displayRecipeDietary'] ? self::get_recipe_terms( 'recipe-dietary' ) : '' ) .
 				'</div>' .
 			'</div>';
 
@@ -478,8 +594,8 @@ class Delicious_Dynamic_Recipe_Card {
 		}
 
 		$details_content     = self::get_details_content( $details );
-		$ingredients_content = self::get_ingredients_content( $ingredients );
-		$steps_content       = self::get_steps_content( $steps );
+		$ingredients_content = self::get_ingredients_content( $ingredients ) ? self::get_ingredients_content( $ingredients ) : '';
+		$steps_content       = self::get_steps_content( $steps ) ? self::get_steps_content( $steps ) : '';
 		$recipe_card_video   = self::get_video_content();
 
 		$strip_tags_notes = isset( $notes ) ? strip_tags( $notes ) : '';
@@ -792,9 +908,9 @@ class Delicious_Dynamic_Recipe_Card {
 		if ( ! empty( $attributes['ingredients'] ) && is_array( $attributes['ingredients'] ) ) {
 			$ingredients = array_filter( $attributes['ingredients'], 'is_array' );
 			foreach ( $ingredients as $ingredient ) {
-				$isGroup = isset( $ingredient['isGroup'] ) ? $ingredient['isGroup'] : false;
+				$is_group = isset( $ingredient['isGroup'] ) ? $ingredient['isGroup'] : false;
 
-				if ( ! $isGroup ) {
+				if ( ! $is_group ) {
 					$json_ld['recipeIngredient'][] = self::$structured_data_helpers->get_ingredient_json_ld( $ingredient );
 				}
 			}
@@ -806,10 +922,10 @@ class Delicious_Dynamic_Recipe_Card {
 			$instructions   = array();
 
 			foreach ( $steps as $key => $step ) {
-				$isGroup          = isset( $step['isGroup'] ) ? $step['isGroup'] : false;
+				$is_group         = isset( $step['isGroup'] ) ? $step['isGroup'] : false;
 				$parent_permalink = get_the_permalink( self::$recipe );
 
-				if ( $isGroup ) {
+				if ( $is_group ) {
 					$groups_section[ $key ] = array(
 						'@type'           => 'HowToSection',
 						'name'            => '',
@@ -826,7 +942,7 @@ class Delicious_Dynamic_Recipe_Card {
 					end( $groups_section );
 					$last_key = key( $groups_section );
 
-					if ( ! $isGroup && $key > $last_key ) {
+					if ( ! $is_group && $key > $last_key ) {
 						$groups_section[ $last_key ]['itemListElement'][] = self::$structured_data_helpers->get_step_json_ld( $step, $parent_permalink );
 					}
 				} else {
@@ -869,7 +985,14 @@ class Delicious_Dynamic_Recipe_Card {
 				'icon'  => 'time',
 				'label' => __( 'Total time', 'delicious-recipes' ),
 				'unit'  => __( 'minutes', 'delicious-recipes' ),
-				'value' => '0',
+				'value' => '110',
+			),
+			array(
+				'id'    => self::$helpers->generateId( 'detail-item' ),
+				'icon'  => 'cookingtemp',
+				'label' => __( 'Cooking Temp', 'delicious-recipes' ),
+				'unit'  => __( 'C', 'delicious-recipes' ),
+				'value' => '100',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
@@ -880,52 +1003,17 @@ class Delicious_Dynamic_Recipe_Card {
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
+				'icon'  => 'estimatedcost',
+				'label' => __( 'Estimated Cost', 'delicious-recipes' ),
+				'unit'  => __( '$', 'delicious-recipes' ),
+				'value' => '25',
+			),
+			array(
+				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'calories',
 				'label' => __( 'Calories', 'delicious-recipes' ),
 				'unit'  => __( 'kcal', 'delicious-recipes' ),
 				'value' => '300',
-			),
-		);
-	}
-
-	public static function get_ingredients_default() {
-		return array(
-			array(
-				'id'   => self::$helpers->generateId( 'ingredient-item' ),
-				'name' => array(),
-			),
-			array(
-				'id'   => self::$helpers->generateId( 'ingredient-item' ),
-				'name' => array(),
-			),
-			array(
-				'id'   => self::$helpers->generateId( 'ingredient-item' ),
-				'name' => array(),
-			),
-			array(
-				'id'   => self::$helpers->generateId( 'ingredient-item' ),
-				'name' => array(),
-			),
-		);
-	}
-
-	public static function get_steps_default() {
-		return array(
-			array(
-				'id'   => self::$helpers->generateId( 'direction-step' ),
-				'text' => array(),
-			),
-			array(
-				'id'   => self::$helpers->generateId( 'direction-step' ),
-				'text' => array(),
-			),
-			array(
-				'id'   => self::$helpers->generateId( 'direction-step' ),
-				'text' => array(),
-			),
-			array(
-				'id'   => self::$helpers->generateId( 'direction-step' ),
-				'text' => array(),
 			),
 		);
 	}
@@ -974,6 +1062,14 @@ class Delicious_Dynamic_Recipe_Card {
 
 			if ( ! empty( $icon ) ) {
 				$icon_svg = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#' . $icon . '"></use></svg>';
+
+				if ( 'estimatedcost' === $icon ) {
+					$icon_svg = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#estimated-cost"></use></svg>';
+				}
+
+				if ( 'cookingtemp' === $icon ) {
+					$icon_svg = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#cooking-temp"></use></svg>';
+				}
 			}
 
 			if ( ! empty( $detail['value'] ) ) {
@@ -992,9 +1088,13 @@ class Delicious_Dynamic_Recipe_Card {
 				continue;
 			} elseif ( 3 === $index && self::$settings['displayTotalTime'] != '1' ) {
 				continue;
-			} elseif ( 4 === $index && self::$settings['displayServings'] != '1' ) {
+			} elseif ( 4 === $index && self::$settings['displayCookingTemp'] != '1' ) {
 				continue;
-			} elseif ( 5 === $index && self::$settings['displayCalories'] != '1' ) {
+			} elseif ( 5 === $index && self::$settings['displayServings'] != '1' ) {
+				continue;
+			} elseif ( 6 === $index && self::$settings['displayEstimatedCost'] != '1' ) {
+				continue;
+			} elseif ( 7 === $index && self::$settings['displayCalories'] != '1' ) {
 				continue;
 			}
 
@@ -1024,15 +1124,7 @@ class Delicious_Dynamic_Recipe_Card {
 			);
 		}
 
-		$season_label = array(
-			'fall'      => __( 'Fall', 'delicious-recipes' ),
-			'winter'    => __( 'Winter', 'delicious-recipes' ),
-			'summer'    => __( 'Summer', 'delicious-recipes' ),
-			'spring'    => __( 'Spring', 'delicious-recipes' ),
-			'available' => __( 'Suitable throughout the year', 'delicious-recipes' ),
-		);
-		$season       = isset( $season ) && self::$settings['displayBestSeason'] ? $season_label[ $season ] : '';
-
+		$season = isset( $season ) && self::$settings['displayBestSeason'] ? $season : '';
 		if ( $season ) {
 			$svg     = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#season"></use></svg>';
 			$output .= sprintf(
@@ -1041,35 +1133,84 @@ class Delicious_Dynamic_Recipe_Card {
 				'dr-meta-title',
 				$svg,
 				$seasonTitle,
-				ucfirst( $season )
+				implode( ', ', array_map( 'ucfirst', $season ) )
 			);
 		}
 
 		return force_balance_tags( $output );
 	}
 
+	/**
+	 * Get ingredients content.
+	 *
+	 * @param array $ingredients Ingredients.
+	 *
+	 * @return string
+	 */
 	public static function get_ingredients_content( array $ingredients ) {
+		if ( empty( $ingredients ) ) {
+			return '';
+		}
+
+		$global_settings    = delicious_recipes_get_global_settings();
+		$ingredients_column = isset( $global_settings['ingredientsColumn'] ) && ! empty( $global_settings['ingredientsColumn'] ) ? $global_settings['ingredientsColumn'] : '1';
+		$ingredient_column  = '1' === $ingredients_column ? '' : 'double';
+
+		$ingredient_links = function_exists( 'DEL_RECIPE_PRO' ) && function_exists( 'delicious_recipe_pro_check_license_status' ) && delicious_recipe_pro_check_license_status() ? get_option( 'delicious_recipes_auto_link_ingredients', array() ) : array();
+
 		$ingredient_items = self::get_ingredient_items( $ingredients );
 
-		$listClassNames = implode( ' ', array( 'ingredients-list', 'dr-unordered-list' ) );
+		$html_output  = '<div class="dr-ingredients-list"><div class="dr-ingrd-title-wrap wpg-gap-1"><h3 class="ingredients-title dr-title">';
+		$html_output .= self::$attributes['ingredientsTitle'];
+		$html_output .= '</h3></div>';
 
-		return sprintf(
-			'<div class="dr-ingredients-list"><div class="dr-ingrd-title-wrap"><h3 class="ingredients-title dr-title">%s</h3></div><ul class="%s">%s</ul></div>',
-			self::$attributes['ingredientsTitle'],
-			esc_html( $listClassNames ),
-			wp_kses_post( $ingredient_items )
-		);
+		$list_class_names = implode( ' ', array( 'ingredients-list', 'dr-unordered-list ' . $ingredient_column ) );
+
+		$sections = preg_split( '/(<h4>.*?<\/h4>)/', $ingredient_items, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY );
+
+		$html_output .= "<ul class='{$list_class_names}'>";
+
+		foreach ( $sections as $section ) {
+			if ( preg_match( '/<h4>(.*?)<\/h4>/', $section, $matches ) ) {
+				// Start new section with title.
+				$html_output .= "</ul><h4>{$matches[1]}</h4><ul class='{$list_class_names}'>";
+			} else {
+				// Process individual ingredient items.
+				$ingredients = explode( '</li>', $section );
+				foreach ( $ingredients as $ingredient ) {
+					foreach ( $ingredient_links as $ingredient_link ) {
+						foreach ( $ingredient_link['ingredientsKeywords'] as $keyword ) {
+							if ( strpos( $ingredient, $keyword ) !== false ) {
+								$link_attributes = 'href="' . esc_url( $ingredient_link['ingredientLink'] ) . '" target="' . esc_attr( $ingredient_link['openInNewTab'] ? '_blank' : '_self' ) . '" rel="' . esc_attr( implode( ' ', $ingredient_link['relAttribute'] ) ) . '"';
+								$ingredient      = str_replace( $keyword, "<a class=ingredient-link {$link_attributes}>{$keyword}</a>", $ingredient );
+							}
+						}
+					}
+					$html_output .= $ingredient;
+				}
+			}
+		}
+
+		$html_output .= '</ul></div>';
+		return $html_output;
 	}
 
+	/**
+	 * Get ingredient items.
+	 *
+	 * @param array $ingredients Ingredients.
+	 *
+	 * @return string
+	 */
 	public static function get_ingredient_items( array $ingredients ) {
 		$output = '';
 
 		foreach ( $ingredients as $index => $ingredient ) {
 			$name          = '';
-			$isGroup       = isset( $ingredient['isGroup'] ) ? $ingredient['isGroup'] : false;
+			$is_group      = isset( $ingredient['isGroup'] ) ? $ingredient['isGroup'] : false;
 			$ingredient_id = isset( $ingredient['id'] ) ? 'dr-ing-' . $ingredient['id'] : '';
 
-			if ( ! $isGroup ) {
+			if ( ! $is_group ) {
 				if ( ! empty( $ingredient['name'] ) ) {
 					$name = sprintf( '<span class="dr-ingredient-name">%s</span>', self::wrap_ingredient_name( $ingredient['name'] ) );
 
@@ -1087,7 +1228,7 @@ class Delicious_Dynamic_Recipe_Card {
 			} elseif ( ! empty( $ingredient['name'] ) ) {
 					$name    = self::wrap_ingredient_name( $ingredient['name'] );
 					$output .= sprintf(
-						'<h4 class="dr-title">%s</h4>',
+						'<h4>%s</h4>',
 						$name
 					);
 			}
@@ -1096,33 +1237,100 @@ class Delicious_Dynamic_Recipe_Card {
 		return force_balance_tags( $output );
 	}
 
+	/**
+	 * Get steps content.
+	 *
+	 * @param array $steps Steps.
+	 *
+	 * @return string
+	 */
 	public static function get_steps_content( array $steps ) {
+
+		if ( empty( $steps ) ) {
+			return '';
+		}
+
 		$direction_items = self::get_direction_items( $steps );
 
-		$listClassNames = implode( ' ', array( 'directions-list', 'dr-ordered-list' ) );
+		$list_class_names = implode( ' ', array( 'directions-list', 'dr-ordered-list' ) );
 
-		return sprintf(
-			'<div class="dr-instructions"><div class="dr-instrc-title-wrap"><h3 class="directions-title dr-title">%s</h3></div><ol class="%s">%s</ol></div>',
-			self::$attributes['directionsTitle'],
-			esc_html( $listClassNames ),
-			wp_kses_post( $direction_items )
-		);
+		if ( empty( $direction_items ) ) {
+			return '';
+		} else {
+			return sprintf(
+				'<div class="dr-instructions"><div class="dr-instrc-title-wrap"><h3 class="directions-title dr-title">%s</h3></div><ol class="%s">%s</ol></div>',
+				self::$attributes['directionsTitle'],
+				$list_class_names,
+				$direction_items
+			);
+		}
 	}
 
+	/**
+	 * Get direction items.
+	 *
+	 * @param array $steps Steps.
+	 *
+	 * @return string
+	 */
 	public static function get_direction_items( array $steps ) {
 		$output = '';
 
 		foreach ( $steps as $index => $step ) {
-			$text    = '';
-			$isGroup = isset( $step['isGroup'] ) ? $step['isGroup'] : false;
+			$text     = '';
+			$is_group = isset( $step['isGroup'] ) ? $step['isGroup'] : false;
 
-			if ( ! $isGroup ) {
+			if ( ! $is_group ) {
 				if ( ! empty( $step['text'] ) ) {
 					$text    = self::wrap_direction_text( $step['text'] );
 					$output .= sprintf(
 						'<li>%s</li>',
 						$text
 					);
+				}
+
+				if ( ! empty( $step['notes'] ) ) {
+					$notes_text = self::wrap_direction_text( $step['notes'] );
+					$output    .= sprintf(
+						'<p class="dr-notes dr-list-tips">%s</p>',
+						$notes_text
+					);
+				}
+
+				if ( ! empty( $step['video'] ) ) {
+					$instruction_video_data = delicious_recipes_parse_videos( $step['video'] );
+					$instruction_video_attr = isset( $instruction_video_data['0'] ) && ! empty( $instruction_video_data['0'] ) ? $instruction_video_data['0'] : array();
+					$vid_url                = '';
+					$image_url              = '';
+					if ( ! empty( $instruction_video_attr ) ) :
+						if ( 'youtube' === $instruction_video_attr['type'] ) {
+							$vid_url   = 'https://www.youtube.com/embed/' . $instruction_video_attr['id'];
+							$image_url = $instruction_video_attr['thumbnail'];
+						} elseif ( 'vimeo' === $instruction_video_attr['type'] ) {
+							$vid_url   = 'https://player.vimeo.com/video/' . $instruction_video_attr['id'];
+							$image_url = $instruction_video_attr['fullsize'];
+						}
+						ob_start();
+						?>
+							<div class="dr-instructions-video dr-instruction-video">
+								<div class="dr-vdo-thumbnail">
+								<?php
+								if ( isset( $instruction_video_attr['url'] ) && $instruction_video_attr['url'] ) {
+									?>
+										<img src="<?php echo esc_url( $image_url ); ?>">
+										<a data-fslightbox="<?php echo esc_url( $vid_url ); ?>" class="dr-instruction-videopop dr-lg-media-popup" href="<?php echo esc_url( $vid_url ); ?>" data-iframe="true">
+											<svg xmlns="http://www.w3.org/2000/svg" width="18.095" height="20.894" viewBox="0 0 18.095 20.894">
+												<path id="Path_26366" data-name="Path 26366" d="M107.992,76.108l18.095,10.447L107.992,97Z" transform="translate(-107.992 -76.108)" fill="#fff" />
+											</svg>
+										</a>
+										<?php
+								}
+								?>
+								</div>
+							</div>
+							<?php
+							$output .= ob_get_clean();
+						endif;
 				}
 			} elseif ( ! empty( $step['text'] ) ) {
 					$text    = self::wrap_direction_text( $step['text'] );
@@ -1136,24 +1344,33 @@ class Delicious_Dynamic_Recipe_Card {
 		return force_balance_tags( $output );
 	}
 
+	/**
+	 * Get recipe terms.
+	 *
+	 * @param string $taxonomy Taxonomy.
+	 *
+	 * @return string
+	 */
 	public static function get_recipe_terms( $taxonomy ) {
 		$attributes = self::$attributes;
 		$render     = true;
 
-		$className = $label = $terms_output = '';
+		$class_name = $label = $terms_output = '';
 
 		extract( $attributes );
 
-		$course    = isset( $course ) ? $course : array();
-		$cuisine   = isset( $cuisine ) ? $cuisine : array();
-		$method    = isset( $method ) ? $method : array();
-		$recipeKey = isset( $recipeKey ) ? $recipeKey : array();
+		$course     = isset( $course ) ? $course : array();
+		$cuisine    = isset( $cuisine ) ? $cuisine : array();
+		$method     = isset( $method ) ? $method : array();
+		$recipe_key = isset( $recipe_key ) ? $recipe_key : array();
+		$dietary    = isset( $recipe_dietary ) ? $recipe_dietary : array();
+		$svg        = '';
+		$terms      = array();
 
 		if ( 'recipe-course' === $taxonomy ) {
 			if ( empty( $course ) ) {
 				$render = false;
 			}
-			// $terms     = $course;
 			if ( is_array( $course ) && ! empty( $course ) ) {
 				$terms = array_map(
 					function ( $term ) {
@@ -1169,14 +1386,13 @@ class Delicious_Dynamic_Recipe_Card {
 			} else {
 				$terms = $course;
 			}
-			$className = 'dr-category';
-			$label     = __( 'Courses:', 'delicious-recipes' );
-			$svg       = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#category"></use></svg>';
+			$class_name = 'dr-category';
+			$label      = __( 'Courses:', 'delicious-recipes' );
+			$svg        = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#category"></use></svg>';
 		} elseif ( 'recipe-cuisine' === $taxonomy ) {
 			if ( empty( $cuisine ) ) {
 				$render = false;
 			}
-			// $terms     = $cuisine;
 			if ( is_array( $cuisine ) && ! empty( $cuisine ) ) {
 				$terms = array_map(
 					function ( $term ) {
@@ -1192,14 +1408,13 @@ class Delicious_Dynamic_Recipe_Card {
 			} else {
 				$terms = $cuisine;
 			}
-			$className = 'dr-cuisine';
-			$label     = __( 'Cuisine:', 'delicious-recipes' );
-			$svg       = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#cuisine"></use></svg>';
+			$class_name = 'dr-cuisine';
+			$label      = __( 'Cuisine:', 'delicious-recipes' );
+			$svg        = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#cuisine"></use></svg>';
 		} elseif ( 'recipe-cooking-method' === $taxonomy ) {
 			if ( empty( $method ) ) {
 				$render = false;
 			}
-			// $terms     = $method;
 			if ( is_array( $method ) && ! empty( $method ) ) {
 				$terms = array_map(
 					function ( $term ) {
@@ -1215,9 +1430,9 @@ class Delicious_Dynamic_Recipe_Card {
 			} else {
 				$terms = $method;
 			}
-			$className = 'dr-method';
-			$label     = __( 'Cooking Method:', 'delicious-recipes' );
-			$svg       = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#cooking-method"></use></svg>';
+			$class_name = 'dr-method';
+			$label      = __( 'Cooking Method:', 'delicious-recipes' );
+			$svg        = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#cooking-method"></use></svg>';
 		} elseif ( 'recipe-key' === $taxonomy ) {
 			/**
 			 * Map icons based on the recipe keys.
@@ -1236,10 +1451,10 @@ class Delicious_Dynamic_Recipe_Card {
 				sanitize_title( __( 'Vegan', 'delicious-recipes' ) ) => '<svg class="svg-icon" title="' . __( 'Vegan', 'delicious-recipes' ) . '" xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 38 38"> <defs>vegan</defs> <g transform="translate(-953 -311)"> <circle cx="19" cy="19" r="19" transform="translate(953 311)" fill="#0dab20" /> <path d="M17.264,12.731S15.7,8.959,12.97,8.6c0,0,.408.447,1.047,1.263a37.325,37.325,0,0,1,7.157,14.979s1.982-16.407,10.9-20.481c0,0-7.873,8.7-9.635,26.758H19.907s-.55-10.681-5.4-16.848c0,0-3.744.33-5.065-2.2S8.455,6.9,6.8,4.362C19.063,3.334,17.264,12.731,17.264,12.731Z" transform="translate(952.197 317.781)" fill="#fff" /> </g> </svg>',
 			);
 
-			if ( empty( $recipeKey ) ) {
+			if ( empty( $recipe_key ) ) {
 				$render = false;
 			}
-			$_terms = $recipeKey;
+			$_terms = $recipe_key;
 
 			$terms = array_map(
 				function ( $term ) use ( $recipe_key_icons ) {
@@ -1263,21 +1478,50 @@ class Delicious_Dynamic_Recipe_Card {
 					<span class="cat-name">
 						' . $term . '
 					</span>
-				</a>';
+					</a>';
 				},
 				$_terms
 			);
 
-			$className = 'dr-category dr-recipe-keys';
-			$label     = __( 'Recipe Keys:', 'delicious-recipes' );
-			$svg       = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#recipe-keys"></use></svg>';
+			$class_name = 'dr-category dr-recipe-keys';
+			$label      = __( 'Recipe Keys:', 'delicious-recipes' );
+			$svg        = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#recipe-keys"></use></svg>';
+
+		} elseif ( $dietary && 'recipe-dietary' === $taxonomy ) {
+			$terms = array();
+			foreach ( $recipe_dietary as $dietary ) {
+				$key     = get_term_by( 'name', $dietary, 'recipe-dietary' );
+				$key_svg = delicious_recipes_get_tax_icon( $key, true );
+				if ( ! $key_svg ) {
+					$terms[] = '<a href="javascript:void(0);">
+					<span class="dr-svg-icon">
+					<span style="background-color:#2db68d">' . mb_substr( strtoupper( $dietary ), 0, 1 ) . '</span>
+					</span>
+					<span class="cat-name">
+						' . $dietary . '
+					</span>
+					</a>';
+				} else {
+					$terms[] = '<a href="' . esc_url( get_term_link( $key, 'recipe-dietary' ) ) . '" title="' . esc_attr( $dietary ) . '">
+						<span class="dr-svg-icon">
+							' . $key_svg . '
+						</span>
+						<span class="cat-name">
+							' . $dietary . '
+						</span>
+					</a>';
+				}
+			}
+			$class_name = 'dr-category dr-dietary';
+			$label      = __( 'Dietary:', 'delicious-recipes' );
+			$svg        = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#dietary"></use></svg>';
 		}
 
 		if ( $render ) {
 			if ( 'recipe-key' === $taxonomy ) {
-				$terms_output = sprintf( '<span class="%s"><span class="dr-meta-title">%s %s</span>%s</span>', $className, $svg, $label, implode( '', $terms ) );
+				$terms_output = sprintf( '<span class="%s"><span class="dr-meta-title">%s %s</span>%s</span>', $class_name, $svg, $label, implode( '', $terms ) );
 			} else {
-				$terms_output = sprintf( '<span class="%s"><span class="dr-meta-title">%s %s</span>%s</span>', $className, $svg, $label, implode( ',&nbsp;', $terms ) );
+				$terms_output = sprintf( '<span class="%s"><span class="dr-meta-title">%s %s</span>%s</span>', $class_name, $svg, $label, implode( '&nbsp;', $terms ) );
 			}
 		}
 
@@ -1311,16 +1555,16 @@ class Delicious_Dynamic_Recipe_Card {
 						$class         = ' direction-step-image';
 						$img_style     = isset( $node['props']['style'] ) ? $node['props']['style'] : '';
 
-						// Try to get attachment ID by image url if attribute `key` is not found in $node array
+						// Try to get attachment ID by image url if attribute `key` is not found in $node array.
 						if ( ! $attachment_id ) {
 							$new_src = $src;
 
 							$re = '/-\d+[Xx]\d+\./m';
 							preg_match_all( $re, $src, $matches );
 
-							// Remove image size from url to be able to get attachment id
-							// e.g. .../wp-content/uploads/sites/30/2019/10/image-example-1-500x375.jpg
-							// => .../wp-content/uploads/sites/30/2019/10/image-example-1.jpg
+							// Remove image size from url to be able to get attachment id.
+							// e.g. .../wp-content/uploads/sites/30/2019/10/image-example-1-500x375.jpg.
+							// => .../wp-content/uploads/sites/30/2019/10/image-example-1.jpg.
 							if ( isset( $matches[0][0] ) ) {
 								$new_src = str_replace( $matches[0][0], '.', $new_src );
 							}
@@ -1390,6 +1634,13 @@ class Delicious_Dynamic_Recipe_Card {
 		return $output;
 	}
 
+	/**
+	 * Wrap the ingredient name
+	 *
+	 * @param array  $nodes The nodes.
+	 * @param string $type The type.
+	 * @return string The output.
+	 */
 	public static function wrap_ingredient_name( $nodes, $type = '' ) {
 		$attributes = self::$attributes;
 
@@ -1440,17 +1691,98 @@ class Delicious_Dynamic_Recipe_Card {
 	}
 
 	/**
-	 * Get HTML content for recipe video
+	 * Get the video thumbnail from the video url
 	 *
 	 * @since 2.1.1
-	 * @return void
+	 * @param string $video_url The video url.
+	 * @return string The video thumbnail.
+	 */
+	public static function get_video_thumbnail( $video_url ) {
+		$video_thumbnail = '';
+
+		$url_parts = wp_parse_url( $video_url );
+
+		if ( isset( $url_parts['query'] ) ) {
+			parse_str( $url_parts['query'], $query_params );
+
+			if ( isset( $query_params['v'] ) ) {
+				$video_id = $query_params['v'];
+			} elseif ( isset( $query_params['vi'] ) ) {
+				$video_id = $query_params['vi'];
+			}
+		} elseif ( isset( $url_parts['path'] ) ) {
+			$path_parts = explode( '/', trim( $url_parts['path'], '/' ) );
+			if ( in_array( 'embed', $path_parts ) ) {
+				$video_id = $path_parts[ count( $path_parts ) - 1 ];
+			} elseif ( count( $path_parts ) > 0 ) {
+				$video_id = $path_parts[ count( $path_parts ) - 1 ];
+			}
+		}
+
+		if ( strpos( $video_url, 'youtube.com' ) !== false || strpos( $video_url, 'youtu.be' ) !== false ) { // If it's a Youtube Video.
+			$video_id   = '';
+			$thumbnails = array(
+				'maxresdefault.jpg',
+				'hqdefault.jpg',
+				'mqdefault.jpg',
+				'sddefault.jpg',
+				'default.jpg',
+			);
+
+			// Get the video ID from the URL.
+			if ( isset( $query_params['v'] ) ) {
+				$video_id = $query_params['v'];
+			} elseif ( isset( $query_params['vi'] ) ) {
+				$video_id = $query_params['vi'];
+			} elseif ( isset( $url_parts['path'] ) ) {
+				$path_parts = explode( '/', trim( $url_parts['path'], '/' ) );
+				$video_id   = end( $path_parts ); // Get the last part of the path (video ID).
+			}
+
+			foreach ( $thumbnails as $thumbnail ) {
+				$thumbnail_url = "https://i.ytimg.com/vi/{$video_id}/{$thumbnail}";
+
+				$headers = @get_headers( $thumbnail_url );
+				if ( $headers && strpos( $headers[0], '200 OK' ) !== false ) {
+					$video_thumbnail = $thumbnail_url;
+					break;
+				}
+			}
+
+			if ( empty( $video_thumbnail ) ) {
+				$video_thumbnail = "https://i.ytimg.com/vi/{$video_id}/default.jpg";
+			}
+		} elseif ( strpos( $video_url, 'vimeo.com' ) !== false ) {
+			$path_parts = explode( '/', trim( $url_parts['path'], '/' ) );
+			$video_id   = end( $path_parts ); // Get the last part of the path (video ID).
+
+			// Vimeo API requires HTTPS.
+			$api_url = "https://vimeo.com/api/v2/video/{$video_id}.json";
+
+			// Use wp_remote_get() to fetch the JSON.
+			$response = wp_remote_get( $api_url );
+			$response = wp_remote_retrieve_body( $response );
+
+			if ( $response ) {
+				$data            = json_decode( $response, true ); // Decode JSON into an associative array.
+				$video_thumbnail = $data[0]['thumbnail_large'];
+			}
+		}
+
+		return $video_thumbnail;
+	}
+
+	/**
+	 * Get HTML content for recipe video.
+	 *
+	 * @since 2.1.1
 	 */
 	public static function get_video_content() {
 		$attributes = self::$attributes;
-		$hasVideo   = isset( $attributes['hasVideo'] ) && $attributes['hasVideo'];
+		$has_video  = isset( $attributes['hasVideo'] ) && $attributes['hasVideo'];
 		$output     = '';
 
-		if ( ! $hasVideo ) {
+		if ( ! $has_video ) {
 			return '';
 		}
 
@@ -1462,7 +1794,18 @@ class Delicious_Dynamic_Recipe_Card {
 		$video_settings = isset( $video['settings'] ) ? $video['settings'] : array();
 
 		if ( 'embed' === $video_type ) {
-			$output = wp_oembed_get( $video_url );
+			// get the video thumnail from the video url.
+			$video_thumbnail = self::get_video_thumbnail( $video_url );
+			$output          = sprintf(
+				'<img class="avoid-lazy-load" src="%s">
+				<a data-fslightbox="custom-vimeo" class="dr-instruction-videopop dr-lg-media-popup" href="%s" data-iframe="true">
+					<svg xmlns="http://www.w3.org/2000/svg" width="18.095" height="20.894" viewBox="0 0 18.095 20.894">
+						<path id="Path_26366" data-name="Path 26366" d="M107.992,76.108l18.095,10.447L107.992,97Z" transform="translate(-107.992 -76.108)" fill="#fff" />
+					</svg>
+				</a>',
+				$video_thumbnail,
+				$video_url
+			);
 		} elseif ( 'self-hosted' === $video_type ) {
 			$attrs = array();
 			foreach ( $video_settings as $attribute => $value ) {
@@ -1484,7 +1827,14 @@ class Delicious_Dynamic_Recipe_Card {
 			);
 		}
 
-		return sprintf( '<div class="dr-instructions-video" id="dr-video-gallery"><h3 class="video-title">%s</h3><div class="dr-vdo-thumbnail">%s</div></div>', $attributes['videoTitle'], $output );
+		return sprintf(
+			'<div class="dr-instructions-video" id="dr-video-gallery">
+			<h3 class="video-title">%s</h3>
+			<div class="dr-vdo-thumbnail">%s</div>
+			</div>',
+			$attributes['videoTitle'],
+			$output
+		);
 	}
 
 	/**
@@ -1492,7 +1842,7 @@ class Delicious_Dynamic_Recipe_Card {
 	 * Add snippets at the top of post content
 	 *
 	 * @since 1.2.0
-	 * @param string $content Main post content
+	 * @param string $content Main post content.
 	 * @return string HTML of post content
 	 */
 	public function filter_the_content( $content ) {
@@ -1509,7 +1859,7 @@ class Delicious_Dynamic_Recipe_Card {
 	 * Parse HTML tag styles
 	 *
 	 * @since 2.1.0
-	 * @param string|array $style Tag styles to parse
+	 * @param string|array $styles Tag styles to parse.
 	 * @return string             CSS styles
 	 */
 	public static function parseTagStyle( $styles ) {

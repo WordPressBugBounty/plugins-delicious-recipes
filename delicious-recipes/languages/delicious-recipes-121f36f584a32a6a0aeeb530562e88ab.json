@@ -10,6 +10,9 @@
                 "lang": "en",
                 "plural-forms": "nplurals=2; plural=(n != 1);"
             },
+            "kcal": [
+                ""
+            ],
             "Nutrition Facts": [
                 ""
             ],
@@ -20,9 +23,6 @@
                 ""
             ],
             "mg": [
-                ""
-            ],
-            "%": [
                 ""
             ],
             "* Percent Daily Values are based on a 2,000 calorie diet. Your daily value may be higher or lower depending on your calorie needs.": [

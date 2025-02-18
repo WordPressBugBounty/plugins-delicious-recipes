@@ -60,6 +60,7 @@ $all_no = true;
 	if ( $allow_print_customization ) {
 		$print_options = isset( $recipe_global['printOptions'] ) ? $recipe_global['printOptions'] : array();
 		if ( ! empty( $print_options ) ) {
+			$all_no = false;
 			?>
 	<div id="dr-print-options" class="dr-clearfix">
 		<h3><?php esc_html_e( 'Print Options:', 'delicious-recipes' ); ?></h3>

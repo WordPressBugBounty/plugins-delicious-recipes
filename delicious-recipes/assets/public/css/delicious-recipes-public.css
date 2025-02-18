@@ -505,7 +505,7 @@ img {
 	z-index: 1;
 }
 
-.dr-summary-holder h4{
+.dr-summary-holder h4 {
 	font-weight: 600;
 }
 
@@ -1676,7 +1676,7 @@ img {
 	text-decoration: none;
 }
 
-.dr-bookmark-wishlist svg{
+.dr-bookmark-wishlist svg {
 	width: 20px !important;
 	height: 20px !important;
 	margin-right: 0;
@@ -6239,4 +6239,17 @@ select {
 
 .dr-clearfix:not(:has(.text-large)) {
 	line-height: 1.45;
+}
+
+/* recipe card */
+
+.dr-recipes-card-block .rating-without-comment {
+	display: none;
+}
+
+@media screen and (min-width: 768px) {
+	#dr-dynamic-recipe-card .dr-extra-meta .dr-sim-metaa:first-child,
+	#dr-block-details .dr-extra-meta .dr-sim-metaa:first-child {
+		padding-left: 30px;
+	}
 }

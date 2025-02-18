@@ -369,7 +369,7 @@ function is_recipe_block() {
 		|| has_block( 'delicious-recipes/recipe-card' ) || has_block( 'delicious-recipes/dynamic-details' )
 		|| has_block( 'delicious-recipes/dynamic-ingredients' ) || has_block( 'delicious-recipes/dynamic-instructions' )
 		|| has_block( 'delicious-recipes/dynamic-recipe-card' ) || has_block( 'delicious-recipes/block-nutrition' )
-		|| has_block( 'delicious-recipes/block-recipe-buttons' );
+		|| has_block( 'delicious-recipes/block-recipe-buttons' ) || has_block( 'delicious-recipes-pro/recipe-roundup' );
 }
 
 /**

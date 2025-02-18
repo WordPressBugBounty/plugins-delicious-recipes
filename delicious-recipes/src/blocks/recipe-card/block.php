@@ -225,6 +225,11 @@ function delicious_recipes_recipe_card_block_ajax() {
 				$ingredient_string_format = isset( $global_settings['ingredientStringFormat'] ) ? $global_settings['ingredientStringFormat'] : '{qty} {unit} {ingredient} {notes}';
 				foreach ( $recipe_metas->ingredients as $key => $ingre_section ) :
 					$ingre = isset( $ingre_section['ingredients'] ) ? $ingre_section['ingredients'] : array();
+					if ( $ingre_section['sectionTitle'] ) {
+						$ingredients[] = array(
+							'ingre_string' => $ingre_section['sectionTitle'],
+						);
+					}
 					foreach ( $ingre as $ingre_key => $ingredient ) :
 
 						$ingredient_qty  = isset( $ingredient['quantity'] ) ? $ingredient['quantity'] : 0;
@@ -258,7 +263,7 @@ function delicious_recipes_recipe_card_block_ajax() {
 							'instruction' => $instruction,
 							'notes'       => $instruction_notes,
 							'image'       => $instruction_image,
-							'video'       => $instruction_video,
+							'video'       => delicious_recipes_parse_videos( $instruction_video ),
 						);
 					endforeach;
 				endforeach;
@@ -297,7 +302,7 @@ function delicious_recipes_recipe_card_block_ajax() {
 				'ingredients'      => $ingredients,
 				'instructions'     => $instructions,
 				'recipe_badges'    => $recipe_badges,
-
+				'video_gallery'    => $recipe_metas->video_gallery ? $recipe_metas->video_gallery : array(),
 			);
 		}
 

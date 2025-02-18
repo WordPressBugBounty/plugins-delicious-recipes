@@ -139,7 +139,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 
 							foreach ( $mid_facts as $slug => $nf ) :
 								$nutri_zero_condition = $display_nutrition_zero_values ? isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ] : false;
-								if ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] || $nutri_zero_condition ) :
+								if ( ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] ) || $nutri_zero_condition ) :
 									if ( 'calories_fat' !== $slug ) :
 										echo '<dt class="dr-nut-no-border text-large">';
 										echo '<strong>' . esc_html( $nf['name'] ) . '</strong> <span class="dr-nut-right" style="display:block;"><strong>' . esc_html( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong>' . esc_html( $nf['measurement'] ) . '</strong></span>' : '' );
@@ -168,7 +168,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 
 							foreach ( $main_facts as $slug => $nf ) :
 								$nutri_zero_condition = $display_nutrition_zero_values ? isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ] : false;
-								if ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] || $nutri_zero_condition ) :
+								if ( ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] ) || $nutri_zero_condition ) :
 
 									echo '<dt>';
 									echo '<strong>' . esc_html( $nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_html( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_html( $nf['measurement'] ) . '</strong>' : '' );

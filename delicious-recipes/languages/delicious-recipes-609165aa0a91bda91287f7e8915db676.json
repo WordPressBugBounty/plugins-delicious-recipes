@@ -10,6 +10,21 @@
                 "lang": "en",
                 "plural-forms": "nplurals=2; plural=(n != 1);"
             },
+            "Name": [
+                ""
+            ],
+            "Section Heading": [
+                ""
+            ],
+            "Paste the Instructions List": [
+                ""
+            ],
+            "Press 'Enter' to add new instruction.": [
+                ""
+            ],
+            "Add Bulk Instructions": [
+                ""
+            ],
             "New step added": [
                 ""
             ],
@@ -17,6 +32,9 @@
                 ""
             ],
             "Add instruction section": [
+                ""
+            ],
+            "Add instruction in bulk": [
                 ""
             ],
             "Write Instructions title": [

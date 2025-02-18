@@ -28,10 +28,19 @@
             "Total time": [
                 ""
             ],
+            "Cooking Temp": [
+                ""
+            ],
             "Servings": [
                 ""
             ],
             "servings": [
+                ""
+            ],
+            "Estimated Cost": [
+                ""
+            ],
+            "$": [
                 ""
             ],
             "Calories": [
@@ -62,21 +71,6 @@
                 ""
             ],
             "Keywords:": [
-                ""
-            ],
-            "Fall": [
-                ""
-            ],
-            "Winter": [
-                ""
-            ],
-            "Summer": [
-                ""
-            ],
-            "Spring": [
-                ""
-            ],
-            "Suitable throughout the year": [
                 ""
             ],
             "Courses:": [
@@ -142,6 +136,9 @@
             "Recipe Keys": [
                 ""
             ],
+            "Recipe Dietary": [
+                ""
+            ],
             "hour": [
                 ""
             ],
@@ -205,7 +202,7 @@
             "Default Card Layout": [
                 ""
             ],
-            "%": [
+            "Name": [
                 ""
             ],
             "List View": [
@@ -217,7 +214,40 @@
             "Recipe Details": [
                 ""
             ],
+            "Add Video": [
+                ""
+            ],
             "Cooking Time": [
+                ""
+            ],
+            "Add": [
+                ""
+            ],
+            "Add Ingredients in Bulk": [
+                ""
+            ],
+            "Section Heading": [
+                ""
+            ],
+            "Paste the Ingredients List": [
+                ""
+            ],
+            "1 tbsp Olive Oil (extra virgin)": [
+                ""
+            ],
+            "Press 'Enter' to add new ingredient.": [
+                ""
+            ],
+            "Add Bulk Ingredient": [
+                ""
+            ],
+            "Paste the Instructions List": [
+                ""
+            ],
+            "Press 'Enter' to add new instruction.": [
+                ""
+            ],
+            "Add Bulk Instructions": [
                 ""
             ],
             "* Percent Daily Values are based on a 2,000 calorie diet. Your daily value may be higher or lower depending on your calorie needs.": [
@@ -373,6 +403,18 @@
             "Calculate Total Time": [
                 ""
             ],
+            "Display Cooking Temp": [
+                ""
+            ],
+            "Cooking Temp Label": [
+                ""
+            ],
+            "Temperature Value": [
+                ""
+            ],
+            "Temperature Unit": [
+                ""
+            ],
             "Display Servings": [
                 ""
             ],
@@ -383,6 +425,18 @@
                 ""
             ],
             "Servings Unit": [
+                ""
+            ],
+            "Display Estimated Cost": [
+                ""
+            ],
+            "Estimated Cost Label": [
+                ""
+            ],
+            "Estimated Cost Value": [
+                ""
+            ],
+            "Estimated Cost Unit": [
                 ""
             ],
             "Display Calories": [
@@ -398,6 +452,9 @@
                 ""
             ],
             "Best Season Label": [
+                ""
+            ],
+            "Enter season": [
                 ""
             ],
             "A block to list the handpicked recipes.": [
@@ -547,6 +604,9 @@
             "Frying": [
                 ""
             ],
+            "F": [
+                ""
+            ],
             "New step added": [
                 ""
             ],
@@ -554,6 +614,9 @@
                 ""
             ],
             "Add instruction section": [
+                ""
+            ],
+            "Add instruction in bulk": [
                 ""
             ],
             "Write Instructions title": [
@@ -574,6 +637,12 @@
             "Enter instruction description": [
                 ""
             ],
+            "Enter YouTube or Vimeo video URL": [
+                ""
+            ],
+            "Enter notes": [
+                ""
+            ],
             "Enter section title": [
                 ""
             ],
@@ -587,6 +656,9 @@
                 ""
             ],
             "Add ingredient section": [
+                ""
+            ],
+            "Add ingredients in bulk": [
                 ""
             ],
             "Write Ingredients title": [
@@ -742,6 +814,15 @@
             "Type recipe keys and press Enter": [
                 ""
             ],
+            "Show Recipe Dietary": [
+                ""
+            ],
+            "Add recipe dietary": [
+                ""
+            ],
+            "Type recipe dietary and press Enter": [
+                ""
+            ],
             "Add keywords": [
                 ""
             ],
@@ -785,6 +866,9 @@
                 ""
             ],
             "Enter the title of your recipe.": [
+                ""
+            ],
+            "Recipe Dietary:": [
                 ""
             ],
             "Write Summary title": [
@@ -851,9 +935,6 @@
                 ""
             ],
             "Remove Poster Image": [
-                ""
-            ],
-            "Recipe": [
                 ""
             ],
             "Please Select the recipe for recipe card.": [
