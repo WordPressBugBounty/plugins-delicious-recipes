@@ -1,6 +1,6 @@
 {
     "translation-revision-date": "YEAR-MO-DA HO:MI+ZONE",
-    "generator": "WP-CLI\/2.10.0",
+    "generator": "WP-CLI\/2.11.0",
     "source": "assets\/build\/import.js",
     "domain": "messages",
     "locale_data": {
@@ -229,6 +229,9 @@
             "Add CSV File": [
                 ""
             ],
+            "Please select a valid CSV file.": [
+                ""
+            ],
             "Learn how to format your CSV file for import.": [
                 ""
             ],
@@ -337,10 +340,10 @@
             "Recipe FAQs": [
                 ""
             ],
-            "Equipments Title": [
+            "Equipment Title": [
                 ""
             ],
-            "Recipe Equipments": [
+            "Recipe Equipment": [
                 ""
             ]
         }

@@ -432,7 +432,7 @@ add_action( 'the_post', 'delicious_recipes_setup_recipe_data' );
  * @since 1.5.1
  */
 function delicious_recipes_enable_pinit_btn() {
-	 static $enabled;
+	static $enabled;
 
 	if ( is_null( $enabled ) ) {
 		$global_toggles_lbls = delicious_recipes_get_global_toggles_and_labels();
@@ -457,7 +457,7 @@ function delicious_recipes_get_global_settings() {
 			'displayRecipesOnHomepage'     => array(),
 			'recipePerPage'                => get_option( 'posts_per_page' ),
 			// 'enableFSEThemeSupport'        => array(),
-			'enableElementorSupport'	   => array(),
+			'enableElementorSupport'       => array(),
 
 			// Recipe Details fields.
 			'enableRecipeSingleHead'       => array(
@@ -679,7 +679,7 @@ function delicious_recipes_get_global_settings() {
 					),
 				),
 			),
-			'globalEstimatedCostCurr' 	 => '$',
+			'globalEstimatedCostCurr'      => '$',
 			'enableNavigation'             => array(
 				'0' => 'yes',
 			),
@@ -993,7 +993,7 @@ function delicious_recipes_get_global_settings() {
 					'enable' => array(
 						'0' => 'yes',
 					),
-				)
+				),
 			),
 
 			// Miscellaneous fields.
@@ -1296,7 +1296,7 @@ function delicious_recipes_get_array_values_by_index( $array, $index = null, $de
  * @return void
  */
 function delicious_recipes_get_ingredient_units() {
-	 // Use the "delicious_recipes_ingredient_units" filter to add your own measurements.
+	// Use the "delicious_recipes_ingredient_units" filter to add your own measurements.
 	$measurements = apply_filters(
 		'delicious_recipes_ingredient_units',
 		array(
@@ -1572,7 +1572,7 @@ function delicious_recipes_sanitize_metas( $recipe_settings ) {
 		foreach ( $recipe_settings as $key => $setting ) {
 
 			if ( ! is_array( $setting ) ) {
-				if ( 'recipeDescription' === $key || 'recipeNotes' === $key || 'equipmentsContent' === $key || 'extendedContent' === $key) {
+				if ( 'recipeDescription' === $key || 'recipeNotes' === $key || 'equipmentsContent' === $key || 'extendedContent' === $key ) {
 					$recipe_settings[ $key ] = wp_kses_post( $setting );
 				} else {
 					$recipe_settings[ $key ] = sanitize_text_field( $setting );
@@ -1664,4 +1664,3 @@ function delicious_recipes_tax_and_meta_query_or_relation( $clauses, $query ) {
 }
 
 add_filter( 'posts_clauses', 'delicious_recipes_tax_and_meta_query_or_relation', 10, 2 );
-

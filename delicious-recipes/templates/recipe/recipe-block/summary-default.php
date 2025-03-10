@@ -271,8 +271,10 @@ $enableComments = isset( $recipe_global['enableComments'] ) && ['yes'] === $reci
 					</span>
 					<b>
 						<?php
-						if ( $recipe->estimated_cost_curr ) {
-							echo esc_html( $recipe->estimated_cost_curr );
+						if ( $recipe_global['globalEstimatedCostCurr'] ) {
+							echo esc_html( $recipe_global['globalEstimatedCostCurr'] );
+						} else {
+							echo esc_html( '$' );
 						}
 						?>
 						<?php echo esc_html( $recipe->estimated_cost ); ?>

@@ -4301,93 +4301,9 @@ body.delicious-recipes_page_delicious_recipes_whats_new {
 }
 
 #dr_whats_new_screen_page .dr-whats-new-content .dr-whats-new-box {
-	padding: 10px;
 	border-radius: 10px;
-	padding: 0 0 45px;
 	background-color: var(--white-color);
 	box-shadow: 0 13px 27px rgba(var(--font-color-rgb), 0.05);
-	max-height: 400px;
-	overflow-y: auto;
-}
-
-#dr_whats_new_screen_page
-	.dr-whats-new-content
-	.dr-whats-new-box::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
-}
-
-#dr_whats_new_screen_page
-	.dr-whats-new-content
-	.dr-whats-new-box::-webkit-scrollbar-track {
-	background: none;
-}
-
-#dr_whats_new_screen_page
-	.dr-whats-new-content
-	.dr-whats-new-box::-webkit-scrollbar-thumb {
-	border-radius: 10px;
-	background-color: #ccc;
-}
-
-#dr_whats_new_screen_page
-	.dr-whats-new-content
-	.dr-whats-new-box
-	.dr-whats-new-box-header {
-	position: sticky;
-	top: -16px;
-	z-index: 1;
-}
-
-#dr_whats_new_screen_page
-	.dr-whats-new-content
-	.dr-whats-new-box
-	.dr-whats-new-box-header
-	h5 {
-	padding: 30px 40px;
-	margin-bottom: 0;
-	background-color: var(--white-color);
-	margin-top: -16px;
-	position: sticky;
-	top: 0;
-	z-index: 1;
-}
-
-#dr_whats_new_screen_page
-	.dr-whats-new-content
-	.dr-whats-new-box
-	.dr-whats-new-box-header::before,
-#dr_whats_new_screen_page
-	.dr-whats-new-content
-	.dr-whats-new-box
-	.dr-whats-new-box-header::after {
-	content: "";
-	display: block;
-	height: 16px;
-	position: sticky;
-	-webkit-position: sticky;
-}
-
-#dr_whats_new_screen_page
-	.dr-whats-new-content
-	.dr-whats-new-box
-	.dr-whats-new-box-header::before {
-	top: 74px;
-	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-#dr_whats_new_screen_page
-	.dr-whats-new-content
-	.dr-whats-new-box
-	.dr-whats-new-box-header::after {
-	background: linear-gradient(
-		white 10%,
-		rgba(255, 255, 255, 0.8) 50%,
-		rgba(255, 255, 255, 0.4) 70%,
-		transparent
-	);
-	top: 0;
-	z-index: 2;
 }
 
 #dr_whats_new_screen_page

@@ -1,3 +1,10 @@
+1.8.0: 2025-03-10
+- Enhancement: Improved the design of Recipe Print Page.
+- Enhancement: Added option to remove recipes from the Favorites tab in User Dashboard.
+- Fixes: Resolved fatal error issue with Dynamic Recipe Card block.
+- Fixes: Addressed design issues on Single Recipe Page and template pages when using GeneratePress theme.
+- Fixes: Improved overall recipe card design.
+
 1.7.9: 2025-02-18
 - Fixes: Resolved design issues in Handpicked Recipes and Recipe by Taxonomy blocks.
 - Fixes: Updated Recipe Card block design and improved search functionality.

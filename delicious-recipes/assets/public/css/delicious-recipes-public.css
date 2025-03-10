@@ -2218,6 +2218,12 @@ img {
 	flex: 0 0 30%;
 }
 
+.widget-area .wp-block-search__input{
+	min-width: unset;
+	width: 100%;
+
+}
+
 .dr-fav-recipe-fig img {
 	width: 100%;
 	vertical-align: top;
@@ -4702,7 +4708,7 @@ body .dr-nutrition-label .dr-nut-hr {
 .single-recipe .comments-area {
 	margin-top: 80px;
 	border: 1px solid rgba(var(--primary-color-rgb), 0.2);
-	padding: 40px;
+	padding: 20px;
 }
 
 .dr-comment-area ol {
@@ -4924,6 +4930,7 @@ form.comment-form label[for="rating"] {
 	border: none;
 	letter-spacing: 0;
 	text-transform: none;
+	text-wrap: auto;
 }
 
 .comment-form p.form-submit input[type="submit"]:hover {
@@ -6221,7 +6228,7 @@ select {
 
 /* aspect ratio 3:4 */
 
-:where(.wpdr-feat-thumb, .thumbnail, .large) :where(img, svg) {
+:where(.wpdr-feat-thumb, .thumbnail, .large) >:where(img, svg) {
 	object-fit: cover;
 	height: auto;
 	aspect-ratio: 3/4;

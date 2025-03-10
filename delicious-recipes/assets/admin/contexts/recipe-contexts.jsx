@@ -104,8 +104,8 @@ export default function RecipeContextProvider({ children }) {
         'faqTitle': { value: 'faqTitle', label: __('FAQ Title', 'delicious-recipes'), section: 'FAQs' },
         'recipeFAQs': { value: 'recipeFAQs', label: __('Recipe FAQs', 'delicious-recipes'), section: 'FAQs' },
         // Equipment
-        'equipmentsTitle': { value: 'equipmentsTitle', label: __('Equipments Title', 'delicious-recipes'), section: 'Equipment' },
-        'recipeEquipments': { value: 'recipeEquipments', label: __('Recipe Equipments', 'delicious-recipes'), section: 'Equipment' },
+        'equipmentsTitle': { value: 'equipmentsTitle', label: __('Equipment Title', 'delicious-recipes'), section: 'Equipment' },
+        'recipeEquipments': { value: 'recipeEquipments', label: __('Recipe Equipment', 'delicious-recipes'), section: 'Equipment' },
         // Extended Content
         'extendedContent': { value: 'extendedContent', label: __('Extended Content', 'delicious-recipes'), section: 'Extended Content' },
     }

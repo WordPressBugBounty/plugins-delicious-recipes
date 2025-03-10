@@ -1,6 +1,6 @@
 {
     "translation-revision-date": "YEAR-MO-DA HO:MI+ZONE",
-    "generator": "WP-CLI\/2.10.0",
+    "generator": "WP-CLI\/2.11.0",
     "source": "assets\/blocks\/handpicked-recipes\/block.js",
     "domain": "messages",
     "locale_data": {

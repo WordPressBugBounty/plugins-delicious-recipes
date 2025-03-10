@@ -1126,6 +1126,9 @@ class Delicious_Dynamic_Recipe_Card {
 
 		$season = isset( $season ) && self::$settings['displayBestSeason'] ? $season : '';
 		if ( $season ) {
+			if ( ! is_array( $season ) ) {
+				$season = array( $season );
+			}
 			$svg     = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#season"></use></svg>';
 			$output .= sprintf(
 				'<span class="%1$s"><span class="%2$s">%3$s %4$s:</span><b>%5$s</b></span>',

@@ -56,15 +56,15 @@ document.addEventListener('DOMContentLoaded', function () {
 			type: splidesCount > 3 ? 'loop' : 'slide',
 			breakpoints: {
 				1024: {
-                    perPage: 2,
-                    arrows: splidesCount > 2,
-                    type: splidesCount > 2 ? 'loop' : 'slide', // Conditional loop
-                },
-                640: {
-                    perPage: 1,
-                    arrows: splidesCount > 1,
-                    type: splidesCount > 1 ? 'loop' : 'slide', // Conditional loop
-                }
+					perPage: 2,
+					arrows: splidesCount > 2,
+					type: splidesCount > 2 ? 'loop' : 'slide', // Conditional loop
+				},
+				640: {
+					perPage: 1,
+					arrows: splidesCount > 1,
+					type: splidesCount > 1 ? 'loop' : 'slide', // Conditional loop
+				}
 			},
 		};
 
@@ -313,12 +313,51 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
+	// Handle recipe like for logged out users
+	$(document).on("DOMContentLoaded", function () {
+		if (!delicious_recipes.isUserLoggedIn) {
+			var container = $(".dr_like__recipe");
+			var id = container.attr("id").split("-").pop();
+			var unique_user_id = "";
+
+			if (typeof (Storage) !== "undefined") {
+				unique_user_id = localStorage.getItem('delicious_recipes_user_identifier_for_recipe_likes');
+				if (unique_user_id) {
+					//Check if user has liked the recipe
+					$.ajax({
+						type: "post",
+						url: delicious_recipes.ajax_url,
+						data: { action: "delicious_recipes_check_like_for_logged_out_users", id: id, unique_user_id: unique_user_id },
+						beforeSend: function () {
+							container.addClass("loading");
+						},
+						success: function (data) {
+							if (!data.data.can_like) {
+								container.addClass("recipe-liked");
+								container.removeClass("like-recipe");
+							}
+						},
+					}).done(function () {
+						container.removeClass("loading");
+					});
+				}
+			}
+		}
+	});
+
 	/** Ajax call for recipe like */
 	$(document).on("click", ".dr_like__recipe", function (e) {
 		e.preventDefault();
 		var container = $(this);
 
 		var id = container.attr("id").split("-").pop();
+
+		//get the users unique identifier
+		var unique_user_id = localStorage.getItem('delicious_recipes_user_identifier_for_recipe_likes');		
+		if (!unique_user_id) {
+			unique_user_id = "dr_user_identifier_" +  Math.random().toString(36).substring(2, 15);
+			localStorage.setItem('delicious_recipes_user_identifier_for_recipe_likes', unique_user_id);
+		}
 
 		if (container.hasClass("recipe-liked")) {
 			container.removeClass("recipe-liked");
@@ -333,7 +372,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		$.ajax({
 			type: "post",
 			url: delicious_recipes.ajax_url,
-			data: { action: "recipe_likes", add_remove: addRemove, id: id },
+			data: { action: "recipe_likes", add_remove: addRemove, id: id, unique_user_id: unique_user_id },
 			beforeSend: function () {
 				container.addClass("loading");
 			},
@@ -829,7 +868,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		// Remove double comment form when elementor support toggle is enabled
 		const commentSection = document.querySelectorAll('.comments-area');
 		const enableElementorSupport = delicious_recipes.global_settings.enableElementorSupport;
-		if ( enableElementorSupport && 'yes' === enableElementorSupport[0] && commentSection !== null && commentSection.length > 1 ) {
+		if (enableElementorSupport && 'yes' === enableElementorSupport[0] && commentSection !== null && commentSection.length > 1) {
 			commentSection[1].remove();
 		}
 

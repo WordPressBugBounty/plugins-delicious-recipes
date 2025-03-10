@@ -1,6 +1,6 @@
 {
     "translation-revision-date": "YEAR-MO-DA HO:MI+ZONE",
-    "generator": "WP-CLI\/2.10.0",
+    "generator": "WP-CLI\/2.11.0",
     "source": "assets\/build\/recipe.js",
     "domain": "messages",
     "locale_data": {
@@ -79,7 +79,31 @@
             "Extended Content": [
                 ""
             ],
-            "Time": [
+            "AI Icon": [
+                ""
+            ],
+            "Write with AI": [
+                ""
+            ],
+            "AI Recipe Assistant \u2013 Create Recipes Faster, Rank Higher, Grow Your Blog": [
+                ""
+            ],
+            "Create Recipes Faster, Rank Higher, Grow Your Blog Write recipes that are ": [
+                ""
+            ],
+            "clear, engaging, and SEO-optimized, ": [
+                ""
+            ],
+            "get more traffic. AI Recipe Assistant for WP Delicious helps you ": [
+                ""
+            ],
+            "write, format, and publish recipes instantly, ": [
+                ""
+            ],
+            "making your content stand out effortlessly. ": [
+                ""
+            ],
+            "Get it Now": [
                 ""
             ],
             "Click to initialize RichEditor": [
@@ -227,6 +251,9 @@
                 ""
             ],
             "Select the difficulty level for this recipe.": [
+                ""
+            ],
+            "Time": [
                 ""
             ],
             "Preparation Time": [
@@ -395,9 +422,6 @@
                 ""
             ],
             "Nutrition Information": [
-                ""
-            ],
-            "Recipe settings saved successfully !!": [
                 ""
             ]
         }

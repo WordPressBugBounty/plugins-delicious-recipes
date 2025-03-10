@@ -53,6 +53,11 @@ class Delicious_Recipes_Whats_New {
 
 		$screen = get_current_screen();
 
+		$is_pro_active = false;
+		if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
+			$is_pro_active = true;
+		}
+
 		if ( isset( $screen->id ) && strpos( $screen->id, '_page_delicious_recipes_whats_new' ) > 0 ) {
 
 			$whatsNew_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/whatsNew.asset.php';
@@ -68,6 +73,7 @@ class Delicious_Recipes_Whats_New {
 					'siteURL'   => esc_url( home_url( '/' ) ),
 					'adminURL'  => esc_url( admin_url() ),
 					'pluginUrl' => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
+					'isPro'     => $is_pro_active,
 				)
 			);
 
@@ -75,6 +81,5 @@ class Delicious_Recipes_Whats_New {
 
 		}
 	}
-
 }
 new Delicious_Recipes_Whats_New();

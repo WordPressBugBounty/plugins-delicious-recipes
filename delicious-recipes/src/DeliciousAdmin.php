@@ -1393,12 +1393,13 @@ class DeliciousAdmin {
 					'delicious-recipe-edit',
 					'DeliciousRecipes',
 					array(
-						'proEnabled'     => function_exists( 'DEL_RECIPE_PRO' ),
-						'siteURL'        => esc_url( rtrim( home_url(), '/' ) ),
-						'pluginUrl'      => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
-						'maxUploadSize'  => esc_html( $max_upload_size ),
-						'globalSettings' => $global_settings,
-						'nutritionFacts' => delicious_recipes_get_nutrition_facts(),
+						'proEnabled'         => function_exists( 'DEL_RECIPE_PRO' ),
+						'AIAssistantEnabled' => function_exists( 'WP_DEL_AI_RECIPE_ASSISTANT' ),
+						'siteURL'            => esc_url( rtrim( home_url(), '/' ) ),
+						'pluginUrl'          => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
+						'maxUploadSize'      => esc_html( $max_upload_size ),
+						'globalSettings'     => $global_settings,
+						'nutritionFacts'     => delicious_recipes_get_nutrition_facts(),
 					)
 				);
 
@@ -1434,7 +1435,7 @@ class DeliciousAdmin {
 						'pluginUrl'          => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
 						'maxUploadSize'      => esc_html( $max_upload_size ),
 						'defaultTemplates'   => $default_templates,
-						'licenseValidity'    => $license_validity_bool, 
+						'licenseValidity'    => $license_validity_bool,
 					)
 				);
 				wp_enqueue_script( 'delicious-recipe-global-settings' );
@@ -1445,8 +1446,8 @@ class DeliciousAdmin {
 			wp_enqueue_style( 'select2', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/select2/select2.min.css', array(), '4.0.13', 'all' );
 		}
 
-		if ( in_array( get_current_screen()->post_type, array( 'post', 'page', 'recipe' ) ) ) {
-			// Promotion Buttons for Pixify AI and AI Assistant for WP Delicious
+		if ( in_array( get_current_screen()->post_type, array( 'post', 'page', 'recipe' ), true ) ) {
+			// Promotion Buttons for Pixify AI and AI Assistant for WP Delicious.
 			$ai_assistant_plugin_path   = WP_PLUGIN_DIR . '/ai-recipe-assistant-for-wp-delicious/ai-recipe-assistant-for-wp-delicious.php';
 			$pixify_ai_plugin_path      = WP_PLUGIN_DIR . '/pixifyai/pixifyai.php';
 			$ai_assistant_plugin_exists = file_exists( $ai_assistant_plugin_path );
@@ -1454,33 +1455,33 @@ class DeliciousAdmin {
 
 			if ( ! $pixify_ai_plugin_exists || ! $ai_assistant_plugin_exists ) {
 				wp_enqueue_script( 'delicious-recipe-ai-promotion-buttons', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/promotionButtonsJS.js', array( 'jquery', 'wp-element', 'wp-components', 'wp-plugins', 'wp-edit-post' ), '1.10.22', true );
+				wp_localize_script(
+					'delicious-recipe-ai-promotion-buttons',
+					'PromotionButtons',
+					array(
+						'AIAssistantPluginExists' => $ai_assistant_plugin_exists,
+						'PixifyAIPluginExists'    => $pixify_ai_plugin_exists,
+						'IsRecipePostType'        => get_current_screen()->post_type === 'recipe',
+						'pluginUrl'               => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
+					)
+				);
 			}
-			wp_localize_script(
-				'delicious-recipe-ai-promotion-buttons',
-				'PromotionButtons',
-				array(
-					'AIAssistantPluginExists' => $ai_assistant_plugin_exists,
-					'PixifyAIPluginExists'    => $pixify_ai_plugin_exists,
-					'IsRecipePostType'        => get_current_screen()->post_type === 'recipe',
-					'pluginUrl'               => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
-				)
-			);
 		}
 
 		$screen = get_current_screen();
-		if ( 'nav-menus' != $screen->base ) {
+		if ( 'nav-menus' !== $screen->base ) {
 			return;
 		}
 
 		wp_enqueue_script( 'delicious_recipes_nav_menu', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/admin/nav-menu.js', array( 'jquery' ), 'all' );
 
 		$data = array(
-			'strings' => get_surprise_me_options( 'menu', 'string' ), // The strings for the options
-			'title'   => __( 'Surprise Me', 'delicious-recipes' ), // The title
+			'strings' => get_surprise_me_options( 'menu', 'string' ), // The strings for the options.
+			'title'   => __( 'Surprise Me', 'delicious-recipes' ), // The title.
 			'val'     => array(),
 		);
 
-		// Get all surprise me menu items
+		// Get all surprise me menu items.
 		$items = get_posts(
 			array(
 				'numberposts' => -1,
@@ -1491,12 +1492,12 @@ class DeliciousAdmin {
 			)
 		);
 
-		// The options values for the surprise me
+		// The options values for the surprise me.
 		foreach ( $items as $item ) {
 			$data['val'][ $item ] = get_post_meta( $item, '_dr_menu_item', true );
 		}
 
-		// Send all these data to javascript
+		// Send all these data to javascript.
 		wp_localize_script( 'delicious_recipes_nav_menu', 'delicious_recipes_data', $data );
 	}
 

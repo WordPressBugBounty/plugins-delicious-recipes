@@ -1,7 +1,7 @@
 {
     "translation-revision-date": "YEAR-MO-DA HO:MI+ZONE",
     "generator": "WP-CLI\/2.11.0",
-    "source": "assets\/blocks\/recipe-card-dynamic\/components\/Direction.js",
+    "source": "assets\/build\/Components.js",
     "domain": "messages",
     "locale_data": {
         "messages": {
@@ -10,34 +10,31 @@
                 "lang": "en",
                 "plural-forms": "nplurals=2; plural=(n != 1);"
             },
-            "Name": [
+            "AI Icon": [
                 ""
             ],
-            "Section Heading": [
+            "Write with AI": [
                 ""
             ],
-            "Paste the Instructions List": [
+            "AI Recipe Assistant \u2013 Create Recipes Faster, Rank Higher, Grow Your Blog": [
                 ""
             ],
-            "Press 'Enter' to add new instruction.": [
+            "Create Recipes Faster, Rank Higher, Grow Your Blog Write recipes that are ": [
                 ""
             ],
-            "Add Bulk Instructions": [
+            "clear, engaging, and SEO-optimized, ": [
                 ""
             ],
-            "New step added": [
+            "get more traffic. AI Recipe Assistant for WP Delicious helps you ": [
                 ""
             ],
-            "Add instruction": [
+            "write, format, and publish recipes instantly, ": [
                 ""
             ],
-            "Add instruction section": [
+            "making your content stand out effortlessly. ": [
                 ""
             ],
-            "Add instruction in bulk": [
-                ""
-            ],
-            "Write Instructions title": [
+            "Get it Now": [
                 ""
             ]
         }

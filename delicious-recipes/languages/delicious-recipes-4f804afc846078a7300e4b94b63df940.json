@@ -1,6 +1,6 @@
 {
     "translation-revision-date": "YEAR-MO-DA HO:MI+ZONE",
-    "generator": "WP-CLI\/2.10.0",
+    "generator": "WP-CLI\/2.11.0",
     "source": "assets\/build\/whatsNew.js",
     "domain": "messages",
     "locale_data": {
@@ -10,10 +10,16 @@
                 "lang": "en",
                 "plural-forms": "nplurals=2; plural=(n != 1);"
             },
+            "WP Delicious": [
+                ""
+            ],
             "Settings": [
                 ""
             ],
             "Upgrade to Pro": [
+                ""
+            ],
+            "WP Delicious Pro": [
                 ""
             ],
             "Create a Recipe": [
@@ -43,6 +49,9 @@
             "Fixes": [
                 ""
             ],
+            "No changelog found.": [
+                ""
+            ],
             "Check out the links and information below to see what\u2019s new.": [
                 ""
             ],
@@ -56,12 +65,6 @@
                 ""
             ],
             "Translate": [
-                ""
-            ],
-            "What's new in WP Delicious?": [
-                ""
-            ],
-            "No changelog present at the moment.": [
                 ""
             ]
         }

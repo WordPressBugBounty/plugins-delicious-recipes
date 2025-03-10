@@ -1,0 +1,66 @@
+{
+    "translation-revision-date": "YEAR-MO-DA HO:MI+ZONE",
+    "generator": "WP-CLI\/2.11.0",
+    "source": "assets\/build\/promotionButtonsJS.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "en",
+                "plural-forms": "nplurals=2; plural=(n != 1);"
+            },
+            "AI Recipe Assistant \u2013 Create Recipes Faster, Rank Higher, Grow Your Blog": [
+                ""
+            ],
+            "Create Recipes Faster, Rank Higher, Grow Your Blog Write recipes that are ": [
+                ""
+            ],
+            "clear, engaging, and SEO-optimized, ": [
+                ""
+            ],
+            "get more traffic. AI Recipe Assistant for WP Delicious helps you ": [
+                ""
+            ],
+            "write, format, and publish recipes instantly, ": [
+                ""
+            ],
+            "making your content stand out effortlessly. ": [
+                ""
+            ],
+            "Get it Now": [
+                ""
+            ],
+            "AI Assistant": [
+                ""
+            ],
+            "Pixify AI": [
+                ""
+            ],
+            "PixifyAI - Stunning Food Photography in Seconds": [
+                ""
+            ],
+            "Recipes with mouthwatering visuals get more clicks, shares, and saves. With ": [
+                ""
+            ],
+            "PixifyAI,": [
+                ""
+            ],
+            " you can instantly generate ": [
+                ""
+            ],
+            "studio-quality food photos": [
+                ""
+            ],
+            " that grab attention, boost engagement, and drive more traffic. No photoshoots, no editing - just ": [
+                ""
+            ],
+            "beautiful, professional images": [
+                ""
+            ],
+            " in seconds.": [
+                ""
+            ]
+        }
+    }
+}

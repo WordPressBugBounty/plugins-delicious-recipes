@@ -612,6 +612,8 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$new_recipe_meta['enableVideoGallery'] = array();
 		$new_recipe_meta['videoGalleryVids']   = array();
 		$video_url                             = isset( $recipe_settings['gallery']['video_url'] ) ? sanitize_text_field( $recipe_settings['gallery']['video_url'] ) : '';
+		$video_url = explode( '&', $video_url );
+		$video_url = $video_url[0];
 		if ( '' !== $video_url ) {
 			if ( false !== strpos( $video_url, 'youtube' ) ) {
 				$video_type      = 'youtube';

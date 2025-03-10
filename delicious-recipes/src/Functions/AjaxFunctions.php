@@ -664,7 +664,7 @@ class AjaxFunctions {
 		$changelog   = null;
 		$access_type = get_filesystem_method();
 
-		if ( $access_type === 'direct' ) {
+		if ( 'direct' === $access_type ) {
 			$creds = request_filesystem_credentials(
 				site_url() . '/wp-admin/',
 				'',

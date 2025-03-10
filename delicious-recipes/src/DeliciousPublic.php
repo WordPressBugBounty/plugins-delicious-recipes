@@ -388,6 +388,7 @@ class DeliciousPublic {
 			'nutritionFacts'       => delicious_recipes_get_nutrition_facts(),
 			'proEnabled'           => function_exists( 'DEL_RECIPE_PRO' ),
 			'license_validity'     => $license_validity,
+			'isUserLoggedIn'       => is_user_logged_in(),
 		);
 
 		wp_enqueue_style( 'delicious-recipes-single', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/public/css' . $asset_script_path . 'delicious-recipes-public' . $min_prefix . '.css', array(), DELICIOUS_RECIPES_VERSION, 'all' );
