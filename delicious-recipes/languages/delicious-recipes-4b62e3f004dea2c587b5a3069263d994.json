@@ -16,39 +16,6 @@
             "Best Season": [
                 ""
             ],
-            "Prep time": [
-                ""
-            ],
-            "minutes": [
-                ""
-            ],
-            "Rest time": [
-                ""
-            ],
-            "Total time": [
-                ""
-            ],
-            "Cooking Temp": [
-                ""
-            ],
-            "Servings": [
-                ""
-            ],
-            "servings": [
-                ""
-            ],
-            "Estimated Cost": [
-                ""
-            ],
-            "$": [
-                ""
-            ],
-            "Calories": [
-                ""
-            ],
-            "kcal": [
-                ""
-            ],
             "Nutrition Facts": [
                 ""
             ],
@@ -187,6 +154,18 @@
             "Total Time": [
                 ""
             ],
+            "Servings": [
+                ""
+            ],
+            "Calories": [
+                ""
+            ],
+            "Cooking Temp": [
+                ""
+            ],
+            "Estimated Cost": [
+                ""
+            ],
             "Title": [
                 ""
             ],
@@ -212,6 +191,9 @@
                 ""
             ],
             "Recipe Details": [
+                ""
+            ],
+            "$": [
                 ""
             ],
             "Add Video": [
@@ -292,10 +274,16 @@
             "Medium": [
                 ""
             ],
+            "Prep time": [
+                ""
+            ],
             "Cooking time": [
                 ""
             ],
             "Resting time": [
+                ""
+            ],
+            "Total time": [
                 ""
             ],
             "Appetizer & Snacks": [
@@ -508,6 +496,9 @@
             "nutrition": [
                 ""
             ],
+            "kcal": [
+                ""
+            ],
             "g": [
                 ""
             ],
@@ -604,7 +595,16 @@
             "Frying": [
                 ""
             ],
+            "minutes": [
+                ""
+            ],
+            "Rest time": [
+                ""
+            ],
             "F": [
+                ""
+            ],
+            "servings": [
                 ""
             ],
             "New step added": [

@@ -25,21 +25,6 @@
             "Best Season": [
                 ""
             ],
-            "Cooking Temp": [
-                ""
-            ],
-            "Servings": [
-                ""
-            ],
-            "Estimated Cost": [
-                ""
-            ],
-            "$": [
-                ""
-            ],
-            "Calories": [
-                ""
-            ],
             "Nutrition Facts": [
                 ""
             ],
@@ -121,6 +106,12 @@
             "Total Time": [
                 ""
             ],
+            "Servings": [
+                ""
+            ],
+            "Calories": [
+                ""
+            ],
             "Jump To Recipe": [
                 ""
             ],
@@ -137,6 +128,12 @@
                 ""
             ],
             "Add to Favorites": [
+                ""
+            ],
+            "Cooking Temp": [
+                ""
+            ],
+            "Estimated Cost": [
                 ""
             ],
             "Dietary": [
@@ -214,6 +211,9 @@
             "Click to initialize RichEditor": [
                 ""
             ],
+            "Get It Now": [
+                ""
+            ],
             "Affiliates": [
                 ""
             ],
@@ -239,9 +239,6 @@
                 ""
             ],
             "AI Recipe Assistant": [
-                ""
-            ],
-            "Get It Now": [
                 ""
             ],
             "Default Layout": [
@@ -596,6 +593,18 @@
                 ""
             ],
             "Create and customize visually stunning recipe pages and layouts with Delisho Divi Modules for Divi Builder.": [
+                ""
+            ],
+            "WP Delicious - Meal Planner": [
+                ""
+            ],
+            "Create and customize your meal plans with the WP Delicious - Meal Planner Add-On.": [
+                ""
+            ],
+            "Meal Planner": [
+                ""
+            ],
+            "Get the WP Delicious - Meal Planner add-on to enable and configure these settings.": [
                 ""
             ],
             "Show Nutrition Facts": [
@@ -1007,6 +1016,9 @@
                 ""
             ],
             "New": [
+                ""
+            ],
+            "$": [
                 ""
             ],
             "Enter the currency to be used for displaying the estimated cost across all recipes.": [

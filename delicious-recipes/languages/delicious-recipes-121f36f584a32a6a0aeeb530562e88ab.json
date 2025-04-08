@@ -10,9 +10,6 @@
                 "lang": "en",
                 "plural-forms": "nplurals=2; plural=(n != 1);"
             },
-            "kcal": [
-                ""
-            ],
             "Nutrition Facts": [
                 ""
             ],
@@ -29,6 +26,9 @@
                 ""
             ],
             "Nutrition Information": [
+                ""
+            ],
+            "kcal": [
                 ""
             ],
             "g": [

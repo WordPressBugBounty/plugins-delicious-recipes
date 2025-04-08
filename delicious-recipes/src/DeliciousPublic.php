@@ -142,6 +142,7 @@ class DeliciousPublic {
 	 */
 	public static function start() {
 		if ( is_singular( DELICIOUS_RECIPE_POST_TYPE ) && isset( $_GET['print_recipe'] ) ) {
+			add_filter( 'wp_lazy_loading_enabled', '__return_false' );
 			return;
 		}
 		ob_start(
@@ -391,6 +392,27 @@ class DeliciousPublic {
 			'isUserLoggedIn'       => is_user_logged_in(),
 		);
 
+		if (
+			!(
+				is_recipe() ||
+				is_recipe_shortcode() ||
+				is_recipe_search() ||
+				is_recipe_taxonomy() ||
+				is_recipe_block() ||
+				is_recipe_dashboard() ||
+				is_page_template('templates/pages/recipe-badges.php') ||
+				is_page_template('templates/pages/recipe-cooking-methods.php') ||
+				is_page_template('templates/pages/recipe-courses.php') ||
+				is_page_template('templates/pages/recipe-cuisines.php') ||
+				is_page_template('templates/pages/recipe-dietary.php') ||
+				is_page_template('templates/pages/recipe-keys.php') ||
+				is_page_template('templates/pages/recipe-tags.php')
+
+			)
+		) {
+			return;
+		}
+		
 		wp_enqueue_style( 'delicious-recipes-single', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/public/css' . $asset_script_path . 'delicious-recipes-public' . $min_prefix . '.css', array(), DELICIOUS_RECIPES_VERSION, 'all' );
 		wp_enqueue_script(
 			'delicious-recipes-single',
@@ -822,28 +844,17 @@ class DeliciousPublic {
 			$attributes                  = array();
 			$content                     = $recipe->post_content;
 
-			$whitelistBlocks = array(
-				'recipe-card' => 'delicious-recipes/dynamic-recipe-card',
-			);
-
 			if ( 'publish' !== $recipe->post_status ) {
 				wp_redirect( home_url() );
 				exit();
 			}
 
 			if ( has_blocks( $recipe->post_content ) ) {
-				$blocks = parse_blocks( $recipe->post_content );
-
-				foreach ( $blocks as $key => $block ) {
-					$is_block_in_list = isset( $whitelistBlocks[ $blockType ] );
-					$needle_block_id  = isset( $block['attrs']['id'] ) ? $block['attrs']['id'] : 'dr-dynamic-recipe-card';
-					$needle_block     = $is_block_in_list && $block['blockName'] === $whitelistBlocks[ $blockType ];
-					$block_needed     = $blockId == $needle_block_id && $needle_block;
-
-					if ( $block_needed ) {
-						$has_delicious_recipes_block = true;
-						$attributes                  = $block['attrs'];
-					}
+				$blocks            = parse_blocks( $recipe->post_content );
+				$dynamicRecipeCard = self::findDynamicRecipeCard( $blocks );
+				if ( $dynamicRecipeCard ) {
+					$has_delicious_recipes_block = true;
+					$attributes                  = $dynamicRecipeCard['attrs'];
 				}
 			}
 
@@ -854,6 +865,27 @@ class DeliciousPublic {
 				exit;
 			}
 		}
+	}
+
+	/**
+	 * Find the dynamic recipe card block within the array of blocks.
+	 *
+	 * @param array $blocks The array of blocks to search through.
+	 * @return array|null The dynamic recipe card block or null if not found.
+	 */
+	public static function findDynamicRecipeCard( $blocks ) {
+		foreach ( $blocks as $block ) {
+			if ( isset( $block['blockName'] ) && $block['blockName'] === 'delicious-recipes/dynamic-recipe-card' ) {
+				return $block; // Return the block when found.
+			}
+			if ( isset( $block['innerBlocks'] ) && is_array( $block['innerBlocks'] ) ) {
+				$result = self::findDynamicRecipeCard( $block['innerBlocks'] );
+				if ( $result ) {
+					return $result; // Return the result if found in innerBlocks.
+				}
+			}
+		}
+		return null; // Return null if not found.
 	}
 
 	/**
@@ -870,7 +902,7 @@ class DeliciousPublic {
 		return $form;
 	}
 
-	/*
+	/**
 	 * Add the login/registration form for logged out users
 	 */
 	function get_login_registration_form() {

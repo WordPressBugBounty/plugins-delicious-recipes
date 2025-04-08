@@ -121,10 +121,10 @@ if ( ! empty( $recipe_ingredients ) ) :
 				<?php if ( $show_adjustable_serving ) { ?>
 					<div class="dr-ingredients-scale" data-serving-value="<?php echo esc_attr( $servings_value ); ?>">
 						<?php if ( ! empty( $global_settings['adjustableServingType'] ) && 'increment' === $global_settings['adjustableServingType'] ) { ?>
-							<label for="select"><?php esc_html_e( 'Servings', 'delicious-recipes' ); ?></label>
-							<input type="number" data-original="<?php echo esc_attr( $servings_value ); ?>" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" value="<?php echo esc_attr( $servings_value ); ?>" step="1" min="1" class="dr-scale-ingredients">
+							<label for="dr-scale-ingredients"><?php esc_html_e( 'Servings', 'delicious-recipes' ); ?></label>
+							<input type="number" id="dr-scale-ingredients" data-original="<?php echo esc_attr( $servings_value ); ?>" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" value="<?php echo esc_attr( $servings_value ); ?>" step="1" min="1" class="dr-scale-ingredients">
 						<?php } else { ?>
-							<label for="select"><?php esc_html_e( 'Scale', 'delicious-recipes' ); ?></label>
+							<label><?php esc_html_e( 'Scale', 'delicious-recipes' ); ?></label>
 							<div class="scale-btn-wrapper">
 
 								<button class="" data-scale="0.5" data-recipe="<?php echo esc_attr( $recipe->ID ); ?>" type="button">1/2x</button>
@@ -219,7 +219,7 @@ if ( ! empty( $recipe_ingredients ) ) :
 								<div class="wpdelicious-gallery-item small">
 									<img class="wpdelicious-gallery-image" src="<?php echo esc_url( $ingredient_image_url ); ?>" alt="<?php echo esc_attr( $ingredient['ingredient'] ); ?>">
 								</div>
-								<label for="dr-ing-<?php echo esc_attr( $ingre_key ); ?>-<?php echo esc_attr( $rand_key ); ?>"><?php echo wp_kses_post( $ingre_string ); ?></label>
+								<label><?php echo wp_kses_post( $ingre_string ); ?></label>
 								<?php $ingredient_found = false; ?>
 							</li>
 						<?php } elseif ( $show_ingredient_image && $license_validity_bool && ! $ingredient_found ) { ?>
@@ -227,7 +227,7 @@ if ( ! empty( $recipe_ingredients ) ) :
 								<div class="wpdelicious-gallery-item small">
 									<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/images/ingredient-placeholder.png' ); ?>" alt="placeholder-ingredient" class="wpdelicious-gallery-image">
 								</div>
-								<label for="dr-ing-<?php echo esc_attr( $ingre_key ); ?>-<?php echo esc_attr( $rand_key ); ?>"><?php echo wp_kses_post( $ingre_string ); ?></label>
+								<label><?php echo wp_kses_post( $ingre_string ); ?></label>
 							</li>
 						<?php } elseif ( $enable_ingredients_checkbox ) { ?>
 							<li class="recipe-ingredient">
@@ -236,7 +236,7 @@ if ( ! empty( $recipe_ingredients ) ) :
 							</li>
 						<?php } else { ?>
 							<li class="recipe-ingredient" style="list-style: disc; padding: 0px !important;">
-								<label for="dr-ing-<?php echo esc_attr( $ingre_key ); ?>-<?php echo esc_attr( $rand_key ); ?>"><?php echo wp_kses_post( $ingre_string ); ?></label>
+								<label><?php echo wp_kses_post( $ingre_string ); ?></label>
 							</li>
 						<?php } ?>
 					<?php endforeach; ?>

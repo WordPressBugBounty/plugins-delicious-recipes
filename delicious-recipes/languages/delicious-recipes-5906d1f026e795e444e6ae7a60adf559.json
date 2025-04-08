@@ -10,22 +10,16 @@
                 "lang": "en",
                 "plural-forms": "nplurals=2; plural=(n != 1);"
             },
-            "Prep time": [
+            "Servings": [
                 ""
             ],
-            "Total time": [
+            "Calories": [
                 ""
             ],
             "Cooking Temp": [
                 ""
             ],
-            "Servings": [
-                ""
-            ],
             "Estimated Cost": [
-                ""
-            ],
-            "Calories": [
                 ""
             ],
             "Recipe Details": [
@@ -52,10 +46,16 @@
             "Medium": [
                 ""
             ],
+            "Prep time": [
+                ""
+            ],
             "Cooking time": [
                 ""
             ],
             "Resting time": [
+                ""
+            ],
+            "Total time": [
                 ""
             ]
         }

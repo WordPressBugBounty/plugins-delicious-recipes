@@ -1,3 +1,13 @@
+1.8.1: 2025-04-08
+- Enhancement: Improved compatibility with SEO plugins to address word count issues.
+- Enhancement: Removed jQuery dependencies to enhance performance and modernize the codebase.
+- Enhancement: Optimized asset loading by eliminating unnecessary CSS/JS from non-recipe pages.
+- Fixes: Fixed the Ingredients Bulk Upload issue where the first ingredient was incorrectly set as the section title.
+- Fixes: Resolved console errors and warnings related to HTML compliance.
+- Fixes: Fixed the issue of images on the Print Page being lazy loaded.
+- Fixes: Addressed a fatal error on the recipe Print Page when using the Dynamic Recipe Card.
+- Fixes: Fixed a bug in the single recipe bulk image upload feature where the second image failed to upload.
+
 1.8.0: 2025-03-10
 - Enhancement: Improved the design of Recipe Print Page.
 - Enhancement: Added option to remove recipes from the Favorites tab in User Dashboard.

@@ -1,302 +1,156 @@
-import { parseQuantity, formatQuantity } from "./quantities";
-import get_ingredient_unit from "./ingredient-units";
+import { formatQuantity, parseQuantity } from "./quantities";
 
-var print_options = document.getElementsByTagName("input");
-for (var i = 0, len = print_options.length; i < len; i++) {
-	if (print_options[i].getAttribute("name") == "print_options") {
-		update_print_options(print_options[i]);
+// Cache DOM elements
+const printElements = {
+	title: document.getElementById("dr-print-title"),
+	nutrition: document.getElementsByClassName("dr-wrp-only-nut")[0],
+	ingredientMeta: document.getElementsByClassName("dr-ingredient-meta-wrap")[0],
+	description: document.getElementsByClassName("dr-description-wrap")[0],
+	images: document.getElementsByClassName("dr-print-img")[0],
+	ingredients: document.getElementsByClassName("dr-ingredients-wrap")[0],
+	instructions: document.getElementsByClassName("dr-print-instructions")[0],
+	notes: document.getElementsByClassName("dr-wrap-notes-keywords")[0],
+	social: document.getElementsByClassName("dr-wrap-social-share")[0],
+	author: document.getElementsByClassName("dr-wrap-author-profile")[0],
+	thankyou: document.getElementsByClassName("dr-wrap-thankyou")[0],
+	content: document.getElementsByClassName("dr-content-wrap")[0],
+	extendedContent: document.getElementsByClassName("dr-extended-content-content")[0]
+};
+
+// Print options mapping
+const printOptionsMap = {
+	"print_options_0": "title",
+	"print_options_1": "ingredientMeta",
+	"print_options_2": "description",
+	"print_options_3": "images",
+	"print_options_4": "ingredients",
+	"print_options_5": "instructions",
+	"print_options_6": "nutrition",
+	"print_options_7": "notes",
+	"print_options_8": "social",
+	"print_options_9": "author",
+	"print_options_10": "thankyou",
+	"print_options_11": "content",
+	"print_options_12": "extendedContent"
+};
+
+// Initialize print options
+function initializePrintOptions() {
+	const printOptions = document.getElementsByTagName("input");
+	Array.from(printOptions).forEach(option => {
+		if (option.getAttribute("name") === "print_options") {
+			updatePrintOptions(option);
+		}
+	});
+}
+
+// Update print options visibility
+function updatePrintOptions(printOpt) {
+	try {
+		const elementKey = printOptionsMap[printOpt.id];
+		if (!elementKey) return;
+
+		const element = printElements[elementKey];
+		if (!element) return;
+
+		const display = printOpt.checked ? (elementKey === "images" ? "flex" : "block") : "none";
+		element.style.display = display;
+
+		// Special handling for images
+		if (elementKey === "images") {
+			const images = document.getElementsByTagName("img");
+			Array.from(images).forEach(img => {
+				img.style.display = printOpt.checked ? "inline-block" : "none";
+			});
+		}
+	} catch (error) {
+		console.error("Error updating print options:", error);
 	}
 }
 
-document.addEventListener("click", function (e) {
-	update_print_options(e.target);
-});
-
-function update_print_options(printOpt) {
-	if (
-		printOpt.id == "print_options_0" &&
-		typeof document.getElementById("dr-print-title") != "undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementById("dr-print-title").style.display = "block";
-		} else {
-			document.getElementById("dr-print-title").style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_6" &&
-		typeof document.getElementsByClassName("dr-wrp-only-nut")[0] !=
-			"undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-wrp-only-nut",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-wrp-only-nut",
-			)[0].style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_1" &&
-		typeof document.getElementsByClassName("dr-ingredient-meta-wrap")[0] !=
-			"undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-ingredient-meta-wrap",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-ingredient-meta-wrap",
-			)[0].style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_2" &&
-		typeof document.getElementsByClassName("dr-description-wrap")[0] !=
-			"undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-description-wrap",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-description-wrap",
-			)[0].style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_3" &&
-		typeof document.getElementsByClassName("dr-print-img")[0] != "undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName("dr-print-img")[0].style.display =
-				"flex";
-			var print_images = document.getElementsByTagName("img");
-			for (var i = 0, len = print_images.length; i < len; i++) {
-				print_images[i].style.display = "inline-block";
-			}
-		} else {
-			document.getElementsByClassName("dr-print-img")[0].style.display =
-				"none";
-			var print_images = document.getElementsByTagName("img");
-			for (var i = 0, len = print_images.length; i < len; i++) {
-				print_images[i].style.display = "none";
-			}
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_4" &&
-		typeof document.getElementsByClassName("dr-ingredients-wrap")[0] !=
-			"undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-ingredients-wrap",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-ingredients-wrap",
-			)[0].style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_5" &&
-		typeof document.getElementsByClassName("dr-print-instructions")[0] !=
-			"undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-print-instructions",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-print-instructions",
-			)[0].style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_7" &&
-		typeof document.getElementsByClassName("dr-wrap-notes-keywords")[0] !=
-			"undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-wrap-notes-keywords",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-wrap-notes-keywords",
-			)[0].style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_8" &&
-		typeof document.getElementsByClassName("dr-wrap-social-share")[0] !=
-			"undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-wrap-social-share",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-wrap-social-share",
-			)[0].style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_9" &&
-		typeof document.getElementsByClassName("dr-wrap-author-profile")[0] !=
-			"undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-wrap-author-profile",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-wrap-author-profile",
-			)[0].style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_10" &&
-		typeof document.getElementsByClassName("dr-wrap-thankyou")[0] !=
-			"undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-wrap-thankyou",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-wrap-thankyou",
-			)[0].style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_11" &&
-		typeof document.getElementsByClassName("dr-content-wrap")[0] !=
-			"undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-content-wrap",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-content-wrap",
-			)[0].style.display = "none";
-		}
-	}
-
-	if (
-		printOpt.id == "print_options_12" &&
-		typeof document.getElementsByClassName(
-			"dr-extended-content-content",
-		)[0] != "undefined"
-	) {
-		if (printOpt.checked) {
-			document.getElementsByClassName(
-				"dr-extended-content-content",
-			)[0].style.display = "block";
-		} else {
-			document.getElementsByClassName(
-				"dr-extended-content-content",
-			)[0].style.display = "none";
-		}
-	}
-}
-const print_props = {
-	original_servings:
-		"<?php echo ! empty( $recipe->no_of_servings ) ? esc_attr( $recipe->no_of_servings ) : 1; ?>",
-	recipe: "<?php echo esc_attr( $recipe->ID ); ?>",
+// Recipe print functionality
+const printProps = {
+	original_servings: "<?php echo ! empty( $recipe->no_of_servings ) ? esc_attr( $recipe->no_of_servings ) : 1; ?>",
+	recipe: "<?php echo esc_attr( $recipe->ID ); ?>"
 };
 
 window.PrintScripts = {
 	init() {
-		var recipe = "",
-			original_servings = "",
-			new_servings = "";
+		try {
+			const searchParams = new URLSearchParams(window.location.search);
+			const newServings = searchParams.has("recipe_servings") 
+				? this.parse(searchParams.get("recipe_servings"))
+				: null;
 
-		var searchParams = new URLSearchParams(window.location.search);
-		if (searchParams.has("recipe_servings")) {
-			new_servings = searchParams.get("recipe_servings");
-			new_servings = this.parse(new_servings);
-		}
+			const recipe = parseInt(printProps.recipe);
+			const originalServings = this.parse(printProps.original_servings);
 
-		recipe = parseInt(print_props.recipe);
-		original_servings = print_props.original_servings;
-		original_servings = this.parse(original_servings);
-
-		if (new_servings != "" && new_servings != original_servings) {
-			this.updateServings(recipe, original_servings, new_servings);
-		}
-	},
-	updateServings(recipe, original_servings, new_servings) {
-		const ingredients = document.querySelectorAll(
-			'.ingredient_quantity[data-recipe="' + recipe + '"]',
-		);
-		let units = document.querySelectorAll(".ingredient_unit");
-		let index = 0;
-		for (let ingredient of ingredients) {
-			let quantity = ingredient.dataset.original;
-			if (quantity != "") {
-				quantity = this.parse(quantity);
-
-				let newQuantity = (quantity / original_servings) * new_servings;
-				if (!isNaN(newQuantity)) {
-					newQuantity = this.format(newQuantity);
-				}
-				get_ingredient_unit(newQuantity, units, index);
-				ingredient.innerHTML = newQuantity;
+			if (newServings && newServings !== originalServings) {
+				this.updateServings(recipe, originalServings, newServings);
 			}
-			index++;
+		} catch (error) {
+			console.error("Error initializing print scripts:", error);
 		}
 	},
+
+	updateServings(recipe, originalServings, newServings) {
+		try {
+			const ingredients = document.querySelectorAll('.ingredient_quantity');
+			const multiplier = newServings / originalServings;
+
+			ingredients.forEach(ingredient => {
+				const quantity = this.parse(ingredient.textContent);
+				if (quantity) {
+					const newQuantity = quantity * multiplier;
+					ingredient.textContent = this.format(newQuantity);
+				}
+			});
+		} catch (error) {
+			console.error("Error updating servings:", error);
+		}
+	},
+
 	parse(quantity) {
 		return parseQuantity(quantity);
 	},
+
 	format(quantity) {
 		return formatQuantity(quantity, 2, true);
-	},
+	}
 };
 
+// Font size adjustment with debouncing
+let fontSizeTimeout;
 function adjustFontSize(increase = true) {
 	const content = document.querySelector(".print-page");
 	if (!content) return;
 
-	const fontSizeValue = window
-		.getComputedStyle(content)
-		.getPropertyValue("font-size");
-	const currentFontSize = parseFloat(fontSizeValue);
-	const newFontSize = increase ? currentFontSize + 1 : currentFontSize - 1;
-	content.style.fontSize = `${newFontSize}px`;
+	clearTimeout(fontSizeTimeout);
+	fontSizeTimeout = setTimeout(() => {
+		try {
+			const fontSizeValue = window.getComputedStyle(content).getPropertyValue("font-size");
+			const currentFontSize = parseFloat(fontSizeValue);
+			const newFontSize = increase ? currentFontSize + 1 : currentFontSize - 1;
+			content.style.fontSize = `${newFontSize}px`;
+		} catch (error) {
+			console.error("Error adjusting font size:", error);
+		}
+	}, 100); // Debounce for 100ms
 }
 
-document
-	.getElementById("dr-increase-font-size")
-	?.addEventListener("click", () => adjustFontSize(true));
-document
-	.getElementById("dr-decrease-font-size")
-	?.addEventListener("click", () => adjustFontSize(false));
+// Event Listeners
+document.addEventListener("click", function(e) {
+	if (e.target.getAttribute("name") === "print_options") {
+		updatePrintOptions(e.target);
+	}
+});
 
+document.getElementById("dr-increase-font-size")?.addEventListener("click", () => adjustFontSize(true));
+document.getElementById("dr-decrease-font-size")?.addEventListener("click", () => adjustFontSize(false));
+
+// Initialize on DOM content loaded
 document.addEventListener("DOMContentLoaded", () => {
 	window.PrintScripts.init();
+	initializePrintOptions();
 	adjustFontSize();
 });

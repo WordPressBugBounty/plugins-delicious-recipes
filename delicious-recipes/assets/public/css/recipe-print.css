@@ -1,7 +1,7 @@
 :root {
 	--wpd-primary-color: #2db68d;
 	--wpd-primary-color-rgb: 45, 182, 141;
-	--wpd-secondary-color: #CC3233;
+	--wpd-secondary-color: #cc3233;
 	--wpd-secondary-color-rgb: 204, 50, 51;
 	--wpd-font-color: #505556;
 	--wpd-font-color-rgb: 55, 71, 87;
@@ -10,8 +10,8 @@
 	--wpd-black-color-rgb: 0, 0, 0;
 	--wpd-white-color: #ffffff;
 	--wpd-white-color-rgb: 255, 255, 255;
-	--wpd-body-bg-color: #F9F9F9;
-	--wpd-border-color: #EDEEEE;
+	--wpd-body-bg-color: #f9f9f9;
+	--wpd-border-color: #edeeee;
 	--wpd-border-color-rgb: 237, 238, 238;
 }
 
@@ -22,7 +22,18 @@ body {
 	margin: 0;
 	font-size: 14px;
 	line-height: 1.42;
-	font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	font-family:
+		system-ui,
+		-apple-system,
+		BlinkMacSystemFont,
+		"Segoe UI",
+		Roboto,
+		Oxygen,
+		Ubuntu,
+		Cantarell,
+		"Open Sans",
+		"Helvetica Neue",
+		sans-serif;
 }
 
 h1,
@@ -49,7 +60,9 @@ h6,
 	align-items: center;
 	gap: 8px;
 	margin-bottom: 12px;
-	transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+	transition:
+		background 0.3s ease-in-out,
+		color 0.3s ease-in-out;
 }
 
 .dr-button:hover {
@@ -83,10 +96,10 @@ h6,
 	background-color: var(--wpd-white-color);
 	padding: 16px;
 	position: relative;
-	margin-bottom: clamp(50px, 8vw, 80px);
+	margin-block: 48px clamp(50px, 8vw, 80px);
 }
 
-.dr-print-outer-wrap>* {
+.dr-print-outer-wrap > * {
 	margin-bottom: 16px;
 }
 
@@ -208,6 +221,8 @@ svg {
 }
 
 .dr-print-block-title,
+.dr-ingrd-title-wrap,
+.dr-instrc-title-wrap,
 .dr-print-nutrition h3.dr-title {
 	font-size: 1.14em;
 	line-height: 1.625;
@@ -215,6 +230,20 @@ svg {
 	position: relative;
 }
 
+.dr-ingrd-title-wrap h3,
+.dr-instrc-title-wrap h3 {
+	all: unset;
+	font-size: 16px;
+	line-height: 1.625;
+	font-weight: 600;
+}
+
+.dr-description-wrap {
+	margin-bottom: 16px;
+}
+
+.dr-ingrd-title-wrap::before,
+.dr-instrc-title-wrap::before,
 .dr-print-block-title::before {
 	content: "";
 	border-top: 4px double rgba(var(--wpd-font-color-rgb), 0.1);
@@ -225,6 +254,8 @@ svg {
 	right: 0;
 }
 
+.dr-ingrd-title-wrap h3,
+.dr-instrc-title-wrap h3,
 .dr-print-block-title span,
 .dr-print-block-title b,
 .dr-print-nutrition h3.dr-title {
@@ -265,7 +296,11 @@ svg {
 	margin-top: 30px;
 }
 
-.dr-print-instructions-detailed .dr-pring-block-content ol li .dr-instruction-note {
+.dr-print-instructions-detailed
+	.dr-pring-block-content
+	ol
+	li
+	.dr-instruction-note {
 	display: block;
 	margin-top: 20px;
 	border: 1px solid rgba(210, 37, 34, 0.07);
@@ -349,7 +384,7 @@ svg {
 	margin-bottom: 0;
 }
 
-.dr-print-cta+.dr-print-block-footer {
+.dr-print-cta + .dr-print-block-footer {
 	margin-top: 16px;
 	padding-top: 0;
 	border-top: none;
@@ -422,7 +457,7 @@ svg {
 	text-decoration: underline;
 }
 
-.dr-print-author .dr-print-block+.dr-pring-block-content {
+.dr-print-author .dr-print-block + .dr-pring-block-content {
 	border-top: 1px solid rgba(var(--wpd-font-color-rgb), 0.1);
 	margin-top: 40px;
 	padding-top: 20px;
@@ -563,7 +598,7 @@ body .dr-nutrition-label dt.dr-nut-spacer {
 }
 
 body .dr-nutrition-label dl dt.dr-nut-no-border,
-body .dr-nutrition-label>dl>dt:first-child {
+body .dr-nutrition-label > dl > dt:first-child {
 	border: none;
 }
 
@@ -628,7 +663,6 @@ body .dr-nutrition-label .dr-nut-hr {
 }
 
 @media print {
-
 	#dr-print-options,
 	.wpd-print-button-wrap {
 		display: none;
@@ -761,10 +795,16 @@ body .dr-nutrition-label .dr-nut-hr {
 
 /* ingredients list */
 
-.dr-ingredients-wrap .dr-pring-block-content ul {
+.dr-ingredients-wrap .dr-pring-block-content ul,
+.ingredients-list {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	gap: 8px;
+}
+
+.dr-ingredients-list h4 {
+	margin-left: 40px;
+	font-weight: 600;
 }
 
 .dr-ingredients-wrap .dr-pring-block-content ul .dr-subtitle {
@@ -797,7 +837,7 @@ body .dr-nutrition-label .dr-nut-hr {
 	margin-inline: -24px;
 }
 
-.dr-ingredient-time .meta-wrap>div {
+.dr-ingredient-time .meta-wrap > div {
 	padding-block: 2px;
 	border: 1px solid #000;
 	border-left: none;
@@ -806,7 +846,7 @@ body .dr-nutrition-label .dr-nut-hr {
 	flex: 1;
 }
 
-.dr-ingredient-time .meta-wrap>div:last-child {
+.dr-ingredient-time .meta-wrap > div:last-child {
 	border-right: none;
 }
 
@@ -842,7 +882,7 @@ body .dr-nutrition-label .dr-nut-hr {
 /* common padding */
 .dr-print-block-wrap,
 .dr-print-instructions,
-.dr-print-nutrition>*:not(.dr-print-cta),
+.dr-print-nutrition > *:not(.dr-print-cta),
 .dr-ingredient-meta-wrap {
 	padding-inline: 24px;
 }
@@ -850,3 +890,44 @@ body .dr-nutrition-label .dr-nut-hr {
 .dr-content-wrap {
 	margin-bottom: 16px;
 }
+
+.dr-instructions h4 {
+	font-weight: 600;
+}
+
+.dr-instructions ol li {
+	margin-bottom: 16px;
+}
+
+.dr-instructions ol li img {
+	margin-block: 12px;
+}
+
+.dr-instructions ol {
+	list-style: none;
+	counter-reset: instruction-number;
+}
+
+.dr-instructions ol li {
+	counter-increment: instruction-number;
+
+}
+
+.dr-instructions ol li::before {
+	content: counter(instruction-number);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--wpd-primary-color);
+	color: var(--wpd-white-color);
+	border-radius: 50%;
+	width: 32px;
+	height: 32px;
+	margin-right: 8px;
+	font-size: 1.14em;
+	font-weight: 600;
+	line-height: 1.625;
+	margin-left: -40px;
+}
+
+

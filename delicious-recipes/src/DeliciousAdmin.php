@@ -1313,6 +1313,8 @@ class DeliciousAdmin {
 	 */
 	public function enqueue_scripts() {
 		global $wp_customize;
+		global $post;
+
 		$screen = get_current_screen();
 
 		$post_types = array( DELICIOUS_RECIPE_POST_TYPE );
@@ -1400,6 +1402,7 @@ class DeliciousAdmin {
 						'maxUploadSize'      => esc_html( $max_upload_size ),
 						'globalSettings'     => $global_settings,
 						'nutritionFacts'     => delicious_recipes_get_nutrition_facts(),
+						'postMeta'           => get_post_meta( $post->ID, 'delicious_recipes_metadata', true ),
 					)
 				);
 
@@ -1431,6 +1434,7 @@ class DeliciousAdmin {
 						'AIImageEnabled'     => function_exists( 'PixifyAI' ),
 						'CategoryPages'      => function_exists( 'cpwpd_category_pages' ),
 						'DelishoDiviModule'  => function_exists( 'delisho_divi_modules' ),
+						'MealPlanner'        => function_exists( 'wp_delicious_meal_planner' ),
 						'siteURL'            => esc_url( rtrim( home_url(), '/' ) ),
 						'pluginUrl'          => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
 						'maxUploadSize'      => esc_html( $max_upload_size ),

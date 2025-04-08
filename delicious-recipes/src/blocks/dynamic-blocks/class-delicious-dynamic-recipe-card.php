@@ -163,7 +163,8 @@ class Delicious_Dynamic_Recipe_Card {
 			'difficultyTitle'      => array(
 				'type'     => 'string',
 				'selector' => '.difficulty-label',
-				'default'  => __( 'Difficulty', 'delicious-recipes' ),
+				'default'  => 'Difficulty',
+
 			),
 			'season'               => array(
 				'type'    => 'array',
@@ -172,29 +173,29 @@ class Delicious_Dynamic_Recipe_Card {
 			'seasonTitle'          => array(
 				'type'     => 'string',
 				'selector' => '.season-label',
-				'default'  => __( 'Best Season', 'delicious-recipes' ),
+				'default'  => 'Best Season',
 			),
 			'seasonOptions'        => array(
 				'type'    => 'array',
 				'default' => array(
 					array(
-						'label' => __( 'Fall', 'delicious-recipes' ),
+						'label' => 'Fall',
 						'value' => 'fall',
 					),
 					array(
-						'label' => __( 'Winter', 'delicious-recipes' ),
+						'label' => 'Winter',
 						'value' => 'winter',
 					),
 					array(
-						'label' => __( 'Summer', 'delicious-recipes' ),
+						'label' => 'Summer',
 						'value' => 'summer',
 					),
 					array(
-						'label' => __( 'Spring', 'delicious-recipes' ),
+						'label' => 'Spring',
 						'value' => 'spring',
 					),
 					array(
-						'label' => __( 'Suitable throughout the year', 'delicious-recipes' ),
+						'label' => 'Suitable throughout the year',
 						'value' => 'available',
 					),
 				),
@@ -205,36 +206,6 @@ class Delicious_Dynamic_Recipe_Card {
 					'type' => 'string',
 				),
 			),
-			// ! LEGACY CODE
-			// 'settings'             => array(
-			// 'type'    => 'array',
-			// 'default' => array(
-			// array(
-			// 'print_btn'            => true,
-			// 'pin_btn'              => true,
-			// 'custom_author_name'   => '',
-			// 'displayCourse'        => true,
-			// 'displayCuisine'       => true,
-			// 'displayCookingMethod' => true,
-			// 'displayRecipeKey'     => true,
-			// 'displayRecipeDietary' => true,
-			// 'displayDifficulty'    => true,
-			// 'displayAuthor'        => true,
-			// 'displayServings'      => true,
-			// 'displayPrepTime'      => true,
-			// 'displayCookingTime'   => true,
-			// 'displayRestTime'      => true,
-			// 'displayTotalTime'     => true,
-			// 'displayCalories'      => true,
-			// 'displayBestSeason'    => true,
-			// 'displayCookingTemp'   => true,
-			// 'displayEstimatedCost' => true,
-			// ),
-			// ),
-			// 'items'   => array(
-			// 'type' => 'object',
-			// ),
-			// ),
 			'print_btn'            => array(
 				'type'    => 'boolean',
 				'default' => true,
@@ -447,7 +418,7 @@ class Delicious_Dynamic_Recipe_Card {
 		$recipe_card_image = '';
 
 		if ( $hasImage && isset( $image['url'] ) ) {
-			$img_id    = $image['id'];
+			$img_id    = $image['id'] ? $image['id'] : $image['attachment_id'];
 			$src       = $image['url'];
 			$alt       = ( $recipeTitle ? strip_tags( $recipeTitle ) : strip_tags( $recipe_title ) );
 			$sizes     = isset( $image['sizes'] ) ? $image['sizes'] : array();
@@ -962,57 +933,57 @@ class Delicious_Dynamic_Recipe_Card {
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'time',
-				'label' => __( 'Prep time', 'delicious-recipes' ),
-				'unit'  => __( 'minutes', 'delicious-recipes' ),
+				'label' => 'Prep time',
+				'unit'  => 'minutes',
 				'value' => '30',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'time',
-				'label' => __( 'Cook time', 'delicious-recipes' ),
-				'unit'  => __( 'minutes', 'delicious-recipes' ),
+				'label' => 'Cook time',
+				'unit'  => 'minutes',
 				'value' => '40',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'time',
-				'label' => __( 'Rest time', 'delicious-recipes' ),
-				'unit'  => __( 'minutes', 'delicious-recipes' ),
+				'label' => 'Rest time',
+				'unit'  => 'minutes',
 				'value' => '40',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'time',
-				'label' => __( 'Total time', 'delicious-recipes' ),
-				'unit'  => __( 'minutes', 'delicious-recipes' ),
+				'label' => 'Total time',
+				'unit'  => 'minutes',
 				'value' => '110',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'cookingtemp',
-				'label' => __( 'Cooking Temp', 'delicious-recipes' ),
-				'unit'  => __( 'C', 'delicious-recipes' ),
+				'label' => 'Cooking Temp',
+				'unit'  => 'C',
 				'value' => '100',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'yield',
-				'label' => __( 'Servings', 'delicious-recipes' ),
-				'unit'  => __( 'servings', 'delicious-recipes' ),
+				'label' => 'Servings',
+				'unit'  => 'servings',
 				'value' => '4',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'estimatedcost',
-				'label' => __( 'Estimated Cost', 'delicious-recipes' ),
-				'unit'  => __( '$', 'delicious-recipes' ),
+				'label' => 'Estimated Cost',
+				'unit'  => '$',
 				'value' => '25',
 			),
 			array(
 				'id'    => self::$helpers->generateId( 'detail-item' ),
 				'icon'  => 'calories',
-				'label' => __( 'Calories', 'delicious-recipes' ),
-				'unit'  => __( 'kcal', 'delicious-recipes' ),
+				'label' => 'Calories',
+				'unit'  => 'kcal',
 				'value' => '300',
 			),
 		);

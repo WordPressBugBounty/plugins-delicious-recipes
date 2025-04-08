@@ -87,6 +87,13 @@ final class DeliciousRecipes {
 	public $updater;
 
 	/**
+	 * VGWort instance.
+	 *
+	 * @var Delicious_Recipes_VGWort
+	 */
+	public $vgwort;
+
+	/**
 	 * Main DeliciousRecipes Instance.
 	 *
 	 * Ensures only one instance of DeliciousRecipes is loaded or can be loaded.
@@ -229,6 +236,9 @@ final class DeliciousRecipes {
 				require plugin_dir_path( __FILE__ ) . '/updater/class-delicious-recipes-edd.php';
 			}
 
+			//Load class to make recipe post type word count compatible with vgwort
+			include plugin_dir_path( __FILE__ ) . '/classes/class-delicious-recipes-vgwort.php';
+
 			// Load class instances.
 			$this->global_settings = new GlobalSettings();
 			$this->admin_settings  = new DeliciousAdmin();
@@ -248,6 +258,7 @@ final class DeliciousRecipes {
 			$this->widgets = new Delicious_Recipes_Widgets();
 			$this->session = new \Delicious_Recipes_Session();
 			$this->notices = new \Delicious_Recipes_Notices();
+			$this->vgwort = new \Delicious_Recipes_VGWort();
 		}
 	}
 

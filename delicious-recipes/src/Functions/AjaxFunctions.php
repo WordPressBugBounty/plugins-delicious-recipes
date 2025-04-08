@@ -63,9 +63,6 @@ class AjaxFunctions {
 		// AJAX for Whats new page changelog query
 		add_action( 'wp_ajax_dr_get_latest_changelog', array( $this, 'get_latest_changelog' ) );
 
-		// AJAX for ingrdients list unit pluralization.
-		add_action( 'wp_ajax_get_ingredients_unit', array( $this, 'get_ingredients_unit' ) );
-
 		// AJAX for ingredient links count in recipe content.
 		add_action( 'wp_ajax_get_ingredient_links_count', array( $this, 'get_ingredient_links_count' ) );
 		add_action( 'wp_ajax_nopriv_get_ingredient_links_count', array( $this, 'get_ingredient_links_count' ) );
@@ -694,34 +691,6 @@ class AjaxFunctions {
 					)
 				),
 			)
-		);
-	}
-
-	/**
-	 * Get the ingredient unit
-	 * as per the new quantity.
-	 *
-	 * @return void
-	 */
-	public function get_ingredients_unit() {
-		$ingredient_qty  = isset( $_POST['newQty'] ) ? $_POST['newQty'] : '';
-		$ingredient_unit = isset( $_POST['unit'] ) ? $_POST['unit'] : '';
-
-		/**
-		 * ! need to remove this code if later ingredient unit feature is removed.
-		 */
-		if ( ! empty( $ingredient_unit ) ) {
-			$ingredient_units = delicious_recipes_get_ingredient_units();
-			foreach ( $ingredient_unit as $key => $unit_atts ) {
-				if ( in_array( $ingredient_unit, $unit_atts['variations'], false ) ) {
-					$new_unit_text = _nx( $ingredient_units[ $key ]['singular'], $ingredient_units[ $key ]['plural'], $ingredient_qty, 'ingredient', 'delicious-recipes' );
-				}
-			}
-		}
-		wp_send_json_success(
-			array(
-				'newUnit' => $ingredient_unit,
-			),
 		);
 	}
 

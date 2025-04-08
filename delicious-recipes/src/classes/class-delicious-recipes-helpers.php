@@ -52,60 +52,34 @@ class Delicious_Recipes_Helpers {
 	}
 
 	public function parse_block_settings( $attrs ) {
-		$settings = isset( $attrs['settings'][0] ) ? $attrs['settings'][0] : array();
-		
-		if ( !isset( $settings['custom_author_name'] ) ) {
-			$settings['custom_author_name'] = '';
-		}
-		if ( !isset( $settings['displayServings'] ) ) {
-			$settings['displayServings'] = true;
-		}
-		if ( !isset( $settings['displayCourse'] ) ) {
-			$settings['displayCourse'] = true;
-		}
-		if ( !isset( $settings['displayCuisine'] ) ) {
-			$settings['displayCuisine'] = true;
-		}
-		if ( !isset( $settings['displayCookingMethod'] ) ) {
-			$settings['displayCookingMethod'] = true;
-		}
-		if ( !isset( $settings['displayRecipeKey'] ) ) {
-			$settings['displayRecipeKey'] = true;
-		}
-		if ( !isset( $settings['displayDifficulty'] ) ) {
-			$settings['displayDifficulty'] = true;
-		}
-		if ( !isset( $settings['displayAuthor'] ) ) {
-			$settings['displayAuthor'] = true;
-		}
-		if ( !isset( $settings['displayPrepTime'] ) ) {
-			$settings['displayPrepTime'] = true;
-		}
-		if ( !isset( $settings['displayCookingTime'] ) ) {
-			$settings['displayCookingTime'] = true;
-		}
-		if ( !isset( $settings['displayRestTime'] ) ) {
-			$settings['displayRestTime'] = true;
-		}
-		if ( !isset( $settings['displayTotalTime'] ) ) {
-			$settings['displayTotalTime'] = true;
-		}
-		if ( !isset( $settings['displayCalories'] ) ) {
-			$settings['displayCalories'] = true;
-		}
-		if ( !isset( $settings['displayBestSeason'] ) ) {
-			$settings['displayBestSeason'] = true;
-		}
-
-		if ( !isset( $settings['print_btn'] ) ) {
-			$settings['print_btn'] = true;
-		}
-		if ( !isset( $settings['pin_btn'] ) ) {
-			$settings['pin_btn'] = true;
-		}
-
+		// Default settings array with predefined values
+		$default_settings = [
+			'displayPrepTime'      => true,
+			'displayRestTime'      => true,
+			'displayCookingTime'   => true,
+			'displayTotalTime'     => true,
+			'custom_author_name'   => '',
+			'displayServings'      => true,
+			'displayCourse'        => true,
+			'displayCuisine'       => true,
+			'displayCookingMethod' => true,
+			'displayRecipeKey'     => true,
+			'displayDifficulty'    => true,
+			'displayAuthor'        => true,
+			'displayCalories'      => true,
+			'displayBestSeason'    => true,
+			'print_btn'            => true,
+			'pin_btn'              => true,
+			'displayEstimatedCost' => true,
+			'displayRecipeDietary' => true,
+		];
+	
+		// Merge the incoming attributes with the default settings
+		$settings = array_merge($default_settings, array_intersect_key($attrs, $default_settings));
+	
 		return $settings;
 	}
+	
 
 	public function parse_recipe_buttons_block_settings( $attrs ) {
 		$settings = isset( $attrs['settings'][0] ) ? $attrs['settings'][0] : array();

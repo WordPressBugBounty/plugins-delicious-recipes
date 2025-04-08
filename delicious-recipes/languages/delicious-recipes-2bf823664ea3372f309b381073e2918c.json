@@ -16,30 +16,6 @@
             "Best Season": [
                 ""
             ],
-            "Fall": [
-                ""
-            ],
-            "Winter": [
-                ""
-            ],
-            "Summer": [
-                ""
-            ],
-            "Spring": [
-                ""
-            ],
-            "Suitable throughout the year": [
-                ""
-            ],
-            "Cooking Temp": [
-                ""
-            ],
-            "Estimated Cost": [
-                ""
-            ],
-            "Calories": [
-                ""
-            ],
             "Nutrition Facts": [
                 ""
             ],
@@ -64,10 +40,34 @@
             "Advanced": [
                 ""
             ],
+            "Fall": [
+                ""
+            ],
+            "Winter": [
+                ""
+            ],
+            "Summer": [
+                ""
+            ],
+            "Spring": [
+                ""
+            ],
+            "Suitable throughout the year": [
+                ""
+            ],
             "Upgrade to Pro": [
                 ""
             ],
             "Rest Time": [
+                ""
+            ],
+            "Calories": [
+                ""
+            ],
+            "Cooking Temp": [
+                ""
+            ],
+            "Estimated Cost": [
                 ""
             ],
             "Nutrition": [

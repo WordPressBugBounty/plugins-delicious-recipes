@@ -28,13 +28,13 @@ class Delicious_Recipes_Activator {
 			'delicious_recipes_create_pages',
 			array(
 				'recipe-search'    => array(
-					'name'    => _x( "recipe-search", "Page slug", 'delicious-recipes' ),
-					'title'   => _x( "Recipe Search", "Page title", 'delicious-recipes' ),
+					'name'    => _x( 'recipe-search', 'Page slug', 'delicious-recipes' ),
+					'title'   => _x( 'Recipe Search', 'Page title', 'delicious-recipes' ),
 					'content' => '[' . apply_filters( 'delicious_recipes_search_page_shortcode_tag', 'recipe_search' ) . ']',
 				),
 				'recipe-dashboard' => array(
-					'name'    => _x( "recipe-dashboard", "Page slug", 'delicious-recipes' ),
-					'title'   => _x( "Recipe Dashboard", "Page title", 'delicious-recipes' ),
+					'name'    => _x( 'recipe-dashboard', 'Page slug', 'delicious-recipes' ),
+					'title'   => _x( 'Recipe Dashboard', 'Page title', 'delicious-recipes' ),
 					'content' => '[' . apply_filters( 'delicious_recipes_dashboard_page_shortcode_tag', 'dr_user_dashboard' ) . ']',
 				),
 			)
@@ -104,12 +104,12 @@ class Delicious_Recipes_Activator {
 				'level_0'                => 1,
 			)
 		);
-		add_role( 'delicious_recipes_editor', __( "Recipe Editor", 'delicious-recipes'  ), $recipe_editor_caps );
+		add_role( 'delicious_recipes_editor', __( 'Recipe Editor', 'delicious-recipes' ), $recipe_editor_caps );
 
 		// Recipe Subscriber role.
 		add_role(
 			'delicious_recipes_subscriber',
-			__( "Recipe Subscriber", 'delicious-recipes'  ),
+			__( 'Recipe Subscriber', 'delicious-recipes' ),
 			array(
 				'read'                   => true,
 				'edit_delicious_recipes' => true,
@@ -367,7 +367,7 @@ class Delicious_Recipes_Activator {
 						),
 						'5' => array(
 							'instructionTitle' => '',
-							'instruction'      => 'Place your trivet that came with the Instant Pot in the bottom of the pot and pour 1 cup of water into the pot. Place your baking dish on top of the trivet. Place the lid on the instant pot and make sure the vent is turned to “seal”.',
+							'instruction'      => 'Place your trivet that came with the Instant Pot in the bottom of the pot and pour 1 cup of water into the pot. Place your baking dish on top of the trivet. Place the lid on the instant pot and make sure the vent is turned to "seal".',
 							'image'            => '',
 							'image_preview'    => '',
 							'videoURL'         => '',
@@ -447,16 +447,21 @@ class Delicious_Recipes_Activator {
 
 		$demo_recipe = array(
 			'post_title'   => 'The Best Instant Pot French Toast recipe (vegan &amp; Gluten Free!)',
-			'post_content' => '<p>Love French Toast Casserole, but don’t time to let it sit overnight? Not to worry, with this <a href="#">Instant PotFrench</a> Toast will be ready in no time!</p>
-            <p><b><em>Note –</em></b> this may look like different pictures than what got you here. We were finding that readers<br>were having issues with the recipe so we totally reworked it! Please give us your feedback in the comments. We welcome constructive comments that will help us serve you better!</p>
-            <h3>Instant Pot French Toast Recipe</h3>
-            <p>You may have made a cinnamon roll french toast casserole or french toast bake, but those can take a long time to make. With the instant pot craze going on, we thought we would try to shorten the preparation time needed for traditional french toast bakes! We love our instant pot and use it for dinners all the time. We have even used it for dessert with our Instant Pot Monkey Bread. The ease and quickness of it are perfect for our busy lifestyle.</p>
-            <p>I honestly had no idea that you could even make french toast in the instant pot! But it is really easy!Feel free to add in some fun additions like pecans, walnuts or chocolate chips! They are all great.</p>
-            <p>This will make the perfect dish for your Christmas Morning Brunch! Looking for some other great Christmas Morning Recipes? We have tons!!</p>',
+			'post_content' => '<p>Love French Toast Casserole, but don\'t time to let it sit overnight ? Not to worry,
+			with this < a href = "#" > Instant PotFrench < / a > Toast will be ready in no time ! < / p >
+							< p > < b > < em > Note – < / em > < / b > this may look like different pictures than what got you here . We were finding that readers < br > were having issues with the recipe so we totally reworked it ! Please give us your feedback in the comments . We welcome constructive comments that will help us serve you better ! < / p >
+							< h3 > Instant Pot French Toast Recipe < / h3 >
+							< p > You may have made a cinnamon roll french toast casserole or french toast bake,
+			but those can take a long time to make . With the instant pot craze going on,
+			we thought we would try to shorten the preparation time needed for traditional french toast bakes ! We love our instant pot and use it for dinners all the time . We have even used it for dessert with our Instant Pot Monkey Bread . The ease and quickness of it are perfect for our busy lifestyle . < / p >
+							< p > I honestly had no idea that you could even make french toast in the instant pot ! But it is really easy ! Feel free to add in some fun additions like pecans,
+			walnuts or chocolate chips ! They are all great . < / p >
+							< p > This will make the perfect dish for your Christmas Morning Brunch ! Looking for some other great Christmas Morning Recipes ? We have tons (bool) < / p > ',
 			'post_status'  => 'draft',
 			'post_type'    => DELICIOUS_RECIPE_POST_TYPE,
 			'post_author'  => get_current_user_id(),
-			'post_excerpt' => 'Love French Toast Casserole, but don’t time to let it sit overnight? Not to worry, with this Instant Pot French Toast will be ready in no time!',
+			'post_excerpt' => 'Love French Toast Casserole,
+			but don\'t time to let it sit overnight? Not to worry, with this Instant Pot French Toast will be ready in no time!',
 		);
 
 		$recipe_demo_id = wp_insert_post( $demo_recipe );
@@ -508,39 +513,47 @@ class Delicious_Recipes_Activator {
 	public static function insert_initial_page_templates() {
 		$template_pages = array(
 			'recipe-courses'         => array(
-				'title'    => __( "Recipe Courses", 'delicious-recipes'  ),
+				'title'    => __( 'Recipe Courses', 'delicious-recipes' ),
 				'template' => 'templates/pages/recipe-courses.php',
 			),
 			'recipe-cooking-methods' => array(
-				'title'    => __( "Recipe Cooking Methods", 'delicious-recipes'  ),
+				'title'    => __( 'Recipe Cooking Methods', 'delicious-recipes' ),
 				'template' => 'templates/pages/recipe-cooking-methods.php',
 			),
 			'recipe-cuisines'        => array(
-				'title'    => __( "Recipe Cuisines", 'delicious-recipes'  ),
+				'title'    => __( 'Recipe Cuisines', 'delicious-recipes' ),
 				'template' => 'templates/pages/recipe-cuisines.php',
 			),
 			'recipe-keys'            => array(
-				'title'    => __( "Recipe Keys", 'delicious-recipes'  ),
+				'title'    => __( 'Recipe Keys', 'delicious-recipes' ),
 				'template' => 'templates/pages/recipe-keys.php',
 			),
 			'recipe-tags'            => array(
-				'title'    => __( "Recipe Tags", 'delicious-recipes'  ),
+				'title'    => __( 'Recipe Tags', 'delicious-recipes' ),
 				'template' => 'templates/pages/recipe-tags.php',
 			),
 			'recipe-badges'          => array(
-				'title'    => __( "Recipe Badges", 'delicious-recipes'  ),
+				'title'    => __( 'Recipe Badges', 'delicious-recipes' ),
 				'template' => 'templates/pages/recipe-badges.php',
 			),
-			'recipe-dietary'          => array(
-				'title'    => __( "Recipe Dietary", 'delicious-recipes'  ),
+			'recipe-dietary'         => array(
+				'title'    => __( 'Recipe Dietary', 'delicious-recipes' ),
 				'template' => 'templates/pages/recipe-dietary.php',
 			),
 		);
 		foreach ( $template_pages as $key => $value ) {
 
-			$existing_page = get_page_by_title( $value['title'] );
+			$query         = new \WP_Query(
+				array(
+					'post_type'      => 'page',
+					'title'          => $value['title'],
+					'post_status'    => 'publish',
+					'posts_per_page' => 1,
+				)
+			);
+			$existing_page = $query->posts[0] ?? null;
 
-			if ( ! empty( $existing_page ) && 'page' === $existing_page->post_type && ( $existing_page->post_status == 'publish' ) ) {
+			if ( ! empty( $existing_page ) && 'page' === $existing_page->post_type && ( $existing_page->post_status === 'publish' ) ) {
 				$val = get_post_meta( $existing_page->ID, '_wp_page_template', true );
 				if ( $val == $value['template'] ) {
 					continue;
@@ -573,5 +586,4 @@ class Delicious_Recipes_Activator {
 			return;
 		}
 	}
-
 }

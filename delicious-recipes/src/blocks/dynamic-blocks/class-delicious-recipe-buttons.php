@@ -73,17 +73,17 @@ class Delicious_Recipe_Buttons {
 			'jumptorecipeTitle' => array(
 				'type' => 'string',
 				'selector' => '.jump-to-recipe-label',
-				'default' => __("Jump to Recipe", "delicious-recipes"),
+				'default' => 'Jump to Recipe',
 			),
 			'jumptovideoTitle' => array(
 				'type' => 'string',
 				'selector' => '.jump-to-video-label',
-				'default' => __("Jump to Video", "delicious-recipes"),
+				'default' => 'Jump to Video',
 			),
 			'printrecipeTitle' => array(
 				'type' => 'string',
 				'selector' => '.print-recipe-label',
-				'default' => __("Print Recipe", "delicious-recipes"),
+				'default' => 'Print Recipe',
 			),
 			'settings' => array(
                 'type'      => 'array',

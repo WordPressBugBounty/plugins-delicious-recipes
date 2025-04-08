@@ -65,7 +65,7 @@ $all_no = true;
 			?>
 	<div id="dr-print-options" class="dr-clearfix">
 		<div class="wpd-logo">
-			<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/Delicious-Recipes.png" alt="WP Delicious">	
+			<img class="dr-print-page-image" src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/Delicious-Recipes.png" alt="WP Delicious">	
 		</div>
 		<span class="wpd-print-options-title"><?php esc_html_e( 'Include in Print View:', 'delicious-recipes' ); ?></span>
 		<div class="wpd-print-options-wrap">
@@ -199,7 +199,7 @@ $all_no = true;
 				<?php if ( 'yes' === $default_print_options['images'] ) : ?>
 				<figure
 					class="dr-print-img <?php echo esc_attr( $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full' ); ?>">
-					<?php the_post_thumbnail( 'large' ); ?>
+					<?php the_post_thumbnail( 'large', array( 'class' => 'dr-print-page-image' ) ); ?>
 				</figure>
 				<?php endif; ?>
 			</div>
@@ -446,7 +446,7 @@ $all_no = true;
 
 								echo esc_html( $instruction_title );
 								if ( $instruction_image ) {
-									$instruct_image = wp_get_attachment_image( $instruction_image, 'full' );
+									$instruct_image = wp_get_attachment_image( $instruction_image, 'full', false, array( 'class' => 'dr-print-page-image' ) );
 									echo wp_kses_post( $instruct_image );
 								}
 								echo wp_kses_post( $instruction );
@@ -583,7 +583,7 @@ $all_no = true;
 						<div class="dr-pring-block-img-wrap">
 							<?php if ( $author_image ) : ?>
 							<div class="dr-print-block-img">
-								<?php echo wp_kses_post( wp_get_attachment_image( $author_image ) ); ?>
+								<?php echo wp_kses_post( wp_get_attachment_image( $author_image, 'large', false, array( 'class' => 'dr-print-page-image' ) ) ); ?>
 							</div>
 							<?php endif; ?>
 							<div class="dr-print-block-header">
@@ -605,7 +605,7 @@ $all_no = true;
 									?>
 							<li>
 								<a href="<?php echo esc_url( $social_link ); ?>" target="_blank" rel="nofollow noopener">
-									<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/print-img/<?php echo esc_html( $social ); ?>.png"
+									<img class="dr-print-page-image" src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/print-img/<?php echo esc_html( $social ); ?>.png"
 										alt="">
 									<span class="social-name"><?php echo esc_url( $social_link ); ?>/</span>
 								</a>

@@ -352,167 +352,167 @@ class Delicious_Dynamic_Nutrition {
 		$labels = array(
 			array(
 				'id'    => 'servings',
-				'label' => __( 'Servings', 'delicious-recipes' ),
+				'label' => 'Servings',
 			),
 			array(
 				'id'    => 'servingSize',
-				'label' => __( 'Serving Size', 'delicious-recipes' ),
+				'label' => 'Serving Size',
 			),
 			array(
 				'id'    => 'calories',
-				'label' => __( 'Calories', 'delicious-recipes' ),
+				'label' => 'Calories',
 			),
 			array(
 				'id'    => 'caloriesFromFat',
-				'label' => __( 'Calories from Fat', 'delicious-recipes' ),
+				'label' => 'Calories from Fat',
 			),
 			array(
 				'id'    => 'totalFat',
-				'label' => __( 'Total Fat', 'delicious-recipes' ),
+				'label' => 'Total Fat',
 				'pdv'   => 65,
 			),
 			array(
 				'id'    => 'saturatedFat',
-				'label' => __( 'Saturated Fat', 'delicious-recipes' ),
+				'label' => 'Saturated Fat',
 				'pdv'   => 20,
 			),
 			array(
 				'id'    => 'transFat',
-				'label' => __( 'Trans Fat', 'delicious-recipes' ),
+				'label' => 'Trans Fat',
 			),
 			array(
 				'id'    => 'cholesterol',
-				'label' => __( 'Cholesterol', 'delicious-recipes' ),
+				'label' => 'Cholesterol',
 				'pdv'   => 300,
 			),
 			array(
 				'id'    => 'sodium',
-				'label' => __( 'Sodium', 'delicious-recipes' ),
+				'label' => 'Sodium',
 				'pdv'   => 2400,
 			),
 			array(
 				'id'    => 'potassium',
-				'label' => __( 'Potassium', 'delicious-recipes' ),
+				'label' => 'Potassium',
 				'pdv'   => 3500,
 			),
 			array(
 				'id'    => 'totalCarbohydrate',
-				'label' => __( 'Total Carbohydrate', 'delicious-recipes' ),
+				'label' => 'Total Carbohydrate',
 				'pdv'   => 300,
 			),
 			array(
 				'id'    => 'dietaryFiber',
-				'label' => __( 'Dietary Fiber', 'delicious-recipes' ),
+				'label' => 'Dietary Fiber',
 				'pdv'   => 25,
 			),
 			array(
 				'id'    => 'sugars',
-				'label' => __( 'Sugars', 'delicious-recipes' ),
+				'label' => 'Sugars',
 			),
 			array(
 				'id'    => 'protein',
-				'label' => __( 'Protein', 'delicious-recipes' ),
+				'label' => 'Protein',
 				'pdv'   => 50,
 			),
 			array(
 				'id'    => 'vitaminA',
-				'label' => __( 'Vitamin A', 'delicious-recipes' ),
+				'label' => 'Vitamin A',
 			),
 			array(
 				'id'    => 'vitaminC',
-				'label' => __( 'Vitamin C', 'delicious-recipes' ),
+				'label' => 'Vitamin C',
 			),
 			array(
 				'id'    => 'calcium',
-				'label' => __( 'Calcium', 'delicious-recipes' ),
+				'label' => 'Calcium',
 			),
 			array(
 				'id'    => 'iron',
-				'label' => __( 'Iron', 'delicious-recipes' ),
+				'label' => 'Iron',
 			),
 			array(
 				'id'    => 'vitaminD',
-				'label' => __( 'Vitamin D', 'delicious-recipes' ),
+				'label' => 'Vitamin D',
 			),
 			array(
 				'id'    => 'vitaminE',
-				'label' => __( 'Vitamin E', 'delicious-recipes' ),
+				'label' => 'Vitamin E',
 			),
 			array(
 				'id'    => 'vitaminK',
-				'label' => __( 'Vitamin K', 'delicious-recipes' ),
+				'label' => 'Vitamin K',
 			),
 			array(
 				'id'    => 'thiamin',
-				'label' => __( 'Thiamin', 'delicious-recipes' ),
+				'label' => 'Thiamin',
 			),
 			array(
 				'id'    => 'riboflavin',
-				'label' => __( 'Riboflavin', 'delicious-recipes' ),
+				'label' => 'Riboflavin',
 			),
 			array(
 				'id'    => 'niacin',
-				'label' => __( 'Niacin', 'delicious-recipes' ),
+				'label' => 'Niacin',
 			),
 			array(
 				'id'    => 'vitaminB6',
-				'label' => __( 'Vitamin B6', 'delicious-recipes' ),
+				'label' => 'Vitamin B6',
 			),
 			array(
 				'id'    => 'vitaminB12',
-				'label' => __( 'Vitamin B12', 'delicious-recipes' ),
+				'label' => 'Vitamin B12',
 			),
 			array(
 				'id'    => 'folate',
-				'label' => __( 'Folate', 'delicious-recipes' ),
+				'label' => 'Folate',
 			),
 			array(
 				'id'    => 'biotin',
-				'label' => __( 'Biotin', 'delicious-recipes' ),
+				'label' => 'Biotin',
 			),
 			array(
 				'id'    => 'pantothenicAcid',
-				'label' => __( 'Pantothenic Acid', 'delicious-recipes' ),
+				'label' => 'Pantothenic Acid',
 			),
 			array(
 				'id'    => 'phosphorus',
-				'label' => __( 'Phosphorus', 'delicious-recipes' ),
+				'label' => 'Phosphorus',
 			),
 			array(
 				'id'    => 'iodine',
-				'label' => __( 'Iodine', 'delicious-recipes' ),
+				'label' => 'Iodine',
 			),
 			array(
 				'id'    => 'magnesium',
-				'label' => __( 'Magnesium', 'delicious-recipes' ),
+				'label' => 'Magnesium',
 			),
 			array(
 				'id'    => 'zinc',
-				'label' => __( 'Zinc', 'delicious-recipes' ),
+				'label' => 'Zinc',
 			),
 			array(
 				'id'    => 'selenium',
-				'label' => __( 'Selenium', 'delicious-recipes' ),
+				'label' => 'Selenium',
 			),
 			array(
 				'id'    => 'copper',
-				'label' => __( 'Copper', 'delicious-recipes' ),
+				'label' => 'Copper',
 			),
 			array(
 				'id'    => 'manganese',
-				'label' => __( 'Manganese', 'delicious-recipes' ),
+				'label' => 'Manganese',
 			),
 			array(
 				'id'    => 'chromium',
-				'label' => __( 'Chromium', 'delicious-recipes' ),
+				'label' => 'Chromium',
 			),
 			array(
 				'id'    => 'molybdenum',
-				'label' => __( 'Molybdenum', 'delicious-recipes' ),
+				'label' => 'Molybdenum',
 			),
 			array(
 				'id'    => 'chloride',
-				'label' => __( 'Chloride', 'delicious-recipes' ),
+				'label' => 'Chloride',
 			),
 		);
 

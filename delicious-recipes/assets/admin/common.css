@@ -1081,7 +1081,11 @@
 .dr-delete:hover,
 .dr-delete:focus {
 	background-color: var(--danger-color);
+	svg path {
+		color: var(--danger-color);
+	}
 }
+
 
 .dr-change {
 	width: 40px;
