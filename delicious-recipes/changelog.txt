@@ -1,3 +1,6 @@
+1.8.2: 2025-04-09
+- Fixes: Addressed a compatibility issue with the Yummy-Bites theme.
+
 1.8.1: 2025-04-08
 - Enhancement: Improved compatibility with SEO plugins to address word count issues.
 - Enhancement: Removed jQuery dependencies to enhance performance and modernize the codebase.

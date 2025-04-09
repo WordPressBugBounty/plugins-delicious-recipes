@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Delicious 1.8.1\n"
+"Project-Id-Version: WP Delicious 1.8.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/delicious-recipes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-08T09:50:40+00:00\n"
+"POT-Creation-Date: 2025-04-09T08:48:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
 "X-Generator: WP-CLI 2.11.0\n"
@@ -1872,24 +1872,24 @@ msgstr ""
 msgid "Click here or Drop new image to update your profile picture"
 msgstr ""
 
-#: src/DeliciousPublic.php:503
+#: src/DeliciousPublic.php:483
 msgid "Leave a Comment"
 msgstr ""
 
 #. translators: %s is username.
-#: src/DeliciousPublic.php:506
+#: src/DeliciousPublic.php:486
 msgid "Leave a Comment to %s"
 msgstr ""
 
-#: src/DeliciousPublic.php:576
+#: src/DeliciousPublic.php:556
 msgid "Please rate the recipe."
 msgstr ""
 
-#: src/DeliciousPublic.php:643
+#: src/DeliciousPublic.php:623
 msgid "Rating"
 msgstr ""
 
-#: src/DeliciousPublic.php:731
+#: src/DeliciousPublic.php:711
 #: src/Functions/CoreFunctions.php:716
 #: assets/admin/components/global-settings/global-tabs/global-recipe-index.jsx:15
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:240
