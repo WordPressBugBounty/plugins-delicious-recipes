@@ -3,9 +3,9 @@ Contributors: wpdelicious
 Plugin link: https://wpdelicious.com/
 Tags: recipe, food, cooking, chef, ingredients
 Requires at least: 5.1
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.8.2
+Stable tag: 1.8.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

@@ -16,11 +16,11 @@
  * @version     1.0.0
  */
 
-if (!defined('ABSPATH')) {
+if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-get_header('recipe');
+get_header( 'recipe' );
 
 ?>
 
@@ -30,15 +30,15 @@ get_header('recipe');
 	/**
 	 * delicious_recipes_before_main_content hook.
 	 */
-	do_action('delicious_recipes_before_main_content');
+	do_action( 'delicious_recipes_before_main_content' );
 	?>
 
-	<?php while (have_posts()) : ?>
+	<?php while ( have_posts() ) : ?>
 		<?php the_post(); ?>
 
-		<?php delicious_recipes_get_template_part('content', 'single-recipe'); ?>
+		<?php delicious_recipes_get_template_part( 'content', 'single-recipe' ); ?>
 
-	<?php
+		<?php
 	endwhile; // end of the loop.
 	?>
 
@@ -48,7 +48,7 @@ get_header('recipe');
 	 *
 	 * @hooked
 	 */
-	do_action('delicious_recipes_after_main_content');
+	do_action( 'delicious_recipes_after_main_content' );
 	?>
 
 	<?php
@@ -57,12 +57,12 @@ get_header('recipe');
 	 *
 	 * @hooked delicious_recipes_get_sidebar - 10
 	 */
-	do_action('delicious_recipes_sidebar');
+	do_action( 'delicious_recipes_sidebar' );
 	?>
 
 </div>
 
 <?php
-get_footer('recipe');
+get_footer( 'recipe' );
 
 /* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

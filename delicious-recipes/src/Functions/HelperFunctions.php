@@ -511,14 +511,12 @@ function delicious_recipes_parse_videos( $videoString = null ) {
 		}
 	}
 
-	// return array of parsed videos
+	// Return array of parsed videos.
 	return $videos;
 }
 
 /**
  * Get nutrition defination arrays.
- *
- * @return void
  */
 function delicious_recipes_get_nutrition_facts() {
 	// Use the "delicious_recipes_get_nutrition_facts" filter to add your own nutrition facts.
@@ -543,12 +541,6 @@ function delicious_recipes_get_nutrition_facts() {
 					'type'        => 'number',
 					'measurement' => 'kcal',
 				),
-			// removed due to new nutrition layout design not having this field
-			// 'caloriesFromFat' => array(
-			// 'name'        => esc_html__( "Calories from Fat", 'delicious-recipes' ),
-			// 'type'        => 'number',
-			// 'measurement' => 'kcal',
-			// ),
 			),
 
 			'main'   => array(
@@ -752,8 +744,7 @@ function delicious_recipes_get_nutrition_facts() {
 /**
  * Get fontawesome icons list.
  *
- * @param string $type
- * @return void
+ * @param string $type - all, brands, duotone, light, regular, solid.
  */
 function delicious_recipes_get_fontawesome_icons( $type = 'all' ) {
 	$fa       = array();

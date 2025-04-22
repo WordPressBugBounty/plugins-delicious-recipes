@@ -6,13 +6,14 @@
  */
 
 global $recipe;
-$recipe_global               = delicious_recipes_get_global_settings();
-$recipe_meta                 = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
-$allow_print_customization   = isset( $recipe_global['allowPrintCustomization']['0'] ) && 'yes' === $recipe_global['allowPrintCustomization']['0'] ? true : false;
-$embed_recipe_link           = isset( $recipe_global['embedRecipeLink']['0'] ) && 'yes' === $recipe_global['embedRecipeLink']['0'] ? true : false;
-$display_social_sharing_info = isset( $recipe_global['displaySocialSharingInfo']['0'] ) && 'yes' === $recipe_global['displaySocialSharingInfo']['0'] ? true : false;
-$embed_author_info           = isset( $recipe_global['embedAuthorInfo']['0'] ) && 'yes' === $recipe_global['embedAuthorInfo']['0'] ? true : false;
-$socials_enabled             = ( isset( $recipe_global['socialShare']['0']['enable']['0'] ) && 'yes' === $recipe_global['socialShare']['0']['enable']['0'] ) || ( isset( $recipe_global['socialShare']['1']['enable']['0'] ) && 'yes' === $recipe_global['socialShare']['1']['enable']['0'] ) ? true : false;
+$recipe_global                  = delicious_recipes_get_global_settings();
+$recipe_meta                    = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
+$allow_print_customization      = isset( $recipe_global['allowPrintCustomization']['0'] ) && 'yes' === $recipe_global['allowPrintCustomization']['0'] ? true : false;
+$embed_recipe_link              = isset( $recipe_global['embedRecipeLink']['0'] ) && 'yes' === $recipe_global['embedRecipeLink']['0'] ? true : false;
+$display_social_sharing_info    = isset( $recipe_global['displaySocialSharingInfo']['0'] ) && 'yes' === $recipe_global['displaySocialSharingInfo']['0'] ? true : false;
+$embed_author_info              = isset( $recipe_global['embedAuthorInfo']['0'] ) && 'yes' === $recipe_global['embedAuthorInfo']['0'] ? true : false;
+$socials_enabled                = ( isset( $recipe_global['socialShare']['0']['enable']['0'] ) && 'yes' === $recipe_global['socialShare']['0']['enable']['0'] ) || ( isset( $recipe_global['socialShare']['1']['enable']['0'] ) && 'yes' === $recipe_global['socialShare']['1']['enable']['0'] ) ? true : false;
+$estimated_cost_currency_symbol = isset( $recipe_global['globalEstimatedCostCurr'] ) ? $recipe_global['globalEstimatedCostCurr'] : '$';
 // Get global toggles.
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 
@@ -309,8 +310,8 @@ $all_no = true;
 								<b><?php echo esc_html( $global_toggles['estimated_cost_lbl'] ); ?>:</b>
 								<span id="dr-estimated-cost">
 									<?php
-									if ( $recipe->estimated_cost_curr ) {
-										echo esc_html( $recipe->estimated_cost_curr ) . '&nbsp;';
+									if ( $estimated_cost_currency_symbol ) {
+										echo esc_html( $estimated_cost_currency_symbol ) . '&nbsp;';
 									}
 									?>
 									<?php echo esc_html( $recipe->estimated_cost ); ?>
@@ -638,10 +639,31 @@ $all_no = true;
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-	<script type="text/javascript"
-		src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/build/printJS.js'; ?>">
-	</script>
+	<?php
+	// Enqueue jQuery
+	wp_enqueue_script('jquery');
+	
+	// Enqueue and localize print script
+	wp_enqueue_script(
+		'delicious-recipes-print', 
+		plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/printJS.js',
+		array('jquery'),
+		DELICIOUS_RECIPES_VERSION,
+		true
+	);
+
+	// Localize script with recipe data
+	wp_localize_script(
+		'delicious-recipes-print',
+		'deliciousRecipesPrint',
+		array(
+			'recipeId' => $recipe->ID,
+			'defaultServings' => $recipe->no_of_servings,
+		)
+	);
+
+	wp_print_scripts();
+	?>
 </body>
 
 </html>

@@ -107,15 +107,18 @@ class DeliciousPublic {
 		 */
 		add_action( 'wp_footer', array( $this, 'chicory_integration' ) );
 
-		// Add JavaScript file for Recipe Archive pages
+		// Add JavaScript file for Recipe Archive pages.
 		add_action( 'wp_enqueue_scripts', array( $this, 'dr_cuisines_archive' ) );
 
 		// For lazy loading.
 		add_action( 'template_redirect', array( $this, 'start' ) );
 		add_filter( 'delicious_recipes_output_buffer_template_redirect', array( $this, 'add_lazyload_attributes' ) );
 
-		// for preloading featured image.
+		// For preloading featured image.
 		add_action( 'wp_head', array( $this, 'add_preload_featured_image' ) );
+
+		// Add Edamam attribution script.
+		add_action( 'wp_head', array( $this, 'add_edamam_script' ) );
 	}
 
 	/**
@@ -171,6 +174,11 @@ class DeliciousPublic {
 
 		// Check if lazy load is enabled from theme, if yes then return the HTML as it is.
 		if ( $lazyload_enabled ) {
+			return $html;
+		}
+
+		// Divi Visual Builder is active
+		if (isset($_GET['et_fb']) && $_GET['et_fb'] == '1') {
 			return $html;
 		}
 
@@ -536,6 +544,8 @@ class DeliciousPublic {
 	/**
 	 * Save comment form.
 	 *
+	 * @param int $comment_id Comment ID.
+	 *
 	 * @return void
 	 */
 	public function dr_save_comment_rating( $comment_id ) {
@@ -565,8 +575,7 @@ class DeliciousPublic {
 	/**
 	 * Comment Text.
 	 *
-	 * @param [type] $comment_text
-	 * @return void
+	 * @param [type] $comment_text Comment Text.
 	 */
 	public function dr_add_comment_review_after_text( $comment_text ) {
 		if ( ! is_singular( DELICIOUS_RECIPE_POST_TYPE ) ) {
@@ -630,8 +639,7 @@ class DeliciousPublic {
 	/**
 	 * Filter posts per page value for recipe.
 	 *
-	 * @param [type] $query
-	 * @return void
+	 * @param [type] $query Query.
 	 */
 	public function recipe_archive_posts_per_page( $query ) {
 		if ( ! is_admin() && ( is_post_type_archive( DELICIOUS_RECIPE_POST_TYPE ) || is_recipe_taxonomy() ) ) {
@@ -648,8 +656,7 @@ class DeliciousPublic {
 	/**
 	 * Display recipe posts as post on Homepage.
 	 *
-	 * @param [type] $query
-	 * @return void
+	 * @param [type] $query Query.
 	 */
 	public function recipe_posts_on_homepage( $query ) {
 		if ( ! is_admin() && $query->is_main_query() ) {
@@ -681,8 +688,7 @@ class DeliciousPublic {
 	/**
 	 * Recipe posts only in archive.
 	 *
-	 * @param [type] $query
-	 * @return void
+	 * @param [type] $query Query.
 	 */
 	public function recipe_posts_on_archive( $query ) {
 		$global_settings = delicious_recipes_get_global_settings();
@@ -703,8 +709,7 @@ class DeliciousPublic {
 	/**
 	 * Recipe archive title.
 	 *
-	 * @param [type] $title
-	 * @return void
+	 * @param [type] $title Title.
 	 */
 	public function recipe_archive_title( $title ) {
 		$global_settings = delicious_recipes_get_global_settings();
@@ -719,8 +724,7 @@ class DeliciousPublic {
 	/**
 	 * Recipe archive description.
 	 *
-	 * @param [type] $title
-	 * @return void
+	 * @param [type] $description Description.
 	 */
 	public function recipe_archive_description( $description ) {
 		$global_settings     = delicious_recipes_get_global_settings();
@@ -957,5 +961,14 @@ class DeliciousPublic {
 			echo '<script>window.ChicoryConfig = ' . json_encode( $chicory_config ) . ';</script>';
 			echo '<script defer src="https://www.chicoryapp.com/widget_v2/"></script>';
 		}
+	}
+
+	/**
+	 * Add Edamam attribution script to the head tag.
+	 *
+	 * @return void
+	 */
+	public function add_edamam_script() {
+		echo '<script src="https://developer.edamam.com/attribution/badge.js"></script>';
 	}
 }

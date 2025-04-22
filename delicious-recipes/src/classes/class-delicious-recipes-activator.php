@@ -447,21 +447,16 @@ class Delicious_Recipes_Activator {
 
 		$demo_recipe = array(
 			'post_title'   => 'The Best Instant Pot French Toast recipe (vegan &amp; Gluten Free!)',
-			'post_content' => '<p>Love French Toast Casserole, but don\'t time to let it sit overnight ? Not to worry,
-			with this < a href = "#" > Instant PotFrench < / a > Toast will be ready in no time ! < / p >
-							< p > < b > < em > Note – < / em > < / b > this may look like different pictures than what got you here . We were finding that readers < br > were having issues with the recipe so we totally reworked it ! Please give us your feedback in the comments . We welcome constructive comments that will help us serve you better ! < / p >
-							< h3 > Instant Pot French Toast Recipe < / h3 >
-							< p > You may have made a cinnamon roll french toast casserole or french toast bake,
-			but those can take a long time to make . With the instant pot craze going on,
-			we thought we would try to shorten the preparation time needed for traditional french toast bakes ! We love our instant pot and use it for dinners all the time . We have even used it for dessert with our Instant Pot Monkey Bread . The ease and quickness of it are perfect for our busy lifestyle . < / p >
-							< p > I honestly had no idea that you could even make french toast in the instant pot ! But it is really easy ! Feel free to add in some fun additions like pecans,
-			walnuts or chocolate chips ! They are all great . < / p >
-							< p > This will make the perfect dish for your Christmas Morning Brunch ! Looking for some other great Christmas Morning Recipes ? We have tons (bool) < / p > ',
+			'post_content' => '<p>Love French Toast Casserole, but don\'t time to let it sit overnight? Not to worry, with this <a href = "#">Instant PotFrench</a> Toast will be ready in no time!</p>
+			<p><b><em> Note –</em></b> this may look like different pictures than what got you here. We were finding that readers<br>were having issues with the recipe so we totally reworked it! Please give us your feedback in the comments. We welcome constructive comments that will help us serve you better!</p>
+			<h3>Instant Pot French Toast Recipe</h3>
+			<p>You may have made a cinnamon roll french toast casserole or french toast bake, but those can take a long time to make. With the instant pot craze going on, we thought we would try to shorten the preparation time needed for traditional french toast bakes! We love our instant pot and use it for dinners all the time. We have even used it for dessert with our Instant Pot Monkey Bread. The ease and quickness of it are perfect for our busy lifestyle.</p>
+			<p>I honestly had no idea that you could even make french toast in the instant pot! But it is really easy! Feel free to add in some fun additions like pecans, walnuts or chocolate chips! They are all great.</p>
+			<p>This will make the perfect dish for your Christmas Morning Brunch! Looking for some other great Christmas Morning Recipes? We have tons!!</p>',
 			'post_status'  => 'draft',
 			'post_type'    => DELICIOUS_RECIPE_POST_TYPE,
 			'post_author'  => get_current_user_id(),
-			'post_excerpt' => 'Love French Toast Casserole,
-			but don\'t time to let it sit overnight? Not to worry, with this Instant Pot French Toast will be ready in no time!',
+			'post_excerpt' => 'Love French Toast Casserole, but don\'t time to let it sit overnight? Not to worry, with this Instant Pot French Toast will be ready in no time!',
 		);
 
 		$recipe_demo_id = wp_insert_post( $demo_recipe );

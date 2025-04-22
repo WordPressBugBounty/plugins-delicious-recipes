@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Nutrition template
  *
@@ -7,8 +6,8 @@
  */
 
 global $recipe;
-$nutrition_facts = $recipe->nutrition;
-$_nf_fields      = delicious_recipes_get_nutrition_facts();
+$nutrition_facts  = $recipe->nutrition;
+$nutrition_fields = delicious_recipes_get_nutrition_facts();
 
 $recipe_global                 = delicious_recipes_get_global_settings();
 $nutri_title                   = isset( $recipe_global['nutritionFactsLabel'] ) ? $recipe_global['nutritionFactsLabel'] : '';
@@ -18,7 +17,11 @@ $enable_nutrition_facts        = isset( $recipe_global['showNutritionFacts']['0'
 $display_nutrition_zero_values = isset( $recipe_global['displayNutritionZeroValues']['0'] ) && 'yes' === $recipe_global['displayNutritionZeroValues']['0'] ? true : false;
 $additional_nutrition_elements = isset( $recipe_global['additionalNutritionElements'] ) ? $recipe_global['additionalNutritionElements'] : array();
 
-$nutri_filtered = array_filter(
+// Get recipe meta.
+$recipe_meta   = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
+$is_powered_by = isset( $recipe_meta['isPoweredBy'] ) ? $recipe_meta['isPoweredBy'] : '';
+
+$filtered_nutrition_facts = array_filter(
 	$nutrition_facts,
 	function ( $nut, $key ) {
 		return ! empty( $nut ) && false !== $nut && 'servings' !== $key && 'servingSize' !== $key;
@@ -26,16 +29,15 @@ $nutri_filtered = array_filter(
 	ARRAY_FILTER_USE_BOTH
 );
 
-if ( empty( $nutri_filtered ) ) {
+// Early return if no nutrition facts to display.
+if ( empty( $filtered_nutrition_facts ) || ! $enable_nutrition_facts || ! $nutrition_facts ) {
 	return;
 }
 
-if ( ! $enable_nutrition_facts ) {
-	return;
-}
-
-if ( ! $nutrition_facts ) {
-	return;
+$is_edamam = false;
+if ( 'edamam' === $is_powered_by ) {
+	$is_edamam    = true;
+	$edamam_badge = '<a href="https://www.edamam.com" title="Powered by Edamam" target="_blank" style="display: flex; justify-content: flex-end;"><img alt="Powered by Edamam" src="https://developer.edamam.com/images/white.png" /></a>';
 }
 
 $display_standard_mode = isset( $recipe_global['displayStandardMode']['0'] ) && 'yes' === $recipe_global['displayStandardMode']['0'] ? true : false;
@@ -45,12 +47,8 @@ $style_hr              = $display_standard_mode ? 'style=border-color:#000000;' 
 // Collapsible Nutrition Chart.
 $enable_collapsible_nutrition_chart = false;
 if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
-	if ( isset( $recipe_global['enableCollapsibleNutritionChart']['0'] ) && 'yes' === $recipe_global['enableCollapsibleNutritionChart']['0'] ) {
-		$enable_collapsible_nutrition_chart = true;
-	} else {
-		$enable_collapsible_nutrition_chart = false;
-	}
-	$collapsible_nutrition_chart_label = isset( $recipe_global['collapsibleNutritionChartLabel'] ) ? $recipe_global['collapsibleNutritionChartLabel'] : '';
+	$enable_collapsible_nutrition_chart = isset( $recipe_global['enableCollapsibleNutritionChart']['0'] ) && 'yes' === $recipe_global['enableCollapsibleNutritionChart']['0'];
+	$collapsible_nutrition_chart_label  = isset( $recipe_global['collapsibleNutritionChartLabel'] ) ? $recipe_global['collapsibleNutritionChartLabel'] : '';
 
 	$calories = isset( $nutrition_facts['calories'] ) && ! empty( $nutrition_facts['calories'] ) ? $nutrition_facts['calories'] . 'kcal' : '';
 	$protein  = isset( $nutrition_facts['protein'] ) ? $nutrition_facts['protein'] . 'g' : '';
@@ -61,7 +59,6 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 }
 
 ?>
-
 <?php if ( $enable_collapsible_nutrition_chart && ! isset( $_GET['print_recipe'] ) ) : ?>
 	<div class="dr-nutrition-facts-collapsible">
 		<h3 class="dr-title">
@@ -98,49 +95,47 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 					<path d="M5 7.5L10 12.5L15 7.5" stroke="#2DB68D" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round" />
 				</svg>
 			</label>
-		<?php endif; ?>
-		<div class="dr-nutrition-collapse-section-content">
-			<div class="dr-nutrition-facts " id="nutrition-facts">
-				<div class="dr-title-wrap" <?php echo esc_attr( $style ); ?>>
-					<div class="dr-title dr-print-block-title">
-						<h3 class="dr-title"><?php echo esc_html( $nutri_title ); ?></h3>
+			<?php endif; ?>
+			<div class="dr-nutrition-collapse-section-content">
+				<div class="dr-nutrition-facts " id="nutrition-facts">
+					<div class="dr-title-wrap" <?php echo esc_attr( $style ); ?>>
+						<div class="dr-title dr-print-block-title">
+							<h3 class="dr-title"><?php echo esc_html( $nutri_title ); ?></h3>
+						</div>
 					</div>
-				</div>
-				<div class="dr-nutrition-list">
-					<?php
-					ob_start();
-					if ( $nutrition_facts ) :
-						$top_facts = $_nf_fields['top'];
-						if ( ! empty( $top_facts ) ) :
+					<div class="dr-nutrition-list">
+						<?php
+						ob_start();
+						if ( $nutrition_facts ) :
+							$top_facts = $nutrition_fields['top'];
+							if ( ! empty( $top_facts ) ) :
+								// Start output buffer for top facts.
+								ob_start();
+								foreach ( $top_facts as $slug => $nf ) :
+									if ( 'servingSize' === $slug && ! $show_serving_size ) {
+										continue;
+									}
+									$has_value     = isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ];
+									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ];
 
-							// Start output buffer for top facts.
-							ob_start();
+									if ( $has_value || $is_zero_value ) :
+										echo '<p>' . esc_html( $nf['name'] ) . ' <strong class="dr-nut-label" data-labeltype="' . esc_attr( $slug ) . '">' . ( esc_html( $nutrition_facts[ $slug ] ) ) . '</strong></p>';
+									endif;
+								endforeach;
 
-							foreach ( $top_facts as $slug => $nf ) :
-								if ( 'servingSize' === $slug && ! $show_serving_size ) {
-									continue;
-								}
-								$nutri_zero_condition = $display_nutrition_zero_values ? isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ] : false;
-								if ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] || $nutri_zero_condition ) :
-									echo '<p>' . esc_html( $nf['name'] ) . ' <strong class="dr-nut-label" data-labeltype="' . esc_attr( $slug ) . '">' . ( esc_html( $nutrition_facts[ $slug ] ) ) . '</strong></p>';
-								endif;
-							endforeach;
+								// Get top facts content from buffer.
+								$top_facts_content = ob_get_clean();
+							endif;
 
-							// Get top facts content from buffer.
-							$top_facts_content = ob_get_clean();
+							$mid_facts = $nutrition_fields['mid'];
+							if ( ! empty( $mid_facts ) ) :
+								// Start output buffer for mid-facts.
+								ob_start();
+								foreach ( $mid_facts as $slug => $nf ) :
+									$has_value     = isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ];
+									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ];
 
-						endif;
-
-						$mid_facts = $_nf_fields['mid'];
-						if ( ! empty( $mid_facts ) ) :
-
-							// Start output buffer for mid-facts.
-							ob_start();
-
-							foreach ( $mid_facts as $slug => $nf ) :
-								$nutri_zero_condition = $display_nutrition_zero_values ? isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ] : false;
-								if ( ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] ) || $nutri_zero_condition ) :
-									if ( 'calories_fat' !== $slug ) :
+									if ( ( $has_value || $is_zero_value ) && 'calories_fat' !== $slug ) :
 										echo '<dt class="dr-nut-no-border text-large">';
 										echo '<strong>' . esc_html( $nf['name'] ) . '</strong> <span class="dr-nut-right" style="display:block;"><strong>' . esc_html( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong>' . esc_html( $nf['measurement'] ) . '</strong></span>' : '' );
 
@@ -150,151 +145,144 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 
 										echo '</dt>';
 									endif;
-								endif;
-							endforeach;
+								endforeach;
 
-							// Get mid facts content from buffer.
-							$mid_facts_content = ob_get_clean();
+								// Get mid facts content from buffer.
+								$mid_facts_content = ob_get_clean();
+							endif;
 
-						endif;
+							$main_facts = $nutrition_fields['main'];
 
-						$main_facts = $_nf_fields['main'];
-						$nut_loops  = 0;
+							if ( ! empty( $main_facts ) ) :
+								// Start output buffer for main facts.
+								ob_start();
 
-						if ( ! empty( $main_facts ) ) :
+								foreach ( $main_facts as $slug => $nf ) :
+									$has_value     = isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ];
+									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ];
 
-							// Start output buffer for main facts.
-							ob_start();
+									if ( $has_value || $is_zero_value ) :
+										echo '<dt>';
+										echo '<strong>' . esc_html( $nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_html( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_html( $nf['measurement'] ) . '</strong>' : '' );
+										echo ( isset( $nf['pdv'] ) && $nutrition_facts[ $slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . esc_attr( ceil( ( esc_attr( $nutrition_facts[ $slug ] ) / $nf['pdv'] ) * 100 ) ) . '</span>%</strong>' : '' );
 
-							foreach ( $main_facts as $slug => $nf ) :
-								$nutri_zero_condition = $display_nutrition_zero_values ? isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ] : false;
-								if ( ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] ) || $nutri_zero_condition ) :
+										if ( isset( $nf['subs'] ) ) :
+											foreach ( $nf['subs'] as $sub_slug => $sub_nf ) :
+												$sub_has_value     = isset( $nutrition_facts[ $sub_slug ] ) && $nutrition_facts[ $sub_slug ];
+												$sub_is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $sub_slug ] ) && 0 === $nutrition_facts[ $sub_slug ];
 
-									echo '<dt>';
-									echo '<strong>' . esc_html( $nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_html( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_html( $nf['measurement'] ) . '</strong>' : '' );
-									echo ( isset( $nf['pdv'] ) && $nutrition_facts[ $slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . esc_attr( ceil( ( esc_attr( $nutrition_facts[ $slug ] ) / $nf['pdv'] ) * 100 ) ) . '</span>%</strong>' : '' );
-
-									if ( isset( $nf['subs'] ) ) :
-										foreach ( $nf['subs'] as $sub_slug => $sub_nf ) :
-											$nutri_zero_condition = $display_nutrition_zero_values ? isset( $nutrition_facts[ $sub_slug ] ) && 0 === $nutrition_facts[ $sub_slug ] : false;
-											if ( isset( $nutrition_facts[ $sub_slug ] ) && $nutrition_facts[ $sub_slug ] || $nutri_zero_condition ) :
-												echo '<dl><dt>';
-												echo '<strong>' . esc_html( $sub_nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_html( $nutrition_facts[ $sub_slug ] ) . '</strong>' . ( isset( $sub_nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_html( $sub_nf['measurement'] ) . '</strong>' : '' );
-												echo ( isset( $sub_nf['pdv'] ) && $nutrition_facts[ $sub_slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . esc_attr( ceil( ( esc_attr( $nutrition_facts[ $sub_slug ] ) / $sub_nf['pdv'] ) * 100 ) ) . '</span>%</strong>' : '' );
-												echo '</dt></dl>';
-											endif;
-										endforeach;
+												if ( $sub_has_value || $sub_is_zero_value ) :
+													echo '<dl><dt>';
+													echo '<strong>' . esc_html( $sub_nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_html( $nutrition_facts[ $sub_slug ] ) . '</strong>' . ( isset( $sub_nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_html( $sub_nf['measurement'] ) . '</strong>' : '' );
+													echo ( isset( $sub_nf['pdv'] ) && $nutrition_facts[ $sub_slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . esc_attr( ceil( ( esc_attr( $nutrition_facts[ $sub_slug ] ) / $sub_nf['pdv'] ) * 100 ) ) . '</span>%</strong>' : '' );
+													echo '</dt></dl>';
+												endif;
+											endforeach;
+										endif;
+										echo '</dt>';
 									endif;
+								endforeach;
 
-									echo '</dt>';
+								// Get main facts content from buffer.
+								$main_facts_content = ob_get_clean();
+							endif;
 
-								endif;
+							$bottom_facts = $nutrition_fields['bottom'];
 
-							endforeach;
+							if ( ! empty( $bottom_facts ) ) :
+								// Start output buffer for bottom facts.
+								ob_start();
+								foreach ( $bottom_facts as $slug => $nf ) :
+									$has_value     = isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ];
+									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ];
+									
+									if ( $has_value || $is_zero_value ) :
+										if ( 'vitaminA' === $slug || 'vitaminD' === $slug || 'vitaminE' === $slug ) :
+											$vitamin_unit = isset( $recipe_meta[ $slug . 'Unit' ] ) ? $recipe_meta[ $slug . 'Unit' ] : 'IU';
+											echo '<dt>';
+											echo '<strong>' . esc_html( $nf['name'] ) . ' <span class="dr-nut-percent dr-nut-label">' . esc_html( $nutrition_facts[ $slug ] ) . '</span> ' . esc_html( $vitamin_unit ? $vitamin_unit : $nf['measurement'] ) . '</strong>';
+											echo '</dt>';
+										else :
+											echo '<dt>';
+											echo '<strong>' . esc_html( $nf['name'] ) . ' <span class="dr-nut-percent dr-nut-label">' . esc_html( $nutrition_facts[ $slug ] ) . '</span> ' . esc_html( $nf['measurement'] ) . '</strong>';
+											echo '</dt>';
+										endif;
+									endif;
+								endforeach;
 
-							// Get main facts content from buffer.
-							$main_facts_content = ob_get_clean();
-
-						endif;
-
-						$bottom_facts = $_nf_fields['bottom'];
-
-						if ( ! empty( $bottom_facts ) ) :
-
-							// Start output buffer for bottom facts.
-							ob_start();
-
-							foreach ( $bottom_facts as $slug => $nf ) :
-								$nutri_zero_condition = $display_nutrition_zero_values ? isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ] : false;
-								if ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] || $nutri_zero_condition ) :
-									echo '<dt>';
-									echo '<strong>' . esc_html( $nf['name'] ) . ' <span class="dr-nut-percent dr-nut-label">' . esc_html( $nutrition_facts[ $slug ] ) . '</span> ' . esc_html( $nf['measurement'] ) . '</strong>';
-									echo '</dt>';
-								endif;
-							endforeach;
-
-							if ( ! empty( $nutrition_facts['additionalNutritionalElements'] ) && is_array( $additional_nutrition_elements ) && ! empty( $additional_nutrition_elements ) ) {
-								$nutri_additional_nutritional_elements = $nutrition_facts['additionalNutritionalElements'];
-								foreach ( $additional_nutrition_elements as $additional_nutrition_element_key => $additional_nutrition_element_value ) {
-									if ( $display_nutrition_zero_values ) {
-										if ( ! isset( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) || '' === ( trim( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) ) ) {
-											continue;
+								if ( ! empty( $nutrition_facts['additionalNutritionalElements'] ) && is_array( $additional_nutrition_elements ) && ! empty( $additional_nutrition_elements ) ) {
+									$additional_elements = $nutrition_facts['additionalNutritionalElements'];
+									foreach ( $additional_nutrition_elements as $element_key => $element_value ) {
+										$has_value     = isset( $additional_elements[ $element_key ] ) && ! empty( trim( $additional_elements[ $element_key ] ) );
+										$is_zero_value = $display_nutrition_zero_values && isset( $additional_elements[ $element_key ] ) && '' === trim( $additional_elements[ $element_key ] );
+										if ( $has_value || $is_zero_value ) {
+											echo '<dt>';
+											echo '<strong>' . esc_html( $element_value['name'] ) . ' <span class="dr-nut-percent dr-nut-label">' . esc_html( $additional_elements[ $element_key ] ) . '</span>' . esc_html( $element_value['measurement'] ) . '</strong>';
+											echo '</dt>';
 										}
-									} elseif ( ! isset( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) || empty( trim( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) ) ) {
-											continue;
 									}
-									echo '<dt>';
-									echo '<strong>' . esc_html( $additional_nutrition_element_value['name'] ) . ' <span class="dr-nut-percent dr-nut-label">' . esc_html( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) . '</span>' . esc_html( $additional_nutrition_element_value['measurement'] ) . '</strong>';
-									echo '</dt>';
 								}
-							}
 
-							// Get bottom facts content from buffer.
-							$bottom_facts_content = ob_get_clean();
-
-						endif;
-
-						// Start a buffer for all nutrition facts content.
-						ob_start();
-
-						if ( isset( $top_facts_content ) && $top_facts_content ) :
-							echo wp_kses_post( $top_facts_content );
-						endif;
-
-						if ( isset( $mid_facts_content ) && $mid_facts_content || isset( $main_facts_content ) && $main_facts_content ) :
-
-							echo '<hr class="dr-nut-hr" ' . esc_attr( $style_hr ) . ' />';
-							echo '<dl>';
-
-							echo '<dt style="line-height:1.2;"><strong class="dr-nut-heading">' . esc_html__( 'Amount Per Serving', 'delicious-recipes' ) . '</strong></dt>';
-
-							if ( isset( $mid_facts_content ) && $mid_facts_content ) :
-								echo '<section class="dr-clearfix">';
-								echo wp_kses_post( $mid_facts_content );
-								echo '</section>';
+								// Get bottom facts content from buffer.
+								$bottom_facts_content = ob_get_clean();
 							endif;
 
-							if ( isset( $main_facts_content ) && $main_facts_content ) :
-								echo '<dt class="dr-nut-spacer" ' . esc_html( $style ) . '></dt>';
-								echo '<dt class="dr-nut-no-border"><strong class="dr-nut-heading dr-nut-right">' . esc_html__( '% Daily Value *', 'delicious-recipes' ) . '</strong></dt>';
-								echo '<section class="dr-clearfix">';
-								echo wp_kses_post( $main_facts_content );
-								echo '</section>';
+							// Start a buffer for all nutrition facts content.
+							ob_start();
+							if ( isset( $top_facts_content ) && $top_facts_content ) :
+								echo wp_kses_post( $top_facts_content );
 							endif;
 
-							echo '</dl>';
-							echo '<hr class="dr-nut-hr" ' . esc_attr( $style_hr ) . ' />';
+							if ( ( isset( $mid_facts_content ) && $mid_facts_content ) || ( isset( $main_facts_content ) && $main_facts_content ) ) :
+								echo '<hr class="dr-nut-hr" ' . esc_attr( $style_hr ) . ' />';
+								echo '<dl>';
+								echo '<dt style="line-height:1.2;"><strong class="dr-nut-heading">' . esc_html__( 'Amount Per Serving', 'delicious-recipes' ) . '</strong></dt>';
+								if ( isset( $mid_facts_content ) && $mid_facts_content ) :
+									echo '<section class="dr-clearfix">';
+									echo wp_kses_post( $mid_facts_content );
+									echo '</section>';
+								endif;
 
-						endif;
+								if ( isset( $main_facts_content ) && $main_facts_content ) :
+									echo '<dt class="dr-nut-spacer" ' . esc_html( $style ) . '></dt>';
+									echo '<dt class="dr-nut-no-border"><strong class="dr-nut-heading dr-nut-right">' . esc_html__( '% Daily Value *', 'delicious-recipes' ) . '</strong></dt>';
+									echo '<section class="dr-clearfix">';
+									echo wp_kses_post( $main_facts_content );
+									echo '</section>';
+								endif;
 
-						if ( isset( $bottom_facts_content ) && $bottom_facts_content ) :
-							echo '<dl class="dr-nut-bottom dr-clearfix">';
-							echo wp_kses_post( $bottom_facts_content );
-							echo '</dl>';
-						endif;
-
-						$nutrition_facts_content = ob_get_clean();
-
-						if ( isset( $nutrition_facts_content ) && $nutrition_facts_content ) :
-
-							echo '<div class="dr-nutrition-label">';
-							echo wp_kses_post( $nutrition_facts_content );
-							if ( isset( $main_facts_content ) && $main_facts_content || isset( $bottom_facts_content ) && $bottom_facts_content ) :
-								echo '<p class="dr-daily-value-text">* ' . esc_html( $daily_value_disclaimer ) . '</p>';
+								echo '</dl>';
+								echo '<hr class="dr-nut-hr" ' . esc_attr( $style_hr ) . ' />';
 							endif;
-							echo '</div>';
+
+							if ( isset( $bottom_facts_content ) && $bottom_facts_content ) :
+								echo '<dl class="dr-nut-bottom dr-clearfix">';
+								echo wp_kses_post( $bottom_facts_content );
+								echo '</dl>';
+							endif;
+
+							$nutrition_facts_content = ob_get_clean();
+
+							if ( isset( $nutrition_facts_content ) && $nutrition_facts_content ) :
+								echo '<div class="dr-nutrition-label">';
+								echo wp_kses_post( $nutrition_facts_content );
+								if ( ( isset( $main_facts_content ) && $main_facts_content ) || ( isset( $bottom_facts_content ) && $bottom_facts_content ) ) :
+									echo '<p class="dr-daily-value-text">* ' . esc_html( $daily_value_disclaimer ) . '</p>';
+								endif;
+								echo '</div>';
+							endif;
+							if ( $is_edamam ) :
+								echo wp_kses_post( $edamam_badge );
+							endif;
 
 						endif;
-
-					endif;
-					$content = ob_get_clean();
-					echo wp_kses_post( $content );
-					?>
+						$content = ob_get_clean();
+						echo wp_kses_post( $content );
+						?>
+					</div>
 				</div>
 			</div>
-		</div>
-		<?php if ( $enable_collapsible_nutrition_chart ) : ?>
-		<!-- Unclosed divs are closed here -->
+			<?php if ( $enable_collapsible_nutrition_chart ) : ?>
 		</div>
 	</div>
 <?php endif; ?>

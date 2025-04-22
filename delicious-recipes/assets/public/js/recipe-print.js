@@ -83,7 +83,8 @@ window.PrintScripts = {
 				: null;
 
 			const recipe = parseInt(printProps.recipe);
-			const originalServings = this.parse(printProps.original_servings);
+			// const originalServings = this.parse(printProps.original_servings);
+			const originalServings = deliciousRecipesPrint.defaultServings;
 
 			if (newServings && newServings !== originalServings) {
 				this.updateServings(recipe, originalServings, newServings);
