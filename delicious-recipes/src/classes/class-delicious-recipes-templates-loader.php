@@ -41,7 +41,7 @@ class Delicious_Recipes_Template_Loader {
 		if ( isset( $global_settings ) && isset( $global_settings['enableElementorSupport'] ) && isset( $global_settings['enableElementorSupport'][0] ) && 'yes' === $global_settings['enableElementorSupport'][0] ) {
 			self::$theme_support = current_theme_supports( 'delicious-recipes' );
 		} else {
-			self::$theme_support = true; //current_theme_supports( 'delicious-recipes' );
+			self::$theme_support = true; // current_theme_supports( 'delicious-recipes' );
 		}
 		self::$recipe_archive_id = delicious_recipes_get_page_id( 'recipe-archive' );
 
@@ -187,17 +187,6 @@ class Delicious_Recipes_Template_Loader {
 			self::unsupported_theme_recipe_archive_content_filter();
 		}
 	}
-
-	/**
-	 * Hook in methods to enhance the unsupported theme experience on the recipe_archive page.
-	 *
-	 * @since 1.0.0
-	 * 
-	 * Commented @since 1.7.5
-	 */
-	// private static function unsupported_theme_recipe_archive_page_init() {
-	// 	add_filter( 'the_content', array( __CLASS__, 'unsupported_theme_recipe_archive_content_filter' ), 10 );
-	// }
 
 	/**
 	 * Hook in methods to enhance the unsupported theme experience on recipe pages.
@@ -379,14 +368,13 @@ class Delicious_Recipes_Template_Loader {
 		if ( $post->ID != $pid ) {
 			return;
 		}
-		
+
 		if ( ! has_shortcode( $post->post_content, 'search_recipe' ) ) {
 			return;
 		}
 		delicious_recipes_get_template( 'global/searchpage.php' );
 		exit();
 	}
-
 }
 
 add_action( 'init', array( 'Delicious_Recipes_Template_Loader', 'init' ) );

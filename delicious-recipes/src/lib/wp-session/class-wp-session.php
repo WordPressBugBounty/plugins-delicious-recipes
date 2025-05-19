@@ -80,11 +80,18 @@ final class WP_Session extends Recursive_ArrayAccess {
 	 * Default constructor.
 	 * Will rebuild the session collection from the given session ID if it exists. Otherwise, will
 	 * create a new session with that ID.
-	 *
-	 * @param $session_id
-	 * @uses apply_filters Calls `wp_session_expiration` to determine how long until sessions expire.
 	 */
 	protected function __construct() {
+		// Defer session initialization until after plugins_loaded.
+		add_action( 'init', array( $this, 'init_session' ), 1 );
+	}
+
+	/**
+	 * Initialize the session.
+	 *
+	 * @since 1.4.4
+	 */
+	public function init_session() {
 		$this->use_legacy = delicious_recipes_use_legacy_session_handler();
 		$this->initialize_session_name();
 
@@ -105,13 +112,13 @@ final class WP_Session extends Recursive_ArrayAccess {
 	 * Initialize session name
 	 */
 	protected function initialize_session_name() {
-		// Get configured name or default
-		$this->session_name = defined('DELICIOUS_RECIPES_SESSION_COOKIE') 
-			? DELICIOUS_RECIPES_SESSION_COOKIE 
+		// Get configured name or default.
+		$this->session_name = defined( 'DELICIOUS_RECIPES_SESSION_COOKIE' )
+			? DELICIOUS_RECIPES_SESSION_COOKIE
 			: '_delicious_recipes_session';
 
-		// Validate session name
-		if (!preg_match('/^[a-zA-Z0-9_]+$/', $this->session_name)) {
+		// Validate session name.
+		if ( ! preg_match( '/^[a-zA-Z0-9_]+$/', $this->session_name ) ) {
 			$this->session_name = '_delicious_recipes_session';
 		}
 	}
@@ -120,15 +127,24 @@ final class WP_Session extends Recursive_ArrayAccess {
 	 * Initialize PHP session with secure parameters
 	 */
 	protected function initialize_session() {
+		// Don't initialize session for REST API or AJAX requests.
+		if ( defined( 'REST_REQUEST' ) || wp_doing_ajax() ) {
+			return;
+		}
+
 		if ( ! headers_sent() && ! session_id() ) {
 			$session_params = array(
-				'read_and_close' => false,
+				'read_and_close'  => true, // Close session after reading.
 				'cookie_httponly' => true,
-				'cookie_secure' => is_ssl(),
+				'cookie_secure'   => is_ssl(),
 				'cookie_samesite' => 'Lax',
-				'use_strict_mode' => true
+				'use_strict_mode' => true,
 			);
-			session_start($session_params);
+			session_start( $session_params );
+			// Write and close session data for better performance.
+			if ( session_id() ) {
+				session_write_close();
+			}
 		}
 	}
 
@@ -137,26 +153,26 @@ final class WP_Session extends Recursive_ArrayAccess {
 	 */
 	protected function handle_session_cookie() {
 		if ( isset( $_COOKIE[ $this->session_name ] ) ) {
-			$cookie = sanitize_text_field( wp_unslash( $_COOKIE[ $this->session_name ] ) );
+			$cookie        = sanitize_text_field( wp_unslash( $_COOKIE[ $this->session_name ] ) );
 			$cookie_crumbs = explode( '||', $cookie );
 
-			// Validate cookie parts
-			if (count($cookie_crumbs) !== 3) {
-				$this->regenerate_id(true);
+			// Validate cookie parts.
+			if ( count( $cookie_crumbs ) !== 3 ) {
+				$this->regenerate_id( true );
 				return;
 			}
 
-			$this->session_id = sanitize_text_field($cookie_crumbs[0]);
-			$this->expires = absint($cookie_crumbs[1]);
-			$this->exp_variant = absint($cookie_crumbs[2]);
+			$this->session_id  = sanitize_text_field( $cookie_crumbs[0] );
+			$this->expires     = absint( $cookie_crumbs[1] );
+			$this->exp_variant = absint( $cookie_crumbs[2] );
 
-			// Handle session name changes
-			$stored_name = get_option('delicious_recipes_session_name', $this->session_name);
-			if ($this->session_name !== $stored_name) {
-				$this->migrate_session_data($stored_name);
+			// Handle session name changes.
+			$stored_name = get_option( 'delicious_recipes_session_name', $this->session_name );
+			if ( $this->session_name !== $stored_name ) {
+				$this->migrate_session_data( $stored_name );
 			}
 
-			// Check expiration
+			// Check expiration.
 			if ( time() > $this->exp_variant ) {
 				$this->set_expiration();
 				$this->update_session_expiry();
@@ -168,15 +184,17 @@ final class WP_Session extends Recursive_ArrayAccess {
 	}
 
 	/**
-	 * Migrate session data from old name to new
+	 * Migrate session data from old name to new.
+	 *
+	 * @param string $old_name - Old session name.
 	 */
-	protected function migrate_session_data($old_name) {
-		if (isset($_SESSION[$old_name])) {
+	protected function migrate_session_data( $old_name ) {
+		if ( isset( $_SESSION[ $old_name ] ) ) {
 			// $_SESSION[$this->session_name] = $_SESSION[$old_name]; // Removed because duplicate session data
-			unset($_SESSION[$old_name]);
+			unset( $_SESSION[ $old_name ] );
 		}
-		update_option('delicious_recipes_session_name', $this->session_name);
-		$this->regenerate_id(true);
+		update_option( 'delicious_recipes_session_name', $this->session_name );
+		$this->regenerate_id( true );
 	}
 
 	/**
@@ -235,13 +253,13 @@ final class WP_Session extends Recursive_ArrayAccess {
 	 */
 	protected function get_session_var( $key ) {
 		// Get configured session name or use default
-		$session_name = defined('DELICIOUS_RECIPES_SESSION_COOKIE') ? DELICIOUS_RECIPES_SESSION_COOKIE : get_option('delicious_recipes_session_name', '_delicious_recipes_session');
+		$session_name = defined( 'DELICIOUS_RECIPES_SESSION_COOKIE' ) ? DELICIOUS_RECIPES_SESSION_COOKIE : get_option( 'delicious_recipes_session_name', '_delicious_recipes_session' );
 
-		if ( ! isset( $_SESSION[$session_name][ $key ] ) ) {
-			$_SESSION[$session_name][ $key ] = array();
+		if ( ! isset( $_SESSION[ $session_name ][ $key ] ) ) {
+			$_SESSION[ $session_name ][ $key ] = array();
 		}
 
-		return $_SESSION[$session_name][ $key ];
+		return $_SESSION[ $session_name ][ $key ];
 	}
 
 	/**
@@ -254,13 +272,13 @@ final class WP_Session extends Recursive_ArrayAccess {
 	 */
 	protected function set_session_var( $key, $value ) {
 		// Get configured session name or use default
-		$session_name = defined('DELICIOUS_RECIPES_SESSION_COOKIE') ? DELICIOUS_RECIPES_SESSION_COOKIE : get_option('delicious_recipes_session_name', '_delicious_recipes_session');
+		$session_name = defined( 'DELICIOUS_RECIPES_SESSION_COOKIE' ) ? DELICIOUS_RECIPES_SESSION_COOKIE : get_option( 'delicious_recipes_session_name', '_delicious_recipes_session' );
 
-		if ( ! isset( $_SESSION[$session_name][ $key ] ) ) {
-			$_SESSION[$session_name][ $key ] = array();
+		if ( ! isset( $_SESSION[ $session_name ][ $key ] ) ) {
+			$_SESSION[ $session_name ][ $key ] = array();
 		}
 
-		$_SESSION[$session_name][ $key ] = $value;
+		$_SESSION[ $session_name ][ $key ] = $value;
 	}
 
 	/**
@@ -292,13 +310,11 @@ final class WP_Session extends Recursive_ArrayAccess {
 				// delete_option( "_wp_session_{$this->session_id}" );
 				update_option( "_wp_session_{$this->session_id}", $this->container, 'no' );
 			}
-		} else {
-			if ( ! $this->get_session_var( $option_key ) ) {
+		} elseif ( ! $this->get_session_var( $option_key ) ) {
 				$this->set_session_var( "_wp_session_{$this->session_id}", $this->container );
 				$this->set_session_var( "_wp_session_expires_{$this->session_id}", $this->expires );
-			} else {
-				$this->set_session_var( "_wp_session_{$this->session_id}", $this->container );
-			}
+		} else {
+			$this->set_session_var( "_wp_session_{$this->session_id}", $this->container );
 		}
 	}
 
@@ -355,7 +371,7 @@ final class WP_Session extends Recursive_ArrayAccess {
 	 * @return bool
 	 */
 	public function session_started() {
-		return ! ! self::$instance;
+		return (bool) self::$instance;
 	}
 
 	/**

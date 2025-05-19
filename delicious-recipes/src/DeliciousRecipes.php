@@ -236,7 +236,7 @@ final class DeliciousRecipes {
 				require plugin_dir_path( __FILE__ ) . '/updater/class-delicious-recipes-edd.php';
 			}
 
-			//Load class to make recipe post type word count compatible with vgwort
+			// Load class to make recipe post type word count compatible with vgwort.
 			include plugin_dir_path( __FILE__ ) . '/classes/class-delicious-recipes-vgwort.php';
 
 			// Load class instances.
@@ -373,5 +373,4 @@ final class DeliciousRecipes {
 				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
 		}
 	}
-
 }

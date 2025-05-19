@@ -94,6 +94,9 @@ function delicious_recipes_get_svg( $svg_name, $group = 'ui', $color = '' ) {
 				'fill-rule' => true,
 				'd'         => true,
 				'transform' => true,
+				'stroke'          => true,
+				'stroke-width'    => true,
+				'stroke-linecap'  => true
 			),
 			'polygon' => array(
 				'fill'      => true,
@@ -151,6 +154,7 @@ function delicious_recipes_get_svg( $svg_name, $group = 'ui', $color = '' ) {
 				'fill'         => true,
 				'stroke'       => true,
 				'stroke-width' => true,
+				'stroke-linecap'  => true,
 				'data-name'    => true,
 			),
 		)
@@ -272,7 +276,7 @@ function delicious_recipes_get_image_sizes( $size = '' ) {
 	$sizes                        = array();
 	$get_intermediate_image_sizes = get_intermediate_image_sizes();
 
-	// Create the full array with sizes and crop info
+	// Create the full array with sizes and crop info.
 	foreach ( $get_intermediate_image_sizes as $_size ) {
 		if ( in_array( $_size, array( 'thumbnail', 'medium', 'medium_large', 'large' ) ) ) {
 			$sizes[ $_size ]['width']  = get_option( $_size . '_size_w' );
@@ -280,13 +284,13 @@ function delicious_recipes_get_image_sizes( $size = '' ) {
 			$sizes[ $_size ]['crop']   = (bool) get_option( $_size . '_crop' );
 		} elseif ( isset( $_wp_additional_image_sizes[ $_size ] ) ) {
 			$sizes[ $_size ] = array(
-				'width'  => $_wp_additional_image_sizes[ $_size ]['width'],
+				'width'  => $_wp_additional_image_sizes[ $_size ]['width'], 
 				'height' => $_wp_additional_image_sizes[ $_size ]['height'],
 				'crop'   => $_wp_additional_image_sizes[ $_size ]['crop'],
 			);
 		}
 	}
-	// Get only 1 size if found
+	// Get only 1 size if found.
 	if ( $size ) {
 		if ( isset( $sizes[ $size ] ) ) {
 			return $sizes[ $size ];

@@ -548,20 +548,22 @@ class Delicious_Recipes_Recipe {
 
 		$seasons = $this->best_seasons();
 
+		// Save the key(s) to meta, not the label(s)
+		update_post_meta( $recipe_id, '_dr_best_season', $best_season );
+
+		// For display, map key(s) to label(s)
 		if ( is_array( $best_season ) && ! empty( $best_season ) ) {
-			$best_season = array_map(
+			$display_season = array_map(
 				function ( $season ) use ( $seasons ) {
 					return isset( $seasons[ $season ] ) ? $seasons[ $season ] : $season;
 				},
 				$best_season
 			);
 		} else {
-			$best_season = isset( $seasons[ $best_season ] ) ? $seasons[ $best_season ] : $best_season;
+			$display_season = isset( $seasons[ $best_season ] ) ? $seasons[ $best_season ] : $best_season;
 		}
 
-		update_post_meta( $recipe_id, '_dr_best_season', $best_season );
-
-		return apply_filters( 'wp_delicious_best_season', $best_season, $recipe_id );
+		return apply_filters( 'wp_delicious_best_season', $display_season, $recipe_id );
 	}
 
 	/**

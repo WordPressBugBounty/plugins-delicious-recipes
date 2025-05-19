@@ -47,20 +47,20 @@ class AjaxFunctions {
 	 * @return void
 	 */
 	private function init_hooks() {
-		// Ajax for adding featured recipe meta
+		// Ajax for adding featured recipe meta.
 		add_action( 'wp_ajax_featured_recipe', array( $this, 'featured_recipe_admin_ajax' ) );
 
-		// Ajax for Recipe Categories Widget
+		// Ajax for Recipe Categories Widget.
 		add_action( 'wp_ajax_dr_recipe_taxonomy_terms', array( $this, 'dr_recipe_taxonomy_terms' ) );
 
-		// Clone Existing Recipes
+		// Clone Existing Recipes.
 		add_action( 'wp_ajax_dr_clone_recipe_data', array( $this, 'dr_clone_recipe_data' ) );
 
-		// Ajax for Recipe Search
+		// Ajax for Recipe Search.
 		add_action( 'wp_ajax_recipe_search_results', array( $this, 'recipe_search_results' ) );
 		add_action( 'wp_ajax_nopriv_recipe_search_results', array( $this, 'recipe_search_results' ) );
 
-		// AJAX for Whats new page changelog query
+		// AJAX for Whats new page changelog query.
 		add_action( 'wp_ajax_dr_get_latest_changelog', array( $this, 'get_latest_changelog' ) );
 
 		// AJAX for ingredient links count in recipe content.
@@ -510,7 +510,7 @@ class AjaxFunctions {
 				'winter'                       => __( 'winter', 'delicious-recipes' ),
 				'summer'                       => __( 'summer', 'delicious-recipes' ),
 				'spring'                       => __( 'spring', 'delicious-recipes' ),
-				'suitable throughout the year' => __( 'suitable throughout the year', 'delicious-recipes' ),
+				'available' => __( 'suitable throughout the year', 'delicious-recipes' ),
 			);
 			$additional_seasons = get_option( 'best_season_option', array() );
 			if ( ! empty( $additional_seasons ) ) {

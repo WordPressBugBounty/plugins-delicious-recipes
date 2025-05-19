@@ -102,7 +102,7 @@ $recipe_paged           = is_front_page() ? get_query_var( 'page', 1 ) : get_que
 						<?php delicious_recipes_get_fallback_svg( 'wpdr-feat-thumb' ); ?>
 					<# } #>
 				</a>
-				<# if ( val.thumbnail && val.enable_pinit ) { #>
+				<# if ( val.thumbnail.length > 0 && val.enable_pinit ) { #>
 					<span class="post-pinit-button">
 						<a data-pin-do="buttonPin" href="https://www.pinterest.com/pin/create/button/?url={{val.permalink}}/&media={{val.thumbnail_url}}&description=So%20delicious!" data-pin-custom="true">
 							<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/pinit-sm.png" alt="pinit">

@@ -2,6 +2,7 @@
 /**
  * Wrapper for WP Session Manager.
  *
+ * @package Delicious_Recipes
  */
 
 // Exit if accessed directly.

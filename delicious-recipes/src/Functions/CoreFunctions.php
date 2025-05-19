@@ -257,9 +257,9 @@ function delicious_recipes_get_template_html( $template_name, $args = array(), $
  * Similar to wp_parse_args() just a bit extended to work with multidimensional arrays.
  *
  * @param array $args (Required) Value to merge with $defaults.
- * @param array $defaults Array that serves as the defaults. Default value: ''
+ * @param array $defaults Array that serves as the defaults.
  *
- * @return void
+ * @return array Merged arguments.
  * @since 1.0.0
  */
 function delicious_recipes_wp_parse_args( &$args, $defaults = '' ) {
@@ -392,9 +392,9 @@ function is_recipe_shortcode() {
 /**
  * Get Recipe data.
  *
- * @param [type] $recipe
+ * @param mixed $recipe - recipe.
  *
- * @return void
+ * @return Delicious_Recipes_Recipe
  */
 function delicious_recipes_get_recipe( $recipe ) {
 	return DEL_RECIPE()->recipe->get_recipe( $recipe );
@@ -445,7 +445,7 @@ function delicious_recipes_enable_pinit_btn() {
 /**
  * WP Delicious get global settings.
  *
- * @return void
+ * @return array Global settings.
  */
 function delicious_recipes_get_global_settings() {
 	$settings = get_option( 'delicious_recipe_settings', array() );
@@ -456,7 +456,6 @@ function delicious_recipes_get_global_settings() {
 			// General fields.
 			'displayRecipesOnHomepage'     => array(),
 			'recipePerPage'                => get_option( 'posts_per_page' ),
-			// 'enableFSEThemeSupport'        => array(),
 			'enableElementorSupport'       => array(),
 
 			// Recipe Details fields.
@@ -1039,129 +1038,129 @@ function delicious_recipes_get_global_settings() {
 /**
  * WP Delicious get global toggles and labels.
  *
- * @return void
+ * @return array Global toggles and labels.
  */
 function delicious_recipes_get_global_toggles_and_labels() {
 	$global_settings = delicious_recipes_get_global_settings();
 
-	// Display recipes on Home Page
+	// Display recipes on Home Page.
 	$display_recipes_on_home_page = isset( $global_settings['displayRecipesOnHomepage']['0'] ) && 'yes' === $global_settings['displayRecipesOnHomepage']['0'] ? true : false;
 
-	// Enable Featured Image in Recipe Single
+	// Enable Featured Image in Recipe Single.
 	$enable_recipe_featured_image = isset( $global_settings['enableRecipeFeaturedImage']['0'] ) && 'yes' === $global_settings['enableRecipeFeaturedImage']['0'] ? true : false;
 
-	// Author Toggles and Labels
+	// Author Toggles and Labels.
 	$enable_author = isset( $global_settings['recipeToggles']['0']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['0']['enable']['0'] ? true : false;
 	$author_lbl    = isset( $global_settings['recipeToggles']['0']['label'] ) && '' != $global_settings['recipeToggles']['0']['label'] ? $global_settings['recipeToggles']['0']['label'] : __( 'Author', 'delicious-recipes' );
 
-	// Category Toggles and Labels
+	// Category Toggles and Labels.
 	$enable_category = isset( $global_settings['recipeToggles']['1']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['1']['enable']['0'] ? true : false;
 	$category_lbl    = isset( $global_settings['recipeToggles']['1']['label'] ) && '' != $global_settings['recipeToggles']['1']['label'] ? $global_settings['recipeToggles']['1']['label'] : __( 'Category', 'delicious-recipes' );
 
-	// Cooking Method Toggles and Labels
+	// Cooking Method Toggles and Labels.
 	$enable_cooking_method = isset( $global_settings['recipeToggles']['2']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['2']['enable']['0'] ? true : false;
 	$cooking_method_lbl    = isset( $global_settings['recipeToggles']['2']['label'] ) && '' != $global_settings['recipeToggles']['2']['label'] ? $global_settings['recipeToggles']['2']['label'] : __( 'Cooking Method', 'delicious-recipes' );
 
-	// Cuisine Toggles and Labels
+	// Cuisine Toggles and Labels.
 	$enable_cuisine = isset( $global_settings['recipeToggles']['3']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['3']['enable']['0'] ? true : false;
 	$cuisine_lbl    = isset( $global_settings['recipeToggles']['3']['label'] ) && '' != $global_settings['recipeToggles']['3']['label'] ? $global_settings['recipeToggles']['3']['label'] : __( 'Cuisine', 'delicious-recipes' );
 
-	// Difficulty Level Toggles and Labels
+	// Difficulty Level Toggles and Labels.
 	$enable_difficulty_level = isset( $global_settings['recipeToggles']['4']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['4']['enable']['0'] ? true : false;
 	$difficulty_level_lbl    = isset( $global_settings['recipeToggles']['4']['label'] ) && '' != $global_settings['recipeToggles']['4']['label'] ? $global_settings['recipeToggles']['4']['label'] : __( 'Difficulty', 'delicious-recipes' );
 
-	// Description Toggles and Labels
+	// Description Toggles and Labels.
 	$enable_description = isset( $global_settings['recipeToggles']['5']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['5']['enable']['0'] ? true : false;
 	$description_lbl    = isset( $global_settings['recipeToggles']['5']['label'] ) && '' != $global_settings['recipeToggles']['5']['label'] ? $global_settings['recipeToggles']['5']['label'] : __( 'Description', 'delicious-recipes' );
 
-	// Prep Time Toggles and Labels
+	// Prep Time Toggles and Labels.
 	$enable_prep_time = isset( $global_settings['recipeToggles']['6']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['6']['enable']['0'] ? true : false;
 	$prep_time_lbl    = isset( $global_settings['recipeToggles']['6']['label'] ) && '' != $global_settings['recipeToggles']['6']['label'] ? $global_settings['recipeToggles']['6']['label'] : __( 'Prep Time', 'delicious-recipes' );
 
-	// Cook Time Toggles and Labels
+	// Cook Time Toggles and Labels.
 	$enable_cook_time = isset( $global_settings['recipeToggles']['7']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['7']['enable']['0'] ? true : false;
 	$cook_time_lbl    = isset( $global_settings['recipeToggles']['7']['label'] ) && '' != $global_settings['recipeToggles']['7']['label'] ? $global_settings['recipeToggles']['7']['label'] : __( 'Cook Time', 'delicious-recipes' );
 
-	// Rest Time Toggles and Labels
+	// Rest Time Toggles and Labels.
 	$enable_rest_time = isset( $global_settings['recipeToggles']['8']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['8']['enable']['0'] ? true : false;
 	$rest_time_lbl    = isset( $global_settings['recipeToggles']['8']['label'] ) && '' != $global_settings['recipeToggles']['8']['label'] ? $global_settings['recipeToggles']['8']['label'] : __( 'Rest Time', 'delicious-recipes' );
 
-	// Total Time Toggles and Labels
+	// Total Time Toggles and Labels.
 	$enable_total_time = isset( $global_settings['recipeToggles']['9']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['9']['enable']['0'] ? true : false;
 	$total_time_lbl    = isset( $global_settings['recipeToggles']['9']['label'] ) && '' != $global_settings['recipeToggles']['9']['label'] ? $global_settings['recipeToggles']['9']['label'] : __( 'Total Time', 'delicious-recipes' );
 
-	// Servings Toggles and Labels
+	// Servings Toggles and Labels.
 	$enable_servings = isset( $global_settings['recipeToggles']['10']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['10']['enable']['0'] ? true : false;
 	$servings_lbl    = isset( $global_settings['recipeToggles']['10']['label'] ) && '' != $global_settings['recipeToggles']['10']['label'] ? $global_settings['recipeToggles']['10']['label'] : __( 'Servings', 'delicious-recipes' );
 
-	// Calories Toggles and Labels
+	// Calories Toggles and Labels.
 	$enable_calories = isset( $global_settings['recipeToggles']['11']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['11']['enable']['0'] ? true : false;
 	$calories_lbl    = isset( $global_settings['recipeToggles']['11']['label'] ) && '' != $global_settings['recipeToggles']['11']['label'] ? $global_settings['recipeToggles']['11']['label'] : __( 'Calories', 'delicious-recipes' );
 
-	// Season Toggles and Labels
+	// Season Toggles and Labels.
 	$enable_seasons = isset( $global_settings['recipeToggles']['12']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['12']['enable']['0'] ? true : false;
 	$seasons_lbl    = isset( $global_settings['recipeToggles']['12']['label'] ) && '' != $global_settings['recipeToggles']['12']['label'] ? $global_settings['recipeToggles']['12']['label'] : __( 'Best Season', 'delicious-recipes' );
 
-	// Recipe Keys Toggles and Labels
+	// Recipe Keys Toggles and Labels.
 	$enable_recipe_keys = isset( $global_settings['recipeToggles']['13']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['13']['enable']['0'] ? true : false;
 	$recipe_keys_lbl    = isset( $global_settings['recipeToggles']['13']['label'] ) && '' != $global_settings['recipeToggles']['13']['label'] ? $global_settings['recipeToggles']['13']['label'] : __( 'Recipe Keys', 'delicious-recipes' );
 
-	// Video Toggles and Labels
+	// Video Toggles and Labels.
 	$enable_video = isset( $global_settings['recipeToggles']['14']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['14']['enable']['0'] ? true : false;
 	$video_lbl    = isset( $global_settings['recipeToggles']['14']['label'] ) && '' != $global_settings['recipeToggles']['14']['label'] ? $global_settings['recipeToggles']['14']['label'] : __( 'Video', 'delicious-recipes' );
 
-	// Jump to Recipe Toggles and Labels
+	// Jump to Recipe Toggles and Labels.
 	$enable_jump_to_recipe = isset( $global_settings['recipeToggles']['15']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['15']['enable']['0'] ? true : false;
 	$jump_to_recipe_lbl    = isset( $global_settings['recipeToggles']['15']['label'] ) && '' != $global_settings['recipeToggles']['15']['label'] ? $global_settings['recipeToggles']['15']['label'] : __( 'Jump To Recipe', 'delicious-recipes' );
 
-	// Keywords Toggles and Labels
+	// Keywords Toggles and Labels.
 	$enable_keywords = isset( $global_settings['recipeToggles']['16']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['16']['enable']['0'] ? true : false;
 	$keywords_lbl    = isset( $global_settings['recipeToggles']['16']['label'] ) && '' != $global_settings['recipeToggles']['16']['label'] ? $global_settings['recipeToggles']['16']['label'] : __( 'Keywords', 'delicious-recipes' );
 
-	// File under Toggles and Labels
+	// File under Toggles and Labels.
 	$enable_file_under = isset( $global_settings['recipeToggles']['17']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['17']['enable']['0'] ? true : false;
 	$file_under_lbl    = isset( $global_settings['recipeToggles']['17']['label'] ) && '' != $global_settings['recipeToggles']['17']['label'] ? $global_settings['recipeToggles']['17']['label'] : __( 'File under', 'delicious-recipes' );
 
-	// Notes Toggles and Labels
+	// Notes Toggles and Labels.
 	$enable_notes = isset( $global_settings['recipeToggles']['18']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['18']['enable']['0'] ? true : false;
 	$notes_lbl    = isset( $global_settings['recipeToggles']['18']['label'] ) && '' != $global_settings['recipeToggles']['18']['label'] ? $global_settings['recipeToggles']['18']['label'] : __( 'Notes', 'delicious-recipes' );
 
-	// Jump to Video Toggles and Labels
+	// Jump to Video Toggles and Labels.
 	$enable_jump_to_video = isset( $global_settings['recipeToggles']['19']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['19']['enable']['0'] ? true : false;
 	$jump_to_video_lbl    = isset( $global_settings['recipeToggles']['19']['label'] ) && '' != $global_settings['recipeToggles']['19']['label'] ? $global_settings['recipeToggles']['19']['label'] : __( 'Jump To Video', 'delicious-recipes' );
 
-	// Mark as complete Toggles and Labels
+	// Mark as complete Toggles and Labels.
 	$enable_mark_as_complete = isset( $global_settings['recipeToggles']['20']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['20']['enable']['0'] ? true : false;
 	$mark_as_complete_lbl    = isset( $global_settings['recipeToggles']['20']['label'] ) && '' != $global_settings['recipeToggles']['20']['label'] ? $global_settings['recipeToggles']['20']['label'] : __( 'Mark as complete', 'delicious-recipes' );
 
-	// Add to Wishlist Toggles and Labels
+	// Add to Wishlist Toggles and Labels.
 	$enable_add_to_wishlist = isset( $global_settings['recipeToggles']['21']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['21']['enable']['0'] ? true : false;
 	$add_to_wishlist_lbl    = isset( $global_settings['recipeToggles']['21']['label'] ) && '' != $global_settings['recipeToggles']['21']['label'] ? $global_settings['recipeToggles']['21']['label'] : __( 'Add to Favorites', 'delicious-recipes' );
 
-	// Cooking Temp
+	// Cooking Temp.
 	$enable_cooking_temp = isset( $global_settings['recipeToggles']['22']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['22']['enable']['0'] ? true : false;
 	$cooking_temp_lbl    = isset( $global_settings['recipeToggles']['22']['label'] ) && '' != $global_settings['recipeToggles']['22']['label'] ? $global_settings['recipeToggles']['22']['label'] : __( 'Cooking Temp', 'delicious-recipes' );
 
-	// Estimated Cost
+	// Estimated Cost.
 	$enable_estimated_cost = isset( $global_settings['recipeToggles']['23']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['23']['enable']['0'] ? true : false;
 	$estimated_cost_lbl    = isset( $global_settings['recipeToggles']['23']['label'] ) && '' != $global_settings['recipeToggles']['23']['label'] ? $global_settings['recipeToggles']['23']['label'] : __( 'Estiamted Cost', 'delicious-recipes' );
 
-	// Estimated Cost
+	// Estimated Cost.
 	$enable_dietary = isset( $global_settings['recipeToggles']['24']['enable']['0'] ) && 'yes' === $global_settings['recipeToggles']['24']['enable']['0'] ? true : false;
 	$dietary_lbl    = isset( $global_settings['recipeToggles']['24']['label'] ) && '' != $global_settings['recipeToggles']['24']['label'] ? $global_settings['recipeToggles']['24']['label'] : __( 'Dietary', 'delicious-recipes' );
 
-	// Social Share Toggle
+	// Social Share Toggle.
 	$enable_social_share = isset( $global_settings['enableSocialShare']['0'] ) && 'yes' === $global_settings['enableSocialShare']['0'] ? true : false;
 
-	// Review Rating Toggles and Labels
+	// Review Rating Toggles and Labels.
 	$enable_ratings = isset( $global_settings['enableRatings']['0'] ) && 'yes' === $global_settings['enableRatings']['0'] ? true : false;
 	$ratings_lbl    = isset( $global_settings['ratingLabel'] ) && '' != $global_settings['ratingLabel'] ? $global_settings['ratingLabel'] : __( 'Rate this recipe', 'delicious-recipes' );
 
-	// Print Recipe Toggles and Labels
+	// Print Recipe Toggles and Labels.
 	$enable_print_recipe = isset( $global_settings['enablePrintRecipeBtn']['0'] ) && 'yes' === $global_settings['enablePrintRecipeBtn']['0'] ? true : false;
 	$print_recipe_lbl    = isset( $global_settings['printRecipeBtnText'] ) && '' != $global_settings['printRecipeBtnText'] ? $global_settings['printRecipeBtnText'] : __( 'Print Recipe', 'delicious-recipes' );
 
-	// Global Toggles
+	// Global Toggles.
 	$enable_navigation                = isset( $global_settings['enableNavigation']['0'] ) && 'yes' === $global_settings['enableNavigation']['0'] ? true : false;
 	$show_updated_date                = isset( $global_settings['enableUpdatedDate']['0'] ) && 'yes' === $global_settings['enableUpdatedDate']['0'] ? true : false;
 	$enable_recipe_author             = isset( $global_settings['enableRecipeAuthor']['0'] ) && 'yes' === $global_settings['enableRecipeAuthor']['0'] ? true : false;
@@ -1171,7 +1170,7 @@ function delicious_recipes_get_global_toggles_and_labels() {
 	$enable_recipe_archive_image_crop = isset( $global_settings['enableRecipeArchiveImageCrop']['0'] ) && 'yes' === $global_settings['enableRecipeArchiveImageCrop']['0'] ? true : false;
 	$enable_pintit                    = isset( $global_settings['enablePinit']['0'] ) && 'yes' === $global_settings['enablePinit']['0'] ? true : false;
 
-	// User Dashboard Toggles
+	// User Dashboard Toggles.
 	$enable_user_registration = isset( $global_settings['enableUserRegistration']['0'] ) && 'yes' === $global_settings['enableUserRegistration']['0'] ? true : false;
 	$generate_username        = isset( $global_settings['generateUsername']['0'] ) && 'yes' === $global_settings['generateUsername']['0'] ? true : false;
 	$generate_password        = isset( $global_settings['generatePassword']['0'] ) && 'yes' === $global_settings['generatePassword']['0'] ? true : false;
@@ -1293,7 +1292,7 @@ function delicious_recipes_get_array_values_by_index( $array, $index = null, $de
 /**
  * Get ingredient units.
  *
- * @return void
+ * @return array Ingredient units.
  */
 function delicious_recipes_get_ingredient_units() {
 	// Use the "delicious_recipes_ingredient_units" filter to add your own measurements.
@@ -1494,6 +1493,13 @@ function delicious_recipes_get_ingredient_units() {
 
 add_filter( 'delicious_recipes_ingredient_units', 'delicious_recipes_get_custom_units' );
 
+/**
+ * Get custom units.
+ *
+ * @param array $measurements - ingredient units.
+ *
+ * @return array Custom units.
+ */
 function delicious_recipes_get_custom_units( $measurements ) {
 	$global_settings = delicious_recipes_get_global_settings();
 	$custom_units    = isset( $global_settings['customUnits'] ) && $global_settings['customUnits'] ? $global_settings['customUnits'] : '';
@@ -1504,13 +1510,13 @@ function delicious_recipes_get_custom_units( $measurements ) {
 			$unit_name = isset( $units['unit'] ) ? $units['unit'] : false;
 			if ( $unit_name ) {
 				$singular                = isset( $units['singular'] ) ? $units['singular'] : false;
-				$singularAbbr            = isset( $units['singularAbbr'] ) ? $units['singularAbbr'] : false;
+				$singular_abbr           = isset( $units['singularAbbr'] ) ? $units['singularAbbr'] : false;
 				$plural                  = isset( $units['plural'] ) ? $units['plural'] : false;
-				$pluralAbbr              = isset( $units['pluralAbbr'] ) ? $units['pluralAbbr'] : false;
-				$variations              = array( $unit_name, $singular, $singularAbbr, $plural, $pluralAbbr );
+				$plural_abbr             = isset( $units['pluralAbbr'] ) ? $units['pluralAbbr'] : false;
+				$variations              = array( $unit_name, $singular, $singular_abbr, $plural, $plural_abbr );
 				$new_units[ $unit_name ] = array(
-					'singular_abbr' => $singularAbbr,
-					'plural_abbr'   => $pluralAbbr,
+					'singular_abbr' => $singular_abbr,
+					'plural_abbr'   => $plural_abbr,
 					'singular'      => $singular,
 					'plural'        => $plural,
 					'variations'    => array_unique( $variations ),
@@ -1527,10 +1533,10 @@ function delicious_recipes_get_custom_units( $measurements ) {
 /**
  * Set option by key.
  *
- * @param [type] $setting_key
- * @param [type] $value
+ * @param string $setting_key - setting key.
+ * @param string $value - value.
  *
- * @return void
+ * @return bool
  */
 function delicious_recipes_set_recipe_setting( $setting_key, $value ) {
 
@@ -1565,7 +1571,7 @@ function delicious_recipes_widget_styles() {
  *
  * @param array $recipe_settings - sanitized values.
  *
- * @return void
+ * @return array Sanitized values.
  */
 function delicious_recipes_sanitize_metas( $recipe_settings ) {
 	if ( ! empty( $recipe_settings ) ) {
@@ -1622,6 +1628,14 @@ function delicious_recipes_sanitize_metas( $recipe_settings ) {
 	return $recipe_settings;
 }
 
+/**
+ * Tax and meta query or relation.
+ *
+ * @param array  $clauses - clauses.
+ * @param object $query - query.
+ *
+ * @return array Clauses.
+ */
 function delicious_recipes_tax_and_meta_query_or_relation( $clauses, $query ) {
 	global $wpdb;
 
@@ -1639,7 +1653,7 @@ function delicious_recipes_tax_and_meta_query_or_relation( $clauses, $query ) {
 	$where_meta_sql = '';
 	$post_status    = " AND {$wpdb->posts}.post_type = 'recipe' AND {$wpdb->posts}.post_status = 'publish' ";
 	$where          = '';
-	// Add your tax_query and meta_query clauses to the WHERE condition
+	// Add your tax_query and meta_query clauses to the WHERE condition.
 	if ( ! empty( $query->tax_query->queries ) ) {
 		$tax_query     = get_tax_sql( $query->get( 'tax_query' ), $wpdb->posts, 'ID' );
 		$where_tax_sql = $tax_query['where'];

@@ -5,7 +5,7 @@ Tags: recipe, food, cooking, chef, ingredients
 Requires at least: 5.1
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.8.3
+Stable tag: 1.8.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,13 +15,13 @@ WP Delicious is an SEO-optimized and Schema-friendly recipe plugin for food blog
 
 WP Delicious is a free WordPress recipe plugin that is flexible and very easy to use. It is a feature-rich plugin that creates and displays recipes from your WordPress Dashboard.
 
-👉 [WP Delicious Pro](https://wpdelicious.com/) is now available.
+👉 [WP Delicious Pro](https://wpdelicious.com/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_to_pro) is now available.
 
 👉 [View Demo](https://demo.wpdelicious.com/delicious-recipes/)
 
 [youtube https://youtu.be/O0ju_F8O_Hc?list=PLy3eE6cAMHCfEJG5URBXH24_JRBwKK4X3]
 
-👉 [Features](https://wpdelicious.com/features/) | [Recipe Themes](https://wpdelicious.com/recipe-wordpress-themes/) | [Documentation](https://wpdelicious.com/docs/) | [Video Tutorials](https://www.youtube.com/playlist?list=PLy3eE6cAMHCfEJG5URBXH24_JRBwKK4X3)
+👉 [Features](https://wpdelicious.com/features/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_to_pro) | [Recipe Themes](https://wpdelicious.com/recipe-wordpress-themes/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) | [Documentation](https://wpdelicious.com/docs/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=documentation) | [Video Tutorials](https://www.youtube.com/playlist?list=PLy3eE6cAMHCfEJG5URBXH24_JRBwKK4X3)
 
 In addition, WP Delicious is SEO optimized and schema-friendly. Therefore, this makes it a lot easier for search engines to rank your recipes higher and social networks to display information about your recipes accordingly.
 
@@ -36,16 +36,16 @@ WP Delicious includes a Recipe Index page that lists all your recipes, making it
 WP Delicious uses the powerful WordPress REST API from WordPress core to create and manage recipes. The user interface is built using advanced WordPress development patterns using React JS and full compatibility with the new Gutenberg Editor.
 
 = Themes Compatible with WP Delicious Plugin =
-* [Yummy Bites](https://wpdelicious.com/wordpress-themes/yummy-bites/) by WP Delicious
-* [Yummy Bites Pro](https://wpdelicious.com/wordpress-themes/yummy-bites-pro/) by WP Delicious
-* [Blossom Recipe](https://blossomthemes.com/wordpress-themes/blossom-recipe/) by Blossom Themes
-* [Blossom Recipe Pro](https://blossomthemes.com/wordpress-themes/blossom-recipe-pro/) by Blossom Themes
-* [Vilva](https://blossomthemes.com/wordpress-themes/vilva/) by Blossom Themes
-* [Vilva Pro](https://blossomthemes.com/wordpress-themes/vilva-pro/) by Blossom Themes
-* [Yummy Recipe](https://blossomthemes.com/wordpress-themes/yummy-recipe/) by Blossom Themes
-* [Cookery](https://blossomthemes.com/wordpress-themes/cookery/) by Blossom Themes
-* [Cookery Lite](https://blossomthemes.com/wordpress-themes/cookery-lite/) by Blossom Themes
-* [Cook Recipe](https://blossomthemes.com/wordpress-themes/cook-recipe/) by Blossom Themes
+* [Yummy Bites](https://wpdelicious.com/wordpress-themes/yummy-bites/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) by WP Delicious
+* [Yummy Bites Pro](https://wpdelicious.com/wordpress-themes/yummy-bites-pro/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) by WP Delicious
+* [Blossom Recipe](https://blossomthemes.com/wordpress-themes/blossom-recipe/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) by Blossom Themes
+* [Blossom Recipe Pro](https://blossomthemes.com/wordpress-themes/blossom-recipe-pro/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) by Blossom Themes
+* [Vilva](https://blossomthemes.com/wordpress-themes/vilva/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) by Blossom Themes
+* [Vilva Pro](https://blossomthemes.com/wordpress-themes/vilva-pro/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) by Blossom Themes
+* [Yummy Recipe](https://blossomthemes.com/wordpress-themes/yummy-recipe/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) by Blossom Themes
+* [Cookery](https://blossomthemes.com/wordpress-themes/cookery/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) by Blossom Themes
+* [Cookery Lite](https://blossomthemes.com/wordpress-themes/cookery-lite/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) by Blossom Themes
+* [Cook Recipe](https://blossomthemes.com/wordpress-themes/cook-recipe/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_theme) by Blossom Themes
 
 == Key Features of WP Delicious ==
 * **_Onboarding Process_** - Upon the activation of the plugin, a detailed walkthrough is given during the onboarding process to customize the essential settings of the plugin quickly.
@@ -136,7 +136,7 @@ These widgets and blocks are all easy to implement onto your website. It also of
 
 * **_Advanced Rating System_** - With the Pro version, your readers can easily rate your recipes or ask questions. It also allows your readers to upload images while leaving the rating.
 
-👉 [Upgrade to WP Delicious Pro](https://wpdelicious.com/pricing/)
+👉 [Upgrade to WP Delicious Pro](https://wpdelicious.com/pricing/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_to_pro)
 
 ### Other Plugin by WP Delicious
 
@@ -144,7 +144,7 @@ These widgets and blocks are all easy to implement onto your website. It also of
 
 [youtube https://youtu.be/0sg7ahbzv8o]
 
-[PixifyAI](https://wpdelicious.com/add-ons/pixifyai/) is an AI-powered tool for generating images specifically for recipes.
+[PixifyAI](https://wpdelicious.com/add-ons/pixifyai/?utm_source=free_plugin&utm_medium=pro_addon&utm_campaign=upgrade_to_pro&utm_id=wporg) is an AI-powered tool for generating images specifically for recipes.
 
 You can create images by providing custom text prompts and adjusting generation parameters or using a simplified keyword-based approach for quicker image creation.
 
@@ -158,7 +158,7 @@ With PixifyAI, you can:
 
 == AI Recipe Assistant ==
 
-[AI Recipe Assistant](https://wpdelicious.com/add-ons/ai-recipe-assistant/) is designed to transform your ideas into detailed and easy-to-follow recipes. This recipe generator uses AI to generate recipes, making it perfect for updating your website with fresh content.
+[AI Recipe Assistant](https://wpdelicious.com/add-ons/ai-recipe-assistant/?utm_source=free_plugin&utm_medium=pro_addon&utm_campaign=upgrade_to_pro&utm_id=wporg) is designed to transform your ideas into detailed and easy-to-follow recipes. This recipe generator uses AI to generate recipes, making it perfect for updating your website with fresh content.
 
 With AI Recipe Assistant, you can:
 
@@ -167,16 +167,67 @@ With AI Recipe Assistant, you can:
 * Publish generated recipes directly onto your website.
 * Generate entire recipes with clear instructions in no time.
 
+== WP Delicious - Meal Planner ==
+
+[youtube https://youtu.be/Ig46V10lh6E]
+
+With the [Meal Planner add-on](https://wpdelicious.com/add-ons/meal-planner/?utm_source=free_plugin&utm_medium=pro_addon&utm_campaign=upgrade_to_pro&utm_id=wporg), you can create and share weekly meal plans from existing recipes and embed them into your posts and pages.
+
+You can offer weekly meal plans with printable shopping lists and detailed nutrition values of each dish. You can embed your meal plans into posts or pages, enhnacing user engagement.
+
+With Meal Planner, you can:
+
+* Create meal plans from your recipes and place them into your recipe content.
+* Add custom meal categories like Breakfast, Lunch, Dinner, etc., and assign start days.
+* Display recipe nutritional values automatically on daily meal plans and individual recipes.
+* Let readers share the meal plan on social media or print the plan’s ingredient shopping list.
+
+== Category Pages - WP Delicious ==
+
+The [Category Pages add-on](https://wpdelicious.com/add-ons/category-pages/?utm_source=free_plugin&utm_medium=pro_addon&utm_campaign=upgrade_to_pro&utm_id=wporg) lets you customize the look of your recipe category, cuisine, and tag pages easily. Add an extra layer of creativity with unique layouts supported by the Delisho plugin.
+
+You can design beautiful, unique pages that match your brand, help readers find recipes faster, and improve SEO.
+With the Category Pages add-on, you can:
+
+With the Category pages add-on, you can:
+
+* Design unique layouts that match your brand and stand out.
+* Choose how your recipes are displayed, from grid to list or even custom formats.
+* Improve your Google rankings with better-structured and indexable category pages.
+
+== Delisho Divi Modules ==
+
+The [Delisho Divi Modules plugin](https://wpdelicious.com/add-ons/delisho-divi-modules/?utm_source=free_plugin&utm_medium=pro_addon&utm_campaign=upgrade_to_pro&utm_id=wporg) integrates WP Delicious with the Divi Builder. Its drag-and-drop builder allows yout to design customizable recipe pages without any coding.
+
+It offers multiple custom modules for the Divi Builder, all designed to give your recipe page the boost it needs.
+
+With Delisho Divi Modules, you can:
+
+* Integrate your website with Divi Builder and access 20+ custom modules.
+* Design unique recipe pages with grids, carousels, tabs, and lists.
+* Use Divi Builder's drag-and-drop interface to arrange and style your recipe content.
+
+== WP Delicious - Social Media Posts Creator ==
+
+The [Social Media Post Creator](https://wpdelicious.com/add-ons/social-media-post-creator/?utm_source=free_plugin&utm_medium=pro_addon&utm_campaign=upgrade_to_pro&utm_id=wporg) add-on allows you to transform your recipes into viral social media posts in seconds. This plugin helps drive site traffic by creating branded posts for platforms like Facebook, Instagram, Pinterest, X (Twitter), and LinkedIn.
+
+With Social Media Post Creator, you can:
+
+* Generate stunning social media posts with one click from existing recipes.
+* Customize colors and fonts to match and strengthen your brand.
+* Generate captions and hashtags optimized to make your posts trend.
+* Download and share your recipes on social media instantly.
+
 ### GET HELP
 
 We have created step-by-step tutorials about using WP Delicious. You will find the answer to most of your questions in the tutorials below.
 
 * [Step by Step Video Tutorials](https://www.youtube.com/playlist?list=PLy3eE6cAMHCfEJG5URBXH24_JRBwKK4X3)
-* [Text Documentation](https://wpdelicious.com/docs/)
+* [Text Documentation](https://wpdelicious.com/docs/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=documentation)
 
-If you cannot find the answer to your questions, we encourage you to contact our support team via [support ticket](https://wpdelicious.com/support-ticket/).
+If you cannot find the answer to your questions, we encourage you to contact our support team via [support ticket](https://wpdelicious.com/support-ticket/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=support).
 
-We also have an active Facebook Community of [WP Delicious](https://www.facebook.com/groups/7571549849552555), where we discuss building and marketing recipe websites. We encourage you to join the community.
+We also have an active Community of [WP Delicious](https://community.wpdelicious.com/), where we discuss building and marketing recipe websites. We encourage you to join the community.
 
 == Installation ==
 

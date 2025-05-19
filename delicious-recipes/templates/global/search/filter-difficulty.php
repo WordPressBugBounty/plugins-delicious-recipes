@@ -3,9 +3,9 @@
  * Filter by Difficulty Levels.
  */
 $difficulty_levels = array(
-	'beginner'     => __( "Beginner", 'delicious-recipes'  ),
-	'intermediate' => __( "Intermediate", 'delicious-recipes'  ),
-	'advanced'     => __( "Advanced", 'delicious-recipes'  ),
+	'beginner'     => __( 'Beginner', 'delicious-recipes' ),
+	'intermediate' => __( 'Intermediate', 'delicious-recipes' ),
+	'advanced'     => __( 'Advanced', 'delicious-recipes' ),
 );
 $show_count        = apply_filters( 'delicious_recipes_search_filters_show_count', true );
 

@@ -1,3 +1,9 @@
+1.8.4: 2025-05-19
+- Fixes: Resolved REST API and session-related issues flagged by the WordPress Site Health Check tool, which were impacting plugin functionality.
+- Fixes: Fixed a compatibility issue with Elementor on the recipe search page caused by caching.
+- Fixes: Addressed an issue where translating the default “Best Seasons” values into other languages disrupted the filter functionality on the recipe search page.
+- Fixes: Replaced the "Surprise Me" Font Awesome icon with an SVG to ensure it displays correctly when Font Awesome is disabled via Performance Settings.
+
 1.8.3: 2025-04-22
 - Updated compatibility for WP version 6.8.
 - Fixes: Fixed an issue where the estimated cost currency symbol on the Print Page was not synced with the global settings.

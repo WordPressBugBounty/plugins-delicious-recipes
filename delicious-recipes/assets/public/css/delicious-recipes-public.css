@@ -4840,8 +4840,9 @@ form.comment-form label[for="rating"] {
 	background-size: 0;
 	background-position: center;
 	position: absolute;
-	top: 5px;
+	top: 50%;
 	left: 0;
+	transform: translateY(-50%);
 	font-weight: normal;
 	text-align: center;
 	line-height: 14px;

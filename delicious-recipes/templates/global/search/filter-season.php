@@ -14,7 +14,7 @@ $seasons            = array(
 	'winter'                       => __( 'Winter', 'delicious-recipes' ),
 	'summer'                       => __( 'Summer', 'delicious-recipes' ),
 	'spring'                       => __( 'Spring', 'delicious-recipes' ),
-	'suitable throughout the year' => __( 'Suitable throughout the year', 'delicious-recipes' ),
+	'available' 				   => __( 'Suitable throughout the year', 'delicious-recipes' ),
 );
 $additional_seasons = get_option( 'best_season_option', array() );
 

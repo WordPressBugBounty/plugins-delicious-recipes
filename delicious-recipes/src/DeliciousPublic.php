@@ -116,9 +116,6 @@ class DeliciousPublic {
 
 		// For preloading featured image.
 		add_action( 'wp_head', array( $this, 'add_preload_featured_image' ) );
-
-		// Add Edamam attribution script.
-		add_action( 'wp_head', array( $this, 'add_edamam_script' ) );
 	}
 
 	/**
@@ -178,7 +175,7 @@ class DeliciousPublic {
 		}
 
 		// Divi Visual Builder is active
-		if (isset($_GET['et_fb']) && $_GET['et_fb'] == '1') {
+		if ( isset( $_GET['et_fb'] ) && $_GET['et_fb'] == '1' ) {
 			return $html;
 		}
 
@@ -300,14 +297,13 @@ class DeliciousPublic {
 				if ( '#dr_surprise_me' === $item->url ) {
 					if ( $options = get_post_meta( $item->ID, '_dr_menu_item', true ) ) {
 						$title = $item->post_title;
-						$icon  = 'fas fa-random';
 						if ( ! $options['show_text_icon'] && $options['show_icon'] ) {
-							$title = sprintf( '<i class="%1$s"></i>', $icon );
+							$title = sprintf( '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 15L21 18M21 18L18 21M21 18H18.5689C17.6297 18 17.1601 18 16.7338 17.8705C16.3564 17.7559 16.0054 17.5681 15.7007 17.3176C15.3565 17.0348 15.096 16.644 14.575 15.8626L14.3333 15.5M18 3L21 6M21 6L18 9M21 6H18.5689C17.6297 6 17.1601 6 16.7338 6.12945C16.3564 6.24406 16.0054 6.43194 15.7007 6.68236C15.3565 6.96523 15.096 7.35597 14.575 8.13744L9.42496 15.8626C8.90398 16.644 8.64349 17.0348 8.29933 17.3176C7.99464 17.5681 7.64357 17.7559 7.2662 17.8705C6.83994 18 6.37033 18 5.43112 18H3M3 6H5.43112C6.37033 6 6.83994 6 7.2662 6.12945C7.64357 6.24406 7.99464 6.43194 8.29933 6.68236C8.64349 6.96523 8.90398 7.35597 9.42496 8.13744L9.66667 8.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' );
 						}
 						if ( $options['show_text_icon'] || ( $options['show_icon'] && $options['show_text'] )
 						|| ( $options['show_text_icon'] && $options['show_icon'] && $options['show_text'] )
 						|| ( $options['show_text_icon'] && $options['show_icon'] ) ) {
-							$title = sprintf( '%1$s<span style="margin-%2$s:0.3em;">%3$s</span>', '<i class="' . $icon . '"></i>', is_rtl() ? 'right' : 'left', esc_html( $title ) );
+							$title = sprintf( '%1$s<span style="margin-%2$s:0.3em;">%3$s</span>', '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 15L21 18M21 18L18 21M21 18H18.5689C17.6297 18 17.1601 18 16.7338 17.8705C16.3564 17.7559 16.0054 17.5681 15.7007 17.3176C15.3565 17.0348 15.096 16.644 14.575 15.8626L14.3333 15.5M18 3L21 6M21 6L18 9M21 6H18.5689C17.6297 6 17.1601 6 16.7338 6.12945C16.3564 6.24406 16.0054 6.43194 15.7007 6.68236C15.3565 6.96523 15.096 7.35597 14.575 8.13744L9.42496 15.8626C8.90398 16.644 8.64349 17.0348 8.29933 17.3176C7.99464 17.5681 7.64357 17.7559 7.2662 17.8705C6.83994 18 6.37033 18 5.43112 18H3M3 6H5.43112C6.37033 6 6.83994 6 7.2662 6.12945C7.64357 6.24406 7.99464 6.43194 8.29933 6.68236C8.64349 6.96523 8.90398 7.35597 9.42496 8.13744L9.66667 8.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>', is_rtl() ? 'right' : 'left', esc_html( $title ) );
 						}
 
 						if ( $options['show_posts'] ) {
@@ -961,14 +957,5 @@ class DeliciousPublic {
 			echo '<script>window.ChicoryConfig = ' . json_encode( $chicory_config ) . ';</script>';
 			echo '<script defer src="https://www.chicoryapp.com/widget_v2/"></script>';
 		}
-	}
-
-	/**
-	 * Add Edamam attribution script to the head tag.
-	 *
-	 * @return void
-	 */
-	public function add_edamam_script() {
-		echo '<script src="https://developer.edamam.com/attribution/badge.js"></script>';
 	}
 }

@@ -28,7 +28,7 @@ get_header( 'recipe' );
 
 	<?php
 	/**
-	 * delicious_recipes_before_main_content hook.
+	 * A hook to run before the main content.
 	 */
 	do_action( 'delicious_recipes_before_main_content' );
 	?>
@@ -44,16 +44,14 @@ get_header( 'recipe' );
 
 	<?php
 	/**
-	 * delicious_recipes_after_main_content hook.
-	 *
-	 * @hooked
+	 * A hook to run after the main content.
 	 */
 	do_action( 'delicious_recipes_after_main_content' );
 	?>
 
 	<?php
 	/**
-	 * delicious_recipes_sidebar hook.
+	 * A hook to run the sidebar.
 	 *
 	 * @hooked delicious_recipes_get_sidebar - 10
 	 */

@@ -315,31 +315,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	// Handle recipe like for logged out users
 	$(document).on("DOMContentLoaded", function () {
-		if (!delicious_recipes.isUserLoggedIn) {
-			var container = $(".dr_like__recipe");
-			var id = container.attr("id").split("-").pop();
-			var unique_user_id = "";
-
-			if (typeof (Storage) !== "undefined") {
-				unique_user_id = localStorage.getItem('delicious_recipes_user_identifier_for_recipe_likes');
-				if (unique_user_id) {
-					//Check if user has liked the recipe
-					$.ajax({
-						type: "post",
-						url: delicious_recipes.ajax_url,
-						data: { action: "delicious_recipes_check_like_for_logged_out_users", id: id, unique_user_id: unique_user_id },
-						beforeSend: function () {
-							container.addClass("loading");
-						},
-						success: function (data) {
-							if (!data.data.can_like) {
-								container.addClass("recipe-liked");
-								container.removeClass("like-recipe");
-							}
-						},
-					}).done(function () {
-						container.removeClass("loading");
-					});
+		if ('' === delicious_recipes.isUserLoggedIn) {
+			// Only run this code if the current page is a recipe page
+			if (window.location.pathname.includes('/recipe/')) {
+				var container = $(".dr_like__recipe");
+				var id = container.attr("id").split("-").pop();
+				var unique_user_id = "";
+				if (typeof (Storage) !== "undefined") {
+					unique_user_id = localStorage.getItem('delicious_recipes_user_identifier_for_recipe_likes');
+					if (unique_user_id) {
+						//Check if user has liked the recipe
+						$.ajax({
+							type: "post",
+							url: delicious_recipes.ajax_url,
+							data: { action: "delicious_recipes_check_like_for_logged_out_users", id: id, unique_user_id: unique_user_id },
+							beforeSend: function () {
+								container.addClass("loading");
+							},
+							success: function (data) {
+								if (!data.data.can_like) {
+									container.addClass("recipe-liked");
+									container.removeClass("like-recipe");
+								}
+							},
+						}).done(function () {
+							container.removeClass("loading");
+						});
+					}
 				}
 			}
 		}

@@ -16,8 +16,8 @@ get_header( 'recipe' );
 		<main id="main" class="site-main">
 			<?php
 				/**
-				* Recipe content template load.
-				*/
+				 * Recipe content template load.
+				 */
 				delicious_recipes_get_template( 'global/searchpage-content.php' );
 			?>
 		</main>

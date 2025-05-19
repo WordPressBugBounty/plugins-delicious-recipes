@@ -1428,18 +1428,19 @@ class DeliciousAdmin {
 					'delicious-recipe-global-settings',
 					'DeliciousRecipes',
 					array(
-						'svgAllowed'         => $global_toggles['svg_allowed'],
-						'proEnabled'         => function_exists( 'DEL_RECIPE_PRO' ),
-						'AIAssistantEnabled' => function_exists( 'WP_DEL_AI_RECIPE_ASSISTANT' ),
-						'AIImageEnabled'     => function_exists( 'PixifyAI' ),
-						'CategoryPages'      => function_exists( 'cpwpd_category_pages' ),
-						'DelishoDiviModule'  => function_exists( 'delisho_divi_modules' ),
-						'MealPlanner'        => function_exists( 'wp_delicious_meal_planner' ),
-						'siteURL'            => esc_url( rtrim( home_url(), '/' ) ),
-						'pluginUrl'          => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
-						'maxUploadSize'      => esc_html( $max_upload_size ),
-						'defaultTemplates'   => $default_templates,
-						'licenseValidity'    => $license_validity_bool,
+						'svgAllowed'              => $global_toggles['svg_allowed'],
+						'proEnabled'              => function_exists( 'DEL_RECIPE_PRO' ),
+						'AIAssistantEnabled'      => function_exists( 'WP_DEL_AI_RECIPE_ASSISTANT' ),
+						'AIImageEnabled'          => function_exists( 'PixifyAI' ),
+						'CategoryPages'           => function_exists( 'cpwpd_category_pages' ),
+						'DelishoDiviModule'       => function_exists( 'delisho_divi_modules' ),
+						'MealPlanner'             => function_exists( 'wp_delicious_meal_planner' ),
+						'SocialMediaPostsCreator' => function_exists( 'social_post_creator' ),
+						'siteURL'                 => esc_url( rtrim( home_url(), '/' ) ),
+						'pluginUrl'               => esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ),
+						'maxUploadSize'           => esc_html( $max_upload_size ),
+						'defaultTemplates'        => $default_templates,
+						'licenseValidity'         => $license_validity_bool,
 					)
 				);
 				wp_enqueue_script( 'delicious-recipe-global-settings' );
@@ -1522,10 +1523,7 @@ class DeliciousAdmin {
 	 * @return void
 	 */
 	function enqueue_block_ed_assets() {
-		// Here you can also check several conditions,
-		// for example if you want to add this link only on CPT  you can
 		$screen = get_current_screen();
-		// and then
 		if ( DELICIOUS_RECIPE_POST_TYPE === $screen->post_type ) {
 			wp_register_script( 'gutenberg-header', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/admin/gutenberg-header.js', array(), '1.0.0', true );
 		}
@@ -1544,9 +1542,9 @@ class DeliciousAdmin {
 	/**
 	 * Customize Admin column.
 	 *
-	 * @param Array $booking_columns List of columns.
+	 * @param Array $recipe_columns List of columns.
 	 *
-	 * @return Array                  [description]
+	 * @return Array                  List of columns.
 	 */
 	public function recipe_columns( $recipe_columns ) {
 		$recipe_columns['featured'] = __( 'Featured', 'delicious-recipes' );

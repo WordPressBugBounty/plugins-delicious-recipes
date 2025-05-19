@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Delicious 1.8.3\n"
+"Project-Id-Version: WP Delicious 1.8.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/delicious-recipes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-04-22T05:07:23+00:00\n"
+"POT-Creation-Date: 2025-05-19T04:28:10+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: delicious-recipes\n"
@@ -19,8 +19,8 @@ msgstr ""
 #: delicious-recipes.php
 #: src/blocks/init.php:134
 #: src/DeliciousAdmin.php:595
-#: src/DeliciousAdmin.php:1767
-#: src/DeliciousAdmin.php:1798
+#: src/DeliciousAdmin.php:1765
+#: src/DeliciousAdmin.php:1796
 #: assets/admin/components/onboarding/startBanner.jsx:26
 #: assets/admin/components/whatsNew/recipeWhatsNew.jsx:162
 #: assets/build/onboard.js:1
@@ -148,8 +148,8 @@ msgstr ""
 
 #: src/admin/partials/dr-import-recipe-screen.php:89
 #: src/admin/partials/dr-import-recipe-screen.php:99
-#: src/Functions/CoreFunctions.php:484
-#: src/Functions/CoreFunctions.php:1055
+#: src/Functions/CoreFunctions.php:483
+#: src/Functions/CoreFunctions.php:1054
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:68
 #: assets/build/global.js:1365
 msgid "Author"
@@ -471,9 +471,9 @@ msgstr ""
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-details.php:229
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-details.php:352
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:402
-#: src/Functions/CoreFunctions.php:516
-#: src/Functions/CoreFunctions.php:939
-#: src/Functions/CoreFunctions.php:1071
+#: src/Functions/CoreFunctions.php:515
+#: src/Functions/CoreFunctions.php:938
+#: src/Functions/CoreFunctions.php:1070
 #: templates/global/block-print.php:75
 #: templates/global/block-print.php:267
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:92
@@ -490,8 +490,8 @@ msgstr ""
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-details.php:230
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-details.php:439
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:403
-#: src/Functions/CoreFunctions.php:580
-#: src/Functions/CoreFunctions.php:1103
+#: src/Functions/CoreFunctions.php:579
+#: src/Functions/CoreFunctions.php:1102
 #: templates/global/block-print.php:76
 #: templates/global/block-print.php:326
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:140
@@ -507,7 +507,7 @@ msgid "Best Season"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-nutrition.php:122
-#: src/Functions/CoreFunctions.php:894
+#: src/Functions/CoreFunctions.php:893
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:379
 #: assets/admin/components/recipe-settings/tabs/recipe-nutrition-facts-flat.jsx:132
 #: assets/admin/components/recipe-settings/tabs/recipe-nutrition-facts.jsx:25
@@ -519,7 +519,7 @@ msgid "Nutrition Facts"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-nutrition.php:159
-#: src/Functions/CoreFunctions.php:897
+#: src/Functions/CoreFunctions.php:896
 #: templates/recipe/recipe-block/nutrition.php:15
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:383
 #: assets/build/global.js:1365
@@ -545,9 +545,9 @@ msgid "% Daily Value *"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:398
-#: src/Functions/CoreFunctions.php:524
-#: src/Functions/CoreFunctions.php:814
-#: src/Functions/CoreFunctions.php:1075
+#: src/Functions/CoreFunctions.php:523
+#: src/Functions/CoreFunctions.php:813
+#: src/Functions/CoreFunctions.php:1074
 #: templates/global/block-print.php:71
 #: templates/global/block-print.php:349
 #: templates/recipe/print-screen.php:361
@@ -564,9 +564,9 @@ msgid "Description"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:399
-#: src/classes/class-delicious-recipes-recipe.php:585
-#: src/Functions/CoreFunctions.php:826
-#: src/Functions/CoreFunctions.php:946
+#: src/classes/class-delicious-recipes-recipe.php:587
+#: src/Functions/CoreFunctions.php:825
+#: src/Functions/CoreFunctions.php:945
 #: templates/global/block-print.php:72
 #: templates/recipe/recipe-block/ingredients.php:11
 #: templates/recipe/recipe-main.php:9
@@ -593,8 +593,8 @@ msgid "Ingredients"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:400
-#: src/classes/class-delicious-recipes-recipe.php:654
-#: src/Functions/CoreFunctions.php:832
+#: src/classes/class-delicious-recipes-recipe.php:656
+#: src/Functions/CoreFunctions.php:831
 #: templates/global/block-print.php:73
 #: templates/recipe/recipe-block/instructions.php:11
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:43
@@ -615,8 +615,8 @@ msgid "Instructions"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:401
-#: src/Functions/CoreFunctions.php:596
-#: src/Functions/CoreFunctions.php:1111
+#: src/Functions/CoreFunctions.php:595
+#: src/Functions/CoreFunctions.php:1110
 #: templates/global/block-print.php:74
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:152
 #: assets/build/global.js:1365
@@ -778,8 +778,8 @@ msgstr ""
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:1894
 #: src/blocks/dynamic-blocks/class-delicious-recipe-buttons.php:135
 #: src/blocks/dynamic-blocks/class-delicious-recipe-buttons.php:213
-#: src/Functions/CoreFunctions.php:793
-#: src/Functions/CoreFunctions.php:1162
+#: src/Functions/CoreFunctions.php:792
+#: src/Functions/CoreFunctions.php:1161
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:312
 #: assets/blocks/common/LayoutOne.js:166
 #: assets/blocks/common/LayoutTwo.js:157
@@ -869,8 +869,8 @@ msgid "Recipe Subscriber"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:511
-#: src/DeliciousAdmin.php:1628
-#: src/Functions/HelperFunctions.php:1182
+#: src/DeliciousAdmin.php:1626
+#: src/Functions/HelperFunctions.php:1186
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:19
 #: assets/admin/contexts/recipe-contexts.jsx:115
 #: assets/build/global.js:1276
@@ -879,8 +879,8 @@ msgid "Recipe Courses"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:515
-#: src/DeliciousAdmin.php:1629
-#: src/Functions/HelperFunctions.php:1184
+#: src/DeliciousAdmin.php:1627
+#: src/Functions/HelperFunctions.php:1188
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:23
 #: assets/admin/contexts/recipe-contexts.jsx:117
 #: assets/build/global.js:1276
@@ -889,8 +889,8 @@ msgid "Recipe Cooking Methods"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:519
-#: src/DeliciousAdmin.php:1630
-#: src/Functions/HelperFunctions.php:1183
+#: src/DeliciousAdmin.php:1628
+#: src/Functions/HelperFunctions.php:1187
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:15
 #: assets/admin/contexts/recipe-contexts.jsx:116
 #: assets/build/global.js:1276
@@ -900,11 +900,11 @@ msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:523
 #: src/DeliciousAdmin.php:987
-#: src/DeliciousAdmin.php:1631
-#: src/Functions/CoreFunctions.php:588
-#: src/Functions/CoreFunctions.php:967
-#: src/Functions/CoreFunctions.php:1107
-#: src/Functions/HelperFunctions.php:1185
+#: src/DeliciousAdmin.php:1629
+#: src/Functions/CoreFunctions.php:587
+#: src/Functions/CoreFunctions.php:966
+#: src/Functions/CoreFunctions.php:1106
+#: src/Functions/HelperFunctions.php:1189
 #: src/widgets/recipe-keys.php:57
 #: src/widgets/recipe-keys.php:94
 #: templates/global/block-print.php:241
@@ -921,9 +921,9 @@ msgid "Recipe Keys"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:527
-#: src/DeliciousAdmin.php:1632
-#: src/Functions/CoreFunctions.php:972
-#: src/Functions/HelperFunctions.php:1186
+#: src/DeliciousAdmin.php:1630
+#: src/Functions/CoreFunctions.php:971
+#: src/Functions/HelperFunctions.php:1190
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:27
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:440
 #: assets/admin/contexts/recipe-contexts.jsx:119
@@ -935,9 +935,9 @@ msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:531
 #: src/DeliciousAdmin.php:1016
-#: src/DeliciousAdmin.php:1633
-#: src/Functions/CoreFunctions.php:977
-#: src/Functions/HelperFunctions.php:1187
+#: src/DeliciousAdmin.php:1631
+#: src/Functions/CoreFunctions.php:976
+#: src/Functions/HelperFunctions.php:1191
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:35
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:445
 #: assets/admin/contexts/recipe-contexts.jsx:120
@@ -948,9 +948,9 @@ msgid "Recipe Badges"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:535
-#: src/DeliciousAdmin.php:1634
-#: src/Functions/CoreFunctions.php:984
-#: src/Functions/HelperFunctions.php:1188
+#: src/DeliciousAdmin.php:1632
+#: src/Functions/CoreFunctions.php:983
+#: src/Functions/HelperFunctions.php:1192
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:450
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:784
 #: assets/build/blocks.js:1211
@@ -1087,23 +1087,23 @@ msgstr ""
 msgid "Suitable throughout the year"
 msgstr ""
 
-#: src/classes/class-delicious-recipes-recipe.php:869
+#: src/classes/class-delicious-recipes-recipe.php:871
 #: templates/recipe/recipe-faqs.php:11
 msgid "Frequently Asked Questions"
 msgstr ""
 
-#: src/classes/class-delicious-recipes-recipe.php:979
+#: src/classes/class-delicious-recipes-recipe.php:981
 msgid "&deg;C"
 msgstr ""
 
-#: src/classes/class-delicious-recipes-recipe.php:980
+#: src/classes/class-delicious-recipes-recipe.php:982
 msgid "&deg;F"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-shortcodes.php:454
 #: src/classes/class-delicious-recipes-shortcodes.php:471
 #: src/DeliciousAdmin.php:618
-#: src/DeliciousAdmin.php:1484
+#: src/DeliciousAdmin.php:1485
 msgid "Surprise Me"
 msgstr ""
 
@@ -1113,14 +1113,14 @@ msgid "What's New"
 msgstr ""
 
 #: src/classes/emails/customer-new-account.php:77
-#: src/Functions/CoreFunctions.php:1027
+#: src/Functions/CoreFunctions.php:1026
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:487
 #: assets/build/global.js:1365
 msgid "Your {site_title} account has been created!"
 msgstr ""
 
 #: src/classes/emails/customer-reset-password.php:76
-#: src/Functions/CoreFunctions.php:1029
+#: src/Functions/CoreFunctions.php:1028
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:489
 #: assets/build/global.js:1365
 msgid "Password Reset Request for {site_title}"
@@ -1351,7 +1351,7 @@ msgid "Get help"
 msgstr ""
 
 #: src/DeliciousAdmin.php:727
-#: src/DeliciousAdmin.php:1818
+#: src/DeliciousAdmin.php:1816
 msgid "Support"
 msgstr ""
 
@@ -1393,7 +1393,7 @@ msgid "Add New"
 msgstr ""
 
 #: src/DeliciousAdmin.php:756
-#: src/DeliciousAdmin.php:1808
+#: src/DeliciousAdmin.php:1806
 msgid "Add New Recipe"
 msgstr ""
 
@@ -1473,7 +1473,7 @@ msgid "New Course Name"
 msgstr ""
 
 #: src/DeliciousAdmin.php:871
-#: src/Functions/CoreFunctions.php:492
+#: src/Functions/CoreFunctions.php:491
 #: templates/global/block-print.php:229
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:74
 #: assets/blocks/recipe-by-tax/BlockInspectorControls.js:60
@@ -1812,34 +1812,34 @@ msgstr ""
 msgid "Recipe Settings"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1537
+#: src/DeliciousAdmin.php:1535
 msgid "Jump to recipe settings"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1552
+#: src/DeliciousAdmin.php:1550
 msgid "Featured"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1675
+#: src/DeliciousAdmin.php:1673
 msgid "Clone"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1681
+#: src/DeliciousAdmin.php:1679
 msgid "Clone "
 msgstr ""
 
 #. translators: %1$s: permalink options page link
-#: src/DeliciousAdmin.php:1698
+#: src/DeliciousAdmin.php:1696
 msgid "<strong>WP Delicious</strong> plugin uses <b>WordPress Core REST API</b> interface for creating and managing recipes and does not support the plain permalink structure. Please <a href=\"%1$s\" >change your permalinks settings</a> to other structure to use WP Delicious plugin."
 msgstr ""
 
-#: src/DeliciousAdmin.php:1741
+#: src/DeliciousAdmin.php:1739
 #: assets/blocks/handpicked-recipes/BlockInspectorControls.js:46
 #: assets/build/blocks.js:1211
 msgid "Recipes"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1813
+#: src/DeliciousAdmin.php:1811
 #: src/GlobalSettings.php:68
 #: src/GlobalSettings.php:69
 #: assets/admin/components/whatsNew/recipeWhatsNew.jsx:190
@@ -1847,12 +1847,12 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1818
-#: src/DeliciousAdmin.php:1830
+#: src/DeliciousAdmin.php:1816
+#: src/DeliciousAdmin.php:1828
 msgid "Opens in new tab"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1830
+#: src/DeliciousAdmin.php:1828
 #: src/updater/class-delicious-recipes-edd.php:49
 #: assets/admin/components/UpgradeToPro.js:48
 #: assets/admin/components/UpgradeToProAlert.jsx:25
@@ -1865,33 +1865,33 @@ msgstr ""
 msgid "Upgrade to Pro"
 msgstr ""
 
-#: src/DeliciousPublic.php:393
+#: src/DeliciousPublic.php:389
 msgid "Select filters"
 msgstr ""
 
-#: src/DeliciousPublic.php:394
+#: src/DeliciousPublic.php:390
 msgid "Click here or Drop new image to update your profile picture"
 msgstr ""
 
-#: src/DeliciousPublic.php:491
+#: src/DeliciousPublic.php:487
 msgid "Leave a Comment"
 msgstr ""
 
 #. translators: %s is username.
-#: src/DeliciousPublic.php:494
+#: src/DeliciousPublic.php:490
 msgid "Leave a Comment to %s"
 msgstr ""
 
-#: src/DeliciousPublic.php:566
+#: src/DeliciousPublic.php:562
 msgid "Please rate the recipe."
 msgstr ""
 
-#: src/DeliciousPublic.php:632
+#: src/DeliciousPublic.php:628
 msgid "Rating"
 msgstr ""
 
-#: src/DeliciousPublic.php:716
-#: src/Functions/CoreFunctions.php:716
+#: src/DeliciousPublic.php:712
+#: src/Functions/CoreFunctions.php:715
 #: assets/admin/components/global-settings/global-tabs/global-recipe-index.jsx:15
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:240
 #: assets/admin/components/global-settings/global-tabs/global-tabs.jsx:50
@@ -1944,9 +1944,9 @@ msgstr ""
 msgid "action_args should not be overwritten when calling delicious_recipes_get_template."
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:500
-#: src/Functions/CoreFunctions.php:932
-#: src/Functions/CoreFunctions.php:1063
+#: src/Functions/CoreFunctions.php:499
+#: src/Functions/CoreFunctions.php:931
+#: src/Functions/CoreFunctions.php:1062
 #: templates/global/block-print.php:205
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:80
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:410
@@ -1956,9 +1956,9 @@ msgstr ""
 msgid "Cooking Method"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:508
-#: src/Functions/CoreFunctions.php:918
-#: src/Functions/CoreFunctions.php:1067
+#: src/Functions/CoreFunctions.php:507
+#: src/Functions/CoreFunctions.php:917
+#: src/Functions/CoreFunctions.php:1066
 #: templates/global/block-print.php:217
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:86
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:400
@@ -1968,8 +1968,8 @@ msgstr ""
 msgid "Cuisine"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:532
-#: src/Functions/CoreFunctions.php:1079
+#: src/Functions/CoreFunctions.php:531
+#: src/Functions/CoreFunctions.php:1078
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:104
 #: assets/admin/contexts/recipe-contexts.jsx:46
 #: assets/blocks/common/LayoutOne.js:177
@@ -1983,8 +1983,8 @@ msgstr ""
 msgid "Prep Time"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:540
-#: src/Functions/CoreFunctions.php:1083
+#: src/Functions/CoreFunctions.php:539
+#: src/Functions/CoreFunctions.php:1082
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:110
 #: assets/admin/contexts/recipe-contexts.jsx:47
 #: assets/blocks/common/LayoutOne.js:188
@@ -1996,8 +1996,8 @@ msgstr ""
 msgid "Cook Time"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:548
-#: src/Functions/CoreFunctions.php:1087
+#: src/Functions/CoreFunctions.php:547
+#: src/Functions/CoreFunctions.php:1086
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:116
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:268
 #: assets/admin/contexts/recipe-contexts.jsx:48
@@ -2011,8 +2011,8 @@ msgstr ""
 msgid "Rest Time"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:556
-#: src/Functions/CoreFunctions.php:1091
+#: src/Functions/CoreFunctions.php:555
+#: src/Functions/CoreFunctions.php:1090
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:122
 #: assets/blocks/common/LayoutOne.js:216
 #: assets/blocks/common/LayoutTwo.js:224
@@ -2024,9 +2024,9 @@ msgstr ""
 msgid "Total Time"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:564
-#: src/Functions/CoreFunctions.php:1095
-#: src/Functions/HelperFunctions.php:529
+#: src/Functions/CoreFunctions.php:563
+#: src/Functions/CoreFunctions.php:1094
+#: src/Functions/HelperFunctions.php:533
 #: templates/recipe/recipe-block/ingredients.php:124
 #: templates/recipe/recipe-block/nutrition-flat.php:117
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:128
@@ -2040,9 +2040,9 @@ msgstr ""
 msgid "Servings"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:572
-#: src/Functions/CoreFunctions.php:1099
-#: src/Functions/HelperFunctions.php:540
+#: src/Functions/CoreFunctions.php:571
+#: src/Functions/CoreFunctions.php:1098
+#: src/Functions/HelperFunctions.php:544
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:134
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:391
 #: assets/admin/contexts/recipe-contexts.jsx:65
@@ -2058,54 +2058,54 @@ msgstr ""
 msgid "Calories"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:604
-#: src/Functions/CoreFunctions.php:1115
+#: src/Functions/CoreFunctions.php:603
+#: src/Functions/CoreFunctions.php:1114
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:158
 #: assets/build/global.js:1365
 msgid "Jump To Recipe"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:612
-#: src/Functions/CoreFunctions.php:1119
+#: src/Functions/CoreFunctions.php:611
+#: src/Functions/CoreFunctions.php:1118
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:164
 #: assets/build/global.js:1365
 msgid "Keywords"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:620
-#: src/Functions/CoreFunctions.php:1123
+#: src/Functions/CoreFunctions.php:619
+#: src/Functions/CoreFunctions.php:1122
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:170
 #: assets/build/global.js:1365
 msgid "File under"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:628
+#: src/Functions/CoreFunctions.php:627
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:176
 #: assets/build/global.js:1365
 msgid "Note"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:636
-#: src/Functions/CoreFunctions.php:1131
+#: src/Functions/CoreFunctions.php:635
+#: src/Functions/CoreFunctions.php:1130
 msgid "Jump To Video"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:644
-#: src/Functions/CoreFunctions.php:1135
+#: src/Functions/CoreFunctions.php:643
+#: src/Functions/CoreFunctions.php:1134
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:188
 #: assets/build/global.js:1365
 msgid "Mark as complete"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:650
-#: src/Functions/CoreFunctions.php:1139
+#: src/Functions/CoreFunctions.php:649
+#: src/Functions/CoreFunctions.php:1138
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:194
 #: assets/build/global.js:1365
 msgid "Add to Favorites"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:658
-#: src/Functions/CoreFunctions.php:1143
+#: src/Functions/CoreFunctions.php:657
+#: src/Functions/CoreFunctions.php:1142
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:200
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:321
 #: assets/blocks/details/block.js:109
@@ -2118,7 +2118,7 @@ msgstr ""
 msgid "Cooking Temp"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:666
+#: src/Functions/CoreFunctions.php:665
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:206
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:354
 #: assets/admin/contexts/recipe-contexts.jsx:52
@@ -2133,42 +2133,42 @@ msgstr ""
 msgid "Estimated Cost"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:674
-#: src/Functions/CoreFunctions.php:1151
+#: src/Functions/CoreFunctions.php:673
+#: src/Functions/CoreFunctions.php:1150
 #: templates/global/block-print.php:254
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:212
 #: assets/build/global.js:1365
 msgid "Dietary"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:718
+#: src/Functions/CoreFunctions.php:717
 #: templates/pages/taxonomy/terms-box.php:10
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:242
 #: assets/build/global.js:1365
 msgid "Narrow Your Search"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:724
+#: src/Functions/CoreFunctions.php:723
 #: templates/recipe/related-recipes.php:16
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:248
 #: assets/build/global.js:1365
 msgid "You may also like..."
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:748
+#: src/Functions/CoreFunctions.php:747
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:273
 #: assets/build/global.js:1365
 msgid "Did you make this recipe?"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:766
-#: src/Functions/CoreFunctions.php:1158
+#: src/Functions/CoreFunctions.php:765
+#: src/Functions/CoreFunctions.php:1157
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:289
 #: assets/build/global.js:1365
 msgid "Rate this recipe"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:802
+#: src/Functions/CoreFunctions.php:801
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:25
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:319
 #: assets/blocks/handpicked-recipes/BlockInspectorControls.js:21
@@ -2180,7 +2180,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:808
+#: src/Functions/CoreFunctions.php:807
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:31
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:323
 #: assets/build/global.js:1275
@@ -2188,7 +2188,7 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:820
+#: src/Functions/CoreFunctions.php:819
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:37
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:331
 #: assets/build/global.js:1275
@@ -2196,7 +2196,7 @@ msgstr ""
 msgid "Images"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:838
+#: src/Functions/CoreFunctions.php:837
 #: assets/admin/components/global-settings/global-tabs/global-nutrition.jsx:899
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:46
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:343
@@ -2208,8 +2208,8 @@ msgstr ""
 msgid "Nutrition"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:844
-#: src/Functions/CoreFunctions.php:1127
+#: src/Functions/CoreFunctions.php:843
+#: src/Functions/CoreFunctions.php:1126
 #: templates/global/block-print.php:77
 #: templates/global/block-print.php:364
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:49
@@ -2230,7 +2230,7 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:850
+#: src/Functions/CoreFunctions.php:849
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:52
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:351
 #: assets/build/global.js:1275
@@ -2238,7 +2238,7 @@ msgstr ""
 msgid "Social Share"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:856
+#: src/Functions/CoreFunctions.php:855
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:55
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:355
 #: assets/build/global.js:1275
@@ -2246,7 +2246,7 @@ msgstr ""
 msgid "Author Bio"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:862
+#: src/Functions/CoreFunctions.php:861
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:58
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:359
 #: assets/build/global.js:1275
@@ -2254,7 +2254,7 @@ msgstr ""
 msgid "Thank You Note"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:868
+#: src/Functions/CoreFunctions.php:867
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:28
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:363
 #: assets/build/global.js:1275
@@ -2262,7 +2262,7 @@ msgstr ""
 msgid "Recipe Content"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:872
+#: src/Functions/CoreFunctions.php:871
 #: assets/admin/components/global-settings/global-tabs/global-print.jsx:61
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:367
 #: assets/admin/components/recipe-settings/tabs/recipe-tabs.jsx:129
@@ -2274,95 +2274,95 @@ msgstr ""
 msgid "Extended Content"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:881
+#: src/Functions/CoreFunctions.php:880
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:372
 #: assets/build/global.js:1365
 msgid "Read it online:"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:911
+#: src/Functions/CoreFunctions.php:910
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:395
 #: assets/build/global.js:1365
 msgid "Season"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:925
+#: src/Functions/CoreFunctions.php:924
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:405
 #: assets/build/global.js:1365
 msgid "Recipe Type"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:953
+#: src/Functions/CoreFunctions.php:952
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:425
 #: assets/build/global.js:1365
 msgid "Simple Factor"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:960
+#: src/Functions/CoreFunctions.php:959
 #: templates/global/search/filter-sorting.php:6
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:430
 #: assets/build/global.js:1365
 msgid "Sorting"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:991
+#: src/Functions/CoreFunctions.php:990
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:455
 #: assets/build/global.js:1365
 msgid "Reset"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1020
+#: src/Functions/CoreFunctions.php:1019
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:480
 #: assets/build/global.js:1365
 msgid "By signing up, you agree to our Terms, Data Policy and Cookies Policy."
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1059
+#: src/Functions/CoreFunctions.php:1058
 msgid "Category"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1147
+#: src/Functions/CoreFunctions.php:1146
 msgid "Estiamted Cost"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1304
+#: src/Functions/CoreFunctions.php:1303
 msgctxt "Grams Abbreviation (Singular)"
 msgid "g"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1305
+#: src/Functions/CoreFunctions.php:1304
 msgctxt "Grams Abbreviation (Plural)"
 msgid "g"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1306
+#: src/Functions/CoreFunctions.php:1305
 msgid "gram"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1307
+#: src/Functions/CoreFunctions.php:1306
 msgid "grams"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1311
+#: src/Functions/CoreFunctions.php:1310
 msgctxt "Kilograms Abbreviation (Singular)"
 msgid "kg"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1312
+#: src/Functions/CoreFunctions.php:1311
 msgctxt "Kilograms Abbreviation (Plural)"
 msgid "kg"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1313
+#: src/Functions/CoreFunctions.php:1312
 msgid "kilogram"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1314
+#: src/Functions/CoreFunctions.php:1313
 msgid "kilograms"
 msgstr ""
 
+#: src/Functions/CoreFunctions.php:1317
 #: src/Functions/CoreFunctions.php:1318
-#: src/Functions/CoreFunctions.php:1319
 #: assets/blocks/nutrition/Nutrition.js:358
 #: assets/blocks/nutrition/Nutrition.js:385
 #: assets/blocks/nutrition/Nutrition.js:408
@@ -2370,501 +2370,501 @@ msgstr ""
 msgid "mg"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1320
+#: src/Functions/CoreFunctions.php:1319
 msgid "milligram"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1321
+#: src/Functions/CoreFunctions.php:1320
 msgid "milligrams"
 msgstr ""
 
+#: src/Functions/CoreFunctions.php:1324
 #: src/Functions/CoreFunctions.php:1325
-#: src/Functions/CoreFunctions.php:1326
 msgid "oz"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1327
+#: src/Functions/CoreFunctions.php:1326
 msgid "ounce"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1328
+#: src/Functions/CoreFunctions.php:1327
 msgid "ounces"
 msgstr ""
 
+#: src/Functions/CoreFunctions.php:1331
 #: src/Functions/CoreFunctions.php:1332
-#: src/Functions/CoreFunctions.php:1333
 msgid "fl oz"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1334
+#: src/Functions/CoreFunctions.php:1333
 msgid "fluid ounce"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1335
+#: src/Functions/CoreFunctions.php:1334
 msgid "fluid ounces"
+msgstr ""
+
+#: src/Functions/CoreFunctions.php:1338
+#: src/Functions/CoreFunctions.php:1340
+msgid "cup"
 msgstr ""
 
 #: src/Functions/CoreFunctions.php:1339
 #: src/Functions/CoreFunctions.php:1341
-msgid "cup"
-msgstr ""
-
-#: src/Functions/CoreFunctions.php:1340
-#: src/Functions/CoreFunctions.php:1342
 msgid "cups"
 msgstr ""
 
+#: src/Functions/CoreFunctions.php:1345
 #: src/Functions/CoreFunctions.php:1346
-#: src/Functions/CoreFunctions.php:1347
 msgid "tsp"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1348
+#: src/Functions/CoreFunctions.php:1347
 msgid "teaspoon"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1349
+#: src/Functions/CoreFunctions.php:1348
 msgid "teaspoons"
 msgstr ""
 
+#: src/Functions/CoreFunctions.php:1352
 #: src/Functions/CoreFunctions.php:1353
-#: src/Functions/CoreFunctions.php:1354
 msgid "tbsp"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1355
+#: src/Functions/CoreFunctions.php:1354
 msgid "tablespoon"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1356
+#: src/Functions/CoreFunctions.php:1355
 msgid "tablespoons"
 msgstr ""
 
+#: src/Functions/CoreFunctions.php:1359
 #: src/Functions/CoreFunctions.php:1360
-#: src/Functions/CoreFunctions.php:1361
 msgid "ml"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1362
+#: src/Functions/CoreFunctions.php:1361
 msgid "milliliter"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1363
+#: src/Functions/CoreFunctions.php:1362
 msgid "milliliters"
 msgstr ""
 
+#: src/Functions/CoreFunctions.php:1376
 #: src/Functions/CoreFunctions.php:1377
-#: src/Functions/CoreFunctions.php:1378
 msgid "l"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1379
+#: src/Functions/CoreFunctions.php:1378
 msgid "liter"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1380
+#: src/Functions/CoreFunctions.php:1379
 msgid "liters"
+msgstr ""
+
+#: src/Functions/CoreFunctions.php:1383
+#: src/Functions/CoreFunctions.php:1385
+msgid "stick"
 msgstr ""
 
 #: src/Functions/CoreFunctions.php:1384
 #: src/Functions/CoreFunctions.php:1386
-msgid "stick"
-msgstr ""
-
-#: src/Functions/CoreFunctions.php:1385
-#: src/Functions/CoreFunctions.php:1387
 msgid "sticks"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1391
+#: src/Functions/CoreFunctions.php:1390
 msgid "lb"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1392
+#: src/Functions/CoreFunctions.php:1391
 msgid "lbs"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1393
+#: src/Functions/CoreFunctions.php:1392
 msgid "pound"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1394
+#: src/Functions/CoreFunctions.php:1393
 msgid "pounds"
+msgstr ""
+
+#: src/Functions/CoreFunctions.php:1397
+#: src/Functions/CoreFunctions.php:1399
+msgid "dash"
 msgstr ""
 
 #: src/Functions/CoreFunctions.php:1398
 #: src/Functions/CoreFunctions.php:1400
-msgid "dash"
+msgid "dashes"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1399
-#: src/Functions/CoreFunctions.php:1401
-msgid "dashes"
+#: src/Functions/CoreFunctions.php:1404
+#: src/Functions/CoreFunctions.php:1406
+msgid "drop"
 msgstr ""
 
 #: src/Functions/CoreFunctions.php:1405
 #: src/Functions/CoreFunctions.php:1407
-msgid "drop"
-msgstr ""
-
-#: src/Functions/CoreFunctions.php:1406
-#: src/Functions/CoreFunctions.php:1408
 msgid "drops"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1412
+#: src/Functions/CoreFunctions.php:1411
 msgid "gal"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1413
+#: src/Functions/CoreFunctions.php:1412
 msgid "gals"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1414
+#: src/Functions/CoreFunctions.php:1413
 msgid "gallon"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1415
+#: src/Functions/CoreFunctions.php:1414
 msgid "gallons"
+msgstr ""
+
+#: src/Functions/CoreFunctions.php:1418
+#: src/Functions/CoreFunctions.php:1420
+msgid "pinch"
 msgstr ""
 
 #: src/Functions/CoreFunctions.php:1419
 #: src/Functions/CoreFunctions.php:1421
-msgid "pinch"
-msgstr ""
-
-#: src/Functions/CoreFunctions.php:1420
-#: src/Functions/CoreFunctions.php:1422
 msgid "pinches"
 msgstr ""
 
+#: src/Functions/CoreFunctions.php:1425
 #: src/Functions/CoreFunctions.php:1426
-#: src/Functions/CoreFunctions.php:1427
 msgid "pt"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1428
+#: src/Functions/CoreFunctions.php:1427
 msgid "pint"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1429
+#: src/Functions/CoreFunctions.php:1428
 msgid "pints"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1433
+#: src/Functions/CoreFunctions.php:1432
 msgid "qt"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1434
+#: src/Functions/CoreFunctions.php:1433
 msgid "qts"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1435
+#: src/Functions/CoreFunctions.php:1434
 msgid "quart"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1436
+#: src/Functions/CoreFunctions.php:1435
 msgid "quarts"
 msgstr ""
 
+#: src/Functions/CoreFunctions.php:1439
 #: src/Functions/CoreFunctions.php:1440
-#: src/Functions/CoreFunctions.php:1441
 msgid "drizzle"
 msgstr ""
 
+#: src/Functions/CoreFunctions.php:1441
 #: src/Functions/CoreFunctions.php:1442
-#: src/Functions/CoreFunctions.php:1443
 msgid "Drizzle"
+msgstr ""
+
+#: src/Functions/CoreFunctions.php:1446
+#: src/Functions/CoreFunctions.php:1448
+msgid "clove"
 msgstr ""
 
 #: src/Functions/CoreFunctions.php:1447
 #: src/Functions/CoreFunctions.php:1449
-msgid "clove"
+msgid "cloves"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1448
-#: src/Functions/CoreFunctions.php:1450
-msgid "cloves"
+#: src/Functions/CoreFunctions.php:1453
+#: src/Functions/CoreFunctions.php:1455
+msgid "jar"
 msgstr ""
 
 #: src/Functions/CoreFunctions.php:1454
 #: src/Functions/CoreFunctions.php:1456
-msgid "jar"
+msgid "jars"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1455
-#: src/Functions/CoreFunctions.php:1457
-msgid "jars"
+#: src/Functions/CoreFunctions.php:1471
+#: src/Functions/CoreFunctions.php:1473
+msgid "can"
 msgstr ""
 
 #: src/Functions/CoreFunctions.php:1472
 #: src/Functions/CoreFunctions.php:1474
-msgid "can"
-msgstr ""
-
-#: src/Functions/CoreFunctions.php:1473
-#: src/Functions/CoreFunctions.php:1475
 msgid "cans"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1555
+#: src/Functions/CoreFunctions.php:1561
 msgid "Style One"
 msgstr ""
 
-#: src/Functions/CoreFunctions.php:1556
+#: src/Functions/CoreFunctions.php:1562
 msgid "Style Two"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:533
+#: src/Functions/HelperFunctions.php:537
 #: templates/recipe/recipe-block/nutrition-flat.php:120
 #: assets/admin/contexts/recipe-contexts.jsx:64
 #: assets/build/import.js:1
 msgid "Serving Size"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:548
+#: src/Functions/HelperFunctions.php:552
 #: assets/admin/contexts/recipe-contexts.jsx:66
 #: assets/build/import.js:1
 msgid "Total Fat"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:554
+#: src/Functions/HelperFunctions.php:558
 #: assets/admin/contexts/recipe-contexts.jsx:67
 #: assets/build/import.js:1
 msgid "Saturated Fat"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:560
+#: src/Functions/HelperFunctions.php:564
 #: assets/admin/contexts/recipe-contexts.jsx:68
 #: assets/build/import.js:1
 msgid "Trans Fat"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:567
+#: src/Functions/HelperFunctions.php:571
 #: assets/admin/contexts/recipe-contexts.jsx:69
 #: assets/build/import.js:1
 msgid "Cholesterol"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:573
+#: src/Functions/HelperFunctions.php:577
 #: assets/admin/contexts/recipe-contexts.jsx:70
 #: assets/build/import.js:1
 msgid "Sodium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:579
+#: src/Functions/HelperFunctions.php:583
 #: assets/admin/contexts/recipe-contexts.jsx:71
 #: assets/build/import.js:1
 msgid "Potassium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:585
+#: src/Functions/HelperFunctions.php:589
 #: assets/admin/contexts/recipe-contexts.jsx:72
 #: assets/build/import.js:1
 msgid "Total Carbohydrate"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:591
+#: src/Functions/HelperFunctions.php:595
 #: assets/admin/contexts/recipe-contexts.jsx:73
 #: assets/build/import.js:1
 msgid "Dietary Fiber"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:597
+#: src/Functions/HelperFunctions.php:601
 #: assets/admin/contexts/recipe-contexts.jsx:74
 #: assets/build/import.js:1
 msgid "Sugars"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:604
+#: src/Functions/HelperFunctions.php:608
 #: templates/recipe/header.php:248
 #: assets/admin/contexts/recipe-contexts.jsx:75
 #: assets/build/import.js:1
 msgid "Protein"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:613
+#: src/Functions/HelperFunctions.php:617
 #: assets/admin/contexts/recipe-contexts.jsx:76
 #: assets/build/import.js:1
 msgid "Vitamin A"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:618
+#: src/Functions/HelperFunctions.php:622
 #: assets/admin/contexts/recipe-contexts.jsx:77
 #: assets/build/import.js:1
 msgid "Vitamin C"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:623
+#: src/Functions/HelperFunctions.php:627
 #: assets/admin/contexts/recipe-contexts.jsx:83
 #: assets/build/import.js:1
 msgid "Calcium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:628
+#: src/Functions/HelperFunctions.php:632
 #: assets/admin/contexts/recipe-contexts.jsx:84
 #: assets/build/import.js:1
 msgid "Iron"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:633
+#: src/Functions/HelperFunctions.php:637
 #: assets/admin/contexts/recipe-contexts.jsx:78
 #: assets/build/import.js:1
 msgid "Vitamin D"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:638
+#: src/Functions/HelperFunctions.php:642
 #: assets/admin/contexts/recipe-contexts.jsx:79
 #: assets/build/import.js:1
 msgid "Vitamin E"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:643
+#: src/Functions/HelperFunctions.php:647
 #: assets/admin/contexts/recipe-contexts.jsx:80
 #: assets/build/import.js:1
 msgid "Vitamin K"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:648
+#: src/Functions/HelperFunctions.php:652
 #: assets/admin/contexts/recipe-contexts.jsx:85
 #: assets/build/import.js:1
 msgid "Thiamin"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:653
+#: src/Functions/HelperFunctions.php:657
 #: assets/admin/contexts/recipe-contexts.jsx:86
 #: assets/build/import.js:1
 msgid "Riboflavin"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:658
+#: src/Functions/HelperFunctions.php:662
 #: assets/admin/contexts/recipe-contexts.jsx:87
 #: assets/build/import.js:1
 msgid "Niacin"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:663
+#: src/Functions/HelperFunctions.php:667
 #: assets/admin/contexts/recipe-contexts.jsx:81
 #: assets/build/import.js:1
 msgid "Vitamin B6"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:668
+#: src/Functions/HelperFunctions.php:672
 #: assets/admin/contexts/recipe-contexts.jsx:88
 #: assets/build/import.js:1
 msgid "Folate"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:673
+#: src/Functions/HelperFunctions.php:677
 #: assets/admin/contexts/recipe-contexts.jsx:82
 #: assets/build/import.js:1
 msgid "Vitamin B12"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:678
+#: src/Functions/HelperFunctions.php:682
 #: assets/admin/contexts/recipe-contexts.jsx:89
 #: assets/build/import.js:1
 msgid "Biotin"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:683
+#: src/Functions/HelperFunctions.php:687
 #: assets/admin/contexts/recipe-contexts.jsx:90
 #: assets/build/import.js:1
 msgid "Pantothenic Acid"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:688
+#: src/Functions/HelperFunctions.php:692
 #: assets/admin/contexts/recipe-contexts.jsx:91
 #: assets/build/import.js:1
 msgid "Phosphorus"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:693
+#: src/Functions/HelperFunctions.php:697
 #: assets/admin/contexts/recipe-contexts.jsx:92
 #: assets/build/import.js:1
 msgid "Iodine"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:698
+#: src/Functions/HelperFunctions.php:702
 #: assets/admin/contexts/recipe-contexts.jsx:93
 #: assets/build/import.js:1
 msgid "Magnesium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:703
+#: src/Functions/HelperFunctions.php:707
 #: assets/admin/contexts/recipe-contexts.jsx:94
 #: assets/build/import.js:1
 msgid "Zinc"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:708
+#: src/Functions/HelperFunctions.php:712
 #: assets/admin/contexts/recipe-contexts.jsx:95
 #: assets/build/import.js:1
 msgid "Selenium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:713
+#: src/Functions/HelperFunctions.php:717
 #: assets/admin/contexts/recipe-contexts.jsx:96
 #: assets/build/import.js:1
 msgid "Copper"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:718
+#: src/Functions/HelperFunctions.php:722
 #: assets/admin/contexts/recipe-contexts.jsx:97
 #: assets/build/import.js:1
 msgid "Manganese"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:723
+#: src/Functions/HelperFunctions.php:727
 #: assets/admin/contexts/recipe-contexts.jsx:98
 #: assets/build/import.js:1
 msgid "Chromium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:728
+#: src/Functions/HelperFunctions.php:732
 #: assets/admin/contexts/recipe-contexts.jsx:99
 #: assets/build/import.js:1
 msgid "Molybdenum"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:733
+#: src/Functions/HelperFunctions.php:737
 #: assets/admin/contexts/recipe-contexts.jsx:100
 #: assets/build/import.js:1
 msgid "Chloride"
 msgstr ""
 
 #. translators: %s: comment author link
-#: src/Functions/HelperFunctions.php:872
+#: src/Functions/HelperFunctions.php:876
 msgid "<b class=\"fn\" itemprop=\"creator\" itemscope itemtype=\"https://schema.org/Person\">%s</b> <span class=\"says\">says:</span>"
 msgstr ""
 
 #. translators: %1$s: comment date %2$s: comment time
-#: src/Functions/HelperFunctions.php:880
+#: src/Functions/HelperFunctions.php:884
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:886
+#: src/Functions/HelperFunctions.php:890
 msgid "Your comment is awaiting moderation."
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:1218
+#: src/Functions/HelperFunctions.php:1222
 msgid "Displays icon"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:1222
+#: src/Functions/HelperFunctions.php:1226
 msgid "Displays text"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:1226
+#: src/Functions/HelperFunctions.php:1230
 msgid "Displays text & icon"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:1230
+#: src/Functions/HelperFunctions.php:1234
 msgid "Randomize posts"
 msgstr ""
 
 #. translators: %s: time in minutes
-#: src/Functions/HelperFunctions.php:1281
+#: src/Functions/HelperFunctions.php:1285
 msgctxt "recipe time minutes"
 msgid "%s min"
 msgid_plural "%s mins"
@@ -2872,7 +2872,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: time in hours
-#: src/Functions/HelperFunctions.php:1285
+#: src/Functions/HelperFunctions.php:1289
 msgctxt "recipe time hours"
 msgid "%s hr"
 msgid_plural "%s hrs"
@@ -3574,12 +3574,13 @@ msgid "making your content stand out effortlessly. "
 msgstr ""
 
 #: assets/@components/components/WriteWithAIPromotion.jsx:46
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:73
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:96
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:119
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:164
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:195
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:225
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:77
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:89
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:101
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:113
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:125
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:137
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:149
 #: assets/admin/promotion-buttons.jsx:116
 #: assets/build/Components.js:1211
 #: assets/build/global.js:1322
@@ -3659,7 +3660,7 @@ msgid "Affiliate Link Indicator feature is available in Pro version."
 msgstr ""
 
 #: assets/admin/components/global-settings/global-tabs/global-ai-recipe-assistant.jsx:12
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:92
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:85
 #: assets/admin/components/global-settings/global-tabs/global-tabs.jsx:157
 #: assets/build/global.js:1277
 #: assets/build/global.js:1322
@@ -4267,73 +4268,83 @@ msgstr ""
 msgid "Inline Related Recipes Posts feature is available in Pro version."
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:23
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:34
 #: assets/admin/components/global-settings/global-tabs/global-tabs.jsx:208
 #: assets/build/global.js:1322
 #: assets/build/global.js:1365
 msgid "License"
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:27
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:38
 #: assets/build/global.js:1322
 msgid "You don't have any Pro plugin activated."
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:69
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:73
 #: assets/admin/components/whatsNew/recipeWhatsNew.jsx:168
 #: assets/build/global.js:1322
 #: assets/build/whatsNew.js:7
 msgid "WP Delicious Pro"
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:70
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:74
 #: assets/build/global.js:1322
 msgid "The ultimate recipe plugin, offering advanced features for food bloggers and recipe creators."
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:93
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:86
 #: assets/build/global.js:1322
 msgid "Create and customize perfect recipes seamlessly with recipe content generated by AI using keywords that you enter."
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:115
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:97
 #: assets/build/global.js:1322
 msgid "PixifyAI - AI Image Generator"
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:116
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:98
 #: assets/build/global.js:1322
 msgid "Automate recipe image creation with customized, ai-generated pictures of recipes for your website."
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:160
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:109
 #: assets/build/global.js:1322
 msgid "Category Pages"
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:161
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:110
 #: assets/build/global.js:1322
 msgid "Create stunning, custom category pages that engage visitors and boost SEO with WP Delicious Category Page Add-On."
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:191
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:121
 #: assets/build/global.js:1322
 msgid "Delisho Divi Modules"
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:192
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:122
 #: assets/build/global.js:1322
 msgid "Create and customize visually stunning recipe pages and layouts with Delisho Divi Modules for Divi Builder."
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:221
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:133
 #: assets/build/global.js:1322
 msgid "WP Delicious - Meal Planner"
 msgstr ""
 
-#: assets/admin/components/global-settings/global-tabs/global-license.jsx:222
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:134
 #: assets/build/global.js:1322
 msgid "Create and customize your meal plans with the WP Delicious - Meal Planner Add-On."
+msgstr ""
+
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:145
+#: assets/build/global.js:1322
+msgid "Social Media Posts Creator"
+msgstr ""
+
+#: assets/admin/components/global-settings/global-tabs/global-license.jsx:146
+#: assets/build/global.js:1322
+msgid "Create stunning social media posts from your recipes automatically with customizable templates and designs."
 msgstr ""
 
 #: assets/admin/components/global-settings/global-tabs/global-meal-planner.jsx:12
@@ -7970,16 +7981,16 @@ msgid "recipecard"
 msgstr ""
 
 #: assets/build/publicJS.js:1
-#: assets/public/js/delicious-recipes-public.js:958
+#: assets/public/js/delicious-recipes-public.js:960
 msgid "reCAPTCHA verification failed. Please try again.."
 msgstr ""
 
 #: assets/build/publicJS.js:1
-#: assets/public/js/delicious-recipes-public.js:962
+#: assets/public/js/delicious-recipes-public.js:964
 msgid "Error validating reCAPTCHA. Please try again."
 msgstr ""
 
 #: assets/build/publicJS.js:1
-#: assets/public/js/delicious-recipes-public.js:973
+#: assets/public/js/delicious-recipes-public.js:975
 msgid "Please verify that you are not a robot."
 msgstr ""

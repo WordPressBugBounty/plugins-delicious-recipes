@@ -451,9 +451,9 @@ class Delicious_Recipes_Shortcodes {
 
 		$atts = shortcode_atts(
 			array(
-				'title'       => __( "Surprise Me", 'delicious-recipes'  ),
+				'title'       => __( 'Surprise Me', 'delicious-recipes' ),
 				'enable_icon' => true,
-				'icon'        => 'fas fa-random',
+				'icon'        => '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 15L21 18M21 18L18 21M21 18H18.5689C17.6297 18 17.1601 18 16.7338 17.8705C16.3564 17.7559 16.0054 17.5681 15.7007 17.3176C15.3565 17.0348 15.096 16.644 14.575 15.8626L14.3333 15.5M18 3L21 6M21 6L18 9M21 6H18.5689C17.6297 6 17.1601 6 16.7338 6.12945C16.3564 6.24406 16.0054 6.43194 15.7007 6.68236C15.3565 6.96523 15.096 7.35597 14.575 8.13744L9.42496 15.8626C8.90398 16.644 8.64349 17.0348 8.29933 17.3176C7.99464 17.5681 7.64357 17.7559 7.2662 17.8705C6.83994 18 6.37033 18 5.43112 18H3M3 6H5.43112C6.37033 6 6.83994 6 7.2662 6.12945C7.64357 6.24406 7.99464 6.43194 8.29933 6.68236C8.64349 6.96523 8.90398 7.35597 9.42496 8.13744L9.66667 8.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 			),
 			$atts,
 			'dr_surprise_me'
@@ -468,7 +468,7 @@ class Delicious_Recipes_Shortcodes {
 			return '';
 		}
 
-		$title = isset( $atts['title'] ) && '' !== $atts['title'] ? $atts['title'] : __( "Surprise Me", 'delicious-recipes'  );
+		$title = isset( $atts['title'] ) && '' !== $atts['title'] ? $atts['title'] : __( 'Surprise Me', 'delicious-recipes' );
 		$icon  = isset( $atts['enable_icon'] ) && ( 1 === $atts['enable_icon'] || 'true' === $atts['enable_icon'] )
 		&& isset( $atts['icon'] ) && '' !== $atts['icon'] ? $atts['icon'] : '';
 
@@ -539,8 +539,7 @@ class Delicious_Recipes_Shortcodes {
 	 * @param array $atts Attributes.
 	 * @return string
 	 */
-	public static function recipe_archives($atts)
-	{
+	public static function recipe_archives( $atts ) {
 
 		$atts = shortcode_atts(
 			array(
@@ -560,46 +559,46 @@ class Delicious_Recipes_Shortcodes {
 		}
 
 		// If REST_REQUEST is defined (by WordPress) and is a TRUE, then it's a REST API request.
-		$is_rest_route = (defined('REST_REQUEST') && REST_REQUEST);
+		$is_rest_route = ( defined( 'REST_REQUEST' ) && REST_REQUEST );
 		if (
-			(is_admin() && !$is_rest_route) || // admin and AJAX (via admin-ajax.php) requests
-			(!is_admin() && $is_rest_route)    // REST requests only
+			( is_admin() && ! $is_rest_route ) || // admin and AJAX (via admin-ajax.php) requests
+			( ! is_admin() && $is_rest_route )    // REST requests only
 		) {
 			return '';
 		}
-		
-		$carousel = (isset($atts['carousel']) && 'true' == $atts['carousel']) ? true : false;
-		$layout   = $carousel ? 'grid' : (isset($atts['layout']) && 'list' === $atts['layout'] ? 'list' : 'grid');
-		$classes  = $carousel ? array('dr-recipe-archive', 'splide') : array('dr-archive-list-gridwrap', $layout);
-		$classes  = implode(' ', $classes);
 
-		$cat = get_theme_mod('exclude_categories');
-		if ($cat) {
-			$cat = array_diff(array_unique($cat), array(''));
+		$carousel = ( isset( $atts['carousel'] ) && 'true' == $atts['carousel'] ) ? true : false;
+		$layout   = $carousel ? 'grid' : ( isset( $atts['layout'] ) && 'list' === $atts['layout'] ? 'list' : 'grid' );
+		$classes  = $carousel ? array( 'dr-recipe-archive', 'splide' ) : array( 'dr-archive-list-gridwrap', $layout );
+		$classes  = implode( ' ', $classes );
+
+		$cat = get_theme_mod( 'exclude_categories' );
+		if ( $cat ) {
+			$cat = array_diff( array_unique( $cat ), array( '' ) );
 		}
 
 		$args = array(
 			'post_type'           => DELICIOUS_RECIPE_POST_TYPE,
 			'post_status'         => 'publish',
-			'posts_per_page'      => absint($atts['num_posts']),
+			'posts_per_page'      => absint( $atts['num_posts'] ),
 			'ignore_sticky_posts' => true,
 			'category__not_in'    => $cat,
 		);
 
-		$taxonomy = isset($atts['taxonomy']) && '' != $atts['taxonomy'] ? $atts['taxonomy'] : false;
-		$terms    = isset($atts['terms']) && '' != $atts['terms'] ? $atts['terms'] : false;
+		$taxonomy = isset( $atts['taxonomy'] ) && '' != $atts['taxonomy'] ? $atts['taxonomy'] : false;
+		$terms    = isset( $atts['terms'] ) && '' != $atts['terms'] ? $atts['terms'] : false;
 
-		if ($taxonomy && $terms) {
-			$terms = explode(',', $terms);
+		if ( $taxonomy && $terms ) {
+			$terms = explode( ',', $terms );
 			$terms = array_map(
-				function ($term) use ($taxonomy) {
-					$term = is_numeric($term) ? get_term_by('id', $term, $taxonomy) : get_term_by('slug', $term, $taxonomy);
+				function ( $term ) use ( $taxonomy ) {
+					$term = is_numeric( $term ) ? get_term_by( 'id', $term, $taxonomy ) : get_term_by( 'slug', $term, $taxonomy );
 					return $term ? $term->term_id : false;
 				},
 				$terms
 			);
 
-			if ($terms) {
+			if ( $terms ) {
 				$args['tax_query'] = array(
 					array(
 						'taxonomy' => $taxonomy,
@@ -609,37 +608,38 @@ class Delicious_Recipes_Shortcodes {
 			} else {
 				$args['taxonomy'] = $taxonomy;
 			}
-		} elseif ($taxonomy) {
+		} elseif ( $taxonomy ) {
 			$args['taxonomy'] = $taxonomy;
 		}
 
-		$recipes = new WP_Query($args);
+		$recipes = new WP_Query( $args );
 
 		ob_start();
 
-		wp_enqueue_script('delicious-recipes-single');
+		wp_enqueue_script( 'delicious-recipes-single' );
 
-		echo '<div class="' . esc_attr($classes) . '">';
+		echo '<div class="' . esc_attr( $classes ) . '">';
 
-		if ($carousel) {
+		if ( $carousel ) {
 			// Splide Carousel Structure
 			echo '<div class="dr-recipe-archive__track splide__track">';
 			echo '<ul class="dr-recipe-archive__list splide__list">';
-			while ($recipes->have_posts()) : $recipes->the_post();
+			while ( $recipes->have_posts() ) :
+				$recipes->the_post();
 				echo '<li class="dr-recipe-archive__slide splide__slide">';
 				$data = array(
-					'tax_page' => true
+					'tax_page' => true,
 				);
-				delicious_recipes_get_template('recipes-grid.php', $data);
+				delicious_recipes_get_template( 'recipes-grid.php', $data );
 				echo '</li>';
 			endwhile;
 			wp_reset_postdata();
 			echo '</ul></div>';
 		} else {
 			// Non-Carousel Structure
-			while ($recipes->have_posts()) {
+			while ( $recipes->have_posts() ) {
 				$recipes->the_post();
-				delicious_recipes_get_template_part('recipes', $layout);
+				delicious_recipes_get_template_part( 'recipes', $layout );
 			}
 			wp_reset_postdata();
 
