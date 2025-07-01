@@ -19,27 +19,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if( $taxonomy != '' && is_array( $recipe_keys ) && ! empty( $recipe_keys ) ) {
-    
-    echo '<ul>';
-    foreach( $recipe_keys as $key ) {
-        $recipe_key_metas = get_term_meta( $key->term_id, 'dr_taxonomy_metas', true );
-        $key_svg          = isset( $recipe_key_metas['taxonomy_svg'] ) ? $recipe_key_metas['taxonomy_svg'] : '';
+if ( '' !== $taxonomy && is_array( $recipe_keys ) && ! empty( $recipe_keys ) ) {
 
-        ?>
-        <li>
-            <a href="<?php echo esc_url( get_term_link( $key->term_id ) ); ?>">
-                <span class="dr-svg-icon">
-                    <?php delicious_recipes_get_tax_icon( $key ); ?>
-                </span>
-                <span class="dr-icon-title">
-                    <?php echo esc_html( $key->name ); ?>
-                </span>
-            </a>
-        </li>
-        <?php
-    }
-    echo '</ul>';
+	echo '<ul>';
+	foreach ( $recipe_keys as $key ) {
+		$recipe_key_metas = get_term_meta( $key->term_id, 'dr_taxonomy_metas', true );
+		$key_svg          = isset( $recipe_key_metas['taxonomy_svg'] ) ? $recipe_key_metas['taxonomy_svg'] : '';
+
+		?>
+		<li>
+			<a href="<?php echo esc_url( get_term_link( $key->term_id ) ); ?>">
+				<span class="dr-svg-icon">
+					<?php delicious_recipes_get_tax_icon( $key ); ?>
+				</span>
+				<span class="dr-icon-title">
+					<?php echo esc_html( $key->name ); ?>
+				</span>
+			</a>
+		</li>
+		<?php
+	}
+	echo '</ul>';
 }
 
 /* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

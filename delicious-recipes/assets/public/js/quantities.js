@@ -8,47 +8,47 @@ const fractionSymbolsMap = {
 	'\u215D': '5/8', '\u215E': '7/8'
 };
 
-export function formatQuantity( quantity, decimals = 2, allowFractions = false ) {
+export function formatQuantity(quantity, decimals = 2, allowFractions = false) {
 	let formattedQuantity = quantity;
 	let displayAsFraction = false;
 
 	// Check if fractions are enabled.
-	if ( allowFractions ) {
+	if (allowFractions) {
 		const fractionsEnabled = false;
 
-		if ( fractionsEnabled ) {
+		if (fractionsEnabled) {
 			const useMixed = true;
 			const useSymbols = true;
 			let maxDenominator = 8;
-			
-			const fractionParts = frac( quantity, maxDenominator, useMixed );
 
-			if ( fractionParts && 3 === fractionParts.length && ! isNaN( fractionParts[0] ) && ! isNaN( fractionParts[1] ) && ! isNaN( fractionParts[2] ) ) {
+			const fractionParts = frac(quantity, maxDenominator, useMixed);
+
+			if (fractionParts && 3 === fractionParts.length && !isNaN(fractionParts[0]) && !isNaN(fractionParts[1]) && !isNaN(fractionParts[2])) {
 				let formattedFraction = '';
 
-				if ( 0 < fractionParts[0] ) {
+				if (0 < fractionParts[0]) {
 					formattedFraction += `${fractionParts[0]} `;
 				}
 
-				if ( 0 < fractionParts[1] ) {
-					if ( 0 < fractionParts[2] ) {
+				if (0 < fractionParts[1]) {
+					if (0 < fractionParts[2]) {
 						formattedFraction += 1 === fractionParts[2] ? fractionParts[1] : `${fractionParts[1]}/${fractionParts[2]}`;
 					}
 				} else {
 					// End result should not be 0.
-					if ( 0 === fractionParts[0] ) {
+					if (0 === fractionParts[0]) {
 						formattedFraction += `1/${maxDenominator}`;
 					}
 				}
 
-				if ( formattedFraction ) {
-					if ( useSymbols ) {
+				if (formattedFraction) {
+					if (useSymbols) {
 						formattedFraction = ' ' + formattedFraction + ' ';
 
-						for ( let symbol of Object.keys( fractionSymbolsMap ) ) {
-							const fraction = fractionSymbolsMap[ symbol ];
+						for (let symbol of Object.keys(fractionSymbolsMap)) {
+							const fraction = fractionSymbolsMap[symbol];
 
-							formattedFraction = formattedFraction.replace( ` ${fraction} `, ` ${symbol} ` );
+							formattedFraction = formattedFraction.replace(` ${fraction} `, ` ${symbol} `);
 						}
 					}
 
@@ -60,12 +60,12 @@ export function formatQuantity( quantity, decimals = 2, allowFractions = false )
 	}
 
 	// Not using fractions, round to x decimals.
-	if ( ! displayAsFraction ) {
+	if (!displayAsFraction) {
 		decimals = parseInt(decimals);
 		formattedQuantity = parseFloat(parseFloat(quantity).toFixed(decimals));
 
-		if ( 0.0 == formattedQuantity ) {
-			formattedQuantity += Math.pow( 10, -1 * decimals );
+		if (0.0 == formattedQuantity) {
+			formattedQuantity += Math.pow(10, -1 * decimals);
 		}
 
 		// Make string again.
@@ -74,7 +74,7 @@ export function formatQuantity( quantity, decimals = 2, allowFractions = false )
 		// Optionally use comma as decimal separator (point is default).
 		const decimalSeparator = 'point';
 
-		if ( 'comma' === decimalSeparator ) {
+		if ('comma' === decimalSeparator) {
 			formattedQuantity = formattedQuantity.replace('.', ',');
 		}
 	}
@@ -85,7 +85,7 @@ export function formatQuantity( quantity, decimals = 2, allowFractions = false )
 export function parseQuantity(sQuantity) {
 	// Replace ⁄ by /
 	sQuantity = sQuantity.replace('⁄', '/');
-	
+
 	// Make sure sQuantity is a string.
 	sQuantity = '' + sQuantity;
 
@@ -97,18 +97,18 @@ export function parseQuantity(sQuantity) {
 
 	// Replace fraction characters with equivalent
 	var fractionsRegex = /(\u00BC|\u00BD|\u00BE|\u2150|\u2151|\u2152|\u2153|\u2154|\u2155|\u2156|\u2157|\u2158|\u2159|\u215A|\u215B|\u215C|\u215D|\u215E)/;
-	sQuantity = (sQuantity + '').replace(fractionsRegex, function(m, vf) {
+	sQuantity = (sQuantity + '').replace(fractionsRegex, function (m, vf) {
 		return ' ' + fractionSymbolsMap[vf];
 	});
 
 	// Strip HTML tags.
-	sQuantity = sQuantity.replace( /(<([^>]+)>)/ig, '' );
+	sQuantity = sQuantity.replace(/(<([^>]+)>)/ig, '');
 
 	// Strip shortcodes.
-	sQuantity = sQuantity.replace( /(\[([^\]]+)\])/ig, '' );
+	sQuantity = sQuantity.replace(/(\[([^\]]+)\])/ig, '');
 
 	// Replace leftover characters we're not expecting by spaces.
-	sQuantity = sQuantity.replace( /[^\d\s\.\/-]/ig, '' );
+	sQuantity = sQuantity.replace(/[^\d\s\.\/-]/ig, '');
 
 	// Split by spaces
 	sQuantity = sQuantity.trim();
@@ -116,29 +116,59 @@ export function parseQuantity(sQuantity) {
 
 	var quantity = false;
 
-	if(sQuantity !== '') {
+	if (sQuantity !== '') {
 		quantity = 0;
 
 		// Loop over parts and add values
-		for(var i = 0; i < parts.length; i++) {
-			if(parts[i].trim() !== '') {
+		for (var i = 0; i < parts.length; i++) {
+			if (parts[i].trim() !== '') {
 				var division_parts = parts[i].split('/', 2);
 				var part_quantity = parseFloat(division_parts[0]);
 
-				if(division_parts[1] !== undefined) {
+				if (division_parts[1] !== undefined) {
 					var divisor = parseFloat(division_parts[1]);
 
-					if(divisor !== 0) {
+					if (divisor !== 0) {
 						part_quantity /= divisor;
 					}
 				}
 
-				if ( ! isNaN( part_quantity ) ) {
+				if (!isNaN(part_quantity)) {
 					quantity += part_quantity;
 				}
-			}			
+			}
 		}
 	}
 
 	return quantity;
+}
+
+function gcd(a, b) {
+	return b === 0 ? a : gcd(b, a % b);
+}
+
+export function decimalToFraction(decimal, maxDenominator = 1000) {
+	let bestNumerator = 1;
+	let bestDenominator = 1;
+	let minDiff = Math.abs(decimal - (bestNumerator / bestDenominator));
+
+	for (let denominator = 1; denominator <= maxDenominator; denominator++) {
+		const numerator = Math.round(decimal * denominator);
+		const fraction = numerator / denominator;
+		const diff = Math.abs(decimal - fraction);
+
+		if (diff < minDiff) {
+			bestNumerator = numerator;
+			bestDenominator = denominator;
+			minDiff = diff;
+		}
+	}
+
+	const divisor = gcd(bestNumerator, bestDenominator);
+
+	if (bestDenominator / divisor === 1) {
+		return `${bestNumerator / divisor}`;
+	} else {
+		return `${bestNumerator / divisor}/${bestDenominator / divisor}`;
+	}
 }

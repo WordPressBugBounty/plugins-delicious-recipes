@@ -11,9 +11,9 @@ global $recipe, $wp;
 $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 $recipe_global  = delicious_recipes_get_global_settings();
 // Image size.
-$img_size   = $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full';
-$comment_id = $recipe->is_pro_active ? '#comments-' . esc_attr( $recipe->ID ) : '#comments';
-$enableComments = isset( $recipe_global['enableComments'] ) && ['yes'] === $recipe_global['enableComments'] ? true : false;
+$img_size        = $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full';
+$comment_id      = $recipe->is_pro_active ? '#comments-' . esc_attr( $recipe->ID ) : '#comments';
+$enable_comments = isset( $recipe_global['enableComments'] ) && array( 'yes' ) === $recipe_global['enableComments'] ? true : false;
 ?>
 <div class="dr-post-summary">
 	<div class="dr-recipe-summary-inner">
@@ -26,7 +26,7 @@ $enableComments = isset( $recipe_global['enableComments'] ) && ['yes'] === $reci
 					?>
 					<span class="post-pinit-button">
 						<a data-pin-do="buttonPin" href="https://www.pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>/&media=<?php echo esc_url( $recipe->thumbnail ); ?>&description=So%20delicious!" data-pin-custom="true">
-							<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/pinit-sm.png" alt="pinit">
+							<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/pinit-sm.png" alt="pinit">
 						</a>
 					</span>
 					<?php
@@ -59,9 +59,9 @@ $enableComments = isset( $recipe_global['enableComments'] ) && ['yes'] === $reci
 
 		</div>
 		<div class="dr-title-wrap">
-			<?php if ( $recipe->rating_count && $global_toggles['enable_ratings'] && ($enableComments && comments_open($recipe->ID)) ) : ?>
+			<?php if ( $recipe->rating_count && $global_toggles['enable_ratings'] && ( $enable_comments && comments_open( $recipe->ID ) ) ) : ?>
 				<span class="dr-rating dr-star-ratings-wrapper">
-					<div id="recipe-card-rating-container" class="wpd-rating-container" data-read-only="true" data-dynamic-rating="<?php echo $recipe->rating ? esc_attr($recipe->rating) : 0; ?>"></div>
+					<div id="recipe-card-rating-container" class="wpd-rating-container" data-read-only="true" data-dynamic-rating="<?php echo $recipe->rating ? esc_attr( $recipe->rating ) : 0; ?>"></div>
 					<?php
 					$average_rating = $recipe->rating;
 
@@ -365,14 +365,14 @@ $enableComments = isset( $recipe_global['enableComments'] ) && ['yes'] === $reci
 
 	<?php if ( ! empty( $recipe->recipe_description ) && $global_toggles['enable_description'] ) : ?>
 		<div class="dr-summary">
-			<h3 class="dr-title"><?php echo esc_html( $global_toggles['description_lbl'] ); ?></h3>
+			<h2 class="dr-title"><?php echo esc_html( $global_toggles['description_lbl'] ); ?></h2>
 			<?php
 				$blocks = parse_blocks( $recipe->recipe_description );
 
 				$output = '';
-				foreach ( $blocks as $block ) {
-					$output .= do_shortcode( render_block( $block ) );
-				}
+			foreach ( $blocks as $block ) {
+				$output .= do_shortcode( render_block( $block ) );
+			}
 				echo wp_kses_post( $output );
 			?>
 		</div>

@@ -31,7 +31,7 @@ if ( ! empty( $recipe_instructions ) ) :
 	?>
 	<div class="dr-instructions">
 		<div class="dr-instrc-title-wrap">
-			<h3 class="dr-title"><?php echo esc_html( $instruction_title ); ?></h3>
+			<h2 class="dr-title"><?php echo esc_html( $instruction_title ); ?></h2>
 			<?php if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] ) : ?>
 			<div class="dr-instructions-toggle">
 				<span class="dr-inst-label"><?php echo esc_html( $global_toggles['video_lbl'] ); ?></span>
@@ -42,7 +42,7 @@ if ( ! empty( $recipe_instructions ) ) :
 		<?php
 		foreach ( $recipe_instructions as $sec_key => $intruct_section ) :
 			if ( $intruct_section['sectionTitle'] ) {
-				echo '<h4>' . esc_html( $intruct_section['sectionTitle'] ) . '</h4>';
+				echo '<h3>' . esc_html( $intruct_section['sectionTitle'] ) . '</h3>';
 			}
 			if ( isset( $intruct_section['instruction'] ) && ! empty( $intruct_section['instruction'] ) ) :
 				?>
@@ -58,9 +58,9 @@ if ( ! empty( $recipe_instructions ) ) :
 						?>
 						<li>
 							<?php if ( $instruction_title ) : ?>
-								<h5>
+								<h4>
 									<?php echo esc_html( $instruction_title ); ?>
-								</h5>
+								</h4>
 							<?php endif; ?>
 							<div class="dr-instruction">
 								<?php echo wp_kses_post( do_shortcode( $instruction ) ); ?>

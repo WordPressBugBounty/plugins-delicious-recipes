@@ -533,8 +533,8 @@ class AjaxFunctions {
 				'recipe_ingredients' => $this->filter_by_ingredients( $recipe_search_ids ),
 			);
 
-			foreach ( $seasons_meta as $season ) {
-				$recipe_search_metas['seasons'][ $season ] = $this->filter_by_best_season( '_dr_best_season', $season, $recipe_search_ids );
+			foreach ( $seasons_meta as $key => $season ) {
+				$recipe_search_metas['seasons'][ $key ] = $this->filter_by_best_season( '_dr_best_season', $key, $recipe_search_ids );
 			}
 		}
 
@@ -617,23 +617,8 @@ class AjaxFunctions {
 					'format'    => '?paged=%#%',
 					'current'   => $current_page,
 					'total'     => absint( $total_pages ),
-					'prev_text' => __( 'Prev', 'delicious-recipes' ) .
-					'<svg xmlns="http://www.w3.org/2000/svg" width="18.479" height="12.689" viewBox="0 0 18.479 12.689">
-						<g transform="translate(17.729 11.628) rotate(180)">
-							<path d="M7820.11-1126.021l5.284,5.284-5.284,5.284" transform="translate(-7808.726 1126.021)" fill="none"
-								stroke="#374757" stroke-linecap="round" stroke-width="1.5" />
-							<path d="M6558.865-354.415H6542.66" transform="translate(-6542.66 359.699)" fill="none" stroke="#374757"
-								stroke-linecap="round" stroke-width="1.5" />
-						</g>
-					</svg>',
-					'next_text' => __( 'Next', 'delicious-recipes' ) .
-					'<svg xmlns="http://www.w3.org/2000/svg" width="18.479" height="12.689" viewBox="0 0 18.479 12.689"><g transform="translate(0.75 1.061)">
-							<path d="M7820.11-1126.021l5.284,5.284-5.284,5.284" transform="translate(-7808.726 1126.021)" fill="none"
-								stroke="#374757" stroke-linecap="round" stroke-width="1.5" />
-							<path d="M6558.865-354.415H6542.66" transform="translate(-6542.66 359.699)" fill="none" stroke="#374757"
-								stroke-linecap="round" stroke-width="1.5" />
-						</g>
-					</svg>',
+					'prev_text' => __( 'Prev', 'delicious-recipes' ),
+					'next_text' => __( 'Next', 'delicious-recipes' ),
 				)
 			);
 		}

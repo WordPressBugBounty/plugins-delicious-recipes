@@ -348,10 +348,10 @@ $recipe_card_image = '';
 			$summary_text  = '';
 			$summary_title = isset( $summary_title ) ? $summary_title : __( 'Description', 'delicious-recipes' );
 			if ( ! empty( $summary ) ) {
-				$summary_class = 'dr-pring-block-header';
+				$summary_class = 'dr-print-block-header';
 				$summary_text  = sprintf(
 					'<div class="%s"><div class="%s"><span>%s</span></div></div>
-                        <div class="dr-pring-block-content">%s</div>',
+                        <div class="dr-print-block-content">%s</div>',
 					esc_attr( $summary_class ),
 					'dr-print-block-title',
 					$summary_title,

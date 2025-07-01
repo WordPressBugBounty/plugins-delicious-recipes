@@ -19,38 +19,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if( $taxonomy != '' && is_array( $categories ) && ! empty( $categories ) ) {
-    
-    echo '<ul>';
-    foreach ( $categories as $key => $value ) {
-        
-        $category = get_term( $value, $taxonomy );
-        
-        if( empty( $category ) && is_wp_error( $category ) ) {
-            return;
-        }
+if ( $taxonomy != '' && is_array( $categories ) && ! empty( $categories ) ) {
 
-        ?>
-        <li>
-            <figure>
-                <a href="<?php echo esc_url( get_term_link( $category->term_id ) ); ?>">
-                    <?php delicious_recipes_get_tax_icon( $category ); ?>
+	echo '<ul>';
+	foreach ( $categories as $key => $value ) {
 
-                    <?php if( $show_counts ) { ?>
-                            <span class="dr-cat-count"><?php echo esc_html( $category->count ); ?></span>
-                    <?php } ?>
-                </a>
-            </figure>
-                
-            <h3>
-                <a href="<?php echo esc_url( get_term_link( $category->term_id ) ); ?>">
-                    <?php echo esc_html( $category->name ); ?>
-                </a>
-            </h3>
-        </li>
-        <?php
-    }
-    echo '</ul>';
+		$category = get_term( $value, $taxonomy );
+
+		if ( empty( $category ) && is_wp_error( $category ) ) {
+			return;
+		}
+
+		?>
+		<li>
+			<figure>
+				<a href="<?php echo esc_url( get_term_link( $category->term_id ) ); ?>">
+					<?php delicious_recipes_get_tax_icon( $category ); ?>
+
+					<?php if ( $show_counts ) { ?>
+							<span class="dr-cat-count"><?php echo esc_html( $category->count ); ?></span>
+					<?php } ?>
+				</a>
+			</figure>
+				
+			<span>
+				<a href="<?php echo esc_url( get_term_link( $category->term_id ) ); ?>">
+					<?php echo esc_html( $category->name ); ?>
+				</a>
+			</span>
+		</li>
+		<?php
+	}
+	echo '</ul>';
 }
 
 /* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

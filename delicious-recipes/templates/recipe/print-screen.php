@@ -49,10 +49,8 @@ $all_no = true;
 <html>
 
 <head>
-	<title><?php the_title(); ?></title>
-	<link rel="stylesheet"
-		href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/public/css' . $asset_script_path . 'recipe-print' . $min_prefix . '.css'; ?>"
-		media="screen,print">
+	<title><?php echo esc_html( get_the_title( $recipe->ID ) ); ?></title>
+	<link rel="stylesheet" href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/public/css' . $asset_script_path . 'recipe-print' . $min_prefix . '.css'; ?>" media="screen,print">
 	<?php delicious_recipes_get_template( 'global/dynamic-css.php' ); ?>
 	<meta name="robots" content="noindex">
 </head>
@@ -64,63 +62,72 @@ $all_no = true;
 		if ( ! empty( $print_options ) ) {
 			$all_no = false;
 			?>
-	<div id="dr-print-options" class="dr-clearfix">
-		<div class="wpd-logo">
-			<img class="dr-print-page-image" src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/Delicious-Recipes.png" alt="WP Delicious">	
-		</div>
-		<span class="wpd-print-options-title"><?php esc_html_e( 'Include in Print View:', 'delicious-recipes' ); ?></span>
-		<div class="wpd-print-options-wrap">
-			<?php
-			foreach ( $print_options as $key => $print_opt ) :
-
-				// Display the "Recipe Content" checkbox option after the "Title" option.
-				if ( 1 === $key && isset( $print_options['11'] ) ) {
-					$name   = isset( $print_options['11']['key'] ) ? $print_options['11']['key'] : '';
-					$enable = isset( $print_options['11']['enable']['0'] ) && 'yes' === $print_options['11']['enable']['0'] ? true : false;
-					?>
-				<div class="dr-print-block">
-					<input id="print_options_11" type="checkbox" name="print_options" value="1"
-							<?php checked( $enable, true ); ?> />
-					<label for="print_options_11"><?php esc_html_e( $name, 'delicious-recipes' ); ?></label>
-				</div>
-							<?php
-				}
-
-				// Skip printing option 11 since we handled it above.
-				if ( 11 === $key ) {
-					continue;
-				}
-
-				// Display Extended Content (12) after Notes (7).
-				if ( 8 === $key && isset( $print_options['12'] ) && function_exists( 'DEL_RECIPE_PRO' ) ) {
-					$name   = isset( $print_options['12']['key'] ) ? $print_options['12']['key'] : '';
-					$enable = isset( $print_options['12']['enable']['0'] ) && 'yes' === $print_options['12']['enable']['0'] ? true : false;
-					?>
-					<div class="dr-print-block">
-						<input id="print_options_12" type="checkbox" name="print_options" value="1"
-								<?php checked( $enable, true ); ?> />
-						<label for="print_options_12"><?php esc_html_e( $name, 'delicious-recipes' ); ?></label>
+				<div id="dr-print-options" class="dr-clearfix">
+					<div class="wpd-logo">
+						<?php if ( has_custom_logo() ) { ?>
+							<?php echo wp_kses_post( get_custom_logo() ); ?>
+						<?php } else { ?>
+							<h1>
+								<?php echo esc_html( get_bloginfo( 'name' ) ); ?>
+							</h1>
+						<?php } ?>
 					</div>
-					<?php
-				}
+					<span class="wpd-print-options-title">
+						<?php esc_html_e( 'Include in Print View:', 'delicious-recipes' ); ?>
+					</span>
+					<div class="wpd-print-options-wrap">
+						<?php
+						foreach ( $print_options as $key => $print_opt ) {
+							// Display the "Recipe Content" checkbox option after the "Title" option.
+							if ( 1 === $key && isset( $print_options['11'] ) ) {
+								$name   = isset( $print_options['11']['key'] ) ? $print_options['11']['key'] : '';
+								$enable = isset( $print_options['11']['enable']['0'] ) && 'yes' === $print_options['11']['enable']['0'] ? true : false;
+								?>
+								<div class="dr-print-block">
+									<input id="print_options_11" type="checkbox" name="print_options" value="1" checked="<?php checked( $enable, true ); ?>" />
+									<label for="print_options_11">
+										<?php echo esc_html( $name ); ?>
+									</label>
+								</div>
+								<?php
+							}
 
-				// Skip printing option 12 since we handled it above.
-				if ( 12 === $key ) {
-					continue;
-				}
+							// Skip printing option 11 since we handled it above.
+							if ( 11 === $key ) {
+								continue;
+							}
 
-				$name   = isset( $print_opt['key'] ) ? $print_opt['key'] : '';
-				$enable = isset( $print_opt['enable']['0'] ) && 'yes' === $print_opt['enable']['0'] ? true : false;
-				?>
-				<div class="dr-print-block">
-					<input id="print_options_<?php echo esc_attr( sanitize_title( $key ) ); ?>" type="checkbox"
-						name="print_options" value="1" <?php checked( $enable, true ); ?> />
-					<label
-						for="print_options_<?php echo esc_attr( sanitize_title( $key ) ); ?>"><?php esc_html_e( $name, 'delicious-recipes' ); ?></label>
+							// Display Extended Content (12) after Notes (7).
+							if ( 8 === $key && isset( $print_options['12'] ) && function_exists( 'DEL_RECIPE_PRO' ) ) {
+								$name   = isset( $print_options['12']['key'] ) ? $print_options['12']['key'] : '';
+								$enable = isset( $print_options['12']['enable']['0'] ) && 'yes' === $print_options['12']['enable']['0'] ? true : false;
+								?>
+								<div class="dr-print-block">
+									<input id="print_options_12" type="checkbox" name="print_options" value="1" checked="<?php checked( $enable, true ); ?>" />
+									<label for="print_options_12">
+										<?php echo esc_html( $name ); ?>
+									</label>
+								</div>
+								<?php
+							}
+
+							// Skip printing option 12 since we handled it above.
+							if ( 12 === $key ) {
+								continue;
+							}
+
+							$name   = isset( $print_opt['key'] ) ? $print_opt['key'] : '';
+							$enable = isset( $print_opt['enable']['0'] ) && 'yes' === $print_opt['enable']['0'] ? true : false;
+							?>
+							<div class="dr-print-block">
+								<input id="print_options_<?php echo esc_attr( sanitize_title( $key ) ); ?>" type="checkbox" name="print_options" value="1" checked="<?php checked( $enable, true ); ?>" />
+								<label for="print_options_<?php echo esc_attr( sanitize_title( $key ) ); ?>">
+									<?php echo esc_html( $name ); ?>
+								</label>
+							</div>
+						<?php } ?>
+					</div>
 				</div>
-			<?php endforeach; ?>
-		</div>
-	</div>
 			<?php
 		}
 	} else {
@@ -166,7 +173,7 @@ $all_no = true;
 					<path d="M11.0417 9.58334H6.875C6.70924 9.58334 6.55027 9.5175 6.43306 9.40028C6.31585 9.28307 6.25 9.1241 6.25 8.95834C6.25 8.79258 6.31585 8.63361 6.43306 8.5164C6.55027 8.39919 6.70924 8.33334 6.875 8.33334H11.0417C11.2074 8.33334 11.3664 8.39919 11.4836 8.5164C11.6008 8.63361 11.6667 8.79258 11.6667 8.95834C11.6667 9.1241 11.6008 9.28307 11.4836 9.40028C11.3664 9.5175 11.2074 9.58334 11.0417 9.58334Z" fill="#566267"/>
 				</svg>
 				<span>
-					<?php esc_html_e( 'Increase Text', 'delicious-recipes' ); ?>
+							<?php esc_html_e( 'Increase Text', 'delicious-recipes' ); ?>
 				</span>
 			</button>
 			<button class="dr-decrease-font-size" id="dr-decrease-font-size">
@@ -176,461 +183,517 @@ $all_no = true;
 					<path d="M11.0417 9.58334H6.875C6.70924 9.58334 6.55027 9.5175 6.43306 9.40028C6.31585 9.28307 6.25 9.1241 6.25 8.95834C6.25 8.79258 6.31585 8.63361 6.43306 8.5164C6.55027 8.39919 6.70924 8.33334 6.875 8.33334H11.0417C11.2074 8.33334 11.3664 8.39919 11.4836 8.5164C11.6008 8.63361 11.6667 8.79258 11.6667 8.95834C11.6667 9.1241 11.6008 9.28307 11.4836 9.40028C11.3664 9.5175 11.2074 9.58334 11.0417 9.58334Z" fill="#566267"/>
 				</svg>
 				<span>
-					<?php esc_html_e( 'Decrease Text', 'delicious-recipes' ); ?>
+							<?php esc_html_e( 'Decrease Text', 'delicious-recipes' ); ?>
 				</span>
 			</button>
 		</div>
 		<div class="print-page">
 			<!-- Title, Logo and Image -->
-			<?php if ( 'yes' === $default_print_options['images'] && 'yes' === $default_print_options['title'] ) : ?>
-			<div id="dr-page1" class="dr-print-header">
-				<?php
-				$print_logo_image = isset( $recipe_global['printLogoImage'] ) && ! empty( $recipe_global['printLogoImage'] ) ? $recipe_global['printLogoImage'] : false;
-				if ( $print_logo_image && 'yes' === $default_print_options['images'] ) :
-					?>
-				<div class="dr-logo">
-					<?php echo wp_get_attachment_image( $print_logo_image, 'full' ); ?>
-				</div>
+			<?php if ( 'yes' === $default_print_options['images'] && 'yes' === $default_print_options['title'] ) { ?>
+				<div id="dr-page1" class="dr-print-header">
 					<?php
-				endif;
-				?>
-				<?php if ( 'yes' === $default_print_options['title'] ) : ?>
-				<h1 id="dr-print-title" class="dr-print-title"><?php echo esc_html( $recipe->name ); ?></h1>
-				<?php endif; ?>
-				<?php if ( 'yes' === $default_print_options['images'] ) : ?>
-				<figure
-					class="dr-print-img <?php echo esc_attr( $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full' ); ?>">
-					<?php the_post_thumbnail( 'large', array( 'class' => 'dr-print-page-image' ) ); ?>
-				</figure>
-				<?php endif; ?>
-			</div>
-			<?php endif; ?>
+					$print_logo_image = isset( $recipe_global['printLogoImage'] ) && ! empty( $recipe_global['printLogoImage'] ) ? $recipe_global['printLogoImage'] : false;
+					if ( $print_logo_image && 'yes' === $default_print_options['images'] ) {
+						?>
+						<div class="dr-logo">
+							<?php echo wp_get_attachment_image( $print_logo_image, 'full' ); ?>
+						</div>
+					<?php } ?>
+					<?php if ( 'yes' === $default_print_options['title'] ) { ?>
+						<h1 id="dr-print-title" class="dr-print-title">
+							<?php echo esc_html( $recipe->name ); ?>
+						</h1>
+					<?php } ?>
+					<?php if ( 'yes' === $default_print_options['images'] ) { ?>
+						<figure class="dr-print-img <?php echo esc_attr( $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full' ); ?>">
+							<?php echo get_the_post_thumbnail( $recipe->ID, 'large', array( 'class' => 'dr-print-page-image' ) ); ?>
+						</figure>
+					<?php } ?>
+				</div>
+			<?php } ?>
 			<!-- #dr-page1 -->
-	
+
 			<!-- Recipe Content, Info, Description, Ingredients -->
-			<?php if ( 'yes' === $default_print_options['recipe_content'] || 'yes' === $default_print_options['info'] || 'yes' === $default_print_options['description'] || 'yes' === $default_print_options['ingredients'] ) : ?>
-			<div id="dr-page2" class="dr-print-page dr-print-ingredients">
-				<?php if ( 'yes' === $default_print_options['recipe_content'] ) : ?>
-				<div class="dr-print-block-wrap">
-					<?php if ( $recipe->description ) : ?>
-					<div class="dr-print-block dr-content-wrap">
-						<div class="dr-pring-block-content">
-							<?php echo wp_kses_post( $recipe->description ); ?>
+			<?php if ( 'yes' === $default_print_options['recipe_content'] || 'yes' === $default_print_options['info'] || 'yes' === $default_print_options['description'] || 'yes' === $default_print_options['ingredients'] ) { ?>
+				<div id="dr-page2" class="dr-print-page dr-print-ingredients">
+					<?php if ( 'yes' === $default_print_options['recipe_content'] ) { ?>
+						<div class="dr-print-block-wrap">
+							<?php if ( $recipe->description ) { ?>
+								<div class="dr-print-block dr-content-wrap">
+									<div class="dr-print-block-content">
+										<?php echo wp_kses_post( $recipe->description ); ?>
+									</div>
+								</div>
+							<?php } ?>
 						</div>
-					</div>
-					<?php endif; ?>
-				</div>
-				<?php endif; ?>
-	
-				<?php if ( 'yes' === $default_print_options['info'] ) : ?>
-				<div class="dr-ingredient-meta-wrap">
-					<div class="dr-ingredient-meta dr-ingredient-time">
-						<div class="meta-wrap">
-							<?php if ( ! empty( $recipe->prep_time ) && '0' !== $recipe->prep_time && $global_toggles['enable_prep_time'] ) : ?>
-								<div class="dr-prep-time">
-									<span class="dr-ingredient-time-title"><?php echo esc_html( $global_toggles['prep_time_lbl'] ); ?></span>
-									<span><?php echo esc_html( $recipe->prep_time_unit ); ?></span>
+					<?php } ?>
+
+					<?php if ( 'yes' === $default_print_options['info'] ) { ?>
+						<div class="dr-ingredient-meta-wrap">
+							<div class="dr-ingredient-meta dr-ingredient-time">
+								<div class="meta-wrap">
+									<?php if ( ! empty( $recipe->prep_time ) && '0' !== $recipe->prep_time && $global_toggles['enable_prep_time'] ) { ?>
+										<div class="dr-prep-time">
+											<span class="dr-ingredient-time-title">
+												<?php echo esc_html( $global_toggles['prep_time_lbl'] ); ?>
+											</span>
+											<span>
+												<?php // echo esc_html( $recipe->prep_time ); ?>
+												<?php echo esc_html( $recipe->prep_time_unit ); ?>
+											</span>
+										</div>
+									<?php } ?>
+									<?php if ( ! empty( $recipe->cook_time ) && '0' !== $recipe->cook_time && $global_toggles['enable_cook_time'] ) { ?>
+										<div class="dr-cook-time">
+											<span class="dr-ingredient-time-title">
+												<?php echo esc_html( $global_toggles['cook_time_lbl'] ); ?>
+											</span>
+											<span>
+												<?php // echo esc_html( $recipe->cook_time ); ?>
+												<?php echo esc_html( $recipe->cook_time_unit ); ?>
+											</span>
+										</div>
+									<?php } ?>
+									<?php if ( ! empty( $recipe->rest_time ) && '0' !== $recipe->rest_time && $global_toggles['enable_rest_time'] ) { ?>
+										<div class="dr-rest-time">
+											<span class="dr-ingredient-time-title">
+												<?php echo esc_html( $global_toggles['rest_time_lbl'] ); ?>
+											</span>
+											<span>
+												<?php // echo esc_html( $recipe->rest_time ); ?>
+												<?php echo esc_html( $recipe->rest_time_unit ); ?>
+											</span>
+										</div>
+									<?php } ?>
+									<?php if ( ! empty( $recipe->total_time ) && '0' !== $recipe->total_time && $global_toggles['enable_total_time'] ) { ?>
+										<div class="dr-total-time">
+											<span class="dr-ingredient-time-title">
+												<?php echo esc_html( $global_toggles['total_time_lbl'] ); ?>
+											</span>
+											<span>
+												<?php echo esc_html( $recipe->total_time ); ?>
+												<?php // echo esc_html( $recipe->total_time_unit ); ?>
+											</span>
+										</div>
+									<?php } ?>
 								</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->cook_time ) && '0' !== $recipe->cook_time && $global_toggles['enable_cook_time'] ) : ?>
-								<div class="dr-cook-time">
-									<span class="dr-ingredient-time-title"><?php echo esc_html( $global_toggles['cook_time_lbl'] ); ?></span>
-									<span><?php echo esc_html( $recipe->cook_time_unit ); ?></span>
-								</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->rest_time ) && '0' !== $recipe->rest_time && $global_toggles['enable_rest_time'] ) : ?>
-								<div class="dr-rest-time">
-									<span class="dr-ingredient-time-title"><?php echo esc_html( $global_toggles['rest_time_lbl'] ); ?></span>
-									<span><?php echo esc_html( $recipe->rest_time_unit ); ?></span>
-								</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->total_time ) && '0' !== $recipe->total_time && $global_toggles['enable_total_time'] ) : ?>
-								<div class="dr-total-time">
-									<span class="dr-ingredient-time-title"><?php echo esc_html( $global_toggles['total_time_lbl'] ); ?></span>
-									<span><?php echo esc_html( $recipe->total_time ); ?></span>
-								</div>
-							<?php endif; ?>
-						</div>
-					</div>
-					<div class="dr-recipe-info-box">
-						<?php if ( $recipe->rating_count ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php esc_html_e( 'Ratings', 'delicious-recipes' ); ?>:</b>
-								<span>
-									<?php
-											/* translators: %1$s: rating %2$s: total ratings count */
-											echo esc_html( sprintf( __( '%1$s from %2$s votes', 'delicious-recipes' ), $recipe->rating, $recipe->rating_count ) );
-									?>
-								</span>
 							</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->cooking_method ) && $global_toggles['enable_cooking_method'] ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php echo esc_html( $global_toggles['cooking_method_lbl'] ); ?>:</b>
-								<?php the_terms( $recipe->ID, 'recipe-cooking-method', '<span>', ', ', '</span>' ); ?>
-							</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->recipe_cuisine ) && $global_toggles['enable_cuisine'] ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php echo esc_html( $global_toggles['cuisine_lbl'] ); ?>:</b>
-								<?php the_terms( $recipe->ID, 'recipe-cuisine', '<span>', ', ', '</span>' ); ?>
-							</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->recipe_course ) && $global_toggles['enable_category'] ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php echo esc_html( $global_toggles['category_lbl'] ); ?>:</b>
-								<?php the_terms( $recipe->ID, 'recipe-course', '<span>', ', ', '</span>' ); ?>
-							</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->difficulty_level ) && $global_toggles['enable_difficulty_level'] ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php echo esc_html( $global_toggles['difficulty_level_lbl'] ); ?>:</b>
-								<?php echo esc_html( $recipe->difficulty_level ); ?>
-							</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->prep_time ) || ! empty( $recipe->cook_time ) || ! empty( $recipe->rest_time ) ) : ?>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->cooking_temp ) && $global_toggles['enable_cooking_temp'] ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php echo esc_html( $global_toggles['cooking_temp_lbl'] ); ?>:</b>
-								<span id="dr-cooking-temp">
-									<?php echo esc_html( $recipe->cooking_temp ); ?>&nbsp;
-									<?php echo esc_html( $recipe->cooking_temp_unit ); ?>
-								</span>
-							</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->no_of_servings ) && $global_toggles['enable_servings'] ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php echo esc_html( $global_toggles['servings_lbl'] ); ?>:</b>
-								<span id="dr-servings"><?php echo esc_html( $recipe->no_of_servings ); ?></span>
-							</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->estimated_cost ) && $global_toggles['enable_estimated_cost'] ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php echo esc_html( $global_toggles['estimated_cost_lbl'] ); ?>:</b>
-								<span id="dr-estimated-cost">
-									<?php
-									if ( $estimated_cost_currency_symbol ) {
-										echo esc_html( $estimated_cost_currency_symbol ) . '&nbsp;';
-									}
-									?>
-									<?php echo esc_html( $recipe->estimated_cost ); ?>
-								</span>
-							</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->recipe_calories ) && $global_toggles['enable_calories'] ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php echo esc_html( $global_toggles['calories_lbl'] ); ?>:</b>
-								<span><?php echo esc_html( $recipe->recipe_calories ); ?></span>
-							</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->best_season ) && $global_toggles['enable_seasons'] ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php echo esc_html( $global_toggles['seasons_lbl'] ); ?>:</b>
-								<span>
-									<?php
+							<div class="dr-recipe-info-box">
+								<?php if ( $recipe->rating_count ) { ?>
+									<div class="dr-ingredient-meta">
+										<b>
+											<?php esc_html_e( 'Ratings', 'delicious-recipes' ); ?>
+										</b>
+										<span>
+											<?php
+												/* translators: %1$s: rating %2$s: total ratings count */
+												echo esc_html( sprintf( __( '%1$s from %2$s votes', 'delicious-recipes' ), $recipe->rating, $recipe->rating_count ) );
+											?>
+										</span>
+									</div>
+								<?php } ?>
+								<?php if ( ! empty( $recipe->cooking_method ) && $global_toggles['enable_cooking_method'] ) { ?>
+									<div class="dr-ingredient-meta">
+										<b>
+											<?php echo esc_html( $global_toggles['cooking_method_lbl'] ); ?>:
+										</b>
+										<span>
+											<?php the_terms( $recipe->ID, 'recipe-cooking-method', '<span>', ', ', '</span>' ); ?>
+										</span>
+									</div>
+								<?php } ?>
+								<?php if ( ! empty( $recipe->recipe_cuisine ) && $global_toggles['enable_cuisine'] ) { ?>
+									<div class="dr-ingredient-meta">
+										<b>
+											<?php echo esc_html( $global_toggles['cuisine_lbl'] ); ?>:
+										</b>
+										<span>
+												<?php the_terms( $recipe->ID, 'recipe-cuisine', '<span>', ', ', '</span>' ); ?>
+										</span>
+									</div>
+								<?php } ?>
+								<?php if ( ! empty( $recipe->recipe_course ) && $global_toggles['enable_category'] ) { ?>
+									<div class="dr-ingredient-meta">
+										<b>
+											<?php echo esc_html( $global_toggles['category_lbl'] ); ?>:
+										</b>
+										<span>
+											<?php the_terms( $recipe->ID, 'recipe-course', '<span>', ', ', '</span>' ); ?>
+										</span>
+									</div>
+								<?php } ?>
+								<?php if ( ! empty( $recipe->difficulty_level ) && $global_toggles['enable_difficulty_level'] ) { ?>
+									<div class="dr-ingredient-meta">
+										<b>
+											<?php echo esc_html( $global_toggles['difficulty_level_lbl'] ); ?>:
+										</b>
+										<span>
+											<?php echo esc_html( $recipe->difficulty_level ); ?>
+										</span>
+									</div>
+								<?php } ?>
+								<?php if ( ! empty( $recipe->prep_time ) || ! empty( $recipe->cook_time ) || ! empty( $recipe->rest_time ) ) { ?>
+									<?php if ( ! empty( $recipe->cooking_temp ) && $global_toggles['enable_cooking_temp'] ) { ?>
+										<div class="dr-ingredient-meta">
+											<b>
+												<?php echo esc_html( $global_toggles['cooking_temp_lbl'] ); ?>:
+											</b>
+											<span id="dr-cooking-temp">
+												<?php echo esc_html( $recipe->cooking_temp ); ?>&nbsp;
+												<?php echo esc_html( $recipe->cooking_temp_unit ); ?>
+											</span>
+										</div>
+									<?php } ?>
+								<?php } ?>
+								<?php if ( ! empty( $recipe->no_of_servings ) && $global_toggles['enable_servings'] ) { ?>
+									<div class="dr-ingredient-meta">
+										<b>
+											<?php echo esc_html( $global_toggles['servings_lbl'] ); ?>:
+										</b>
+										<span id="dr-servings">
+											<?php echo esc_html( $recipe->no_of_servings ); ?>
+										</span>
+									</div>
+								<?php } ?>
+								<?php if ( ! empty( $recipe->estimated_cost ) && $global_toggles['enable_estimated_cost'] ) { ?>
+									<div class="dr-ingredient-meta">
+										<b>
+											<?php echo esc_html( $global_toggles['estimated_cost_lbl'] ); ?>:
+										</b>
+										<span id="dr-estimated-cost">
+											<?php
+											if ( isset( $recipe->estimated_cost_currency_symbol ) && ! empty( $recipe->estimated_cost_currency_symbol ) ) {
+												echo esc_html( $recipe->estimated_cost_currency_symbol ) . '&nbsp;';
+											}
+											echo esc_html( $recipe->estimated_cost );
+											?>
+										</span>
+									</div>
+								<?php } ?>
+								<?php if ( ! empty( $recipe->recipe_calories ) && $global_toggles['enable_calories'] ) { ?>
+									<div class="dr-ingredient-meta">
+										<b>
+											<?php echo esc_html( $global_toggles['calories_lbl'] ); ?>:
+										</b>
+										<span>
+											<?php echo esc_html( $recipe->recipe_calories ); ?>
+										</span>
+									</div>
+								<?php } ?>
+								<?php if ( ! empty( $recipe->best_season ) && $global_toggles['enable_seasons'] ) { ?>
+									<div class="dr-ingredient-meta">
+										<b>
+											<?php echo esc_html( $global_toggles['seasons_lbl'] ); ?>:
+										</b>
+										<span>
+											<?php
 											$best_season = $recipe->best_season;
-									if ( ! is_array( $best_season ) ) {
-										$best_season = explode( ',', $best_season );
+											if ( ! is_array( $best_season ) ) {
+												$best_season = explode( ',', $best_season );
+											}
+											foreach ( $best_season as $season ) {
+												$comma = ( end( $best_season ) === $season ) ? '' : esc_html( ', ' );
+												echo esc_html( $season . $comma );
+											}
+											?>
+										</span>
+									</div>
+								<?php } ?>
+								<?php if ( ! empty( $recipe->dietary ) && $global_toggles['enable_dietary'] ) { ?>
+									<div class="dr-ingredient-meta">
+										<b>
+											<?php echo esc_html( $global_toggles['dietary_lbl'] ); ?>:
+										</b>
+										<span>
+											<?php echo esc_html( implode( ', ', $recipe->dietary ) ); ?>
+										</span>
+									</div>
+								<?php } ?>
+							</div>	
+						</div>
+					<?php } ?>
+					<?php if ( 'yes' === $default_print_options['description'] || 'yes' === $default_print_options['ingredients'] ) { ?>
+						<div class="dr-print-block-wrap">
+							<?php if ( $recipe->recipe_description && 'yes' === $default_print_options['description'] ) { ?>
+								<div class="dr-print-block dr-description-wrap">
+									<div class="dr-print-block-header">
+										<div class="dr-print-block-title">
+											<span>
+												<?php esc_html_e( 'Description', 'delicious-recipes' ); ?>
+											</span>
+										</div>
+									</div>
+									<div class="dr-print-block-content">
+										<?php echo wp_kses_post( $recipe->recipe_description ); ?>
+									</div>
+								</div>
+							<?php } ?>
+							<?php if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) && 'yes' === $default_print_options['ingredients'] ) { ?>
+								<div class="dr-print-block dr-ingredients-wrap">
+									<div class="dr-print-block-header">
+										<div class="dr-print-block-title">
+											<span><?php echo esc_html( $recipe->ingredient_title ); ?></span>
+										</div>
+									</div>
+									<div class="dr-print-block-content">
+										<?php
+										echo '<ul>';
+										$ingredient_string_format = isset( $global_settings['ingredientStringFormat'] ) ? $global_settings['ingredientStringFormat'] : '{qty} {unit} {ingredient} {notes}';
+
+										foreach ( $recipe->ingredients as $key => $ingre_section ) {
+											$section_title = isset( $ingre_section['sectionTitle'] ) ? $ingre_section['sectionTitle'] : '';
+											$ingre         = isset( $ingre_section['ingredients'] ) ? $ingre_section['ingredients'] : array();
+
+											if ( $section_title ) {
+												echo '<div class="dr-subtitle">' . esc_html( $section_title ) . '</div>';
+											}
+											if ( empty( $ingre ) ) {
+												continue;
+											}
+											foreach ( $ingre as $ingre_key => $ingredient ) {
+												$ingredient_qty  = isset( $ingredient['quantity'] ) ? $ingredient['quantity'] : 0;
+												$ingredient_qty  = is_numeric( $ingredient_qty ) ? round( $ingredient_qty, 2 ) : $ingredient_qty;
+												$ingredient_unit = isset( $ingredient['unit'] ) ? $ingredient['unit'] : '';
+												$unit_text       = ! empty( $ingredient_unit ) ? $ingredient_unit : '';
+
+												$ingredient_keys = array(
+													'{qty}'   => isset( $ingredient['quantity'] ) ? '<span class="ingredient_quantity" data-original="' . $ingredient['quantity'] . '" data-recipe="' . $recipe->ID . '">' . $ingredient['quantity'] . '</span>' : '',
+													'{unit}'  => '<span class="ingredient_unit">' . $unit_text . '</span>',
+													'{ingredient}' => isset( $ingredient['ingredient'] ) ? $ingredient['ingredient'] : '',
+													'{notes}' => isset( $ingredient['notes'] ) && ! empty( $ingredient['notes'] ) ? '<span class="ingredient-notes" >(' . $ingredient['notes'] . ')</span>' : '',
+												);
+												$ingre_string    = str_replace( array_keys( $ingredient_keys ), $ingredient_keys, $ingredient_string_format );
+
+												echo '<li>';
+													echo wp_kses_post( $ingre_string );
+												echo '</li>';
+											}
+										}
+										echo '</ul>';
+										?>
+									</div>
+								</div>
+							<?php } ?>
+						</div>
+					<?php } ?>
+				</div>
+			<?php } ?>
+			<!-- #dr-page2 -->
+
+			<!-- Instructions -->
+			<?php if ( isset( $recipe->instructions ) && ! empty( $recipe->instructions ) && 'yes' === $default_print_options['instructions'] ) { ?>    
+				<div id="dr-page3" class="dr-print-page dr-print-instructions">
+					<div class="dr-print-block">
+						<div class="dr-print-block-header">
+							<div class="dr-print-block-title">
+								<span>
+									<?php echo esc_html( $recipe->instruction_title ); ?>
+								</span>
+							</div>
+						</div>
+						<?php
+						$instruction_count = 1;
+						echo '<div class="dr-print-block-content">';
+						echo '<ol>';
+						foreach ( $recipe->instructions as $key => $instruct_section ) {
+							if ( isset( $instruct_section['sectionTitle'] ) && $instruct_section['sectionTitle'] ) {
+									echo '<div class="dr-subtitle">' . esc_html( $instruct_section['sectionTitle'] ) . '</div>';
+							}
+							if ( isset( $instruct_section['instruction'] ) && ! empty( $instruct_section['instruction'] ) ) {
+								foreach ( $instruct_section['instruction'] as $instruct ) {
+									$instruction_title = isset( $instruct['instructionTitle'] ) ? $instruct['instructionTitle'] : '';
+									$instruction       = isset( $instruct['instruction'] ) ? $instruct['instruction'] : '';
+									$instruction_notes = isset( $instruct['instructionNotes'] ) ? $instruct['instructionNotes'] : '';
+									$instruction_image = isset( $instruct['image'] ) && ! empty( $instruct['image'] ) ? $instruct['image'] : false;
+
+									echo '<li><span class="instruction-number">' . esc_html( $instruction_count ) . '</span> <div class="dr-instruction">';
+
+									echo esc_html( $instruction_title );
+									if ( $instruction_image ) {
+										$instruct_image = wp_get_attachment_image( $instruction_image, 'full', false, array( 'class' => 'dr-print-page-image' ) );
+										echo wp_kses_post( $instruct_image );
 									}
-									foreach ( $best_season as $season ) {
-										$comma = ( end( $best_season ) === $season ) ? '' : esc_html( ', ' );
-										echo esc_html( $season . $comma );
+									echo wp_kses_post( $instruction );
+									if ( ! empty( $instruction_notes ) ) {
+										echo '<div class="dr-list-tips">';
+											echo esc_html( $instruction_notes );
+										echo '</div></div>';
+									}
+									echo '</li>';
+									++$instruction_count;
+								}
+							}
+						}
+						echo '</ol>';
+						echo '</div>';
+						?>
+					</div>
+				</div>
+			<?php } ?>
+			<!-- #dr-page3 -->
+
+			<!-- Nutrition, Notes and Keywords -->
+			<?php if ( 'yes' === $default_print_options['nutrition'] || 'yes' === $default_print_options['notes'] || 'yes' === $default_print_options['keywords'] || $embed_recipe_link ) { ?>
+				<div id="dr-page5" class="dr-print-page dr-print-nutrition">
+					<?php if ( 'yes' === $default_print_options['nutrition'] ) { ?>
+						<div class="dr-print-block dr-wrp-only-nut">
+							<?php delicious_nutrition_chart_layout(); ?>
+						</div>
+					<?php } ?>
+					<?php if ( 'yes' === $default_print_options['notes'] || 'yes' === $default_print_options['keywords'] ) { ?>
+						<div class="dr-print-block dr-wrap-notes-keywords">
+							<?php if ( ! empty( $recipe->notes ) && $global_toggles['enable_notes'] && 'yes' === $default_print_options['notes'] ) { ?>
+								<div class="dr-note">
+									<div class="dr-print-block-title">
+										<span>
+											<?php echo esc_html( $global_toggles['notes_lbl'] ); ?>
+										</span>
+									</div>
+									<?php echo wp_kses_post( $recipe->notes ); ?>
+								</div>
+							<?php } ?>
+							<?php if ( isset( $recipe->keywords ) && ! empty( $recipe->keywords ) && $global_toggles['enable_keywords'] && 'yes' === $default_print_options['keywords'] ) { ?>
+								<div class="dr-keywords">
+									<span class="dr-meta-title">
+										<?php echo esc_html( $global_toggles['keywords_lbl'] ); ?>:
+									</span>
+									<?php
+									// Check if the keywords is an array.
+									if ( is_array( $recipe->keywords ) ) {
+										echo esc_html( implode( ', ', $recipe->keywords ) );
+									} else {
+										echo esc_html( $recipe->keywords );
 									}
 									?>
-								</span>
-							</div>
-							<?php endif; ?>
-							<?php if ( ! empty( $recipe->dietary ) && $global_toggles['enable_dietary'] ) : ?>
-							<div class="dr-ingredient-meta">
-								<b><?php echo esc_html( $global_toggles['dietary_lbl'] ); ?>:</b>
-								<span>
-									<?php echo esc_html( implode( ', ', $recipe->dietary ) ); ?>
-								</span>
-							</div>
-							<?php endif; ?>
-						<?php endif; ?>
-					</div>	
-				</div>
-				<?php if ( 'yes' === $default_print_options['description'] || 'yes' === $default_print_options['ingredients'] ) : ?>
-				<div class="dr-print-block-wrap">
-					<?php if ( $recipe->recipe_description && 'yes' === $default_print_options['description'] ) : ?>
-					<div class="dr-print-block dr-description-wrap">
-						<div class="dr-pring-block-header">
-							<div class="dr-print-block-title">
-								<span><?php esc_html_e( 'Description', 'delicious-recipes' ); ?></span>
-							</div>
+								</div>
+							<?php } ?>
 						</div>
-						<div class="dr-pring-block-content">
-							<?php echo wp_kses_post( $recipe->recipe_description ); ?>
-						</div>
-					</div>
-					<?php endif; ?>
-					<?php if ( isset( $recipe->ingredients ) && ! empty( $recipe->ingredients ) && 'yes' === $default_print_options['ingredients'] ) : ?>
-					<div class="dr-print-block dr-ingredients-wrap">
-						<div class="dr-pring-block-header">
-							<div class="dr-print-block-title">
-								<span><?php echo esc_html( $recipe->ingredient_title ); ?></span>
-							</div>
-						</div>
-						<div class="dr-pring-block-content">
-							<?php
-							echo '<ul>';
-							$ingredient_string_format = isset( $global_settings['ingredientStringFormat'] ) ? $global_settings['ingredientStringFormat'] : '{qty} {unit} {ingredient} {notes}';
+					<?php } ?>
 
-							foreach ( $recipe->ingredients as $key => $ingre_section ) {
-								$section_title = isset( $ingre_section['sectionTitle'] ) ? $ingre_section['sectionTitle'] : '';
-								$ingre         = isset( $ingre_section['ingredients'] ) ? $ingre_section['ingredients'] : array();
-
-								if ( $section_title ) {
-									echo '<div class="dr-subtitle">' . esc_html( $section_title ) . '</div>';
-								}
-								if ( empty( $ingre ) ) {
-									continue;
-								}
-								foreach ( $ingre as $ingre_key => $ingredient ) {
-									$ingredient_qty  = isset( $ingredient['quantity'] ) ? $ingredient['quantity'] : 0;
-									$ingredient_qty  = is_numeric( $ingredient_qty ) ? round( $ingredient_qty, 2 ) : $ingredient_qty;
-									$ingredient_unit = isset( $ingredient['unit'] ) ? $ingredient['unit'] : '';
-									$unit_text       = ! empty( $ingredient_unit ) ? $ingredient_unit : '';
-
-									$ingredient_keys = array(
-										'{qty}'        => isset( $ingredient['quantity'] ) ? '<span class="ingredient_quantity" data-original="' . $ingredient['quantity'] . '" data-recipe="' . $recipe->ID . '">' . $ingredient['quantity'] . '</span>' : '',
-										'{unit}'       => '<span class="ingredient_unit">' . $unit_text . '</span>',
-										'{ingredient}' => isset( $ingredient['ingredient'] ) ? $ingredient['ingredient'] : '',
-										'{notes}'      => isset( $ingredient['notes'] ) && ! empty( $ingredient['notes'] ) ? '<span class="ingredient-notes" >(' . $ingredient['notes'] . ')</span>' : '',
-									);
-									$ingre_string    = str_replace( array_keys( $ingredient_keys ), $ingredient_keys, $ingredient_string_format );
-
-									echo '<li>';
-										echo wp_kses_post( $ingre_string );
-									echo '</li>';
-								}
-							}
-							echo '</ul>';
-							?>
-						</div>
-					</div>
-					<?php endif; ?>
-				</div>
-				<?php endif; ?>
-			</div>
-			<?php endif; ?>
-			<!-- #dr-page2 -->
-	
-			<!-- Instructions -->
-			<?php if ( isset( $recipe->instructions ) && ! empty( $recipe->instructions ) && 'yes' === $default_print_options['instructions'] ) : ?>
-			<div id="dr-page3" class="dr-print-page dr-print-instructions">
-				<div class="dr-print-block">
-					<div class="dr-pring-block-header">
-						<div class="dr-print-block-title">
-							<span><?php echo esc_html( $recipe->instruction_title ); ?></span>
-						</div>
-					</div>
+					<!-- Extended Content -->
 					<?php
-					$instruction_count = 1;
-							echo '<div class="dr-pring-block-content">';
-								echo '<ol>';
-					foreach ( $recipe->instructions as $key => $instruct_section ) {
+					$recipe_extended_content = isset( $recipe_meta['extendedContent'] ) && $recipe_meta['extendedContent'] ? $recipe_meta['extendedContent'] : '';
+					if ( function_exists( 'DEL_RECIPE_PRO' ) && $recipe_extended_content && 'yes' === $default_print_options['extended_content'] ) {
+						$blocks = parse_blocks( $recipe_extended_content );
 
-						if ( isset( $instruct_section['sectionTitle'] ) && $instruct_section['sectionTitle'] ) {
-								echo '<div class="dr-subtitle">' . esc_html( $instruct_section['sectionTitle'] ) . '</div>';
+						$output = '';
+						foreach ( $blocks as $block ) {
+							$output .= do_shortcode( render_block( $block ) );
 						}
-						if ( isset( $instruct_section['instruction'] ) && ! empty( $instruct_section['instruction'] ) ) {
-							foreach ( $instruct_section['instruction'] as $instruct ) {
-								$instruction_title = isset( $instruct['instructionTitle'] ) ? $instruct['instructionTitle'] : '';
-								$instruction       = isset( $instruct['instruction'] ) ? $instruct['instruction'] : '';
-								$instruction_notes = isset( $instruct['instructionNotes'] ) ? $instruct['instructionNotes'] : '';
-								$instruction_image = isset( $instruct['image'] ) && ! empty( $instruct['image'] ) ? $instruct['image'] : false;
-
-								echo '<li><span class="instruction-number">' . ( $instruction_count ) . '</span> <div class="dr-instruction">';
-
-								echo esc_html( $instruction_title );
-								if ( $instruction_image ) {
-									$instruct_image = wp_get_attachment_image( $instruction_image, 'full', false, array( 'class' => 'dr-print-page-image' ) );
-									echo wp_kses_post( $instruct_image );
-								}
-								echo wp_kses_post( $instruction );
-								if ( ! empty( $instruction_notes ) ) {
-									echo '<div class="dr-list-tips">';
-										echo esc_html( $instruction_notes );
-									echo '</div></div>';
-								}
-								echo '</li>';
-								++$instruction_count;
-							}
-						}
+						echo '<div class="dr-extended-content-content">' . wp_kses_post( $output ) . '</div>';
 					}
-								echo '</ol>';
-							echo '</div>';
 					?>
-				</div>
-			</div>
-			<?php endif; ?>
-			<!-- #dr-page3 -->
-	
-			<!-- Nutrition, Notes and Keywords -->
-			<?php if ( 'yes' === $default_print_options['nutrition'] || 'yes' === $default_print_options['notes'] || 'yes' === $default_print_options['keywords'] || $embed_recipe_link ) : ?>
-			<div id="dr-page5" class="dr-print-page dr-print-nutrition">
-				<?php if ( 'yes' === $default_print_options['nutrition'] ) : ?>
-				<div class="dr-print-block dr-wrp-only-nut">
-					<?php delicious_nutrition_chart_layout(); ?>
-				</div>
-				<?php endif; ?>
-				<!-- Notes and Keywords -->
-				<?php if ( 'yes' === $default_print_options['notes'] || 'yes' === $default_print_options['keywords'] ) : ?>
-				<div class="dr-print-block dr-wrap-notes-keywords">
+
+					<!-- Social Share -->
 					<?php
-					if ( ! empty( $recipe->notes ) && $global_toggles['enable_notes'] && 'yes' === $default_print_options['notes'] ) :
+					if ( $display_social_sharing_info && $socials_enabled ) {
+						$recipe_share_title = isset( $recipe_global['recipeShareTitle'] ) ? $recipe_global['recipeShareTitle'] : '';
 						?>
-					<div class="dr-note">
-						<div class="dr-print-block-title">
-							<span><?php echo esc_html( $global_toggles['notes_lbl'] ); ?></span>
-						</div>
-						<?php echo wp_kses_post( $recipe->notes ); ?>
-					</div>
-						<?php
-					endif;
-					if ( isset( $recipe->keywords ) && ! empty( $recipe->keywords ) && $global_toggles['enable_keywords'] && 'yes' === $default_print_options['keywords'] ) :
-						?>
-							<div class="dr-keywords">
-								<span class="dr-meta-title"><?php echo esc_html( $global_toggles['keywords_lbl'] ); ?>:</span>
-								<?php
-								// Check if the keywords is an array.
-								if ( is_array( $recipe->keywords ) ) {
-									echo implode( ', ', $recipe->keywords );
-								} else {
-									echo wp_kses_post( $recipe->keywords );
-								}
-								?>
+						<div class="dr-print-cta dr-wrap-social-share">
+							<div class="dr-cta-title"><?php echo esc_html( $recipe_share_title ); ?></div>
+								<?php if ( isset( $recipe_global['socialShare'] ) && ! empty( $recipe_global['socialShare'] ) && 'yes' === $default_print_options['social_share'] ) { ?>
+									<?php
+									foreach ( $recipe_global['socialShare'] as $key => $share ) {
+										if ( ! isset( $share['enable']['0'] ) || 'yes' !== $share['enable']['0'] ) {
+											continue;
+										}
+										?>
+										<?php if ( isset( $share['content'] ) && ! empty( $share['content'] ) ) { ?>
+											<div class="dr-share-content">
+												<?php echo wp_kses_post( $share['content'] ); ?>
+											</div>
+										<?php } ?>
+									<?php } ?>
+								<?php } ?>
 							</div>
-						<?php
-							endif;
-					?>
-				</div>
-				<?php endif; ?>
+						</div>
+					<?php } ?>
 
-				<!-- Extended Content -->
-				<?php
-				$recipe_extended_content = isset( $recipe_meta['extendedContent'] ) && $recipe_meta['extendedContent'] ? $recipe_meta['extendedContent'] : '';
-				if ( function_exists( 'DEL_RECIPE_PRO' ) && $recipe_extended_content && 'yes' === $default_print_options['extended_content'] ) {
-					$blocks = parse_blocks( $recipe_extended_content );
-
-					$output = '';
-					foreach ( $blocks as $block ) {
-						$output .= do_shortcode( render_block( $block ) );
-					}
-					echo '<div class="dr-extended-content-content">' . $output . '</div>';
-				}
-				?>
-
-				<!-- Social Share -->
-				<?php
-				if ( $display_social_sharing_info && $socials_enabled ) :
-					$recipe_share_title = isset( $recipe_global['recipeShareTitle'] ) ? $recipe_global['recipeShareTitle'] : '';
-					?>
-				<div class="dr-print-cta dr-wrap-social-share">
-					<div class="dr-cta-title"><?php echo esc_html( $recipe_share_title ); ?></div>
-					<?php if ( isset( $recipe_global['socialShare'] ) && ! empty( $recipe_global['socialShare'] ) && 'yes' === $default_print_options['social_share'] ) : ?>
-						<?php
-						foreach ( $recipe_global['socialShare'] as $key => $share ) :
-							if ( ! isset( $share['enable']['0'] ) || 'yes' !== $share['enable']['0'] ) {
-								continue;
-							}
-							?>
-							<?php if ( isset( $share['content'] ) && ! empty( $share['content'] ) ) : ?>
-					<div class="dr-share-content">
-								<?php echo wp_kses_post( $share['content'] ); ?>
-					</div>
-					<?php endif; ?>
-					<?php endforeach; ?>
-					<?php endif; ?>
+					<!-- Recipe Link -->
+					<?php
+					if ( $embed_recipe_link ) {
+						$recipe_link_label = isset( $recipe_global['recipeLinkLabel'] ) ? $recipe_global['recipeLinkLabel'] : '';
+						?>
+						<div class="dr-print-block-footer">
+							<b>
+								<?php echo esc_html( $recipe_link_label ); ?>
+							</b>
+							<span>
+								<a href="<?php the_permalink(); ?>" target="_blank"><?php the_permalink(); ?></a>
+							</span>
+						</div>
+					<?php } ?>
 				</div>
-				<?php endif; ?>
-	
-				<!-- Recipe Link -->
-				<?php
-				if ( $embed_recipe_link ) :
-					$recipe_link_label = isset( $recipe_global['recipeLinkLabel'] ) ? $recipe_global['recipeLinkLabel'] : '';
-					?>
-				<div class="dr-print-block-footer">
-					<b><?php echo esc_html( $recipe_link_label ); ?></b>
-					<span>
-						<a href="<?php the_permalink(); ?>" target="_blank"><?php the_permalink(); ?></a>
-					</span>
-				</div>
-				<?php endif; ?>
-			</div>
-			<?php endif; ?>
+			<?php } ?>
 			<!-- #dr-page5 -->
-	
+
 			<div id="dr-page6" class="dr-print-page dr-print-author">
 				<?php
-					$author_image       = isset( $recipe_global['authorImage'] ) ? $recipe_global['authorImage'] : false;
-					$author_name        = isset( $recipe_global['authorName'] ) ? $recipe_global['authorName'] : '';
-					$author_subtitle    = isset( $recipe_global['authorSubtitle'] ) ? $recipe_global['authorSubtitle'] : '';
-					$author_description = isset( $recipe_global['authorDescription'] ) ? $recipe_global['authorDescription'] : '';
+				$author_image       = isset( $recipe_global['authorImage'] ) ? $recipe_global['authorImage'] : false;
+				$author_name        = isset( $recipe_global['authorName'] ) ? $recipe_global['authorName'] : '';
+				$author_subtitle    = isset( $recipe_global['authorSubtitle'] ) ? $recipe_global['authorSubtitle'] : '';
+				$author_description = isset( $recipe_global['authorDescription'] ) ? $recipe_global['authorDescription'] : '';
 
-					// Social Profiles.
-					$author_social_links = apply_filters( 'delicious_recipes_author_social_links', array( 'facebook', 'instagram', 'pinterest', 'twitter', 'youtube', 'snapchat', 'linkedin' ) );
+				// Social Profiles.
+				$author_social_links = apply_filters( 'delicious_recipes_author_social_links', array( 'facebook', 'instagram', 'pinterest', 'twitter', 'youtube', 'snapchat', 'linkedin' ) );
 
-				?>
-	
-				<?php
-				if ( $embed_author_info && $author_name && 'yes' === $default_print_options['author_bio'] ) :
+				if ( $embed_author_info && $author_name && 'yes' === $default_print_options['author_bio'] ) {
 					?>
-				<div class="dr-print-block">
-					<div class="dr-wrap-author-profile">
-						<div class="dr-pring-block-img-wrap">
-							<?php if ( $author_image ) : ?>
-							<div class="dr-print-block-img">
-								<?php echo wp_kses_post( wp_get_attachment_image( $author_image, 'large', false, array( 'class' => 'dr-print-page-image' ) ) ); ?>
-							</div>
-							<?php endif; ?>
-							<div class="dr-print-block-header">
-								<div class="dr-print-block-title">
-									<span><?php echo esc_html( $author_name ); ?></span>
+					<div class="dr-print-block">
+						<div class="dr-wrap-author-profile">
+							<div class="dr-print-block-img-wrap">
+								<?php if ( $author_image ) { ?>
+									<div class="dr-print-block-img">
+										<?php echo wp_kses_post( wp_get_attachment_image( $author_image, 'large', false, array( 'class' => 'dr-print-page-image' ) ) ); ?>
+									</div>
+								<?php } ?>
+								<div class="dr-print-block-header">
+									<div class="dr-print-block-title">
+										<span>
+											<?php echo esc_html( $author_name ); ?>
+										</span>
+									</div>
+									<span class="dr-print-block-subtitle">
+										<?php echo esc_html( $author_subtitle ); ?>
+									</span>
+									<div class="dr-print-block-desc">
+										<p>
+											<?php echo wp_kses_post( $author_description ); ?>
+										</p>
+									</div>
 								</div>
-								<span class="dr-print-block-subtitle"><?php echo esc_html( $author_subtitle ); ?></span>
-								<div class="dr-print-block-desc">
-									<p><?php echo wp_kses_post( $author_description ); ?></p>
-								</div>
 							</div>
+							<ul class="dr-author-social">
+								<?php
+								foreach ( $author_social_links as $social ) {
+									$social_link = isset( $recipe_global[ $social . 'Link' ] ) ? trim( $recipe_global[ $social . 'Link' ], '/\\' ) : false;
+									if ( $social_link ) {
+										?>
+										<li>
+											<a href="<?php echo esc_url( $social_link ); ?>" target="_blank" rel="nofollow noopener">
+												<img class="dr-print-page-image" src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/print-img/<?php echo esc_html( $social ); ?>.png" alt="">
+												<span class="social-name">
+													<?php echo esc_url( $social_link ); ?>/
+												</span>
+											</a>
+										</li>
+									<?php } ?>
+								<?php } ?>
+							</ul>
 						</div>
-						<ul class="dr-author-social">
-							<?php
-							foreach ( $author_social_links as $social ) :
-								$social_link = isset( $recipe_global[ $social . 'Link' ] ) ? trim( $recipe_global[ $social . 'Link' ], '/\\' ) : false;
-
-								if ( $social_link ) :
-									?>
-							<li>
-								<a href="<?php echo esc_url( $social_link ); ?>" target="_blank" rel="nofollow noopener">
-									<img class="dr-print-page-image" src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/print-img/<?php echo esc_html( $social ); ?>.png"
-										alt="">
-									<span class="social-name"><?php echo esc_url( $social_link ); ?>/</span>
-								</a>
-							</li>
-									<?php
-									endif;
-								endforeach;
-							?>
-						</ul>
 					</div>
-				</div>
-					<?php
-				endif;
-
+				<?php } ?>
+				<?php
 				$thankyoumessage = isset( $recipe_global['thankyouMessage'] ) ? $recipe_global['thankyouMessage'] : false;
 
-				if ( $thankyoumessage ) :
+				if ( $thankyoumessage ) {
 					?>
-				<div class="dr-print-block-content dr-wrap-thankyou">
-					<?php echo wp_kses_post( $thankyoumessage ); ?>
-				</div>
-					<?php
-				endif;
+					<div class="dr-print-block-content dr-wrap-thankyou">
+						<?php echo wp_kses_post( $thankyoumessage ); ?>
+					</div>
+				<?php } ?>
 
+				<?php
 				/**
 				 * Action hook for additionals.
 				 */
@@ -639,31 +702,41 @@ $all_no = true;
 			</div>
 		</div>
 	</div>
-	<?php
-	// Enqueue jQuery
-	wp_enqueue_script('jquery');
-	
-	// Enqueue and localize print script
-	wp_enqueue_script(
-		'delicious-recipes-print', 
-		plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/printJS.js',
-		array('jquery'),
-		DELICIOUS_RECIPES_VERSION,
-		true
-	);
+<?php
 
-	// Localize script with recipe data
-	wp_localize_script(
-		'delicious-recipes-print',
-		'deliciousRecipesPrint',
-		array(
-			'recipeId' => $recipe->ID,
-			'defaultServings' => $recipe->no_of_servings,
-		)
-	);
+/**
+ * Enqueue jQuery.
+ */
+wp_enqueue_script( 'jquery' );
 
-	wp_print_scripts();
-	?>
+/**
+ * Enqueue print script.
+ */
+wp_enqueue_script(
+	'delicious-recipes-print',
+	plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/print.js',
+	array( 'jquery' ),
+	DELICIOUS_RECIPES_VERSION,
+	true
+);
+
+/**
+ * Localize script with recipe data.
+ */
+wp_localize_script(
+	'delicious-recipes-print',
+	'deliciousRecipesPrint',
+	array(
+		'recipeId'        => $recipe->ID,
+		'defaultServings' => $recipe->no_of_servings,
+		'useFraction'     => $recipe_global['useFraction'],
+	)
+);
+
+/**
+ * Print scripts.
+ */
+wp_print_scripts();
+?>
 </body>
-
 </html>

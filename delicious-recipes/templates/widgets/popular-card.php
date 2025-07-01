@@ -54,9 +54,7 @@ $img_size = apply_filters( 'popular_card_img_size', $img_size );
 	</div>
 
 	<header class="dr-fav-header">
-		<h3 class="dr-fav-recipe-title">
-			<a href="<?php echo esc_url( $recipe->permalink ); ?>"><?php echo esc_html( $recipe->name ); ?></a>
-		</h3>
+		<a class="dr-fav-recipe-title" href="<?php echo esc_url( $recipe->permalink ); ?>"><?php echo esc_html( $recipe->name ); ?></a>
 		<div class="dr-entry-meta">
 			<?php if ( $recipe->total_time ) : ?>
 				<span class="dr-time">

@@ -2829,29 +2829,6 @@ body .dr-nutrition-label .dr-nut-hr {
 .dr-nutrition-facts .dr-nutrition-list ul li:before {
 	display: none;
 }
-.dr-nutrition-keyword {
-	display: block;
-	margin: 21px 0;
-}
-.dr-nutrition-keyword b {
-	font-size: 0.7778em;
-	font-style: italic;
-	font-family: var(--secondary-font);
-	color: var(--font-color);
-}
-.dr-nutrition-keyword span {
-	font-size: 0.83333em;
-	margin-left: 3px;
-	color: #232323;
-}
-.dr-nutrition-keyword span:after {
-	display: inline-block;
-	content: ",";
-	color: #232323;
-}
-.dr-nutrition-keyword span:last-of-type:after {
-	display: none;
-}
 
 body .dr-nutrition-label strong {
 	font-weight: 700;

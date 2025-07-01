@@ -418,7 +418,7 @@ class Delicious_Dynamic_Recipe_Card {
 		$recipe_card_image = '';
 
 		if ( $hasImage && isset( $image['url'] ) ) {
-			$img_id    = $image['id'] ? $image['id'] : $image['attachment_id'];
+			$img_id    = isset( $image['id'] ) ? $image['id'] : $image['attachment_id'];
 			$src       = $image['url'];
 			$alt       = ( $recipeTitle ? strip_tags( $recipeTitle ) : strip_tags( $recipe_title ) );
 			$sizes     = isset( $image['sizes'] ) ? $image['sizes'] : array();
@@ -476,11 +476,11 @@ class Delicious_Dynamic_Recipe_Card {
 			$img_class = ' delicious-recipes-card-image';
 
 			// Check if attachment image is from imported content
-			// in this case we don't have attachment in our upload directory
+			// in this case we don't have attachment in our upload directory.
 			$upl_dir = wp_upload_dir();
 			$findpos = strpos( $src, $upl_dir['baseurl'] );
 
-			if ( $findpos === false ) {
+			if ( false === $findpos ) {
 				$attachment = sprintf(
 					'<img src="%s" alt="%s" class="%s"/>',
 					$src,

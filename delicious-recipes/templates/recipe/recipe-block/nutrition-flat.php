@@ -61,9 +61,9 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 
 <?php if ( $enable_collapsible_nutrition_chart && ! isset( $_GET['print_recipe'] ) ) : ?>
 	<div class="dr-nutrition-facts-collapsible">
-		<h3 class="dr-title">
+		<h2 class="dr-title">
 			<?php echo esc_html( $nutri_title ); ?>
-		</h3>
+		</h2>
 		<div class="dr-nutrition-summary">
 			<?php
 			$summary_items = array(
@@ -104,7 +104,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 			<div class="dr-nutrition-facts chart-layout-flat">
 				<div class="dr-title-wrap">
 					<div class="dr-title dr-print-block-title nutrition">
-					<h3 class="dr-title"><?php echo esc_html( $nutri_title ); ?></h3>
+					<h2 class="dr-title"><?php echo esc_html( $nutri_title ); ?></h2>
 					</div>
 				</div>
 

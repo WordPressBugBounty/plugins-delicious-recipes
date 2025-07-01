@@ -554,7 +554,6 @@ class Delicious_Recipes_Shortcodes {
 		);
 
 		if ( delicious_recipes_post_content_has_shortcode( 'dr_recipe_archives' ) ) {
-			wp_enqueue_style( 'delicious-archive-shortcode-css', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/taxonomyCSS.css' );
 			wp_enqueue_style( 'delicious-archive-shortcode', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/archiveJS.css' );
 		}
 

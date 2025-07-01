@@ -216,15 +216,15 @@ svg {
 	fill: rgba(var(--wpd-font-color-rgb), 0.55);
 }
 
-.dr-pring-block-header {
+.dr-print-block-header {
 	margin-bottom: 16px;
 }
 
 .dr-print-block-title,
 .dr-ingrd-title-wrap,
 .dr-instrc-title-wrap,
-.dr-print-nutrition h3.dr-title {
-	font-size: 1.14em;
+.dr-print-nutrition h2.dr-title {
+	font-size: 16px;
 	line-height: 1.625;
 	font-weight: 600;
 	position: relative;
@@ -258,7 +258,7 @@ svg {
 .dr-instrc-title-wrap h3,
 .dr-print-block-title span,
 .dr-print-block-title b,
-.dr-print-nutrition h3.dr-title {
+.dr-print-nutrition h2.dr-title {
 	display: inline-block;
 	background: #fff;
 	position: relative;
@@ -269,35 +269,35 @@ svg {
 	font-weight: bold;
 }
 
-.dr-pring-block-content ul {
+.dr-print-block-content ul {
 	padding: 0 0 0 1.5em;
 }
 
-.dr-print-ingredients .dr-pring-block-content ul li {
+.dr-print-ingredients .dr-print-block-content ul li {
 	margin-bottom: 12px;
 }
 
-.dr-pring-block-content ol {
+.dr-print-block-content ol {
 	margin: 0;
 	padding: 0;
 }
 
-.dr-pring-block-content ul li,
-.dr-pring-block-content ol li {
+.dr-print-block-content ul li,
+.dr-print-block-content ol li {
 	margin-bottom: 15px;
 }
 
-.dr-pring-block-content ul li:last-child,
-.dr-pring-block-content ol li:last-child {
+.dr-print-block-content ul li:last-child,
+.dr-print-block-content ol li:last-child {
 	margin-bottom: 0;
 }
 
-.dr-print-instructions-detailed .dr-pring-block-content ol li img {
+.dr-print-instructions-detailed .dr-print-block-content ol li img {
 	margin-top: 30px;
 }
 
 .dr-print-instructions-detailed
-	.dr-pring-block-content
+	.dr-print-block-content
 	ol
 	li
 	.dr-instruction-note {
@@ -310,12 +310,12 @@ svg {
 	border-left-color: var(--wpd-primary-color);
 }
 
-.dr-pring-block-content p {
+.dr-print-block-content p {
 	margin: 0;
 	margin-bottom: 16px;
 }
 
-.dr-print-nutrition .dr-pring-block-header {
+.dr-print-nutrition .dr-print-block-header {
 	padding-top: 17px;
 	position: relative;
 }
@@ -331,13 +331,13 @@ svg {
 	padding: 5px 15px;
 }
 
-.dr-pring-block-content ul.dr-list-inline {
+.dr-print-block-content ul.dr-list-inline {
 	margin: 0 -1.5%;
 	padding: 0;
 	list-style: none;
 }
 
-.dr-pring-block-content ul.dr-list-inline li {
+.dr-print-block-content ul.dr-list-inline li {
 	display: inline-block;
 	width: 46%;
 	margin-left: 1.5%;
@@ -347,13 +347,14 @@ svg {
 	color: rgba(var(--wpd-black-color-rgb), 0.7);
 }
 
-.dr-pring-block-content ul.dr-list-inline li b {
+.dr-print-block-content ul.dr-list-inline li b {
 	float: right;
 }
 
 .dr-print-block-footer {
 	border-top: 1px solid rgba(var(--wpd-font-color-rgb), 0.1);
 	margin-top: 15px;
+	padding-top: 15px;
 }
 
 .dr-print-block-footer b {
@@ -390,8 +391,8 @@ svg {
 	border-top: none;
 }
 
-.dr-pring-block-img-wrap .dr-print-block-title,
-.dr-pring-block-img-wrap .dr-print-block-subtitle {
+.dr-print-block-img-wrap .dr-print-block-title,
+.dr-print-block-img-wrap .dr-print-block-subtitle {
 	text-align: center;
 }
 
@@ -457,7 +458,7 @@ svg {
 	text-decoration: underline;
 }
 
-.dr-print-author .dr-print-block + .dr-pring-block-content {
+.dr-print-author .dr-print-block + .dr-print-block-content {
 	border-top: 1px solid rgba(var(--wpd-font-color-rgb), 0.1);
 	margin-top: 40px;
 	padding-top: 20px;
@@ -759,18 +760,18 @@ body .dr-nutrition-label .dr-nut-hr {
 }
 
 /* print instructions */
-.dr-print-instructions .dr-pring-block-content ol li {
+.dr-print-instructions .dr-print-block-content ol li {
 	list-style: none;
 	display: flex;
 	gap: 16px;
 	align-items: center;
 }
 
-.dr-print-instructions .dr-pring-block-content ol li img {
+.dr-print-instructions .dr-print-block-content ol li img {
 	margin-bottom: 8px;
 }
 
-.dr-print-instructions .dr-pring-block-content ol li .instruction-number {
+.dr-print-instructions .dr-print-block-content ol li .instruction-number {
 	font-size: 1.14em;
 	font-weight: 600;
 	line-height: 1.5;
@@ -785,17 +786,17 @@ body .dr-nutrition-label .dr-nut-hr {
 	flex-shrink: 0;
 }
 
-.dr-print-instructions .dr-pring-block-content ol li p {
+.dr-print-instructions .dr-print-block-content ol li p {
 	margin: 0;
 }
 
-.dr-print-instructions .dr-pring-block-content ol li:has(img) {
+.dr-print-instructions .dr-print-block-content ol li:has(img) {
 	align-items: start;
 }
 
 /* ingredients list */
 
-.dr-ingredients-wrap .dr-pring-block-content ul,
+.dr-ingredients-wrap .dr-print-block-content ul,
 .ingredients-list {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
@@ -807,7 +808,7 @@ body .dr-nutrition-label .dr-nut-hr {
 	font-weight: 600;
 }
 
-.dr-ingredients-wrap .dr-pring-block-content ul .dr-subtitle {
+.dr-ingredients-wrap .dr-print-block-content ul .dr-subtitle {
 	grid-column: span 2;
 }
 
@@ -825,6 +826,15 @@ body .dr-nutrition-label .dr-nut-hr {
 	column-gap: 24px;
 	margin: 0 0 16px;
 	line-height: 1.85;
+}
+
+.dr-nutrition-facts{
+	margin-bottom: 16px;
+}
+
+dl.dr-nut-bottom.dr-clearfix{
+	display: flex;
+	flex-wrap: wrap;
 }
 
 .dr-ingredient-time .meta-wrap {

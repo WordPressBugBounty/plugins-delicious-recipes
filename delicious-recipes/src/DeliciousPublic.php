@@ -47,6 +47,8 @@ class DeliciousPublic {
 	 */
 	private function init_hooks() {
 		add_action( 'init', array( 'Delicious_Recipes_Shortcodes', 'init' ), 99999999 );
+
+		// Load frontend scripts.
 		add_action( 'wp_enqueue_scripts', array( $this, 'load_frontend_scripts' ) );
 
 		// Comments section.
@@ -174,8 +176,8 @@ class DeliciousPublic {
 			return $html;
 		}
 
-		// Divi Visual Builder is active
-		if ( isset( $_GET['et_fb'] ) && $_GET['et_fb'] == '1' ) {
+		// Divi Visual Builder is active.
+		if ( isset( $_GET['et_fb'] ) && '1' === $_GET['et_fb'] ) {
 			return $html;
 		}
 
@@ -347,16 +349,9 @@ class DeliciousPublic {
 	 * @return void
 	 */
 	public function load_frontend_scripts() {
-		$global_settings   = get_option( 'delicious_recipe_settings', true );
-		$asset_script_path = '/min/';
-		$min_prefix        = '.min';
+		$global_settings = get_option( 'delicious_recipe_settings', true );
 
 		$global_toggles = delicious_recipes_get_global_toggles_and_labels();
-
-		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-			$asset_script_path = '/';
-			$min_prefix        = '';
-		}
 
 		if ( $global_toggles['disable_percentage_values'] ) {
 			// Hot-fix: DR#58 .
@@ -369,20 +364,29 @@ class DeliciousPublic {
 			<?php
 		}
 
+		$templates = array(
+			'recipe-cooking-methods',
+			'recipe-cuisines',
+			'recipe-badges',
+			'recipe-courses',
+			'recipe-dietary',
+			'recipe-keys',
+			'recipe-tags',
+		);
+
 		$enable_autoload      = isset( $global_settings['autoloadRecipes']['0'] ) && 'yes' === $global_settings['autoloadRecipes']['0'] ? true : false;
 		$infinite_scroll_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/infiniteScroll.asset.php';
-		if ( ( isset( $global_settings['autoloadRecipes'] ) && 'yes' === $global_settings['autoloadRecipes'] ) || is_front_page()
-		|| ( isset( $global_settings['archivePaginationStyle'] ) && 'infinite_scroll' === $global_settings['archivePaginationStyle'] ) ) {
+		if ( ( is_recipe() && isset( $global_settings['autoloadRecipes'] ) && array( 'yes' ) === $global_settings['autoloadRecipes'] ) || ( is_archive() && isset( $global_settings['archivePaginationStyle'] ) && 'infinite_scroll' === $global_settings['archivePaginationStyle'] ) ) {
 			wp_enqueue_script( 'delicious-recipes-infiniteScroll', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/infiniteScroll.js', $infinite_scroll_deps['dependencies'], $infinite_scroll_deps['version'], true );
 		}
 
 		$license_validity = ( function_exists( 'DEL_RECIPE_PRO' ) && version_compare( DELICIOUS_RECIPES_PRO_VERSION, '2.2.2', '>=' ) ) ? delicious_recipe_pro_check_license_status() : true;
-		$public_js_deps   = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicJS.asset.php';
+		$public_js_deps   = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdPublic.asset.php';
 
 		if ( is_array( $public_js_deps ) && ! empty( $public_js_deps ) ) {
-			$public_js_deps['dependencies'] = array_merge( $public_js_deps['dependencies'], array( 'jquery', 'wp-util', 'select2', 'parsley' ) );
+			$public_js_deps['dependencies'] = array_merge( $public_js_deps['dependencies'], array( 'jquery', 'wp-util' ) );
 		} else {
-			$public_js_deps = array( 'dependencies' => array( 'jquery', 'wp-util', 'select2', 'parsley' ) );
+			$public_js_deps = array( 'dependencies' => array( 'jquery', 'wp-util' ) );
 		}
 		$delicious_recipes = array(
 			'ajax_url'             => admin_url( 'admin-ajax.php' ),
@@ -396,30 +400,87 @@ class DeliciousPublic {
 			'isUserLoggedIn'       => is_user_logged_in(),
 		);
 
-		wp_enqueue_style( 'delicious-recipes-single', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/public/css' . $asset_script_path . 'delicious-recipes-public' . $min_prefix . '.css', array(), DELICIOUS_RECIPES_VERSION, 'all' );
-		wp_enqueue_script(
+		wp_register_script(
 			'delicious-recipes-single',
-			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicJS.js',
+			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdPublic.js',
 			$public_js_deps['dependencies'],
-			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicJS.js' ),
+			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdPublic.js' ),
 			true
 		);
-		wp_enqueue_style( 'delicious-recipe-styles', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicCSS.css', array(), DELICIOUS_RECIPES_VERSION, 'all' );
-
 		wp_localize_script( 'delicious-recipes-single', 'delicious_recipes', $delicious_recipes );
+		wp_enqueue_script( 'delicious-recipes-single' );
 
-		wp_register_script( 'math-min', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/public/js/math.min.js', array( 'jquery' ), '10.6.1', true );
-		wp_register_script( 'parsley', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/parsley/parsley.min.js', array( 'jquery' ), '2.9.2', true );
+		// Enqueue Blocks Styles.
+		$has_blocks = has_blocks( get_the_content() );
+		if ( $has_blocks ) {
+			$blocks = parse_blocks( get_the_content() );
+			foreach ( $blocks as $block ) {
+				if ( ! empty( $block['blockName'] ) && is_string( $block['blockName'] ) && strpos( $block['blockName'], 'delicious-recipes/' ) === 0 ) {
+					wp_enqueue_style( 'delicious-recipe-block-styles', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/blockCSS.css', array(), DELICIOUS_RECIPES_VERSION, 'all' );
+					wp_enqueue_style( 'delicious-recipe-single-styles' );
+				}
+			}
+		}
 
+		// Register Single Recipe Styles.
+		wp_register_style(
+			'delicious-recipe-single-styles',
+			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdSingleRecipe.css',
+			array(),
+			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdSingleRecipe.css' ),
+			'all'
+		);
+
+		// Enqueue Global Styles.
+		wp_enqueue_style(
+			'delicious-recipe-global-styles',
+			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdGlobal.css',
+			array(),
+			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdGlobal.css' ),
+			'all'
+		);
+
+		// Register Archive Styles.
+		wp_register_style(
+			'delicious-recipe-archive-styles',
+			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdArchive.css',
+			array(),
+			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdArchive.css' ),
+			'all'
+		);
+		wp_register_script(
+			'delicious-recipe-archive-styles-js',
+			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdArchiveJS.js',
+			array(),
+			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdArchiveJS.js' ),
+			'all'
+		);
+
+		// Splides JS, Reason to load css seperately is because css wasnt loading properly when imported in js file.
+		wp_register_style(
+			'delicious-recipe-splide-css',
+			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/splide/splide.min.css',
+			array(),
+			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/splide/splide.min.css' ),
+			'all'
+		);
+
+		// Register Select2 JS and CSS.
 		wp_register_script( 'select2', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/select2/select2.min.js', array( 'jquery' ), '4.0.13', true );
 		wp_register_style( 'select2', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/select2/select2.min.css', array(), '4.0.13', 'all' );
-		if ( is_recipe_search()
-			|| is_recipe_dashboard()
-			|| has_shortcode( get_the_content(), 'dr_all_recipes' )
-		) {
-			wp_enqueue_script( 'select2' );
-			wp_enqueue_style( 'select2' );
-		}
+
+		// Register Toastr CSS and JS.
+		wp_register_style( 'toastr', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/toastr/toastr.min.css', array(), '2.1.3', 'all' );
+		wp_register_script( 'toastr', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/toastr/toastr.min.js', array( 'jquery' ), '2.1.3', true );
+
+		// Register Math JS.
+		wp_register_script( 'math-min', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/public/js/math.min.js', array( 'jquery' ), '10.6.1', true );
+
+		// Register Parsley JS.
+		wp_register_script( 'parsley', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/parsley/parsley.min.js', array( 'jquery' ), '2.9.2', true );
+
+		// Pintrest JS.
+		wp_register_script( 'pintrest', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/pintrest/pintrest.min.js', array( 'jquery' ), '5.14.0', true );
 
 		// Enable/Disable FA Icons JS.
 		$disable_fa_icons_js = isset( $global_settings['disableFAIconsJS']['0'] ) && 'yes' === $global_settings['disableFAIconsJS']['0'] ? true : false;
@@ -428,8 +489,67 @@ class DeliciousPublic {
 			wp_enqueue_script( 'v4-shims', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/fontawesome/v4-shims.min.js', array( 'jquery' ), '5.14.0', true );
 		}
 
+		// Recipe Search and Dashboard.
+		if ( ( is_recipe_dashboard() && isset( $_GET['tab'] ) && in_array( $_GET['tab'], array( 'browse', 'browse-recipes' ), true ) ) || is_recipe_search() || ( is_recipe_dashboard() && ! isset( $_GET['tab'] ) ) || has_shortcode( get_the_content(), 'dr_all_recipes' ) ) {
+			wp_enqueue_script( 'select2' );
+			wp_enqueue_style( 'select2' );
+
+			// Recipe Search CSS.
+			wp_enqueue_style(
+				'recipe-search-css',
+				plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdRecipeSearch.css',
+				array(),
+				filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdRecipeSearch.css' ),
+				'all'
+			);
+
+			// Recipe Search JS.
+			$recipe_search_js_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/recipeSearch.asset.php';
+			if ( is_array( $recipe_search_js_deps ) && ! empty( $recipe_search_js_deps ) ) {
+				$recipe_search_js_deps['dependencies'] = array_merge( $recipe_search_js_deps['dependencies'], array( 'jquery', 'select2' ) );
+			} else {
+				$recipe_search_js_deps = array( 'dependencies' => array( 'jquery', 'select2' ) );
+			}
+			wp_enqueue_script(
+				'recipe-search-js',
+				plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/recipeSearch.js',
+				$recipe_search_js_deps['dependencies'],
+				filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/recipeSearch.js' ),
+				true
+			);
+			wp_localize_script( 'recipe-search-js', 'delicious_recipes', $delicious_recipes );
+
+			// Enqueue Pinterest JS.
+			if ( delicious_recipes_enable_pinit_btn() ) {
+				wp_enqueue_script( 'pintrest' );
+			}
+		}
+
+		if ( is_recipe() ) {
+			wp_enqueue_style( 'delicious-recipe-single-styles' );
+			$single_recipe_js_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.asset.php';
+			if ( is_array( $single_recipe_js_deps ) && ! empty( $single_recipe_js_deps ) ) {
+				$single_recipe_js_deps['dependencies'] = array_merge( $single_recipe_js_deps['dependencies'], array( 'jquery' ) );
+			} else {
+				$single_recipe_js_deps = array( 'dependencies' => array( 'jquery' ) );
+			}
+			wp_enqueue_script(
+				'single-recipe',
+				plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.js',
+				$single_recipe_js_deps['dependencies'],
+				filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.js' ),
+				true
+			);
+			wp_localize_script( 'single-recipe', 'delicious_recipes', $delicious_recipes );
+		}
+
 		if ( delicious_recipes_enable_pinit_btn() ) {
-			wp_enqueue_script( 'pintrest', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/pintrest/pintrest.min.js', array( 'jquery' ), '5.14.0', true );
+			if ( is_recipe()
+				|| is_recipe_dashboard()
+				|| is_recipe_taxonomy()
+			) {
+				wp_enqueue_script( 'pintrest', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/pintrest/pintrest.min.js', array( 'jquery' ), '5.14.0', true );
+			}
 		}
 
 		if ( is_recipe_dashboard()
@@ -437,19 +557,73 @@ class DeliciousPublic {
 			|| has_shortcode( get_the_content(), 'dr_edit_profile' )
 			|| has_shortcode( get_the_content(), 'dr_login' )
 		) {
-			wp_enqueue_style( 'toastr', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/toastr/toastr.min.css', array(), '2.1.3', 'all' );
-			wp_enqueue_script( 'toastr', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/toastr/toastr.min.js', array( 'jquery' ), '2.1.3', true );
+			// Enqueue Toastr CSS and JS.
+			wp_enqueue_style( 'toastr' );
+			wp_enqueue_script( 'toastr' );
+
+			// Enqueue Dropzone CSS and JS.
 			wp_enqueue_style( 'dropzone', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/dropzone/dropzone.min.css', array(), '5.9.2', 'all' );
 			wp_register_script( 'dropzone', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/dropzone/dropzone.min.js', array(), '5.9.2', true );
+			// Disable auto discover for Dropzone.
 			wp_add_inline_script( 'dropzone', 'Dropzone.autoDiscover = false;' );
-			wp_enqueue_style( 'delicious-recipes-user-dashboard', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'src/dashboard/css/main.css', array(), DELICIOUS_RECIPES_VERSION, 'all' );
-			wp_enqueue_script( 'delicious-recipes-user-dashboard', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'src/dashboard/js/main.js', array( 'jquery', 'dropzone', 'parsley', 'wp-i18n' ), DELICIOUS_RECIPES_VERSION, true );
+
+			// Enqueue User Dashboard CSS and JS.
+			wp_enqueue_style(
+				'delicious-recipes-user-dashboard',
+				plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/user-dashboard.css',
+				array(),
+				filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/user-dashboard.css' ),
+				'all'
+			);
+			wp_enqueue_script(
+				'delicious-recipes-user-dashboard',
+				plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'src/dashboard/js/main.js',
+				array( 'jquery', 'dropzone', 'parsley', 'wp-i18n' ),
+				filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'src/dashboard/js/main.js' ),
+				true
+			);
+
+			// Set script translations.
 			wp_set_script_translations( 'delicious-recipes-user-dashboard', 'delicious-recipes', plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'languages' );
+
+			// Enqueue Archive Styles.
+			wp_enqueue_style( 'delicious-recipe-archive-styles' );
+		}
+
+		if ( is_tax() || array_reduce(
+			$templates,
+			function ( $carry, $template ) {
+				return $carry || is_page_template( 'templates/pages/' . $template . '.php' );
+			},
+			false
+		) ) {
+			wp_enqueue_style( 'delicious-recipe-archive-styles' );
+			wp_enqueue_script( 'delicious-recipe-archive-styles-js' );
+
+			wp_localize_script( 'delicious-recipe-archive-styles-js', 'delicious_recipes', $delicious_recipes );
+
+			// Splide is not needed in individual taxonomy pages.
+			if ( ! is_recipe_taxonomy() ) {
+				wp_enqueue_style( 'delicious-recipe-splide-css' );
+			}
+		}
+
+		$current_page = get_queried_object();
+		if ( $current_page && 'recipe' === $current_page->name ) {
+			wp_enqueue_style( 'delicious-recipe-archive-styles' );
+			wp_enqueue_script( 'delicious-recipe-archive-styles-js' );
+			wp_enqueue_style( 'delicious-recipe-splide-css' );
 		}
 
 		$active_theme = wp_get_theme();
 		if ( 'Divi' === $active_theme->name ) {
-			wp_enqueue_style( 'delicious-recipe-divi-styles', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicCSS_DIVI.css' );
+			wp_enqueue_style(
+				'delicious-recipe-divi-styles',
+				plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicCSS_DIVI.css',
+				array(),
+				filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/publicCSS_DIVI.css' ),
+				'all'
+			);
 		}
 	}
 
@@ -545,11 +719,12 @@ class DeliciousPublic {
 	 * @return void
 	 */
 	public function dr_save_comment_rating( $comment_id ) {
-		$comment_post_ID = isset( $_POST['comment_post_ID'] ) ? intval( $_POST['comment_post_ID'] ) : 0;
+		// phpcs:disable WordPress.Security.NonceVerification.Missing
+		$comment_post_id = isset( $_POST['comment_post_ID'] ) ? intval( $_POST['comment_post_ID'] ) : 0;
 		$comment_parent  = isset( $_POST['comment_parent'] ) ? intval( $_POST['comment_parent'] ) : 0;
 		$rating          = isset( $_POST['rating'] ) ? floatval( $_POST['rating'] ) : '';
 
-		if ( $comment_post_ID && ( get_post_type( $comment_post_ID ) == DELICIOUS_RECIPE_POST_TYPE ) ) {
+		if ( $comment_post_id && ( get_post_type( $comment_post_id ) == DELICIOUS_RECIPE_POST_TYPE ) ) {
 			if ( ! empty( $comment_parent ) ) {
 				// Bail early if we have rating and we are under parent comment, i.e replying to a thread.
 				return;
@@ -666,7 +841,7 @@ class DeliciousPublic {
 				}
 
 				$post_type = $query->get( 'post_type' );
-				if ( $post_type == '' || $post_type == 'post' ) {
+				if ( '' === $post_type || 'post' === $post_type ) {
 					$post_type = array( 'post', DELICIOUS_RECIPE_POST_TYPE );
 				} elseif ( is_array( $post_type ) ) {
 					if ( in_array( 'post', $post_type ) && ! in_array( DELICIOUS_RECIPE_POST_TYPE, $post_type ) ) {
@@ -771,13 +946,6 @@ class DeliciousPublic {
 			'templates/pages/recipe-dietary.php',
 			'templates/pages/recipe-badges.php',
 		);
-
-		if ( is_page_template( $recipe_templates ) ) {
-			wp_enqueue_script( 'delicious-recipes-cuisines', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/archiveJS.js' );
-			wp_enqueue_style( 'delicious-recipes-cuisines', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/archiveJS.css' );
-			wp_enqueue_style( 'delicious-recipes-cuisines-css', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/taxonomyCSS.css' );
-
-		}
 	}
 
 	/**
@@ -790,7 +958,7 @@ class DeliciousPublic {
 		$recipe_id = isset( $print_url[1] ) ? $print_url[1] : false;
 
 		// We have some params, let's check
-		// extract params (e.g. /?servings=4&prep-time=15)
+		// extract params (e.g. /?servings=4&prep-time=15).
 		if ( isset( $print_url[2] ) && is_string( $print_url[2] ) ) {
 			preg_match_all( '/[\?|\&]([^=]+)\=([^&]+)/', $print_url[2], $params );
 
@@ -798,17 +966,17 @@ class DeliciousPublic {
 				foreach ( $params[1] as $key => $value ) {
 
 					if ( 'block-type' === $value ) {
-						$blockType = isset( $params[2][ $key ] ) ? $params[2][ $key ] : 'recipe-card';
+						$block_type = isset( $params[2][ $key ] ) ? $params[2][ $key ] : 'recipe-card';
 					} elseif ( 'servings' === $value ) {
 						$servings = isset( $params[2][ $key ] ) ? $params[2][ $key ] : 0;
 					} elseif ( 'block-id' === $value ) {
-						$blockId = isset( $params[2][ $key ] ) ? $params[2][ $key ] : '';
+						$block_id = isset( $params[2][ $key ] ) ? $params[2][ $key ] : '';
 					}
 				}
 			}
 		}
 
-		if ( $recipe_id && isset( $blockType ) ) {
+		if ( $recipe_id && isset( $block_type ) ) {
 			// Prevent WP Rocket lazy image loading on print page.
 			add_filter( 'do_rocket_lazyload', '__return_false' );
 
@@ -825,16 +993,16 @@ class DeliciousPublic {
 			$content                     = $recipe->post_content;
 
 			if ( 'publish' !== $recipe->post_status ) {
-				wp_redirect( home_url() );
+				wp_safe_redirect( home_url() );
 				exit();
 			}
 
 			if ( has_blocks( $recipe->post_content ) ) {
-				$blocks            = parse_blocks( $recipe->post_content );
-				$dynamicRecipeCard = self::findDynamicRecipeCard( $blocks );
-				if ( $dynamicRecipeCard ) {
+				$blocks              = parse_blocks( $recipe->post_content );
+				$dynamic_recipe_card = self::findDynamicRecipeCard( $blocks );
+				if ( $dynamic_recipe_card ) {
 					$has_delicious_recipes_block = true;
-					$attributes                  = $dynamicRecipeCard['attrs'];
+					$attributes                  = $dynamic_recipe_card['attrs'];
 				}
 			}
 
@@ -853,9 +1021,9 @@ class DeliciousPublic {
 	 * @param array $blocks The array of blocks to search through.
 	 * @return array|null The dynamic recipe card block or null if not found.
 	 */
-	public static function findDynamicRecipeCard( $blocks ) {
+	public static function findDynamicRecipeCard( $blocks ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
 		foreach ( $blocks as $block ) {
-			if ( isset( $block['blockName'] ) && $block['blockName'] === 'delicious-recipes/dynamic-recipe-card' ) {
+			if ( isset( $block['blockName'] ) && 'delicious-recipes/dynamic-recipe-card' === $block['blockName'] ) {
 				return $block; // Return the block when found.
 			}
 			if ( isset( $block['innerBlocks'] ) && is_array( $block['innerBlocks'] ) ) {
@@ -885,9 +1053,8 @@ class DeliciousPublic {
 	/**
 	 * Add the login/registration form for logged out users
 	 */
-	function get_login_registration_form() {
-
-		if ( isset( $_GET['print_recipe'] ) && 'true' == $_GET['print_recipe'] ) {
+	public function get_login_registration_form() {
+		if ( isset( $_GET['print_recipe'] ) && 'true' === $_GET['print_recipe'] ) {
 			return;
 		}
 

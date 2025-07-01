@@ -10,7 +10,7 @@ $global_toggles = delicious_recipes_get_global_toggles_and_labels();
 if ( ! empty( $recipe->notes ) && $global_toggles['enable_notes'] ) :
 	?>
 			<div class="dr-note">
-				<h3 class="dr-title"><?php echo esc_html( $global_toggles['notes_lbl'] ); ?></h3>
+				<h2 class="dr-title"><?php echo esc_html( $global_toggles['notes_lbl'] ); ?></h2>
 			<?php
 				$blocks = parse_blocks( $recipe->notes );
 

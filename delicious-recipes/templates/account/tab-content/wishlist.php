@@ -70,12 +70,12 @@ $_user_meta   = get_user_meta( $current_user->ID, 'delicious_recipes_user_meta',
 		$global_settings        = delicious_recipes_get_global_settings();
 		$default_posts_per_page = isset( $global_settings['recipePerPage'] ) && ( ! empty( $global_settings['recipePerPage'] ) ) ? $global_settings['recipePerPage'] : get_option( 'posts_per_page' );
 
-		$cat = get_theme_mod( 'exclude_categories' );
+		$cat = get_theme_mod( 'exclude_categories' ); // @phpcs:ignore
 		if ( $cat ) {
-			$cat = array_diff( array_unique( $cat ), array( '' ) );
+			$cat = array_diff( array_unique( $cat ), array( '' ) ); // @phpcs:ignore
 		}
 
-		$current_paged = get_query_var( 'paged', 1 );
+		$recipe_paged = is_front_page() ? get_query_var( 'page', 1 ) : get_query_var( 'paged', 1 );
 
 		$args = array(
 			'post_type'           => DELICIOUS_RECIPE_POST_TYPE,
@@ -85,7 +85,7 @@ $_user_meta   = get_user_meta( $current_user->ID, 'delicious_recipes_user_meta',
 			'ignore_sticky_posts' => true,
 			'category__not_in'    => $cat,
 			's'                   => $fav_search,
-			'paged'               => get_query_var( 'paged', 1 ),
+			'paged'               => $recipe_paged,
 		);
 
 		$query = new WP_Query( $args );
@@ -129,9 +129,14 @@ $_user_meta   = get_user_meta( $current_user->ID, 'delicious_recipes_user_meta',
 			<?php
 	endif;
 
+		// Set the query.
+		$wp_query = $query; // @phpcs:ignore
+
+		// Pagination.
 		the_posts_pagination();
 
-	$wp_query = $wp_query_backup;  // @phpcs:ignore
+		// Reset the query.
+		$wp_query = $wp_query_backup;  // @phpcs:ignore
 
 		?>
 </div>

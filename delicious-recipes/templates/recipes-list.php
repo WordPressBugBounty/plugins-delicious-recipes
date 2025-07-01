@@ -40,7 +40,7 @@ $img_size = apply_filters( 'recipes_list_img_size', $img_size );
 		<?php if ( $recipe->thumbnail && delicious_recipes_enable_pinit_btn() ) : ?>
 			<span class="post-pinit-button">
 				<a data-pin-do="buttonPin" href="https://www.pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>/&media=<?php echo esc_url( $recipe->thumbnail ); ?>&description=So%20delicious!" data-pin-custom="true">
-					<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/pinit-sm.png" alt="pinit">
+					<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/pinit-sm.png" alt="pinit">
 				</a>
 			</span>
 		<?php endif; ?>

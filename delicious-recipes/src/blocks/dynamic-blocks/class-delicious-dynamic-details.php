@@ -446,7 +446,7 @@ class Delicious_Dynamic_Details {
 				'dr-meta-title',
 				$svg,
 				$seasonitle,
-				implode( ', ', array_map( 'ucfirst', $season ) )
+				is_array( $season ) ? implode( ', ', array_map( 'ucfirst', $season ) ) : ucfirst( $season )
 			);
 		}
 

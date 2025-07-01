@@ -1,7 +1,28 @@
 import Splide from '@splidejs/splide';
-import "@splidejs/splide/dist/css/splide.min.css";
+import { initWishlist } from './wishlist';
+import { initRecipeLike } from './recipe-like';
 
 document.addEventListener('DOMContentLoaded', function () {
+    initWishlist();
+    initRecipeLike();
+
+    const socialShare = document.querySelectorAll('.post-share a.meta-title');
+
+	socialShare.forEach(function(metaTitle) {
+		metaTitle.addEventListener('click', function(e) {
+			e.stopPropagation();
+			const socialNetworks = this.parentElement.querySelector('.social-networks');
+			if (socialNetworks) {
+                const li = socialNetworks.querySelector('li');
+                if (li.classList.contains('active')) {
+                    li.classList.remove('active');
+                } else {
+                    li.classList.add('active');
+                }
+			}
+		});
+	});
+
     const splides = document.querySelectorAll('.dr-cuisines-carousel');
 
     splides.forEach(splide => {

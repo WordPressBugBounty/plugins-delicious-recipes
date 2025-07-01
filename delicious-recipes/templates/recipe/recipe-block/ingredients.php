@@ -99,7 +99,7 @@ if ( ! empty( $recipe_ingredients ) ) :
 	?>
 	<div class="dr-ingredients-list">
 		<div class="dr-ingrd-title-wrap wpd-gap-1">
-			<h3 class="dr-title"><?php echo esc_html( $ingredient_title ); ?></h3>
+			<h2 class="dr-title"><?php echo esc_html( $ingredient_title ); ?></h2>
 			<div class="dr-ingredients-toolbar">
 			<?php
 			if ( $license_validity_bool && $unit_conversion && isset( $recipe_post_meta['recipeUnitConversion'] ) && ! empty( $recipe_post_meta['recipeUnitConversion'] ) && is_array( $recipe_post_meta['recipeUnitConversion'] ) ) {
@@ -153,11 +153,11 @@ if ( ! empty( $recipe_ingredients ) ) :
 
 				if ( $section_title ) {
 					?>
-					<h4 class="dr-title">
+					<h3 class="dr-title">
 						<?php
 							echo esc_html( $section_title );
 						?>
-					</h4>
+					</h3>
 				<?php } ?>
 				<?php
 				if ( ! $ingre ) {

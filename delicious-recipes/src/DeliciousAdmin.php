@@ -683,10 +683,10 @@ class DeliciousAdmin {
 			'name'          => __( 'WP Delicious Sidebar', 'delicious-recipes' ),
 			'id'            => 'delicious-recipe-sidebar',
 			'description'   => __( 'This is the widget area for single recipe page.', 'delicious-recipes' ),
-			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'before_widget' => '<section id="%1$s" class="widget wpd-widget %2$s">',
 			'after_widget'  => '</section>',
-			'before_title'  => '<h2 class="widget-title" itemprop="name">',
-			'after_title'   => '</h2>',
+			'before_title'  => '<div class="widget-title" itemprop="name">',
+			'after_title'   => '</div>',
 		);
 		// Register.
 		register_sidebar( $args );
@@ -695,10 +695,8 @@ class DeliciousAdmin {
 	/**
 	 * Default hidden columns recipe post type.
 	 *
-	 * @param [type] $hidden
-	 * @param [type] $screen
-	 *
-	 * @return void
+	 * @param array  $hidden Array of hidden columns.
+	 * @param object $screen Current screen object.
 	 */
 	public function hide_recipe_taxonomy_columns( $hidden, $screen ) {
 		$screens_to_hide = array( 'author', 'taxonomy-recipe-tag', 'comments' );

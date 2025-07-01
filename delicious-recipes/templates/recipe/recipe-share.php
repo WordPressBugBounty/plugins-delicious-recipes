@@ -19,7 +19,7 @@ if ( $enable_social_section && $socials_enabled ) :
 	?>
 	<div class="dr-recipe-share">
 		<?php if ( ! empty( $section_title ) ) : ?>
-			<h3 class="dr-title"><?php echo esc_html( $section_title ); ?></h3>
+			<span class="dr-title"><?php echo esc_html( $section_title ); ?></span>
 			<?php
 		endif;
 		if ( isset( $global_settings['socialShare'] ) && ! empty( $global_settings['socialShare'] ) ) :

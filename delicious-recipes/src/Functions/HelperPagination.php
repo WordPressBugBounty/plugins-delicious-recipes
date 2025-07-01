@@ -227,7 +227,7 @@ if ( ! function_exists( 'delicious_recipes_display_recipes_pagination' ) ) {
 		$proper_links = join( "\n", $proper_links );
 
 		if ( $args['pagination_type'] === 'simple' ) {
-			$proper_links = '<div class="">' . $proper_links . '</div>';
+			$proper_links = '<div class="nav-links">' . $proper_links . '</div>';
 		}
 
 		return sprintf(

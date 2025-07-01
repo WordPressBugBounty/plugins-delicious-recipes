@@ -1,3 +1,14 @@
+1.8.5: 2025-07-01
+- Enhancement: Introduced an option to disable the WP Delicious logo on the Print Page.
+- Fixes: Optimized scripts and styles for improved performance.
+- Fixes: Resolved various design and functional issues on the Print Page.
+- Fixes: Addressed XSS vulnerability as reported by the PatchStack.
+- Fixes: Fixed spacing inconsistencies in sidebar widgets.
+- Fixes: Corrected heading tag structure on the Single Recipe Page for better SEO.
+- Fixes: Fixed issues with search filters and search functionality on the Search Page.
+- Fixes: Improved grid layout in the recipe list for enhanced responsiveness.
+- Fixes: Updated pagination styling for better visual clarity and consistency.
+
 1.8.4: 2025-05-19
 - Fixes: Resolved REST API and session-related issues flagged by the WordPress Site Health Check tool, which were impacting plugin functionality.
 - Fixes: Fixed a compatibility issue with Elementor on the recipe search page caused by caching.

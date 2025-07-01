@@ -56,7 +56,7 @@ $recipe_paged           = is_front_page() ? get_query_var( 'page', 1 ) : get_que
 		<?php
 		if ( $recipe_search->have_posts() ) :
 			?>
-			<div class="dr-search-item-wrap" itemscope itemtype="http://schema.org/ItemList">
+			<div class="dr-search-item-wrap dr-archive-list-gridwrap grid" itemscope itemtype="http://schema.org/ItemList">
 				<?php
 				$position = 1;
 				while ( $recipe_search->have_posts() ) :
@@ -94,7 +94,7 @@ $recipe_paged           = is_front_page() ? get_query_var( 'page', 1 ) : get_que
 	<# if ( data.length> 0 ) { #>
 		<# _.each( data, function( val ) { #>
 		<div class="dr-archive-single">
-			<figure>
+			<figure class="wpdr-feat-thumb">
 				<a href="{{val.permalink}}">
 					<# if ( val.thumbnail ) { #>
 						{{{val.thumbnail}}}
@@ -105,7 +105,7 @@ $recipe_paged           = is_front_page() ? get_query_var( 'page', 1 ) : get_que
 				<# if ( val.thumbnail.length > 0 && val.enable_pinit ) { #>
 					<span class="post-pinit-button">
 						<a data-pin-do="buttonPin" href="https://www.pinterest.com/pin/create/button/?url={{val.permalink}}/&media={{val.thumbnail_url}}&description=So%20delicious!" data-pin-custom="true">
-							<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>/assets/images/pinit-sm.png" alt="pinit">
+							<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ); ?>assets/images/pinit-sm.png" alt="pinit">
 						</a>
 					</span>
 				<# } #>

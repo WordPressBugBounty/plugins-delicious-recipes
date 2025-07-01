@@ -860,7 +860,7 @@
 
 .dr-ingredients-scale .dr-scale-ingredients {
 	background: #ffffff;
-	width: 90px;
+	width: 90px !important;
 	border: 1px solid rgba(45, 182, 141, 0.35);
 	border-radius: 3px;
 	color: #000;

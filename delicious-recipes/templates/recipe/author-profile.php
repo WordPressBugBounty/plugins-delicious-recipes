@@ -7,7 +7,9 @@
 
 $global_settings = delicious_recipes_get_global_settings();
 
-$author_profile = isset( $global_settings['enableAuthorProfile']['0'] ) && 'yes' === $global_settings['enableAuthorProfile']['0'] ? true : false;
+$author_profile       = isset( $global_settings['enableAuthorProfile']['0'] ) && 'yes' === $global_settings['enableAuthorProfile']['0'] ? true : false;
+$disable_font_awesome = isset( $global_settings['disableFAIconsJS']['0'] ) && 'yes' === $global_settings['disableFAIconsJS']['0'] ? true : false;
+
 
 if ( ! $author_profile ) {
 	return;
@@ -33,23 +35,20 @@ if ( empty( $author_name ) && empty( $author_image ) && empty( $author_descripti
 ?>
 <div class="author-block">
 	<div class="author-img-wrap">
-	<?php if ( $author_image ) : ?>
-		<figure class="author-img">
-			<?php echo wp_get_attachment_image( $author_image, 'full', false, array( 'class' => 'attachment-full size-full' ) ); ?>
-		</figure>
-	<?php endif; ?>
-			<?php
-			if ( $author_name ) :
-				?>
-						<h3 class="author-name"><?php echo esc_html( $author_name ); ?></h3>
-					<?php
-				endif;
-			?>
-			<?php if ( $author_subtitle ) : ?>
-				<span class="author-subtitle">
-					<?php echo esc_html( $author_subtitle ); ?>
-				</span>
-			<?php endif; ?>
+		<?php if ( $author_image ) : ?>
+			<figure class="author-img">
+				<?php echo wp_get_attachment_image( $author_image, 'full', false, array( 'class' => 'attachment-full size-full' ) ); ?>
+			</figure>
+		<?php endif; ?>
+		<?php if ( $author_name ) : ?>
+			<span class="author-name"><?php echo esc_html( $author_name ); ?></span>
+		<?php endif; ?>
+		<?php if ( $author_subtitle ) : ?>
+			<span class="author-subtitle">
+				<?php echo esc_html( $author_subtitle ); ?>
+			</span>
+		<?php endif; ?>
+		<?php if ( ! $disable_font_awesome ) : ?>
 		<div class="author-social">
 			<ul class="social-networks">
 				<?php if ( $youtube_link ) : ?>
@@ -89,6 +88,7 @@ if ( empty( $author_name ) && empty( $author_image ) && empty( $author_descripti
 				<?php endif; ?>
 			</ul>
 		</div>
+		<?php endif; ?>
 	</div>
 	<?php if ( $author_description ) : ?>
 		<div class="author-desc">

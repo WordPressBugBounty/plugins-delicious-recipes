@@ -37,11 +37,11 @@ $img_size       = apply_filters( 'popular_list_img_size', $img_size );
 		</a>
 	</div>
 	<div class="dr-mst-pop-details">
-		<h3 class="dr-mst-pop-title">
+		<span class="dr-mst-pop-title">
 			<a href="<?php echo esc_url( $recipe->permalink ); ?>">
 				<?php echo esc_html( $recipe->name ); ?>
 			</a>
-		</h3>
+		</span>
 		<div class="dr-fav-header">
 			<div class="dr-entry-meta" style="justify-content: unset;">
 				<?php if ( $recipe->total_time ) : ?>

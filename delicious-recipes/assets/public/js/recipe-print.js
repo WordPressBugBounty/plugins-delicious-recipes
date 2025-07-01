@@ -1,4 +1,4 @@
-import { formatQuantity, parseQuantity } from "./quantities";
+import { formatQuantity, parseQuantity, decimalToFraction } from "./quantities";
 
 // Cache DOM elements
 const printElements = {
@@ -111,12 +111,20 @@ window.PrintScripts = {
 		}
 	},
 
+	shouldUseFraction() {
+		return deliciousRecipesPrint.useFraction.length > 1;
+	},
+
 	parse(quantity) {
 		return parseQuantity(quantity);
 	},
 
 	format(quantity) {
-		return formatQuantity(quantity, 2, true);
+		if (this.shouldUseFraction()) {
+			return decimalToFraction(quantity);
+		} else {
+			return formatQuantity(quantity, 2, false);
+		}
 	}
 };
 

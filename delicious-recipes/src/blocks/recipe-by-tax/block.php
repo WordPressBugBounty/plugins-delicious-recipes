@@ -95,7 +95,7 @@ if ( ! function_exists( 'delicious_recipes_tax_by_type_block_render_callback' ) 
 		if ( $recipes->have_posts() ) :
 
 			$position = 1;
-			echo '<div class="dr-gb-block-wrap">';
+			echo '<div class="dr-gb-block-wrap dr-archive-list-gridwrap ' . esc_attr( $layout ) . '">';
 			while ( $recipes->have_posts() ) :
 				$recipes->the_post();
 				/**
