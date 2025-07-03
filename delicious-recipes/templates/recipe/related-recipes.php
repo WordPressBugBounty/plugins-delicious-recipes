@@ -42,7 +42,7 @@ $terms_id  = wp_list_pluck( $terms, 'term_id' );
 			?>
 			<h2 class="dr-related-recipes__title"><?php echo esc_html( $related_recipes_title ); ?></h2>
 			<div class="dr-archive-list-wrapper">
-				<div class="dr-archive-list-gridwrap wpd-columns-<?php echo esc_attr( $related_recipes_per_row ); ?>">
+				<div class="dr-archive-list-gridwrap grid wpd-columns-<?php echo esc_attr( $related_recipes_per_row ); ?>">
 					<?php
 					while ( $loop->have_posts() ) {
 						$loop->the_post();

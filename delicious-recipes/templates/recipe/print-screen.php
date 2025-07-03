@@ -351,7 +351,11 @@ $all_no = true;
 											<?php echo esc_html( $global_toggles['servings_lbl'] ); ?>:
 										</b>
 										<span id="dr-servings">
-											<?php echo esc_html( $recipe->no_of_servings ); ?>
+											<?php
+											// Get the servings value from the URL
+											$servings = isset( $_GET['recipe_servings'] ) ? $_GET['recipe_servings'] : $recipe->no_of_servings;
+											echo esc_html( $servings );
+											?>
 										</span>
 									</div>
 								<?php } ?>

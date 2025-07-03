@@ -22,7 +22,7 @@ $view_type = delicious_recipes_get_archive_layout();
 ?>
 <main id="main" class="site-main">
     <div class="dr-archive-list-wrapper">
-        <div class="dr-archive-list-gridwrap <?php echo esc_attr( $view_type ); ?>" itemscope itemtype="http://schema.org/ItemList">
+        <div class="dr-archive-list-gridwrap grid <?php echo esc_attr( $view_type ); ?>" itemscope itemtype="http://schema.org/ItemList">
 
 <?php
 /* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

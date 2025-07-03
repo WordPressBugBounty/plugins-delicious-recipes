@@ -1,7 +1,10 @@
 <?php
 /**
  * Notes template
+ *
+ * @package Delicious_Recipes
  */
+
 global $recipe;
 
 // Get global toggles.

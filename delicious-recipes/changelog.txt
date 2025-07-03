@@ -1,3 +1,9 @@
+1.8.6: 2025-07-03
+- Fixes: Resolved an issue in the Print Page where number of servings did not adjust according to the ingredient quantity.
+- Fixes: Fixed design inconsistencies in the Related Recipes section on the Single Recipe Page.
+- Fixes: Corrected list element styling issues on the Single Recipe Page.
+- Fixes: Addressed responsive design issues in the Recipe Summary section of the Single Recipe Page.
+
 1.8.5: 2025-07-01
 - Enhancement: Introduced an option to disable the WP Delicious logo on the Print Page.
 - Fixes: Optimized scripts and styles for improved performance.
