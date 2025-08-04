@@ -798,77 +798,90 @@ function delicious_recipes_get_global_settings() {
 			),
 			'printOptions'                 => array(
 				'0'  => array(
-					'key'    => __( 'Title', 'delicious-recipes' ),
+					'label'  => __( 'Title', 'delicious-recipes' ),
+					'key'    => 'title',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'1'  => array(
-					'key'    => __( 'Info', 'delicious-recipes' ),
+					'label'  => __( 'Info', 'delicious-recipes' ),
+					'key'    => 'info',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'2'  => array(
-					'key'    => __( 'Description', 'delicious-recipes' ),
+					'label'  => __( 'Description', 'delicious-recipes' ),
+					'key'    => 'description',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'3'  => array(
-					'key'    => __( 'Images', 'delicious-recipes' ),
+					'label'  => __( 'Images', 'delicious-recipes' ),
+					'key'    => 'images',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'4'  => array(
-					'key'    => __( 'Ingredients', 'delicious-recipes' ),
+					'label'  => __( 'Ingredients', 'delicious-recipes' ),
+					'key'    => 'ingredients',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'5'  => array(
-					'key'    => __( 'Instructions', 'delicious-recipes' ),
+					'label'  => __( 'Instructions', 'delicious-recipes' ),
+					'key'    => 'instructions',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'6'  => array(
-					'key'    => __( 'Nutrition', 'delicious-recipes' ),
+					'label'  => __( 'Nutrition', 'delicious-recipes' ),
+					'key'    => 'nutrition',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'7'  => array(
-					'key'    => __( 'Notes', 'delicious-recipes' ),
+					'label'  => __( 'Notes', 'delicious-recipes' ),
+					'key'    => 'notes',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'8'  => array(
-					'key'    => __( 'Social Share', 'delicious-recipes' ),
+					'label'  => __( 'Social Share', 'delicious-recipes' ),
+					'key'    => 'social-share',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'9'  => array(
-					'key'    => __( 'Author Bio', 'delicious-recipes' ),
+					'label'  => __( 'Author Bio', 'delicious-recipes' ),
+					'key'    => 'author-bio',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'10' => array(
-					'key'    => __( 'Thank You Note', 'delicious-recipes' ),
+					'label'  => __( 'Thank You Note', 'delicious-recipes' ),
+					'key'    => 'thank-you-note',
 					'enable' => array(
 						'0' => 'yes',
 					),
 				),
 				'11' => array(
-					'key'    => __( 'Recipe Content', 'delicious-recipes' ),
+					'label'  => __( 'Recipe Content', 'delicious-recipes' ),
+					'key'    => 'recipe-content',
 					'enable' => array(),
 				),
 				'12' => array(
-					'key'    => __( 'Extended Content', 'delicious-recipes' ),
+					'label'  => __( 'Extended Content', 'delicious-recipes' ),
+					'key'    => 'extended-content',
 					'enable' => array(
 						'0' => 'yes',
 					),

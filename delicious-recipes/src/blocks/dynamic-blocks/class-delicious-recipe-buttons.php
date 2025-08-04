@@ -19,14 +19,15 @@ class Delicious_Recipe_Buttons {
 	 * The post Object.
 	 *
 	 * @since 1.0.8
+	 * @var WP_Post
 	 */
 	private static $recipe;
 
 	/**
 	 * Class instance Helpers.
 	 *
-	 * @var Delicious_Recipes_Helpers
 	 * @since 1.2.0
+	 * @var Delicious_Recipes_Helpers
 	 */
 	private static $helpers;
 
@@ -34,6 +35,7 @@ class Delicious_Recipe_Buttons {
 	 * Block attributes.
 	 *
 	 * @since 1.0.8
+	 * @var array
 	 */
 	public static $attributes;
 
@@ -41,6 +43,7 @@ class Delicious_Recipe_Buttons {
 	 * Block settings.
 	 *
 	 * @since 1.0.8
+	 * @var array
 	 */
 	public static $settings;
 
@@ -66,46 +69,48 @@ class Delicious_Recipe_Buttons {
 		}
 
 		$attributes = array(
-			'id' => array(
-			    'type' => 'string',
-			    'default' => 'dr-recipe-buttons'
+			'id'                => array(
+				'type'    => 'string',
+				'default' => 'dr-recipe-buttons',
 			),
 			'jumptorecipeTitle' => array(
-				'type' => 'string',
+				'type'     => 'string',
 				'selector' => '.jump-to-recipe-label',
-				'default' => 'Jump to Recipe',
+				'default'  => 'Jump to Recipe',
 			),
-			'jumptovideoTitle' => array(
-				'type' => 'string',
+			'jumptovideoTitle'  => array(
+				'type'     => 'string',
 				'selector' => '.jump-to-video-label',
-				'default' => 'Jump to Video',
+				'default'  => 'Jump to Video',
 			),
-			'printrecipeTitle' => array(
-				'type' => 'string',
+			'printrecipeTitle'  => array(
+				'type'     => 'string',
 				'selector' => '.print-recipe-label',
-				'default' => 'Print Recipe',
+				'default'  => 'Print Recipe',
 			),
-			'settings' => array(
-                'type'      => 'array',
-                'default' => array(
-                    array(
+			'settings'          => array(
+				'type'    => 'array',
+				'default' => array(
+					array(
 						'jump_to_recipe_btn' => true,
 						'jump_to_video_btn'  => true,
 						'print_recipe_btn'   => true,
-					)
+					),
 				),
-				'items' => array(
-					'type' => 'object'
-				)
-			)
+				'items'   => array(
+					'type' => 'object',
+				),
+			),
 		);
 
-		// Hook server side rendering into render callback
+		// Hook server side rendering into render callback.
 		register_block_type(
-			'delicious-recipes/block-recipe-buttons', array(
-				'attributes' => $attributes,
+			'delicious-recipes/block-recipe-buttons',
+			array(
+				'attributes'      => $attributes,
 				'render_callback' => array( $this, 'render' ),
-		) );
+			)
+		);
 	}
 
 	/**
@@ -123,19 +128,19 @@ class Delicious_Recipe_Buttons {
 		}
 
 		$attributes = self::$helpers->omit( $attributes, array() );
-		// Import variables into the current symbol table from an array
+		// Import variables into the current symbol table from an array.
 		extract( $attributes );
 
 		self::$recipe     = get_post();
 		self::$attributes = $attributes;
 		self::$settings   = self::$helpers->parse_recipe_buttons_block_settings( $attributes );
 
-		self::$attributes['jumptorecipeTitle']      = isset( $jumptorecipeTitle ) ? $jumptorecipeTitle : __("Jump to Recipe", 'delicious-recipes');
-		self::$attributes['jumptovideoTitle']      = isset( $jumptovideoTitle ) ? $jumptovideoTitle : __("Jump to Video", 'delicious-recipes');
-		self::$attributes['printrecipeTitle']      = isset( $printrecipeTitle ) ? $printrecipeTitle : __("Print Recipe", 'delicious-recipes');
+		self::$attributes['jumptorecipeTitle'] = isset( $jumptorecipeTitle ) ? $jumptorecipeTitle : __( 'Jump to Recipe', 'delicious-recipes' );
+		self::$attributes['jumptovideoTitle']  = isset( $jumptovideoTitle ) ? $jumptovideoTitle : __( 'Jump to Video', 'delicious-recipes' );
+		self::$attributes['printrecipeTitle']  = isset( $printrecipeTitle ) ? $printrecipeTitle : __( 'Print Recipe', 'delicious-recipes' );
 
-		$class          = implode( ' ', array( "dr-buttons", "dr-recipe-buttons-block" ) );
-		$recipe_card_id = "dr-dynamic-recipe-card";
+		$class          = implode( ' ', array( 'dr-buttons', 'dr-recipe-buttons-block' ) );
+		$recipe_card_id = 'dr-dynamic-recipe-card';
 
 		$jtrecipe_btn_content = self::$settings['jump_to_recipe_btn'] ? self::get_jump_to_recipe_button( $recipe_card_id, array( 'title' => self::$attributes['jumptorecipeTitle'] ) ) : '';
 		$jtvideo_btn_content  = self::$settings['jump_to_video_btn'] ? self::get_jump_to_video_button( $id, array( 'title' => self::$attributes['jumptovideoTitle'] ) ) : '';
@@ -157,20 +162,24 @@ class Delicious_Recipe_Buttons {
 	}
 
 	/**
-	 * Get HTML for jump to recipe button
-	 * 
+	 * Get HTML for jump to recipe button.
+	 *
+	 * @param string $content_id The ID of the content.
+	 * @param array  $attributes The attributes of the button.
+	 *
 	 * @return string
 	 */
 	public static function get_jump_to_recipe_button( $content_id, $attributes = array() ) {
-		if ( empty( $content_id ) )
+		if ( empty( $content_id ) ) {
 			return '';
+		}
 
-		$jtrecipeTitle = isset( $attributes['title'] ) ? $attributes['title'] : __( "Jump to Recipe", "delicious-recipes" );
+		$jtrecipeTitle = isset( $attributes['title'] ) ? $attributes['title'] : __( 'Jump to Recipe', 'delicious-recipes' );
 
 		$output = sprintf(
 			'<a href="#%s" class="dr-btn-link dr-btn1 dr-smooth-scroll">
 				%s 
-				<svg class="icon"><use xlink:href="'.esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ). 'assets/images/sprite.svg#go-to"></use></svg>
+				<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#go-to"></use></svg>
 			</a>',
 			esc_attr( $content_id ),
 			$jtrecipeTitle
@@ -180,15 +189,19 @@ class Delicious_Recipe_Buttons {
 	}
 
 	/**
-	 * Get HTML for jump to video button
-	 * 
+	 * Get HTML for jump to video button.
+	 *
+	 * @param string $content_id The ID of the content.
+	 * @param array  $attributes The attributes of the button.
+	 *
 	 * @return string
 	 */
 	public static function get_jump_to_video_button( $content_id, $attributes = array() ) {
-		if ( empty( $content_id ) )
+		if ( empty( $content_id ) ) {
 			return '';
+		}
 
-		$jtvideoTitle = isset( $attributes['title'] ) ? $attributes['title'] : __( "Jump to Video", "delicious-recipes" );
+		$jtvideoTitle = isset( $attributes['title'] ) ? $attributes['title'] : __( 'Jump to Video', 'delicious-recipes' );
 
 		$output = sprintf(
 			'<a href="#dr-video-gallery" class="dr-btn-link dr-btn1 dr-smooth-scroll">
@@ -202,15 +215,19 @@ class Delicious_Recipe_Buttons {
 	}
 
 	/**
-	 * Get HTML for print button
-	 * 
+	 * Get HTML for print button.
+	 *
+	 * @param string $content_id The ID of the content.
+	 * @param array  $attributes The attributes of the button.
+	 *
 	 * @return string
 	 */
 	public static function get_print_button( $content_id, $attributes = array() ) {
-		if ( empty( $content_id ) )
+		if ( empty( $content_id ) ) {
 			return '';
+		}
 
-		$printTitle = isset( $attributes['title'] ) ? $attributes['title'] : __( "Print Recipe", "delicious-recipes" );
+		$printTitle = isset( $attributes['title'] ) ? $attributes['title'] : __( 'Print Recipe', 'delicious-recipes' );
 
 		if ( self::$recipe ) {
 			$attributes = array_merge( $attributes, array( 'data-recipe-id' => self::$recipe->ID ) );
@@ -220,7 +237,7 @@ class Delicious_Recipe_Buttons {
 
 		$output = sprintf(
 			'<a class="dr-print-trigger dr-btn-link dr-btn2" href="#%s" %s>
-				<svg class="icon"><use xlink:href="'.esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ). 'assets/images/sprite.svg#print"></use></svg>
+				<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#print"></use></svg>
 				%s
 			</a>',
 			esc_attr( $content_id ),

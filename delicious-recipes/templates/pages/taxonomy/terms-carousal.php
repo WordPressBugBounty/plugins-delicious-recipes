@@ -42,7 +42,7 @@ if (!empty($recipe_tax_terms)) :
                         </div>
                     </header>
 
-                    <section class="dr-cuisines-carousel splide" data-splide-count="<?php echo esc_html($term->count) ?>">
+                    <section class="dr-recipe-archive splide" data-splide-count="<?php echo esc_html($term->count) ?>">
                         <div class="splide__arrows">
 		                    <button class="splide__arrow splide__arrow--prev">
                                 <svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,10 +56,10 @@ if (!empty($recipe_tax_terms)) :
                             </button>
                         </div>
 
-                        <div class="dr-cuisines-carousel__track splide__track">
-                            <ul class="dr-cuisines-carousel__list splide__list">
+                        <div class="dr-recipe-archive__track splide__track">
+                            <ul class="dr-recipe-archive__list splide__list">
                                 <?php while ($term_recipes->have_posts()) : $term_recipes->the_post(); ?>
-                                    <li class="dr-cuisines-carousel__slide splide__slide">
+                                    <li class="dr-recipe-archive__slide splide__slide">
 
                                         <?php
                                         /**

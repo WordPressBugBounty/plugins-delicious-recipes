@@ -66,6 +66,9 @@ class AjaxFunctions {
 		// AJAX for ingredient links count in recipe content.
 		add_action( 'wp_ajax_get_ingredient_links_count', array( $this, 'get_ingredient_links_count' ) );
 		add_action( 'wp_ajax_nopriv_get_ingredient_links_count', array( $this, 'get_ingredient_links_count' ) );
+
+		// AJAX for getting pages for user dashboard settings.
+		add_action( 'wp_ajax_dr_get_pages', array( $this, 'dr_get_pages' ) );
 	}
 
 	/**
@@ -506,10 +509,10 @@ class AjaxFunctions {
 			}
 
 			$seasons_meta       = array(
-				'fall'                         => __( 'fall', 'delicious-recipes' ),
-				'winter'                       => __( 'winter', 'delicious-recipes' ),
-				'summer'                       => __( 'summer', 'delicious-recipes' ),
-				'spring'                       => __( 'spring', 'delicious-recipes' ),
+				'fall'      => __( 'fall', 'delicious-recipes' ),
+				'winter'    => __( 'winter', 'delicious-recipes' ),
+				'summer'    => __( 'summer', 'delicious-recipes' ),
+				'spring'    => __( 'spring', 'delicious-recipes' ),
 				'available' => __( 'suitable throughout the year', 'delicious-recipes' ),
 			);
 			$additional_seasons = get_option( 'best_season_option', array() );
@@ -875,6 +878,52 @@ class AjaxFunctions {
 		}
 
 		return array_count_values( $ingredients_array );
+	}
+
+	/**
+	 * AJAX handler for getting pages for user dashboard settings.
+	 * This is a fallback method when REST API returns 302 redirects.
+	 *
+	 * @since 1.8.6
+	 * @return void
+	 */
+	public function dr_get_pages() {
+		// Verify nonce for security.
+		if ( ! isset( $_GET['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['nonce'] ) ), 'wp_rest' ) ) {
+			wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
+		}
+
+		// Check if user has permission to read pages.
+		if ( ! current_user_can( 'read' ) ) {
+			wp_send_json_error( array( 'message' => 'Insufficient permissions' ) );
+		}
+
+		// Get pages with proper sanitization.
+		$pages = get_posts(
+			array(
+				'post_type'      => 'page',
+				'post_status'    => 'publish',
+				'posts_per_page' => 100,
+				'orderby'        => 'title',
+				'order'          => 'ASC',
+				'fields'         => 'ids',
+			)
+		);
+
+		$pages_data = array();
+		foreach ( $pages as $page_id ) {
+			$page = get_post( $page_id );
+			if ( $page ) {
+				$pages_data[] = array(
+					'id'    => $page->ID,
+					'title' => array(
+						'rendered' => $page->post_title,
+					),
+				);
+			}
+		}
+
+		wp_send_json_success( $pages_data );
 	}
 }
 

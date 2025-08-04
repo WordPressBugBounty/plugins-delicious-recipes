@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 
-    const splides = document.querySelectorAll('.dr-cuisines-carousel');
+    const splides = document.querySelectorAll('.dr-recipe-archive.splide');
 
     splides.forEach(splide => {
         let splidesCount = splide ? parseInt(splide.getAttribute('data-splide-count')) : 0;

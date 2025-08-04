@@ -554,7 +554,17 @@ class Delicious_Recipes_Shortcodes {
 		);
 
 		if ( delicious_recipes_post_content_has_shortcode( 'dr_recipe_archives' ) ) {
-			wp_enqueue_style( 'delicious-archive-shortcode', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/archiveJS.css' );
+			// Register Archive Styles.
+			wp_register_style(
+				'delicious-recipe-archive-styles',
+				plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdArchive.css',
+				array(),
+				filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdArchive.css' ),
+				'all'
+			);
+
+			// Enqueue Archive Styles.
+			wp_enqueue_style( 'delicious-recipe-archive-styles' );
 		}
 
 		// If REST_REQUEST is defined (by WordPress) and is a TRUE, then it's a REST API request.
@@ -617,10 +627,10 @@ class Delicious_Recipes_Shortcodes {
 
 		wp_enqueue_script( 'delicious-recipes-single' );
 
-		echo '<div class="' . esc_attr( $classes ) . '">';
+		echo '<div class="' . esc_attr( $classes ) . '" data-splide-count="' . esc_html( $recipes->post_count ) . '">';
 
 		if ( $carousel ) {
-			// Splide Carousel Structure
+			// Splide Carousel Structure.
 			echo '<div class="dr-recipe-archive__track splide__track">';
 			echo '<ul class="dr-recipe-archive__list splide__list">';
 			while ( $recipes->have_posts() ) :
@@ -634,15 +644,30 @@ class Delicious_Recipes_Shortcodes {
 			endwhile;
 			wp_reset_postdata();
 			echo '</ul></div>';
+
+			// Add arrow navigation.
+			echo '<div class="splide__arrows">';
+			echo '<button class="splide__arrow splide__arrow--prev">';
+			echo '<svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">';
+			echo '<path d="M1 7.60645H17M17 7.60645L11 1.60645M17 7.60645L11 13.6064" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+			echo '</svg>';
+			echo '</button>';
+			echo '<button class="splide__arrow splide__arrow--next">';
+			echo '<svg width="18" height="15" viewBox="0 0 18 15" fill="none" xmlns="http://www.w3.org/2000/svg">';
+			echo '<path d="M1 7.60645H17M17 7.60645L11 1.60645M17 7.60645L11 13.6064" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>';
+			echo '</svg>';
+			echo '</button>';
+			echo '</div>';
 		} else {
-			// Non-Carousel Structure
+			// Non-Carousel Structure.
 			while ( $recipes->have_posts() ) {
 				$recipes->the_post();
 				delicious_recipes_get_template_part( 'recipes', $layout );
 			}
 			wp_reset_postdata();
+			echo '</div>';
 
-			return '<div class="' . $classes . '">' . ob_get_clean() . '</div>';
+			return ob_get_clean();
 		}
 
 		echo '</div>';

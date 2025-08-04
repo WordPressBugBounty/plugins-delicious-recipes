@@ -44,21 +44,21 @@ $recipe_card_image = '';
 			$attachment_id        = isset( $image['id'] ) ? $image['id'] : $recipe_thumbnail_id;
 
 			// Variables from attributes add default value if not exists.
-			$recipe_title = isset( $recipe_title ) ? $recipe_title : '';
-			$summary      = isset( $summary ) ? $summary : '';
-			$class_name   = isset( $class_name ) ? $class_name : '';
-			$has_image    = isset( $has_image ) ? $has_image : false;
-			$course       = isset( $course ) ? $course : array();
-			$cuisine      = isset( $cuisine ) ? $cuisine : array();
-			$method       = isset( $method ) ? $method : array();
-			$recipe_key   = isset( $recipeKey ) ? $recipeKey : array();
+			$recipe_title   = isset( $recipe_title ) ? $recipe_title : '';
+			$summary        = isset( $summary ) ? $summary : '';
+			$class_name     = isset( $class_name ) ? $class_name : '';
+			$has_image      = isset( $has_image ) ? $has_image : false;
+			$course         = isset( $course ) ? $course : array();
+			$cuisine        = isset( $cuisine ) ? $cuisine : array();
+			$method         = isset( $method ) ? $method : array();
+			$recipe_key     = isset( $recipeKey ) ? $recipeKey : array();
 			$recipe_dietary = isset( $recipeDietary ) ? $recipeDietary : array();
 
-			$difficulty   = isset( $difficulty ) ? $difficulty : array();
-			$keywords     = isset( $keywords ) ? $keywords : array();
-			$details      = isset( $details ) ? $details : array();
-			$ingredients  = isset( $ingredients ) ? $ingredients : array();
-			$steps        = isset( $steps ) ? $steps : array();
+			$difficulty  = isset( $difficulty ) ? $difficulty : array();
+			$keywords    = isset( $keywords ) ? $keywords : array();
+			$details     = isset( $details ) ? $details : array();
+			$ingredients = isset( $ingredients ) ? $ingredients : array();
+			$steps       = isset( $steps ) ? $steps : array();
 
 			// Store variables.
 			$helpers  = new Delicious_Recipes_Helpers();
@@ -94,7 +94,7 @@ $recipe_card_image = '';
 				// Check if attachment image is from imported content in this case we don't have attachment in our upload directory.
 				$upl_dir = wp_upload_dir();
 				$findpos = strpos( $src, $upl_dir['baseurl'] );
-				
+
 				if ( false === $findpos ) {
 					$attachment = sprintf(
 						'<img src="%s" alt="%s" class="%s"/>',
@@ -276,7 +276,7 @@ $recipe_card_image = '';
 					ucfirst( $difficulty )
 				);
 			}
-			
+
 			foreach ( $details as $index => $detail ) {
 				$value    = '';
 				$icon_svg = '';
@@ -319,9 +319,9 @@ $recipe_card_image = '';
 				);
 			}
 
-			$season       = isset( $season ) && $settings['displayBestSeason'] ? $season : array();
+			$season = isset( $season ) && $settings['displayBestSeason'] ? $season : array();
 			foreach ( $season as $index => $season_item ) {
-				$season[$index] = ucfirst( $season_item );
+				$season[ $index ] = ucfirst( $season_item );
 			}
 			$season_title = isset( $season_title ) ? $season_title : __( 'Best Season', 'delicious-recipes' );
 			if ( $season ) {

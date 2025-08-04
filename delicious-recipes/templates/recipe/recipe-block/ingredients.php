@@ -164,10 +164,7 @@ if ( ! empty( $recipe_ingredients ) ) :
 					continue;
 				}
 				?>
-				<ul
-					class="dr-unordered-list<?php echo '2' === $ingredients_column ? ' double' : ''; ?>"
-					<?php echo ( ! $show_ingredient_image && ! $enable_ingredients_checkbox ) ? 'style="padding: 0 0 0 18px !important;"' : ''; ?>
-				>
+				<ul class="dr-unordered-list<?php echo '2' === $ingredients_column ? ' double' : ''; ?>" >
 					<?php
 					foreach ( $ingre as $ingre_key => $ingredient ) :
 						if ( $license_validity_bool && $show_ingredient_image ) {

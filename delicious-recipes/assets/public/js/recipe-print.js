@@ -68,7 +68,7 @@ function updatePrintOptions(printOpt) {
 	}
 }
 
-// Recipe print functionality
+// Recipe print functionality.
 const printProps = {
 	original_servings: "<?php echo ! empty( $recipe->no_of_servings ) ? esc_attr( $recipe->no_of_servings ) : 1; ?>",
 	recipe: "<?php echo esc_attr( $recipe->ID ); ?>"

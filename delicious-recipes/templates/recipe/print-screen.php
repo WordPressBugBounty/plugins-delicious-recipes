@@ -80,11 +80,11 @@ $all_no = true;
 						foreach ( $print_options as $key => $print_opt ) {
 							// Display the "Recipe Content" checkbox option after the "Title" option.
 							if ( 1 === $key && isset( $print_options['11'] ) ) {
-								$name   = isset( $print_options['11']['key'] ) ? $print_options['11']['key'] : '';
+								$name   = isset( $print_options['11']['label'] ) ? $print_options['11']['label'] : '';
 								$enable = isset( $print_options['11']['enable']['0'] ) && 'yes' === $print_options['11']['enable']['0'] ? true : false;
 								?>
 								<div class="dr-print-block">
-									<input id="print_options_11" type="checkbox" name="print_options" value="1" checked="<?php checked( $enable, true ); ?>" />
+									<input id="print_options_11" type="checkbox" name="print_options" value="1" <?php checked( $enable, true ); ?> />
 									<label for="print_options_11">
 										<?php echo esc_html( $name ); ?>
 									</label>
@@ -99,11 +99,11 @@ $all_no = true;
 
 							// Display Extended Content (12) after Notes (7).
 							if ( 8 === $key && isset( $print_options['12'] ) && function_exists( 'DEL_RECIPE_PRO' ) ) {
-								$name   = isset( $print_options['12']['key'] ) ? $print_options['12']['key'] : '';
+								$name   = isset( $print_options['12']['label'] ) ? $print_options['12']['label'] : '';
 								$enable = isset( $print_options['12']['enable']['0'] ) && 'yes' === $print_options['12']['enable']['0'] ? true : false;
 								?>
 								<div class="dr-print-block">
-									<input id="print_options_12" type="checkbox" name="print_options" value="1" checked="<?php checked( $enable, true ); ?>" />
+									<input id="print_options_12" type="checkbox" name="print_options" value="1" <?php checked( $enable, true ); ?> />
 									<label for="print_options_12">
 										<?php echo esc_html( $name ); ?>
 									</label>
@@ -116,11 +116,11 @@ $all_no = true;
 								continue;
 							}
 
-							$name   = isset( $print_opt['key'] ) ? $print_opt['key'] : '';
+							$name   = isset( $print_opt['label'] ) ? $print_opt['label'] : '';
 							$enable = isset( $print_opt['enable']['0'] ) && 'yes' === $print_opt['enable']['0'] ? true : false;
 							?>
 							<div class="dr-print-block">
-								<input id="print_options_<?php echo esc_attr( sanitize_title( $key ) ); ?>" type="checkbox" name="print_options" value="1" checked="<?php checked( $enable, true ); ?>" />
+								<input id="print_options_<?php echo esc_attr( sanitize_title( $key ) ); ?>" type="checkbox" name="print_options" value="1" <?php checked( $enable, true ); ?> />
 								<label for="print_options_<?php echo esc_attr( sanitize_title( $key ) ); ?>">
 									<?php echo esc_html( $name ); ?>
 								</label>
@@ -173,7 +173,7 @@ $all_no = true;
 					<path d="M11.0417 9.58334H6.875C6.70924 9.58334 6.55027 9.5175 6.43306 9.40028C6.31585 9.28307 6.25 9.1241 6.25 8.95834C6.25 8.79258 6.31585 8.63361 6.43306 8.5164C6.55027 8.39919 6.70924 8.33334 6.875 8.33334H11.0417C11.2074 8.33334 11.3664 8.39919 11.4836 8.5164C11.6008 8.63361 11.6667 8.79258 11.6667 8.95834C11.6667 9.1241 11.6008 9.28307 11.4836 9.40028C11.3664 9.5175 11.2074 9.58334 11.0417 9.58334Z" fill="#566267"/>
 				</svg>
 				<span>
-							<?php esc_html_e( 'Increase Text', 'delicious-recipes' ); ?>
+					<?php esc_html_e( 'Increase Text', 'delicious-recipes' ); ?>
 				</span>
 			</button>
 			<button class="dr-decrease-font-size" id="dr-decrease-font-size">
@@ -183,13 +183,13 @@ $all_no = true;
 					<path d="M11.0417 9.58334H6.875C6.70924 9.58334 6.55027 9.5175 6.43306 9.40028C6.31585 9.28307 6.25 9.1241 6.25 8.95834C6.25 8.79258 6.31585 8.63361 6.43306 8.5164C6.55027 8.39919 6.70924 8.33334 6.875 8.33334H11.0417C11.2074 8.33334 11.3664 8.39919 11.4836 8.5164C11.6008 8.63361 11.6667 8.79258 11.6667 8.95834C11.6667 9.1241 11.6008 9.28307 11.4836 9.40028C11.3664 9.5175 11.2074 9.58334 11.0417 9.58334Z" fill="#566267"/>
 				</svg>
 				<span>
-							<?php esc_html_e( 'Decrease Text', 'delicious-recipes' ); ?>
+					<?php esc_html_e( 'Decrease Text', 'delicious-recipes' ); ?>
 				</span>
 			</button>
 		</div>
 		<div class="print-page">
 			<!-- Title, Logo and Image -->
-			<?php if ( 'yes' === $default_print_options['images'] && 'yes' === $default_print_options['title'] ) { ?>
+			<?php if ( 'yes' === $default_print_options['images'] || 'yes' === $default_print_options['title'] ) { ?>
 				<div id="dr-page1" class="dr-print-header">
 					<?php
 					$print_logo_image = isset( $recipe_global['printLogoImage'] ) && ! empty( $recipe_global['printLogoImage'] ) ? $recipe_global['printLogoImage'] : false;
@@ -238,7 +238,6 @@ $all_no = true;
 												<?php echo esc_html( $global_toggles['prep_time_lbl'] ); ?>
 											</span>
 											<span>
-												<?php // echo esc_html( $recipe->prep_time ); ?>
 												<?php echo esc_html( $recipe->prep_time_unit ); ?>
 											</span>
 										</div>
@@ -249,7 +248,6 @@ $all_no = true;
 												<?php echo esc_html( $global_toggles['cook_time_lbl'] ); ?>
 											</span>
 											<span>
-												<?php // echo esc_html( $recipe->cook_time ); ?>
 												<?php echo esc_html( $recipe->cook_time_unit ); ?>
 											</span>
 										</div>
@@ -260,7 +258,6 @@ $all_no = true;
 												<?php echo esc_html( $global_toggles['rest_time_lbl'] ); ?>
 											</span>
 											<span>
-												<?php // echo esc_html( $recipe->rest_time ); ?>
 												<?php echo esc_html( $recipe->rest_time_unit ); ?>
 											</span>
 										</div>
@@ -272,7 +269,6 @@ $all_no = true;
 											</span>
 											<span>
 												<?php echo esc_html( $recipe->total_time ); ?>
-												<?php // echo esc_html( $recipe->total_time_unit ); ?>
 											</span>
 										</div>
 									<?php } ?>
@@ -308,7 +304,7 @@ $all_no = true;
 											<?php echo esc_html( $global_toggles['cuisine_lbl'] ); ?>:
 										</b>
 										<span>
-												<?php the_terms( $recipe->ID, 'recipe-cuisine', '<span>', ', ', '</span>' ); ?>
+											<?php the_terms( $recipe->ID, 'recipe-cuisine', '<span>', ', ', '</span>' ); ?>
 										</span>
 									</div>
 								<?php } ?>
@@ -352,8 +348,8 @@ $all_no = true;
 										</b>
 										<span id="dr-servings">
 											<?php
-											// Get the servings value from the URL
-											$servings = isset( $_GET['recipe_servings'] ) ? $_GET['recipe_servings'] : $recipe->no_of_servings;
+											// Get the servings value from the URL.
+											$servings = isset( $_GET['recipe_servings'] ) ? sanitize_text_field( wp_unslash( $_GET['recipe_servings'] ) ) : $recipe->no_of_servings;
 											echo esc_html( $servings );
 											?>
 										</span>
@@ -455,16 +451,30 @@ $all_no = true;
 												continue;
 											}
 											foreach ( $ingre as $ingre_key => $ingredient ) {
-												$ingredient_qty  = isset( $ingredient['quantity'] ) ? $ingredient['quantity'] : 0;
-												$ingredient_qty  = is_numeric( $ingredient_qty ) ? round( $ingredient_qty, 2 ) : $ingredient_qty;
+												$ingredient_qty = isset( $ingredient['quantity'] ) ? $ingredient['quantity'] : 0;
+												// Handle fraction strings properly.
+												if ( is_string( $ingredient_qty ) && strpos( $ingredient_qty, '/' ) !== false ) {
+													// Keep fraction as string for display.
+													$display_qty = $ingredient_qty;
+													// Convert fraction to decimal for calculations.
+													$parts = explode( '/', $ingredient_qty );
+													if ( 2 === count( $parts ) && is_numeric( $parts[0] ) && is_numeric( $parts[1] ) && 0 !== $parts[1] ) {
+														$numeric_qty = (float) $parts[0] / (float) $parts[1];
+													} else {
+														$numeric_qty = 0;
+													}
+												} else {
+													$display_qty = is_numeric( $ingredient_qty ) ? round( $ingredient_qty, 2 ) : $ingredient_qty;
+													$numeric_qty = is_numeric( $ingredient_qty ) ? (float) $ingredient_qty : 0;
+												}
 												$ingredient_unit = isset( $ingredient['unit'] ) ? $ingredient['unit'] : '';
 												$unit_text       = ! empty( $ingredient_unit ) ? $ingredient_unit : '';
 
 												$ingredient_keys = array(
-													'{qty}'   => isset( $ingredient['quantity'] ) ? '<span class="ingredient_quantity" data-original="' . $ingredient['quantity'] . '" data-recipe="' . $recipe->ID . '">' . $ingredient['quantity'] . '</span>' : '',
-													'{unit}'  => '<span class="ingredient_unit">' . $unit_text . '</span>',
-													'{ingredient}' => isset( $ingredient['ingredient'] ) ? $ingredient['ingredient'] : '',
-													'{notes}' => isset( $ingredient['notes'] ) && ! empty( $ingredient['notes'] ) ? '<span class="ingredient-notes" >(' . $ingredient['notes'] . ')</span>' : '',
+													'{qty}'   => isset( $ingredient['quantity'] ) ? '<span class="ingredient_quantity" data-original="' . esc_attr( $display_qty ) . '" data-recipe="' . $recipe->ID . '">' . esc_html( $display_qty ) . '</span>' : '',
+													'{unit}'  => '<span class="ingredient_unit">' . esc_html( $unit_text ) . '</span>',
+													'{ingredient}' => isset( $ingredient['ingredient'] ) ? esc_html( $ingredient['ingredient'] ) : '',
+													'{notes}' => isset( $ingredient['notes'] ) && ! empty( $ingredient['notes'] ) ? '<span class="ingredient-notes" >(' . esc_html( $ingredient['notes'] ) . ')</span>' : '',
 												);
 												$ingre_string    = str_replace( array_keys( $ingredient_keys ), $ingredient_keys, $ingredient_string_format );
 
@@ -732,7 +742,7 @@ wp_localize_script(
 	'deliciousRecipesPrint',
 	array(
 		'recipeId'        => $recipe->ID,
-		'defaultServings' => $recipe->no_of_servings,
+		'defaultServings' => ! empty( $recipe->no_of_servings ) ? (int) $recipe->no_of_servings : 1,
 		'useFraction'     => $recipe_global['useFraction'],
 	)
 );
