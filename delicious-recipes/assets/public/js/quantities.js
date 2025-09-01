@@ -165,10 +165,22 @@ export function decimalToFraction(decimal, maxDenominator = 1000) {
 	}
 
 	const divisor = gcd(bestNumerator, bestDenominator);
+	bestNumerator = bestNumerator / divisor;
+	bestDenominator = bestDenominator / divisor;
 
-	if (bestDenominator / divisor === 1) {
-		return `${bestNumerator / divisor}`;
+	// Convert to mixed fraction if the numerator is greater than the denominator
+	if (bestNumerator > bestDenominator && bestDenominator > 1) {
+		const whole = Math.floor(bestNumerator / bestDenominator);
+		const remainder = bestNumerator % bestDenominator;
+		
+		if (remainder === 0) {
+			return `${whole}`;
+		} else {
+			return `${whole} ${remainder}/${bestDenominator}`;
+		}
+	} else if (bestDenominator === 1) {
+		return `${bestNumerator}`;
 	} else {
-		return `${bestNumerator / divisor}/${bestDenominator / divisor}`;
+		return `${bestNumerator}/${bestDenominator}`;
 	}
 }

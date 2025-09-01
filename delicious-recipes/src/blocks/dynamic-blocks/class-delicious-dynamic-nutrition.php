@@ -163,7 +163,11 @@ class Delicious_Dynamic_Nutrition {
 
 		$nutri_filtered = array_filter(
 			$nutrition_facts,
-			function ( $nut ) {
+			function ( $nut ) use ( $display_nutrition_zero_values ) {
+				// If zero values should be displayed, include them.
+				if ( $display_nutrition_zero_values && ( '0' === $nut || 0 === $nut ) ) {
+					return true;
+				}
 				return ! empty( $nut ) && false !== $nut;
 			}
 		);
@@ -189,7 +193,7 @@ class Delicious_Dynamic_Nutrition {
 				ob_start();
 
 				foreach ( $top_facts as $slug => $nf ) :
-					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ] ) : false;
+					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] ) ) : false;
 					if ( isset( $nutrition_facts[ $slug ] ) && ( $nutrition_facts[ $slug ] || $nutri_zero_condition ) ) :
 						echo '<p>' . esc_html( $nf['name'] ) . ' <strong class="dr-nut-label" data-labeltype="' . esc_attr( $slug ) . '">' . esc_attr( $nutrition_facts[ $slug ] ) . '</strong></p>';
 					endif;
@@ -207,7 +211,7 @@ class Delicious_Dynamic_Nutrition {
 				ob_start();
 
 				foreach ( $mid_facts as $slug => $nf ) :
-					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ] ) : false;
+					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] ) ) : false;
 					if ( ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] ) || $nutri_zero_condition ) :
 						if ( 'calories_fat' !== $slug ) :
 							echo '<dt class="dr-nut-no-border text-large">';
@@ -235,7 +239,7 @@ class Delicious_Dynamic_Nutrition {
 				ob_start();
 
 				foreach ( $main_facts as $slug => $nf ) :
-					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ] ) : false;
+					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] ) ) : false;
 					if ( ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] ) || $nutri_zero_condition ) :
 
 						echo '<dt>';
@@ -244,7 +248,7 @@ class Delicious_Dynamic_Nutrition {
 
 						if ( isset( $nf['subs'] ) ) :
 							foreach ( $nf['subs'] as $sub_slug => $sub_nf ) :
-								$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $sub_slug ] ) && 0 === $nutrition_facts[ $sub_slug ] ) : false;
+								$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $sub_slug ] ) && ( '0' === $nutrition_facts[ $sub_slug ] || 0 === $nutrition_facts[ $sub_slug ] ) ) : false;
 								if ( isset( $nutrition_facts[ $sub_slug ] ) && ( $nutrition_facts[ $sub_slug ] || $nutri_zero_condition ) ) :
 									echo '<dl><dt>';
 									echo '<strong>' . esc_html( $sub_nf['name'] ) . '</strong> <strong class="dr-nut-label">' . $nutrition_facts[ $sub_slug ] . '</strong>' . ( isset( $sub_nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . $sub_nf['measurement'] . '</strong>' : '' );
@@ -273,7 +277,7 @@ class Delicious_Dynamic_Nutrition {
 				ob_start();
 
 				foreach ( $bottom_facts as $slug => $nf ) :
-					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ] ) : false;
+					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] ) ) : false;
 					if ( ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] ) || $nutri_zero_condition ) :
 						echo '<dt>';
 							echo '<strong>' . esc_html( $nf['name'] ) . ' <span class="dr-nut-percent dr-nut-label">' . esc_attr( $nutrition_facts[ $slug ] ) . '</span> ' . esc_html( $nf['measurement'] ) . '</strong>';

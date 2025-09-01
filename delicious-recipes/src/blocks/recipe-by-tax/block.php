@@ -88,8 +88,11 @@ if ( ! function_exists( 'delicious_recipes_tax_by_type_block_render_callback' ) 
 
 		echo '<div class="dr-recipes-by-tax-block ' . esc_attr( $className ) . '">';
 
-		if ( $title ) {
-			printf( '<%1$s class="dr-entry-title">%2$s</%1$s>', esc_html( $heading ), esc_html( $title ) );
+			if ( $title ) {
+			// Sanitize heading to prevent XSS - only allow valid HTML tags.
+			$allowed_headings = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div' );
+			$safe_heading     = in_array( $heading, $allowed_headings, true ) ? $heading : 'h2';
+			printf( '<%1$s class="dr-entry-title">%2$s</%1$s>', esc_html( $safe_heading ), esc_html( $title ) );
 		}
 
 		if ( $recipes->have_posts() ) :

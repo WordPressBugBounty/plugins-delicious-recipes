@@ -101,7 +101,7 @@ class Delicious_SEO {
 		$CookTimeMins = 'min' === $cooktime_unit ? $recipe->cook_time : $recipe->cook_time * 60;
 		$RestTimeMins = 'min' === $resttime_unit ? $recipe->rest_time : $recipe->rest_time * 60;
 
-		$total_time = absint( $PrepTimeMins ) + absint( $CookTimeMins ) + absint( $RestTimeMins );
+		$total_time = $PrepTimeMins + $CookTimeMins + $RestTimeMins;
 
 		$cook_time           = delicious_recipes_time_format( $CookTimeMins, 'iso' );
 		$prep_time           = delicious_recipes_time_format( $PrepTimeMins, 'iso' );

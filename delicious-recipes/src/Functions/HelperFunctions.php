@@ -1282,11 +1282,11 @@ function delicious_recipes_get_time_units( $time, $time_unit ) {
 	$time_unit_string = '';
 	if ( 'min' === $time_unit ) {
 		/* translators: %s: time in minutes */
-		$time_unit_string = sprintf( _nx( '%s min', '%s mins', $time, 'recipe time minutes', 'delicious-recipes' ), number_format_i18n( absint( $time ) ) );
+		$time_unit_string = sprintf( _nx( '%s min', '%s mins', $time, 'recipe time minutes', 'delicious-recipes' ), $time );
 	}
 	if ( 'hour' === $time_unit ) {
 		/* translators: %s: time in hours */
-		$time_unit_string = sprintf( _nx( '%s hr', '%s hrs', $time, 'recipe time hours', 'delicious-recipes' ), number_format_i18n( absint( $time ) ) );
+		$time_unit_string = sprintf( _nx( '%s hr', '%s hrs', $time, 'recipe time hours', 'delicious-recipes' ), $time );
 	}
 
 	$time_units = apply_filters( 'wp_delicious_time_units_options', $time_unit_string );

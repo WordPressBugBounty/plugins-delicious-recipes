@@ -36,9 +36,9 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 		);
 		foreach ( $selected_banner_layout as $layout ) {
 			$banner_layout_id       = $layout['id'];
-			$enable_breadcrumb      = isset( $layout['enableBannerBreadcrumb'] ) && true === $layout['enableBannerBreadcrumb'] ? true : false;
-			$enable_nutrition_value = isset( $layout['enableBannerNutritionalValues'] ) && true === $layout['enableBannerNutritionalValues'] ? true : false;
-			$enable_recipe_keys     = isset( $layout['enableBannerRecipeKeys'] ) && true === $layout['enableBannerRecipeKeys'] ? true : false;
+			$enable_breadcrumb      = isset( $layout['enableBannerBreadcrumb'] ) ? $layout['enableBannerBreadcrumb'] : $enable_breadcrumb;
+			$enable_nutrition_value = isset( $layout['enableBannerNutritionalValues'] ) ? $layout['enableBannerNutritionalValues'] : $enable_nutrition_value;
+			$enable_recipe_keys     = isset( $layout['enableBannerRecipeKeys'] ) ? $layout['enableBannerRecipeKeys'] : $enable_recipe_keys;
 			$background_color       = isset( $layout['backgroundColor'] ) ? $layout['backgroundColor'] : '';
 			$text_color             = isset( $layout['textColor'] ) ? $layout['textColor'] : '';
 			$enable_recipe_info     = isset( $layout['enableBannerRecipeInfo'] ) ? $layout['enableBannerRecipeInfo'] : $enable_recipe_info;
@@ -52,25 +52,20 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 		<div class="wpdelicious-recipe-banner-inner">
 			<?php
 			if ( 'layout-2' === $banner_layout_id || 'layout-5' === $banner_layout_id ) {
-				?>
-					<div class="wpdelicious-recipe-banner-image">
-					<?php
-					$thumbnial_id = $recipe->thumbnail_id;
-					if ( ! $thumbnial_id ) {
-						$thumbnial_id = get_post_thumbnail_id( $recipe->ID );
-					}
-					if ( $thumbnial_id ) {
-						$thumbnail = wp_get_attachment_image_src( $thumbnial_id, 'full' );
-						?>
-							<img src="<?php echo esc_url( $thumbnail[0] ); ?>" alt="<?php echo esc_attr( $recipe->name ); ?>">
-							<?php
-					}
+					$thumbnail_id = $recipe->thumbnail_id;
+				if ( $thumbnail_id ) {
+					$thumbnail = wp_get_attachment_image_src( $thumbnail_id, 'full' );
 					?>
-					</div>
-				<?php } ?>
+						<div class="wpdelicious-recipe-banner-image">
+							<img src="<?php echo esc_url( $thumbnail[0] ); ?>" alt="<?php echo esc_attr( $recipe->name ); ?>">
+						</div>
+					<?php
+				}
+			}
+			?>
 			<div class="wpdelicious-recipe-banner-content">
 				<?php
-				if ( $enable_breadcrumb ) {
+				if ( '' !== $enable_breadcrumb ) {
 					get_breadcrumbs();
 				}
 				?>
@@ -92,9 +87,6 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 
 						<?php if ( $global_toggles['enable_published_date'] ) : ?>
 							<span class="dr-posted-on">
-								<!-- <svg class="icon">
-									<use xlink:href="<?php // echo esc_url(plugin_dir_url(DELICIOUS_RECIPES_PLUGIN_FILE)); ?>assets/images/sprite.svg#calendar"></use>
-								</svg> -->
 								<svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M17.5 8.33341H2.5M13.3333 1.66675V5.00008M6.66667 1.66675V5.00008M7.5 13.3334L9.16667 15.0001L12.9167 11.2501M6.5 18.3334H13.5C14.9001 18.3334 15.6002 18.3334 16.135 18.0609C16.6054 17.8212 16.9878 17.4388 17.2275 16.9684C17.5 16.4336 17.5 15.7335 17.5 14.3334V7.33341C17.5 5.93328 17.5 5.23322 17.2275 4.69844C16.9878 4.22803 16.6054 3.84558 16.135 3.6059C15.6002 3.33341 14.9001 3.33341 13.5 3.33341H6.5C5.09987 3.33341 4.3998 3.33341 3.86502 3.6059C3.39462 3.84558 3.01217 4.22803 2.77248 4.69844C2.5 5.23322 2.5 5.93328 2.5 7.33341V14.3334C2.5 15.7335 2.5 16.4336 2.77248 16.9684C3.01217 17.4388 3.39462 17.8212 3.86502 18.0609C4.3998 18.3334 5.09987 18.3334 6.5 18.3334Z" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
 								</svg>
@@ -130,9 +122,6 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 
 						<?php if ( $global_toggles['enable_comments'] && ( comments_open( $recipe->ID ) ) ) : ?>
 							<span class="dr-comment">
-								<!-- <svg class="icon">
-									<use xlink:href="<?php // echo esc_url(plugin_dir_url(DELICIOUS_RECIPES_PLUGIN_FILE)); ?>assets/images/sprite.svg#comment"></use>
-								</svg> -->
 								<svg class="icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M5.83333 7.08333H10M5.83333 10H12.5M5.83333 15V16.9463C5.83333 17.3903 5.83333 17.6123 5.92436 17.7263C6.00352 17.8255 6.12356 17.8832 6.25045 17.8831C6.39636 17.8829 6.56973 17.7442 6.91646 17.4668L8.90434 15.8765C9.31043 15.5517 9.51347 15.3892 9.73957 15.2737C9.94017 15.1712 10.1537 15.0963 10.3743 15.051C10.6231 15 10.8831 15 11.4031 15H13.5C14.9001 15 15.6002 15 16.135 14.7275C16.6054 14.4878 16.9878 14.1054 17.2275 13.635C17.5 13.1002 17.5 12.4001 17.5 11V6.5C17.5 5.09987 17.5 4.3998 17.2275 3.86502C16.9878 3.39462 16.6054 3.01217 16.135 2.77248C15.6002 2.5 14.9001 2.5 13.5 2.5H6.5C5.09987 2.5 4.3998 2.5 3.86502 2.77248C3.39462 3.01217 3.01217 3.39462 2.77248 3.86502C2.5 4.3998 2.5 5.09987 2.5 6.5V11.6667C2.5 12.4416 2.5 12.8291 2.58519 13.147C2.81635 14.0098 3.49022 14.6836 4.35295 14.9148C4.67087 15 5.05836 15 5.83333 15Z" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/>
 								</svg>

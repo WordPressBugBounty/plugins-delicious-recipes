@@ -90,7 +90,7 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 			return rest_ensure_response(
 				array(
 					'success' => false,
-					'message' => __( "Recipe Settings not found.", 'delicious-recipes'  ),
+					'message' => __( 'Recipe Settings not found.', 'delicious-recipes' ),
 					'data'    => array(),
 				)
 			);
@@ -98,7 +98,7 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 
 		$data = array(
 			'success' => true,
-			'message' => __( "Recipe Settings Found.", 'delicious-recipes'  ),
+			'message' => __( 'Recipe Settings Found.', 'delicious-recipes' ),
 		);
 
 		$response     = $this->prepare_item_for_response( $request );
@@ -133,11 +133,20 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 			update_option( 'delicious_recipes_queue_flush_rewrite_rules', 'yes' );
 		}
 
+		// Check if session cookie disable setting is being enabled.
+		$old_disable_setting = isset( $settings['disableSessionCookie'][0] ) ? $settings['disableSessionCookie'][0] : '';
+		$new_disable_setting = isset( $sanitized_settings['disableSessionCookie'][0] ) ? $sanitized_settings['disableSessionCookie'][0] : '';
+
+		// If session cookie is being disabled (changed from not 'yes' to 'yes'), clear existing cookie.
+		if ( 'yes' === $new_disable_setting && 'yes' !== $old_disable_setting ) {
+			delicious_recipes_clear_session_cookie();
+		}
+
 		update_option( 'delicious_recipe_settings', $sanitized_settings );
 
 		$data = array(
 			'success' => true,
-			'message' => __( "Recipe Global Settings Saved Successfully.", 'delicious-recipes'  ),
+			'message' => __( 'Recipe Global Settings Saved Successfully.', 'delicious-recipes' ),
 		);
 
 		// Return all of our post response data.
@@ -164,7 +173,7 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 
 		$data = array(
 			'success' => true,
-			'message' => __( "Recipe Onboarding Settings Saved Successfully.", 'delicious-recipes'  ),
+			'message' => __( 'Recipe Onboarding Settings Saved Successfully.', 'delicious-recipes' ),
 		);
 
 		// Return all of our post response data.
@@ -286,7 +295,7 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 	public function get_collection_params() {
 		return array(
 			'page'     => array(
-				'description'       => __( "Current page of the collection.", 'delicious-recipes'  ),
+				'description'       => __( 'Current page of the collection.', 'delicious-recipes' ),
 				'type'              => 'integer',
 				'default'           => 1,
 				'sanitize_callback' => 'absint',
@@ -294,7 +303,7 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 				'minimum'           => 1,
 			),
 			'per_page' => array(
-				'description'       => __( "Maximum number of items to be returned in result set.", 'delicious-recipes'  ),
+				'description'       => __( 'Maximum number of items to be returned in result set.', 'delicious-recipes' ),
 				'type'              => 'integer',
 				'default'           => 10,
 				'minimum'           => 1,
@@ -345,7 +354,7 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 			// In JSON Schema you can specify object properties in the properties attribute.
 			'properties' => array(
 				'id'           => array(
-					'description' => __( "Unique identifier for the object.", 'delicious-recipes'  ),
+					'description' => __( 'Unique identifier for the object.', 'delicious-recipes' ),
 					'type'        => 'integer',
 					'context'     => array( 'view', 'edit', 'embed' ),
 					'readonly'    => true,
@@ -357,7 +366,7 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 					'context'     => array( 'view', 'edit', 'embed' ),
 				),
 				'title'        => array(
-					'description' => __( "The title for the object.", 'delicious-recipes'  ),
+					'description' => __( 'The title for the object.', 'delicious-recipes' ),
 					'type'        => 'object',
 					'context'     => array( 'view', 'edit', 'embed' ),
 					'arg_options' => array(
@@ -366,12 +375,12 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 					),
 					'properties'  => array(
 						'raw'      => array(
-							'description' => __( "Title for the object, as it exists in the database.", 'delicious-recipes'  ),
+							'description' => __( 'Title for the object, as it exists in the database.', 'delicious-recipes' ),
 							'type'        => 'string',
 							'context'     => array( 'edit' ),
 						),
 						'rendered' => array(
-							'description' => __( "HTML title for the object, transformed for display.", 'delicious-recipes'  ),
+							'description' => __( 'HTML title for the object, transformed for display.', 'delicious-recipes' ),
 							'type'        => 'string',
 							'context'     => array( 'view', 'edit', 'embed' ),
 							'readonly'    => true,
@@ -379,7 +388,7 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 					),
 				),
 				'link'         => array(
-					'description' => __( "URL to the object.", 'delicious-recipes'  ),
+					'description' => __( 'URL to the object.', 'delicious-recipes' ),
 					'type'        => 'string',
 					'format'      => 'uri',
 					'context'     => array( 'view', 'edit', 'embed' ),
@@ -393,20 +402,20 @@ class Delicious_Recipes_REST_Global_Settings_Controller extends Delicious_Recipe
 					'readonly'    => true,
 				),
 				'modified_gmt' => array(
-					'description' => __( "The date the object was last modified, as GMT.", 'delicious-recipes'  ),
+					'description' => __( 'The date the object was last modified, as GMT.', 'delicious-recipes' ),
 					'type'        => 'string',
 					'format'      => 'date-time',
 					'context'     => array( 'view', 'edit' ),
 					'readonly'    => true,
 				),
 				'status'       => array(
-					'description' => __( "A named status for the object.", 'delicious-recipes'  ),
+					'description' => __( 'A named status for the object.', 'delicious-recipes' ),
 					'type'        => 'string',
 					'enum'        => array_keys( get_post_stati( array( 'internal' => false ) ) ),
 					'context'     => array( 'view', 'edit' ),
 				),
 				'type'         => array(
-					'description' => __( "Type of Post for the object.", 'delicious-recipes'  ),
+					'description' => __( 'Type of Post for the object.', 'delicious-recipes' ),
 					'type'        => 'string',
 					'context'     => array( 'view', 'edit', 'embed' ),
 					'readonly'    => true,

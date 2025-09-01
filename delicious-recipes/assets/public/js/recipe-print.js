@@ -120,11 +120,8 @@ window.PrintScripts = {
 	},
 
 	format(quantity) {
-		if (this.shouldUseFraction()) {
-			return decimalToFraction(quantity);
-		} else {
-			return formatQuantity(quantity, 2, false);
-		}
+		// Always use decimalToFraction to get mixed fractions when appropriate
+		return decimalToFraction(quantity);
 	}
 };
 

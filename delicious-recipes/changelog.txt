@@ -1,3 +1,13 @@
+1.8.8: 2025-09-01
+- New Feature: Added an option to disable session cookie for improved cache compatibility with CDNs such as Cloudflare.
+- Fixes: Sanitized and updated recipe blocks to prevent XSS vulnerabilities.
+- Fixes: Improved decimal-to-fraction conversion logic for ingredient quantities.
+- Fixes: Updated recipe card block to use attributes for settings.
+- Fixes: Corrected cook time decimal-to-hours conversion.
+- Fixes: Adjusted recipe print page logo sizing.
+- Fixes: Updated nutrition display logic to include zero values.
+
+
 1.8.7: 2025-08-04
 - Fixes: Fixed design issues related to the [dr_recipe_archives] shortcode.
 - Fixes: Resolved CSS loading problems in the Handpicked Recipe block.

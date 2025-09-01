@@ -281,7 +281,7 @@ class Delicious_Recipes_Recipe {
 
 		$preparation_time = isset( $recipe_meta['prepTime'] ) && $recipe_meta['prepTime'] ? $recipe_meta['prepTime'] : '';
 
-		return apply_filters( 'wp_delicious_preparation_time', absint( $preparation_time ), $recipe_id );
+		return apply_filters( 'wp_delicious_preparation_time', floatval( $preparation_time ), $recipe_id );
 	}
 
 	/**
@@ -330,7 +330,7 @@ class Delicious_Recipes_Recipe {
 
 		$cook_time = isset( $recipe_meta['cookTime'] ) && $recipe_meta['cookTime'] ? $recipe_meta['cookTime'] : '';
 
-		return apply_filters( 'wp_delicious_cook_time', absint( $cook_time ), $recipe_id );
+		return apply_filters( 'wp_delicious_cook_time', floatval( $cook_time ), $recipe_id );
 	}
 
 	/**
@@ -379,7 +379,7 @@ class Delicious_Recipes_Recipe {
 
 		$rest_time = isset( $recipe_meta['restTime'] ) && $recipe_meta['restTime'] ? $recipe_meta['restTime'] : '';
 
-		return apply_filters( 'wp_delicious_rest_time', absint( $rest_time ), $recipe_id );
+		return apply_filters( 'wp_delicious_rest_time', floatval( $rest_time ), $recipe_id );
 	}
 
 	/**
@@ -460,9 +460,9 @@ class Delicious_Recipes_Recipe {
 		$CookTimeMins = 'min' === $cooktime_unit ? $cook_time : $cook_time * 60;
 		$RestTimeMins = 'min' === $resttime_unit ? $rest_time : $rest_time * 60;
 
-		$total_time = absint( $PrepTimeMins ) + absint( $CookTimeMins ) + absint( $RestTimeMins );
+		$total_time = $PrepTimeMins + $CookTimeMins + $RestTimeMins;
 
-		$Hours   = absint( $total_time / 60 );
+		$Hours   = floor( $total_time / 60 );
 		$Minutes = $total_time % 60;
 
 		$hour_string = '';

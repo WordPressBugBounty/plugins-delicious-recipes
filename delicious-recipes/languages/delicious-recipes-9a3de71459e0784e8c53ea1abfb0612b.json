@@ -1,6 +1,6 @@
 {
     "translation-revision-date": "YEAR-MO-DA HO:MI+ZONE",
-    "generator": "WP-CLI\/2.11.0",
+    "generator": "WP-CLI\/2.12.0",
     "source": "assets\/build\/global.js",
     "domain": "messages",
     "locale_data": {
@@ -203,6 +203,30 @@
                 ""
             ],
             "Reset Password": [
+                ""
+            ],
+            "AI Icon": [
+                ""
+            ],
+            "Write with AI": [
+                ""
+            ],
+            "AI Recipe Assistant \u2013 Create Recipes Faster, Rank Higher, Grow Your Blog": [
+                ""
+            ],
+            "Create Recipes Faster, Rank Higher, Grow Your Blog Write recipes that are ": [
+                ""
+            ],
+            "clear, engaging, and SEO-optimized, ": [
+                ""
+            ],
+            "get more traffic. AI Recipe Assistant for WP Delicious helps you ": [
+                ""
+            ],
+            "write, format, and publish recipes instantly, ": [
+                ""
+            ],
+            "making your content stand out effortlessly. ": [
                 ""
             ],
             "Get it Now": [
@@ -704,6 +728,12 @@
                 ""
             ],
             "Enable this option if you are having conflicts with some legacy features. If enabled, temporary session database entry will be created for every new users that visits the website.": [
+                ""
+            ],
+            "Disable Session Cookie": [
+                ""
+            ],
+            "Enable this option to disable the _delicious_recipes_session cookie creation. This will improve cache compatibility with CDNs like Cloudflare but may affect some plugin features that rely on session data.": [
                 ""
             ],
             "Disable FontAwesome Icons JS": [

@@ -19,6 +19,7 @@ class Delicious_Dynamic_Recipe_Card {
 	 * The post Object.
 	 *
 	 * @since 1.0.8
+	 * @var Delicious_Recipes_Recipe $recipe The recipe object.
 	 */
 	private static $recipe;
 
@@ -42,13 +43,15 @@ class Delicious_Dynamic_Recipe_Card {
 	 * Recipe Block ID.
 	 *
 	 * @since 1.2.0
+	 * @var string $recipe_block_id The recipe block ID.
 	 */
-	public static $recipeBlockID;
+	public static $recipe_block_id;
 
 	/**
 	 * Block attributes.
 	 *
 	 * @since 1.0.8
+	 * @var array $attributes The block attributes.
 	 */
 	public static $attributes;
 
@@ -56,6 +59,7 @@ class Delicious_Dynamic_Recipe_Card {
 	 * Block settings.
 	 *
 	 * @since 1.0.8
+	 * @var array $settings The block settings.
 	 */
 	public static $settings;
 
@@ -387,13 +391,9 @@ class Delicious_Dynamic_Recipe_Card {
 		$steps       = isset( $steps ) ? $steps : array();
 
 		// Store variables.
-		self::$recipeBlockID = esc_attr( $id );
-		self::$attributes    = $attributes;
-
-		// ! LEGACY CODE
-		// ! Now we have an attributes for each setting so self::$settings is not needed anymore.
-		// self::$settings                       = self::$helpers->parse_block_settings( $attributes );
-		self::$settings = $attributes;
+		self::$recipe_block_id = esc_attr( $id );
+		self::$attributes      = $attributes;
+		self::$settings        = self::$helpers->parse_block_settings( $attributes );
 
 		self::$attributes['summaryTitle']     = isset( $summaryTitle ) ? $summaryTitle : __( 'Description', 'delicious-recipes' );
 		self::$attributes['ingredientsTitle'] = isset( $ingredientsTitle ) ? $ingredientsTitle : __( 'Ingredients', 'delicious-recipes' );
@@ -407,8 +407,8 @@ class Delicious_Dynamic_Recipe_Card {
 		$RecipeCardClassName = implode( ' ', array( $class, $class_name ) );
 
 		$custom_author_name = $recipe_author_name;
-		if ( ! empty( self::$settings['custom_author_name'] ) ) {
-			$custom_author_name = self::$settings['custom_author_name'];
+		if ( ! empty( $attributes['custom_author_name'] ) ) {
+			$custom_author_name = $attributes['custom_author_name'];
 		}
 
 		$styles          = '';
@@ -455,8 +455,8 @@ class Delicious_Dynamic_Recipe_Card {
 					' . $attachment . '
 					<figcaption>
 						' .
-							( self::$settings['pin_btn'] ? self::get_pinterest_button( $image, $recipe_permalink, $pin_description ) : '' ) .
-							( self::$settings['print_btn'] ? self::get_print_button(
+							( $attributes['pin_btn'] ? self::get_pinterest_button( $image, $recipe_permalink, $pin_description ) : '' ) .
+							( $attributes['print_btn'] ? self::get_print_button(
 								$id,
 								array(
 									'title' => __( 'Print', 'delicious-recipes' ),
@@ -505,8 +505,8 @@ class Delicious_Dynamic_Recipe_Card {
 					' . sprintf( '<img id="%s" src="%s" alt="%s" class="%s"/>', $img_id, $src, $alt, trim( $img_class ) ) . '
 					<figcaption>
 						' .
-							( self::$settings['pin_btn'] ? self::get_pinterest_button( array( 'url' => $recipe_thumbnail_url ), $recipe_permalink, $pin_description ) : '' ) .
-							( self::$settings['print_btn'] ? self::get_print_button(
+							( $attributes['pin_btn'] ? self::get_pinterest_button( array( 'url' => $recipe_thumbnail_url ), $recipe_permalink, $pin_description ) : '' ) .
+							( $attributes['print_btn'] ? self::get_print_button(
 								$id,
 								array(
 									'title' => __( 'Print', 'delicious-recipes' ),
@@ -524,7 +524,7 @@ class Delicious_Dynamic_Recipe_Card {
 					' . $fallback_svg . '
 					<figcaption>
 						' .
-							( self::$settings['print_btn'] ? self::get_print_button(
+							( $attributes['print_btn'] ? self::get_print_button(
 								$id,
 								array(
 									'title' => __( 'Print', 'delicious-recipes' ),
@@ -541,14 +541,14 @@ class Delicious_Dynamic_Recipe_Card {
 			<div class="dr-title-wrap">
 				' . sprintf( '<h2 class="%s">%s</h2>', 'dr-title recipe-card-title', ( $recipeTitle ? strip_tags( $recipeTitle ) : strip_tags( $recipe_title ) ) ) .
 				'<div class="dr-entry-meta">' .
-					( self::$settings['displayAuthor'] ? '<span class="dr-byline"><span class="dr-meta-title">
+					( $attributes['displayAuthor'] ? '<span class="dr-byline"><span class="dr-meta-title">
 					<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#author"></use></svg>' . __( 'Author:', 'delicious-recipes' ) . ' ' .
 					'</span>' . $custom_author_name . '</span>' : '' ) .
-					( self::$settings['displayCookingMethod'] ? self::get_recipe_terms( 'recipe-cooking-method' ) : '' ) .
-					( self::$settings['displayCuisine'] ? self::get_recipe_terms( 'recipe-cuisine' ) : '' ) .
-					( self::$settings['displayCourse'] ? self::get_recipe_terms( 'recipe-course' ) : '' ) .
-					( self::$settings['displayRecipeKey'] ? self::get_recipe_terms( 'recipe-key' ) : '' ) .
-					( self::$settings['displayRecipeDietary'] ? self::get_recipe_terms( 'recipe-dietary' ) : '' ) .
+					( $attributes['displayCookingMethod'] ? self::get_recipe_terms( 'recipe-cooking-method' ) : '' ) .
+					( $attributes['displayCuisine'] ? self::get_recipe_terms( 'recipe-cuisine' ) : '' ) .
+					( $attributes['displayCourse'] ? self::get_recipe_terms( 'recipe-course' ) : '' ) .
+					( $attributes['displayRecipeKey'] ? self::get_recipe_terms( 'recipe-key' ) : '' ) .
+					( $attributes['displayRecipeDietary'] ? self::get_recipe_terms( 'recipe-dietary' ) : '' ) .
 				'</div>' .
 			'</div>';
 
@@ -806,8 +806,8 @@ class Delicious_Dynamic_Recipe_Card {
 			$details = array_filter( $attributes['details'], 'is_array' );
 
 			foreach ( $details as $key => $detail ) {
-				if ( $key === 4 ) {
-					if ( ! empty( $detail['value'] ) && self::$settings['displayServings'] ) {
+				if ( 4 === $key ) {
+					if ( ! empty( $detail['value'] ) && $attributes['displayServings'] ) {
 						if ( ! is_array( $detail['value'] ) ) {
 							$yield = array(
 								$detail['value'],
@@ -830,36 +830,38 @@ class Delicious_Dynamic_Recipe_Card {
 							$json_ld['recipeYield'] = $yield;
 						}
 					}
-				} elseif ( $key === 5 ) {
-					if ( ! empty( $detail['value'] ) && self::$settings['displayCalories'] ) {
+				} elseif ( 5 === $key ) {
+					if ( ! empty( $detail['value'] ) && $attributes['displayCalories'] ) {
 						if ( ! is_array( $detail['value'] ) ) {
 							$json_ld['nutrition']['calories'] = $detail['value'] . ' cal';
 						} elseif ( isset( $detail['jsonValue'] ) ) {
 							$json_ld['nutrition']['calories'] = $detail['jsonValue'] . ' cal';
 						}
 					}
-				} elseif ( $key === 0 ) {
-					if ( ! empty( $detail['value'] ) && self::$settings['displayPrepTime'] ) {
+				} elseif ( 0 === $key ) {
+					if ( ! empty( $detail['value'] ) && $attributes['displayPrepTime'] ) {
 						if ( ! is_array( $detail['value'] ) ) {
-							$prepTime            = self::$structured_data_helpers->get_number_from_string( $detail['value'] );
+							$prep_time           = self::$structured_data_helpers->get_number_from_string( $detail['value'] );
 							$json_ld['prepTime'] = self::$structured_data_helpers->get_period_time( $detail['value'] );
 						} elseif ( isset( $detail['jsonValue'] ) ) {
-							$prepTime            = self::$structured_data_helpers->get_number_from_string( $detail['jsonValue'] );
+							$prep_time           = self::$structured_data_helpers->get_number_from_string( $detail['jsonValue'] );
 							$json_ld['prepTime'] = self::$structured_data_helpers->get_period_time( $detail['jsonValue'] );
 						}
+						$prep_time = (int) $prep_time;
 					}
-				} elseif ( $key === 1 ) {
-					if ( ! empty( $detail['value'] ) && self::$settings['displayCookingTime'] ) {
+				} elseif ( 1 === $key ) {
+					if ( ! empty( $detail['value'] ) && $attributes['displayCookingTime'] ) {
 						if ( ! is_array( $detail['value'] ) ) {
-							$cookTime            = self::$structured_data_helpers->get_number_from_string( $detail['value'] );
+							$cook_time           = self::$structured_data_helpers->get_number_from_string( $detail['value'] );
 							$json_ld['cookTime'] = self::$structured_data_helpers->get_period_time( $detail['value'] );
 						} elseif ( isset( $detail['jsonValue'] ) ) {
-							$cookTime            = self::$structured_data_helpers->get_number_from_string( $detail['jsonValue'] );
+							$cook_time           = self::$structured_data_helpers->get_number_from_string( $detail['jsonValue'] );
 							$json_ld['cookTime'] = self::$structured_data_helpers->get_period_time( $detail['jsonValue'] );
 						}
+						$cook_time = (int) $cook_time;
 					}
-				} elseif ( $key === 3 ) {
-					if ( ! empty( $detail['value'] ) && self::$settings['displayTotalTime'] ) {
+				} elseif ( 3 === $key ) {
+					if ( ! empty( $detail['value'] ) && $attributes['displayTotalTime'] ) {
 						if ( ! is_array( $detail['value'] ) ) {
 							$json_ld['totalTime'] = self::$structured_data_helpers->get_period_time( $detail['value'] );
 						} elseif ( isset( $detail['jsonValue'] ) ) {
@@ -870,8 +872,8 @@ class Delicious_Dynamic_Recipe_Card {
 			}
 
 			if ( empty( $json_ld['totalTime'] ) ) {
-				if ( isset( $prepTime, $cookTime ) && ( $prepTime + $cookTime ) > 0 ) {
-					$json_ld['totalTime'] = self::$structured_data_helpers->get_period_time( $prepTime + $cookTime );
+				if ( isset( $prep_time, $cook_time ) && ( $prep_time + $cook_time ) > 0 ) {
+					$json_ld['totalTime'] = self::$structured_data_helpers->get_period_time( $prep_time + $cook_time );
 				}
 			}
 		}

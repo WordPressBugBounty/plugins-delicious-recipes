@@ -197,7 +197,6 @@ final class DeliciousRecipes {
 
 		// Set up localization.
 		$this->load_plugin_textdomain();
-
 	}
 
 	/**
@@ -256,9 +255,17 @@ final class DeliciousRecipes {
 
 			$this->recipe  = new Delicious_Recipes_Recipe();
 			$this->widgets = new Delicious_Recipes_Widgets();
-			$this->session = new \Delicious_Recipes_Session();
+
+			// Only initialize session if not disabled in settings.
+			if ( ! delicious_recipes_is_session_cookie_disabled() ) {
+				$this->session = new \Delicious_Recipes_Session();
+			} else {
+				// If session is disabled but cookie still exists, clear it.
+				add_action( 'init', array( $this, 'maybe_clear_session_cookie' ), 1 );
+			}
+
 			$this->notices = new \Delicious_Recipes_Notices();
-			$this->vgwort = new \Delicious_Recipes_VGWort();
+			$this->vgwort  = new \Delicious_Recipes_VGWort();
 		}
 	}
 
@@ -371,6 +378,23 @@ final class DeliciousRecipes {
 				return defined( 'DOING_CRON' );
 			case 'frontend':
 				return ( ! is_admin() || defined( 'DOING_AJAX' ) ) && ! defined( 'DOING_CRON' );
+		}
+	}
+
+	/**
+	 * Clear session cookie if it exists but session is disabled.
+	 *
+	 * @since 1.4.5
+	 */
+	public function maybe_clear_session_cookie() {
+		// Get the session cookie name.
+		$cookie_name = defined( 'DELICIOUS_RECIPES_SESSION_COOKIE' )
+			? DELICIOUS_RECIPES_SESSION_COOKIE
+			: '_delicious_recipes_session';
+
+		// If cookie exists but session is disabled, clear it.
+		if ( isset( $_COOKIE[ $cookie_name ] ) ) {
+			delicious_recipes_clear_session_cookie();
 		}
 	}
 }

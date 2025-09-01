@@ -23,7 +23,11 @@ $is_powered_by = isset( $recipe_meta['isPoweredBy'] ) ? $recipe_meta['isPoweredB
 
 $filtered_nutrition_facts = array_filter(
 	$nutrition_facts,
-	function ( $nut, $key ) {
+	function ( $nut, $key ) use ( $display_nutrition_zero_values ) {
+		// If zero values should be displayed, include them.
+		if ( $display_nutrition_zero_values && ( '0' === $nut || 0 === $nut ) && 'servings' !== $key && 'servingSize' !== $key ) {
+			return true;
+		}
 		return ! empty( $nut ) && false !== $nut && 'servings' !== $key && 'servingSize' !== $key;
 	},
 	ARRAY_FILTER_USE_BOTH
@@ -116,7 +120,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 										continue;
 									}
 									$has_value     = isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ];
-									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ];
+									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] );
 
 									if ( $has_value || $is_zero_value ) :
 										echo '<p>' . esc_html( $nf['name'] ) . ' <strong class="dr-nut-label" data-labeltype="' . esc_attr( $slug ) . '">' . ( esc_html( $nutrition_facts[ $slug ] ) ) . '</strong></p>';
@@ -133,7 +137,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 								ob_start();
 								foreach ( $mid_facts as $slug => $nf ) :
 									$has_value     = isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ];
-									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ];
+									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] );
 
 									if ( ( $has_value || $is_zero_value ) && 'calories_fat' !== $slug ) :
 										echo '<dt class="dr-nut-no-border text-large">';
@@ -159,7 +163,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 
 								foreach ( $main_facts as $slug => $nf ) :
 									$has_value     = isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ];
-									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ];
+									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] );
 
 									if ( $has_value || $is_zero_value ) :
 										echo '<dt>';
@@ -169,7 +173,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 										if ( isset( $nf['subs'] ) ) :
 											foreach ( $nf['subs'] as $sub_slug => $sub_nf ) :
 												$sub_has_value     = isset( $nutrition_facts[ $sub_slug ] ) && $nutrition_facts[ $sub_slug ];
-												$sub_is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $sub_slug ] ) && 0 === $nutrition_facts[ $sub_slug ];
+												$sub_is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $sub_slug ] ) && ( '0' === $nutrition_facts[ $sub_slug ] || 0 === $nutrition_facts[ $sub_slug ] );
 
 												if ( $sub_has_value || $sub_is_zero_value ) :
 													echo '<dl><dt>';
@@ -194,8 +198,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 								ob_start();
 								foreach ( $bottom_facts as $slug => $nf ) :
 									$has_value     = isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ];
-									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && 0 === $nutrition_facts[ $slug ];
-									
+									$is_zero_value = $display_nutrition_zero_values && isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] );
 									if ( $has_value || $is_zero_value ) :
 										if ( 'vitaminA' === $slug || 'vitaminD' === $slug || 'vitaminE' === $slug ) :
 											$vitamin_unit = isset( $recipe_meta[ $slug . 'Unit' ] ) ? $recipe_meta[ $slug . 'Unit' ] : 'IU';
@@ -213,8 +216,9 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 								if ( ! empty( $nutrition_facts['additionalNutritionalElements'] ) && is_array( $additional_nutrition_elements ) && ! empty( $additional_nutrition_elements ) ) {
 									$additional_elements = $nutrition_facts['additionalNutritionalElements'];
 									foreach ( $additional_nutrition_elements as $element_key => $element_value ) {
-										$has_value     = isset( $additional_elements[ $element_key ] ) && ! empty( trim( $additional_elements[ $element_key ] ) );
-										$is_zero_value = $display_nutrition_zero_values && isset( $additional_elements[ $element_key ] ) && '' === trim( $additional_elements[ $element_key ] );
+										$element_val   = isset( $additional_elements[ $element_key ] ) ? trim( $additional_elements[ $element_key ] ) : '';
+										$has_value     = ! empty( $element_val );
+										$is_zero_value = $display_nutrition_zero_values && isset( $additional_elements[ $element_key ] ) && ( '0' === $element_val || 0 === $element_val );
 										if ( $has_value || $is_zero_value ) {
 											echo '<dt>';
 											echo '<strong>' . esc_html( $element_value['name'] ) . ' <span class="dr-nut-percent dr-nut-label">' . esc_html( $additional_elements[ $element_key ] ) . '</span>' . esc_html( $element_value['measurement'] ) . '</strong>';

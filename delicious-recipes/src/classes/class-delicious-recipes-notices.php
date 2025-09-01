@@ -12,38 +12,36 @@ defined( 'ABSPATH' ) || exit;
  *
  * Handle custom notices display.
  */
-
 class Delicious_Recipes_Notices {
 
-    /**
-     * Errors array
-     *
-     * @var array
-     */
-    private $errors  = array();
+	/**
+	 * Errors array
+	 *
+	 * @var array
+	 */
+	private $errors = array();
 
-    /**
-     * Success messages.
-     *
-     * @var array
-     */
-    private $success = array();
+	/**
+	 * Success messages.
+	 *
+	 * @var array
+	 */
+	private $success = array();
 
-    /**
-     * Class Constructor.
-     */
+	/**
+	 * Class Constructor.
+	 */
 	public function __construct() {
-
 	}
 
-    /**
-     * Add notices
-     *
-     * @param [type] $value
-     * @param string $type
-     * @return void
-     */
-	function add( $value, $type = 'error' ) {
+	/**
+	 * Add notices
+	 *
+	 * @param string $value Notice message.
+	 * @param string $type Notice type.
+	 * @return void
+	 */
+	public function add( $value, $type = 'error' ) {
 
 		if ( empty( $value ) ) {
 			return;
@@ -51,82 +49,94 @@ class Delicious_Recipes_Notices {
 
 		if ( 'error' === $type ) {
 
-            $this->errors = wp_parse_args( array( $value ), $this->errors );
+			$this->errors = wp_parse_args( array( $value ), $this->errors );
 
-			DEL_RECIPE()->session->set( 'delicious_recipes_errors', $this->errors );
-
-        } elseif ( 'success' === $type ) {
+			if ( DEL_RECIPE()->session ) {
+				DEL_RECIPE()->session->set( 'delicious_recipes_errors', $this->errors );
+			}
+		} elseif ( 'success' === $type ) {
 
 			$this->success = wp_parse_args( array( $value ), $this->success );
 
-            DEL_RECIPE()->session->set( 'delicious_recipes_success', $this->success );
+			if ( DEL_RECIPE()->session ) {
+				DEL_RECIPE()->session->set( 'delicious_recipes_success', $this->success );
+			}
 		}
 	}
 
-    /**
-     * Get notices
-     *
-     * @param string $type
-     * @param boolean $destroy
-     * @return void
-     */
-	function get( $type = 'error', $destroy = true ) {
+	/**
+	 * Get notices
+	 *
+	 * @param string  $type Notice type.
+	 * @param boolean $destroy Destroy notice after getting.
+	 * @return array
+	 */
+	public function get( $type = 'error', $destroy = true ) {
 
 		if ( 'error' === $type ) {
 
-            $errors = DEL_RECIPE()->session->get( 'delicious_recipes_errors' );
+			$errors = array();
+			if ( DEL_RECIPE()->session ) {
+				$errors = DEL_RECIPE()->session->get( 'delicious_recipes_errors' );
+			}
 
-            if ( $destroy ) {
+			if ( $destroy ) {
 
-                $this->destroy( $type );
+				$this->destroy( $type );
 
-            }
+			}
 
-            return $errors;
+			return $errors;
 
 		} elseif ( 'success' === $type ) {
 
-			$success = DEL_RECIPE()->session->get( 'delicious_recipes_success' );
+			$success = array();
+			if ( DEL_RECIPE()->session ) {
+				$success = DEL_RECIPE()->session->get( 'delicious_recipes_success' );
+			}
 
-            if ( $destroy ) {
+			if ( $destroy ) {
 				$this->destroy( $type );
 			}
 
-            return $success;
+			return $success;
 		}
 	}
 
-    /**
-     * Destroy message.
-     *
-     * @param [type] $type
-     * @return void
-     */
-	function destroy( $type ) {
+	/**
+	 * Destroy message.
+	 *
+	 * @param string $type Notice type.
+	 * @return void
+	 */
+	public function destroy( $type ) {
 
-        if ( 'error' === $type ) {
+		if ( 'error' === $type ) {
 
-            $this->errors = array();
+			$this->errors = array();
 
-            DEL_RECIPE()->session->set( 'delicious_recipes_errors', $this->errors );
+			if ( DEL_RECIPE()->session ) {
+				DEL_RECIPE()->session->set( 'delicious_recipes_errors', $this->errors );
+			}
+		} elseif ( 'success' === $type ) {
 
-        } elseif ( 'success' === $type ) {
+			$this->success = array();
 
-            $this->success = array();
-
-            DEL_RECIPE()->session->set( 'delicious_recipes_success', $this->success );
+			if ( DEL_RECIPE()->session ) {
+				DEL_RECIPE()->session->set( 'delicious_recipes_success', $this->success );
+			}
 		}
 	}
 
-    /**
-     * Print notices.
-     *
-     * @param [type] $type
-     * @param boolean $destroy
-     * @return void
-     */
-	function print_notices( $type, $destroy = true ){
-        $notices = $this->get( $type, $destroy );
+	/**
+	 * Print notices.
+	 *
+	 * @param string  $type Notice type.
+	 * @param boolean $destroy Destroy notice after getting.
+	 * @return void
+	 */
+	public function print_notices( $type, $destroy = true ) {
+		$notices = $this->get( $type, $destroy );
 
 		if ( empty( $notices ) ) {
 			return;
@@ -147,6 +157,5 @@ class Delicious_Recipes_Notices {
 			return;
 		}
 		return false;
-
 	}
 }

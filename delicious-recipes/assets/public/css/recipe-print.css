@@ -691,7 +691,8 @@ body .dr-nutrition-label .dr-nut-hr {
 }
 
 #dr-print-options .wpd-logo img {
-	max-width: 171px;
+	max-width: 200px;
+	height: auto;
 }
 
 /* print options */

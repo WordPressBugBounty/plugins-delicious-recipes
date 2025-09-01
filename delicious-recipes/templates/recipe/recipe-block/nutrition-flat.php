@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Nutrition facts flat template.
  *
@@ -19,7 +18,11 @@ $additional_nutrition_elements = isset( $recipe_global['additionalNutritionEleme
 
 $nutri_filtered = array_filter(
 	$nutrition_facts,
-	function ( $nut, $key ) {
+	function ( $nut, $key ) use ( $display_nutrition_zero_values ) {
+		// If zero values should be displayed, include them.
+		if ( $display_nutrition_zero_values && ( '0' === $nut || 0 === $nut ) && 'servings' !== $key && 'servingSize' !== $key ) {
+			return true;
+		}
 		return ! empty( $nut ) && false !== $nut && 'servings' !== $key && 'servingSize' !== $key;
 	},
 	ARRAY_FILTER_USE_BOTH
@@ -43,12 +46,12 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 	}
 	$collapsible_nutrition_chart_label = isset( $recipe_global['collapsibleNutritionChartLabel'] ) ? $recipe_global['collapsibleNutritionChartLabel'] : '';
 
-	$calories = isset( $nutrition_facts['calories'] ) && ! empty( $nutrition_facts['calories'] ) ? $nutrition_facts['calories'] . 'kcal' : '';
-	$protein  = isset( $nutrition_facts['protein'] ) ? $nutrition_facts['protein'] . 'g' : '';
-	$carbs    = isset( $nutrition_facts['totalCarbohydrate'] ) ? $nutrition_facts['totalCarbohydrate'] . 'g' : '';
-	$fat      = isset( $nutrition_facts['totalFat'] ) ? $nutrition_facts['totalFat'] . 'g' : '';
-	$fiber    = isset( $nutrition_facts['dietaryFiber'] ) && ! empty( $nutrition_facts['dietaryFiber'] ) ? $nutrition_facts['dietaryFiber'] . 'g' : '';
-	$sugar    = isset( $nutrition_facts['sugars'] ) ? $nutrition_facts['sugars'] . 'g' : '';
+	$calories = isset( $nutrition_facts['calories'] ) && ( ! empty( $nutrition_facts['calories'] ) || ( $display_nutrition_zero_values && ( '0' === $nutrition_facts['calories'] || 0 === $nutrition_facts['calories'] ) ) ) ? $nutrition_facts['calories'] . 'kcal' : '';
+	$protein  = isset( $nutrition_facts['protein'] ) && ( ! empty( $nutrition_facts['protein'] ) || ( $display_nutrition_zero_values && ( '0' === $nutrition_facts['protein'] || 0 === $nutrition_facts['protein'] ) ) ) ? $nutrition_facts['protein'] . 'g' : '';
+	$carbs    = isset( $nutrition_facts['totalCarbohydrate'] ) && ( ! empty( $nutrition_facts['totalCarbohydrate'] ) || ( $display_nutrition_zero_values && ( '0' === $nutrition_facts['totalCarbohydrate'] || 0 === $nutrition_facts['totalCarbohydrate'] ) ) ) ? $nutrition_facts['totalCarbohydrate'] . 'g' : '';
+	$fat      = isset( $nutrition_facts['totalFat'] ) && ( ! empty( $nutrition_facts['totalFat'] ) || ( $display_nutrition_zero_values && ( '0' === $nutrition_facts['totalFat'] || 0 === $nutrition_facts['totalFat'] ) ) ) ? $nutrition_facts['totalFat'] . 'g' : '';
+	$fiber    = isset( $nutrition_facts['dietaryFiber'] ) && ( ! empty( $nutrition_facts['dietaryFiber'] ) || ( $display_nutrition_zero_values && ( '0' === $nutrition_facts['dietaryFiber'] || 0 === $nutrition_facts['dietaryFiber'] ) ) ) ? $nutrition_facts['dietaryFiber'] . 'g' : '';
+	$sugar    = isset( $nutrition_facts['sugars'] ) && ( ! empty( $nutrition_facts['sugars'] ) || ( $display_nutrition_zero_values && ( '0' === $nutrition_facts['sugars'] || 0 === $nutrition_facts['sugars'] ) ) ) ? $nutrition_facts['sugars'] . 'g' : '';
 }
 ?>
 
@@ -129,9 +132,9 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 								}
 
 								if ( $display_nutrition_zero_values ) {
-									$hide = '' === $value;
+									$hide = '' === $value && '0' !== $value && 0 !== $value;
 								} else {
-									$hide = '' === $value || 0 === $value;
+									$hide = '' === $value || '0' === $value || 0 === $value;
 								}
 
 								if ( $hide ) {
@@ -154,9 +157,9 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 									$value = $nutrition_facts[ $slug ];
 								}
 								if ( $display_nutrition_zero_values ) {
-									$hide = '' === $value;
+									$hide = '' === $value && '0' !== $value && 0 !== $value;
 								} else {
-									$hide = '' === $value || 0 === $value;
+									$hide = '' === $value || '0' === $value || 0 === $value;
 								}
 								if ( ! $hide ) {
 									echo '<span>' . esc_html( $nf['name'] ) . ':<span class="dr-nutrition-fact-value">' . esc_html( $nutrition_facts[ $slug ] ) . '</span>' . ( isset( $nf['measurement'] ) ? '<span class="dr-nut-measurement">' . esc_html( $nf['measurement'] ) . '</span></span>' : '</span>' );
@@ -189,9 +192,9 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 									$value = $nutrition_facts[ $slug ];
 								}
 								if ( $display_nutrition_zero_values ) {
-									$hide = '' === $value;
+									$hide = '' === $value && '0' !== $value && 0 !== $value;
 								} else {
-									$hide = '' === $value || 0 === $value;
+									$hide = '' === $value || '0' === $value || 0 === $value;
 								}
 								if ( $hide ) {
 									continue;
@@ -203,12 +206,15 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 						if ( ! empty( $nutrition_facts['additionalNutritionalElements'] ) && is_array( $additional_nutrition_elements ) && ! empty( $additional_nutrition_elements ) ) {
 							$nutri_additional_nutritional_elements = $nutrition_facts['additionalNutritionalElements'];
 							foreach ( $additional_nutrition_elements as $additional_nutrition_element_key => $additional_nutrition_element_value ) {
+								$element_val = isset( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) ? trim( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) : '';
 								if ( $display_nutrition_zero_values ) {
-									if ( ! isset( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) || '' === ( trim( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) ) ) {
+									// Show if value exists (including zero values).
+									if ( ! isset( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) || ( '' === $element_val && '0' !== $element_val && 0 !== $element_val ) ) {
 										continue;
 									}
-								} elseif ( ! isset( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) || empty( trim( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) ) ) {
-										continue;
+								} elseif ( ! isset( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) || '' === $element_val || '0' === $element_val || 0 === $element_val ) {
+									// Hide if empty or zero.
+									continue;
 								}
 								echo '<span>' . esc_html( $additional_nutrition_element_value['name'] ) . ': <span class="dr-nutrition-fact-value">' . esc_html( $nutri_additional_nutritional_elements[ $additional_nutrition_element_key ] ) . '</span>' . ( isset( $additional_nutrition_element_value['measurement'] ) ? '<span class="dr-nut-measurement">' . esc_html( $additional_nutrition_element_value['measurement'] ) . '</span></span>' : '</span>' );
 							}

@@ -470,6 +470,22 @@ class DeliciousPublic {
 		// Pintrest JS.
 		wp_register_script( 'pintrest', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/pintrest/pintrest.min.js', array( 'jquery' ), '5.14.0', true );
 
+		// Single Recipe JS.
+		$single_recipe_js_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.asset.php';
+		if ( is_array( $single_recipe_js_deps ) && ! empty( $single_recipe_js_deps ) ) {
+			$single_recipe_js_deps['dependencies'] = array_merge( $single_recipe_js_deps['dependencies'], array( 'jquery' ) );
+		} else {
+			$single_recipe_js_deps = array( 'dependencies' => array( 'jquery' ) );
+		}
+		wp_register_script(
+			'single-recipe',
+			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.js',
+			$single_recipe_js_deps['dependencies'],
+			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.js' ),
+			true
+		);
+		wp_localize_script( 'single-recipe', 'delicious_recipes', $delicious_recipes );
+
 		// Enable/Disable FA Icons JS.
 		$disable_fa_icons_js = isset( $global_settings['disableFAIconsJS']['0'] ) && 'yes' === $global_settings['disableFAIconsJS']['0'] ? true : false;
 		if ( ! $disable_fa_icons_js ) {
@@ -486,6 +502,7 @@ class DeliciousPublic {
 					wp_enqueue_style( 'delicious-recipe-block-styles', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/blockCSS.css', array(), DELICIOUS_RECIPES_VERSION, 'all' );
 					wp_enqueue_style( 'delicious-recipe-single-styles' );
 					wp_enqueue_style( 'delicious-recipe-archive-styles' );
+					wp_enqueue_script( 'single-recipe' );
 				}
 			}
 		}
@@ -528,20 +545,7 @@ class DeliciousPublic {
 
 		if ( is_recipe() ) {
 			wp_enqueue_style( 'delicious-recipe-single-styles' );
-			$single_recipe_js_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.asset.php';
-			if ( is_array( $single_recipe_js_deps ) && ! empty( $single_recipe_js_deps ) ) {
-				$single_recipe_js_deps['dependencies'] = array_merge( $single_recipe_js_deps['dependencies'], array( 'jquery' ) );
-			} else {
-				$single_recipe_js_deps = array( 'dependencies' => array( 'jquery' ) );
-			}
-			wp_enqueue_script(
-				'single-recipe',
-				plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.js',
-				$single_recipe_js_deps['dependencies'],
-				filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.js' ),
-				true
-			);
-			wp_localize_script( 'single-recipe', 'delicious_recipes', $delicious_recipes );
+			wp_enqueue_script( 'single-recipe' );
 		}
 
 		if ( delicious_recipes_enable_pinit_btn() ) {
