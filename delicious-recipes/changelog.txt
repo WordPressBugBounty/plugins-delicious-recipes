@@ -1,3 +1,41 @@
+1.9.5: 2026-02-02
+- Enhancement: Updated demo URLs to new domain (wpdeliciousdemo.com).
+- Fixes: Fixed React key prop warning in nutrition fields component.
+
+1.9.4: 2025-12-30
+- Fixes: Improved bulk ingredient parsing with better edge case handling.
+- Fixes: Consolidated wp_localize_script calls for better script dependency management.
+- Fixes: Enhanced ingredient line parsing in the text input functionality.
+- Fixes: Renamed social sharing settings ID for consistency.
+- Fixes: Loaded text domain earlier to prevent translation warnings.
+
+1.9.3: 2025-12-05
+- Fixes: Fixed compatibility issue with WordPress 6.9.
+- Fixes: Fixed categories image and icon width issue.
+- Fixes: Fixed recipe keys overflow when too many items in archives pages.
+- Fixes: Fixed WP Delicious CSS conflict with WordPress radio button design.
+- Fixes: Prevented recursive dynamic block rendering by introducing a static rendering flag and conditional `the_content` filter management.
+
+1.9.2: 2025-11-24
+- Fixes: Fixed login modal issue on archive pages.
+- Fixes: Fixed custom color picker issue on the Global Settings page.
+
+1.9.1: 2025-10-31
+- Fixes: Resolved an authenticated arbitrary file upload vulnerability in the CSV import endpoint by restricting access to users with the upload_files capability and validating remote files through WordPress media APIs.
+
+1.9.0: 2025-10-29
+- Fixes: Resolved rating schema issue on the single recipe page affecting Rich Results Test validation.
+
+1.8.9: 2025-10-28
+- Enhancement: Improved author image handling in Global Settings.
+- Fixes: Fixed video thumbnail issue on the Single Recipe Page.
+- Fixes: Updated text domain and removed unwanted CSS.
+- Fixes: Restored missing review section from the single recipe page schema.
+- Fixes: Resolved issue preventing Delicious Recipes REST API from working with Solid Central plugin.
+- Fixes: Replaced default serach form with custom search form on the Search Page for recipe filtering.
+- Fixes: Resolved CSS conflict with Formidable plugin.
+- Fixes: Fixed API request and Basic Auth conflict with Formidable plugin.
+
 1.8.8: 2025-09-01
 - New Feature: Added an option to disable session cookie for improved cache compatibility with CDNs such as Cloudflare.
 - Fixes: Sanitized and updated recipe blocks to prevent XSS vulnerabilities.
@@ -6,7 +44,6 @@
 - Fixes: Corrected cook time decimal-to-hours conversion.
 - Fixes: Adjusted recipe print page logo sizing.
 - Fixes: Updated nutrition display logic to include zero values.
-
 
 1.8.7: 2025-08-04
 - Fixes: Fixed design issues related to the [dr_recipe_archives] shortcode.

@@ -142,6 +142,9 @@ final class DeliciousRecipes {
 	 * @access public
 	 */
 	public function on_plugins_loaded() {
+		// Set up localization early to prevent WordPress 6.7+ warnings.
+		$this->load_plugin_textdomain();
+		
 		do_action( 'WP_Delicious_loaded' );
 		do_action( 'delicious_recipes_free_loaded' );
 	}
@@ -194,9 +197,6 @@ final class DeliciousRecipes {
 	public function init() {
 		// Before init action.
 		do_action( 'before_delicious_recipes_init' );
-
-		// Set up localization.
-		$this->load_plugin_textdomain();
 	}
 
 	/**

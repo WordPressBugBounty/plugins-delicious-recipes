@@ -408,7 +408,6 @@ class DeliciousPublic {
 			true
 		);
 		wp_localize_script( 'delicious-recipes-single', 'delicious_recipes', $delicious_recipes );
-		wp_enqueue_script( 'delicious-recipes-single' );
 
 		// Register Single Recipe Styles.
 		wp_register_style(
@@ -436,10 +435,11 @@ class DeliciousPublic {
 			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdArchive.css' ),
 			'all'
 		);
+		// Note: 'delicious-recipes-single' is added as a dependency to share the localized 'delicious_recipes' data.
 		wp_register_script(
 			'delicious-recipe-archive-styles-js',
 			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdArchiveJS.js',
-			array(),
+			array( 'delicious-recipes-single' ),
 			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/wpdArchiveJS.js' ),
 			'all'
 		);
@@ -471,11 +471,13 @@ class DeliciousPublic {
 		wp_register_script( 'pintrest', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/lib/pintrest/pintrest.min.js', array( 'jquery' ), '5.14.0', true );
 
 		// Single Recipe JS.
+		// Note: 'delicious-recipes-single' is added as a dependency to share the localized 'delicious_recipes' data
+		// and prevent duplicate inline script blocks on single recipe pages.
 		$single_recipe_js_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.asset.php';
 		if ( is_array( $single_recipe_js_deps ) && ! empty( $single_recipe_js_deps ) ) {
-			$single_recipe_js_deps['dependencies'] = array_merge( $single_recipe_js_deps['dependencies'], array( 'jquery' ) );
+			$single_recipe_js_deps['dependencies'] = array_merge( $single_recipe_js_deps['dependencies'], array( 'jquery', 'delicious-recipes-single' ) );
 		} else {
-			$single_recipe_js_deps = array( 'dependencies' => array( 'jquery' ) );
+			$single_recipe_js_deps = array( 'dependencies' => array( 'jquery', 'delicious-recipes-single' ) );
 		}
 		wp_register_script(
 			'single-recipe',
@@ -484,7 +486,6 @@ class DeliciousPublic {
 			filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/singleRecipe.js' ),
 			true
 		);
-		wp_localize_script( 'single-recipe', 'delicious_recipes', $delicious_recipes );
 
 		// Enable/Disable FA Icons JS.
 		$disable_fa_icons_js = isset( $global_settings['disableFAIconsJS']['0'] ) && 'yes' === $global_settings['disableFAIconsJS']['0'] ? true : false;
@@ -522,11 +523,12 @@ class DeliciousPublic {
 			);
 
 			// Recipe Search JS.
+			// Note: 'delicious-recipes-single' is added as a dependency to share the localized 'delicious_recipes' data.
 			$recipe_search_js_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/recipeSearch.asset.php';
 			if ( is_array( $recipe_search_js_deps ) && ! empty( $recipe_search_js_deps ) ) {
-				$recipe_search_js_deps['dependencies'] = array_merge( $recipe_search_js_deps['dependencies'], array( 'jquery', 'select2' ) );
+				$recipe_search_js_deps['dependencies'] = array_merge( $recipe_search_js_deps['dependencies'], array( 'jquery', 'select2', 'delicious-recipes-single' ) );
 			} else {
-				$recipe_search_js_deps = array( 'dependencies' => array( 'jquery', 'select2' ) );
+				$recipe_search_js_deps = array( 'dependencies' => array( 'jquery', 'select2', 'delicious-recipes-single' ) );
 			}
 			wp_enqueue_script(
 				'recipe-search-js',
@@ -535,7 +537,6 @@ class DeliciousPublic {
 				filemtime( plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/recipeSearch.js' ),
 				true
 			);
-			wp_localize_script( 'recipe-search-js', 'delicious_recipes', $delicious_recipes );
 
 			// Enqueue Pinterest JS.
 			if ( delicious_recipes_enable_pinit_btn() ) {
@@ -611,8 +612,6 @@ class DeliciousPublic {
 		) ) {
 			wp_enqueue_style( 'delicious-recipe-archive-styles' );
 			wp_enqueue_script( 'delicious-recipe-archive-styles-js' );
-
-			wp_localize_script( 'delicious-recipe-archive-styles-js', 'delicious_recipes', $delicious_recipes );
 
 			// Splide is not needed in individual taxonomy pages.
 			if ( ! is_recipe_taxonomy() ) {

@@ -103,8 +103,8 @@ if ( ! empty( $recipe_instructions ) ) :
 								for ( $i = 0; $i < min( 3, $total_images ); $i++ ) {
 									$image                = $all_images[ $i ];
 									$instruct_image_small = esc_url( $image['url'] );
-									echo '<a data-fslightbox="gallery-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) . '" class="dr-lg-media-popup" href="' . $instruct_image_small . '">
-											<img src="' . $instruct_image_small . '" />
+									echo '<a data-fslightbox="gallery-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) . '" class="dr-lg-media-popup" href="' . esc_url( $instruct_image_small ) . '">
+											<img src="' . esc_url( $instruct_image_small ) . '" />
 										</a>';
 								}
 
@@ -113,7 +113,7 @@ if ( ! empty( $recipe_instructions ) ) :
 									for ( $i = 3; $i < $total_images; $i++ ) {
 										$image                = $all_images[ $i ];
 										$instruct_image_small = esc_url( $image['url'] );
-										echo '<a data-fslightbox="gallery-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) . '" href="' . $instruct_image_small . '" style="display:none;"></a>';
+										echo '<a data-fslightbox="gallery-' . esc_attr( $sec_key ) . '-' . esc_attr( $inst_key ) . '" href="' . esc_url( $instruct_image_small ) . '" style="display:none;"></a>';
 									}
 
 									// Display the remaining images count box without an href.
@@ -142,7 +142,7 @@ if ( ! empty( $recipe_instructions ) ) :
 										$image_url = $instruction_video_attr['thumbnail'];
 									} elseif ( 'vimeo' === $instruction_video_attr['type'] ) {
 										$vid_url   = 'https://player.vimeo.com/video/' . $instruction_video_attr['id'];
-										$image_url = $instruction_video_attr['thumbnail'];
+										$image_url = $instruction_video_attr['fullsize'];
 									}
 									?>
 									<div class="dr-instructions-video dr-instruction-video-<?php echo esc_attr( $recipe->ID ); ?>">
@@ -151,15 +151,35 @@ if ( ! empty( $recipe_instructions ) ) :
 											if ( isset( $instruction_video_attr['url'] ) && $instruction_video_attr['url'] ) {
 												?>
 												<img class="avoid-lazy-load" src="<?php echo esc_url( $image_url ); ?>">
-												<a data-fslightbox="<?php echo esc_url( $vid_url ); ?>" class="dr-instruction-videopop dr-lg-media-popup" href="<?php echo esc_url( $vid_url ); ?>" data-iframe="true">
-													<svg xmlns="http://www.w3.org/2000/svg" width="18.095" height="20.894" viewBox="0 0 18.095 20.894">
-														<path id="Path_26366" data-name="Path 26366" d="M107.992,76.108l18.095,10.447L107.992,97Z" transform="translate(-107.992 -76.108)" fill="#fff" />
-													</svg>
-												</a>
+												<?php if ( 'vimeo' === $instruction_video_attr['type'] ) : ?>
+													<a data-fslightbox="custom-video" class="dr-instruction-videopop dr-lg-media-popup" href="#<?php echo esc_attr( $instruction_video_attr['id'] ); ?>" data-iframe="true">
+														<svg xmlns="http://www.w3.org/2000/svg" width="18.095" height="20.894" viewBox="0 0 18.095 20.894">
+															<path id="Path 26366" data-name="Path 26366" d="M107.992,76.108l18.095,10.447L107.992,97Z" transform="translate(-107.992 -76.108)" fill="#fff" />
+														</svg>
+													</a>
+												<?php else : ?>
+													<a data-fslightbox="<?php echo esc_url( $vid_url ); ?>" class="dr-instruction-videopop dr-lg-media-popup" href="<?php echo esc_url( $vid_url ); ?>" data-iframe="true">
+														<svg xmlns="http://www.w3.org/2000/svg" width="18.095" height="20.894" viewBox="0 0 18.095 20.894">
+															<path id="Path 26366" data-name="Path 26366" d="M107.992,76.108l18.095,10.447L107.992,97Z" transform="translate(-107.992 -76.108)" fill="#fff" />
+														</svg>
+													</a>
+												<?php endif; ?>
 												<?php
 											}
 											?>
 										</div>
+										<?php if ( 'vimeo' === $instruction_video_attr['type'] ) : ?>
+											<iframe
+												src="<?php echo esc_url( $vid_url ); ?>"
+												id="<?php echo esc_attr( $instruction_video_attr['id'] ); ?>"
+												frameBorder="0"
+												width="1920px"
+												height="1080px"
+												class="fslightbox-source"
+												allow="autoplay; fullscreen"
+												allowFullScreen
+											></iframe>
+										<?php endif; ?>
 									</div>
 
 									<?php
@@ -178,7 +198,7 @@ if ( ! empty( $recipe_instructions ) ) :
 				<?php
 			endif;
 		endforeach;
-		
+
 		?>
 	</div>
 	<?php
@@ -189,7 +209,7 @@ if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] ) :
 	?>
 	<div id="dr-video-gallery-<?php echo esc_attr( $recipe->ID ); ?>" class="dr-video-gallery">
 		<!-- <div class="dr-instrc-title-wrap"> -->
-			<?php if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] && empty($recipe_instructions) ) : ?>
+			<?php if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] && empty( $recipe_instructions ) ) : ?>
 			<div class="dr-instructions-toggle">
 				<span class="dr-inst-label"><?php echo esc_html( $global_toggles['video_lbl'] ); ?></span>
 				<button data-target=".dr-instruction-video-<?php echo esc_attr( $recipe->ID ); ?>" class="dr-switch-btn dr-video-toggle" data-switch="on" data-switch-on="<?php echo esc_attr__( 'ON', 'delicious-recipes' ); ?>" data-switch-off="<?php echo esc_attr__( 'OFF', 'delicious-recipes' ); ?>"><?php echo esc_html__( 'ON', 'delicious-recipes' ); ?></button>
@@ -200,19 +220,17 @@ if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] ) :
 		foreach ( $video_gallery_vids as $key => $video ) :
 			if ( 'youtube' === $video['vidType'] ) {
 				$vid_url   = 'https://www.youtube.com/embed/' . $video['vidID'];
-				$image_url = "https://i3.ytimg.com/vi/{$video['vidID']}/maxresdefault.jpg";
+				$image_url = 'https:' . $video['vidThumb'];
 			} elseif ( 'vimeo' === $video['vidType'] ) {
-				$vid_src = 'https://player.vimeo.com/video/' . $video['vidID'];
-				$vid_url = '#' . $video['vidID'];
-				// get vimeo video thumbnail.
-				$hash      = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/{$video['vidID']}.php" ) );
-				$image_url = $hash[0]['thumbnail_large'];
+				$vid_src   = 'https://player.vimeo.com/video/' . $video['vidID'];
+				$vid_url   = '#' . $video['vidID'];
+				$image_url = $video['vidThumb'];
 			}
 			?>
 			<div class="dr-instructions-video dr-instruction-video-<?php echo esc_attr( $recipe->ID ); ?>">
 				<div class="dr-vdo-thumbnail">
 					<img class="avoid-lazy-load" src="<?php echo esc_url( $image_url ); ?>">
-					<a data-fslightbox="custom-vimeo" class="dr-instruction-videopop dr-lg-media-popup" href="<?php echo esc_url( $vid_url ); ?>" data-iframe="true">
+					<a data-fslightbox="custom-video" class="dr-instruction-videopop dr-lg-media-popup" href="<?php echo esc_url( $vid_url ); ?>" data-iframe="true">
 						<svg xmlns="http://www.w3.org/2000/svg" width="18.095" height="20.894" viewBox="0 0 18.095 20.894">
 							<path id="Path_26366" data-name="Path 26366" d="M107.992,76.108l18.095,10.447L107.992,97Z" transform="translate(-107.992 -76.108)" fill="#fff" />
 						</svg>

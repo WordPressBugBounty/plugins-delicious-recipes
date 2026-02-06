@@ -21,7 +21,13 @@ $recipe_paged           = is_front_page() ? get_query_var( 'page', 1 ) : get_que
 		?>
 		<header class="page-header">
 			<div class="container">
-				<?php get_search_form(); ?>
+				<form role="search" method="get" class="search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+					<label>
+						<input type="search" class="search-field" placeholder="<?php esc_attr_e( 'Search Recipes...', 'delicious-recipes' ); ?>" value="<?php echo get_search_query(); ?>" name="s" />
+						<input type="hidden" name="post_type" value="<?php echo esc_attr( DELICIOUS_RECIPE_POST_TYPE ); ?>" />
+					</label>
+					<input type="submit" class="search-submit" value="<?php esc_attr_e( 'Search', 'delicious-recipes' ); ?>" />
+				</form>
 			</div>
 		</header>
 	<?php endif; ?>

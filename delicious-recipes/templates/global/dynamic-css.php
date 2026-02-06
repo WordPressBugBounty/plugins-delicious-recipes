@@ -11,6 +11,35 @@ $primary_color_rgb   = isset( $global_settings['primaryColorRGB'] ) && ! empty( 
 $secondary_color     = isset( $global_settings['secondaryColor'] ) && ! empty( $global_settings['secondaryColor'] ) ? $global_settings['secondaryColor'] : '#2db68d';
 $secondary_color_rgb = isset( $global_settings['secondaryColorRGB'] ) && ! empty( $global_settings['secondaryColorRGB'] ) ? $global_settings['secondaryColorRGB'] : '232, 78, 59';
 
+if ( ! function_exists( 'delicious_recipes_hash_to_percent23' ) ) {
+	/**
+	 * Convert '#' to '%23'
+	 *
+	 * @param string $color_code Color code.
+	 * @return string
+	 */
+	function delicious_recipes_hash_to_percent23( $color_code ) {
+		$color_code = str_replace( '#', '%23', $color_code );
+		return $color_code;
+	}
+}
+
+if ( ! function_exists( 'delicious_recipes_fallback_svg_fill' ) ) {
+	/**
+	 * Delicious Recipes Fallback SVG Fill
+	 *
+	 * @return string
+	 */
+	function delicious_recipes_fallback_svg_fill() {
+
+		$global_settings = delicious_recipes_get_global_settings();
+		$primary_color   = isset( $global_settings['primaryColor'] ) && ! empty( $global_settings['primaryColor'] ) ? $global_settings['primaryColor'] : '#2db68d';
+
+		return 'fill:' . $primary_color . ';';
+	}
+}
+
+add_filter( 'delicious_recipes_fallback_svg_fill', 'delicious_recipes_fallback_svg_fill' );
 /* This field has been removed as per this issue: https://gitlab.com/wp-delicious/delicious-recipes/-/issues/69 */
 ?>
 <style type='text/css' media='all'>
@@ -46,27 +75,3 @@ $secondary_color_rgb = isset( $global_settings['secondaryColorRGB'] ) && ! empty
 	}
 
 </style>
-<?php
-
-/**
- * Convert '#' to '%23'
- *
- * @param string $color_code Color code.
- */
-function delicious_recipes_hash_to_percent23( $color_code ) {
-	$color_code = str_replace( '#', '%23', $color_code );
-	return $color_code;
-}
-
-/**
- * Delicious Recipes Fallback SVG Fill
- */
-function delicious_recipes_fallback_svg_fill() {
-
-	$global_settings = delicious_recipes_get_global_settings();
-	$primary_color   = isset( $global_settings['primaryColor'] ) && ! empty( $global_settings['primaryColor'] ) ? $global_settings['primaryColor'] : '#2db68d';
-
-	return 'fill:' . $primary_color . ';';
-}
-
-add_filter( 'delicious_recipes_fallback_svg_fill', 'delicious_recipes_fallback_svg_fill' );

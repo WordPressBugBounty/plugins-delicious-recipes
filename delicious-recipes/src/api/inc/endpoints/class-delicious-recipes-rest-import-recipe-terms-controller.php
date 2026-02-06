@@ -68,7 +68,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 				array(
 					'methods'             => \WP_REST_Server::EDITABLE,
 					'callback'            => array( $this, 'delete_recipes' ),
-					'permission_callback' => array( $this, 'post_item_permissions_check' ),
+					'permission_callback' => array( $this, 'delete_recipes_permissions_check' ),
 				),
 			)
 		);
@@ -612,8 +612,8 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$new_recipe_meta['enableVideoGallery'] = array();
 		$new_recipe_meta['videoGalleryVids']   = array();
 		$video_url                             = isset( $recipe_settings['gallery']['video_url'] ) ? sanitize_text_field( $recipe_settings['gallery']['video_url'] ) : '';
-		$video_url = explode( '&', $video_url );
-		$video_url = $video_url[0];
+		$video_url                             = explode( '&', $video_url );
+		$video_url                             = $video_url[0];
 		if ( '' !== $video_url ) {
 			if ( false !== strpos( $video_url, 'youtube' ) ) {
 				$video_type      = 'youtube';
@@ -1246,29 +1246,138 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 	}
 
 	/**
+	 * Check permissions for deleting recipes.
+	 *
+	 * @param WP_REST_Request $request Current request.
+	 * @return bool|WP_Error
+	 */
+	public function delete_recipes_permissions_check( $request ) {
+		// Check if user has delete_posts capability for recipe post type.
+		$post_type = defined( 'DELICIOUS_RECIPE_POST_TYPE' ) ? DELICIOUS_RECIPE_POST_TYPE : 'recipe';
+		$post_type_obj = get_post_type_object( $post_type );
+
+		if ( ! $post_type_obj ) {
+			return new \WP_Error(
+				'rest_invalid_post_type',
+				esc_html__( 'Invalid post type.', 'delicious-recipes' ),
+				array( 'status' => 404 )
+			);
+		}
+
+		// Check if user has delete_posts capability for this post type.
+		if ( ! current_user_can( $post_type_obj->cap->delete_posts ) ) {
+			return new \WP_Error(
+				'rest_cannot_delete',
+				esc_html__( 'Sorry, you are not allowed to delete recipes.', 'delicious-recipes' ),
+				array( 'status' => $this->authorization_status_code() )
+			);
+		}
+
+		return true;
+	}
+
+	/**
 	 * Delete Recipes from the Recipe Plugin.
 	 *
 	 * @param WP_REST_Request $request Full data about the request.
+	 * @return array|WP_Error
 	 */
 	public function delete_recipes( $request ) {
 		$formdata   = $request->get_json_params();
+		
+		// Validate input.
+		if ( ! isset( $formdata['recipe_ids'] ) || empty( $formdata['recipe_ids'] ) ) {
+			return new \WP_Error(
+				'rest_invalid_param',
+				esc_html__( 'Recipe IDs are required.', 'delicious-recipes' ),
+				array( 'status' => 400 )
+			);
+		}
+
 		$recipe_ids = json_decode( $formdata['recipe_ids'], true );
 
-		foreach ( $recipe_ids as $recipe_id ) {
-			wp_delete_post( $recipe_id, true );
+		// Validate JSON decoding.
+		if ( json_last_error() !== JSON_ERROR_NONE || ! is_array( $recipe_ids ) ) {
+			return new \WP_Error(
+				'rest_invalid_param',
+				esc_html__( 'Invalid recipe IDs format.', 'delicious-recipes' ),
+				array( 'status' => 400 )
+			);
 		}
-		$taxonomies = get_object_taxonomies( 'cp_recipe' );
-		foreach ( $taxonomies as $taxonomy ) {
-			$terms = wp_get_object_terms( $recipe_id, $taxonomy );
-			foreach ( $terms as $term ) {
-				wp_remove_object_terms( $recipe_id, $term->term_id, $taxonomy );
+
+		$post_type = defined( 'DELICIOUS_RECIPE_POST_TYPE' ) ? DELICIOUS_RECIPE_POST_TYPE : 'recipe';
+		$post_type_obj = get_post_type_object( $post_type );
+		$deleted_count = 0;
+		$errors = array();
+
+		foreach ( $recipe_ids as $recipe_id ) {
+			// Validate recipe ID.
+			$recipe_id = absint( $recipe_id );
+			if ( ! $recipe_id ) {
+				$errors[] = sprintf( esc_html__( 'Invalid recipe ID: %s', 'delicious-recipes' ), $recipe_id );
+				continue;
+			}
+
+			// Get the post.
+			$post = get_post( $recipe_id );
+
+			// Check if post exists.
+			if ( ! $post ) {
+				$errors[] = sprintf( esc_html__( 'Recipe with ID %d does not exist.', 'delicious-recipes' ), $recipe_id );
+				continue;
+			}
+
+			// Check if post is of the correct type.
+			if ( $post->post_type !== $post_type ) {
+				$errors[] = sprintf( esc_html__( 'Post ID %d is not a recipe.', 'delicious-recipes' ), $recipe_id );
+				continue;
+			}
+
+			// Check if user can delete this specific post.
+			if ( ! current_user_can( $post_type_obj->cap->delete_post, $recipe_id ) ) {
+				$errors[] = sprintf( esc_html__( 'You do not have permission to delete recipe ID %d.', 'delicious-recipes' ), $recipe_id );
+				continue;
+			}
+
+			// Delete the post.
+			$result = wp_delete_post( $recipe_id, true );
+			if ( $result ) {
+				$deleted_count++;
+			} else {
+				$errors[] = sprintf( esc_html__( 'Failed to delete recipe ID %d.', 'delicious-recipes' ), $recipe_id );
 			}
 		}
 
-		return array(
-			'status'  => true,
-			'message' => __( 'Recipes deleted successfully.', 'delicious-recipes' ),
+		// Return response with results.
+		if ( ! empty( $errors ) && $deleted_count === 0 ) {
+			return new \WP_Error(
+				'rest_delete_failed',
+				esc_html__( 'Failed to delete recipes.', 'delicious-recipes' ),
+				array(
+					'status' => 500,
+					'errors' => $errors,
+				)
+			);
+		}
+
+		$message = sprintf(
+			/* translators: %d: number of deleted recipes */
+			_n( '%d recipe deleted successfully.', '%d recipes deleted successfully.', $deleted_count, 'delicious-recipes' ),
+			$deleted_count
 		);
+
+		$response = array(
+			'status'  => true,
+			'message' => $message,
+			'deleted' => $deleted_count,
+		);
+
+		if ( ! empty( $errors ) ) {
+			$response['errors'] = $errors;
+			$response['message'] .= ' ' . esc_html__( 'Some recipes could not be deleted.', 'delicious-recipes' );
+		}
+
+		return $response;
 	}
 
 	/**
@@ -1558,7 +1667,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 			'instruction'  => $instructions,
 		);
 
-		$featured_image_url = isset( $csv_fields['featuredImage'] ) ? sanitize_text_field( $recipe[ $csv_fields['featuredImage'] ] ) : '';
+		$featured_image_url = isset( $csv_fields['featuredImage'] ) ? esc_url_raw( $recipe[ $csv_fields['featuredImage'] ] ) : '';
 		$featured_image_id  = '';
 		if ( '' !== $featured_image_url ) {
 			// Upload the image to the media library and get the attachment ID.
@@ -1576,6 +1685,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 			$input_image_gallery                     = explode( ',', $input_image_gallery );
 			$new_recipe_meta['enableImageGallery'][] = 'yes';
 			foreach ( $input_image_gallery as $image_url ) {
+				$image_url      = esc_url_raw( $image_url );
 				$attachment_id  = $this->upload_image_to_media_library( $image_url );
 				$attachment_url = wp_get_attachment_url( $attachment_id );
 				if ( $attachment_id ) {
@@ -1815,78 +1925,97 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 	 * @since 1.7.8
 	 */
 	public function upload_image_to_media_library( $image_url ) {
-		// Check if image already exists in media library.
-		$args = array(
-			'post_type'      => 'attachment',
-			'post_status'    => 'inherit',
-			'posts_per_page' => 1,
-			'meta_query'     => array(
-				array(
-					'key'     => '_wp_attached_file',
-					'value'   => basename( $image_url ),
-					'compare' => 'LIKE',
-				),
-			),
-		);
-
-		$query = new WP_Query( $args );
-
-		if ( $query->have_posts() ) {
-			return $query->posts[0]->ID;
-		}
-
-		$response = wp_remote_get( $image_url );
-		if ( is_wp_error( $response ) ) {
+		// Only allow http/https URLs.
+		$scheme = wp_parse_url( $image_url, PHP_URL_SCHEME );
+		if ( ! in_array( $scheme, array( 'http', 'https' ), true ) ) {
 			return false;
 		}
-		$image_data = wp_remote_retrieve_body( $response );
-		// Create a temporary file to store the image data.
-		$temp_file = tmpfile();
-		fwrite( $temp_file, $image_data );
 
-		// Get file details.
-		$file_path = stream_get_meta_data( $temp_file )['uri'];
-		$file_type = mime_content_type( $file_path );
-		$file_name = basename( $image_url );
+		// Attempt to download to a temporary file using core helper.
+		$temporary_file = download_url( $image_url, 15 );
+		if ( is_wp_error( $temporary_file ) ) {
+			return false;
+		}
 
-		// Get WordPress upload directory.
-		$upload_dir = wp_upload_dir();
-
-		// Create unique file name.
-		$unique_file_name = wp_unique_filename( $upload_dir['path'], $file_name );
-		$new_file_path    = $upload_dir['path'] . '/' . $unique_file_name;
-
-		// Copy temp file to WordPress upload directory.
-		copy( $file_path, $new_file_path );
-
-		// Close and remove temp file.
-		fclose( $temp_file );
-
-		// Upload to WordPress media library.
-		$attachment_id = wp_insert_attachment(
-			array(
-				'post_title'     => $file_name,
-				'post_content'   => '',
-				'post_mime_type' => $file_type,
-				'guid'           => $image_url,
-				'post_status'    => 'inherit',
-				'post_type'      => 'attachment',
-			),
-			$new_file_path
-		);
-
-		// Add image dimensions.
-		$image_size = getimagesize( $new_file_path );
-		if ( $image_size ) {
-			update_post_meta(
-				$attachment_id,
-				'_wp_attachment_metadata',
+		// Compute content hash and reuse existing attachment if already imported.
+		$sha256_hash = @hash_file( 'sha256', $temporary_file );
+		if ( $sha256_hash ) {
+			$existing = get_posts(
 				array(
-					'width'  => $image_size[0],
-					'height' => $image_size[1],
+					'post_type'      => 'attachment',
+					'post_status'    => 'inherit',
+					'posts_per_page' => 1,
+					'fields'         => 'ids',
+					'meta_query'     => array(
+						array(
+							'key'     => '_dr_file_hash',
+							'value'   => $sha256_hash,
+							'compare' => '=',
+						),
+					),
 				)
 			);
+			if ( ! empty( $existing ) ) {
+				@unlink( $temporary_file );
+				return (int) $existing[0];
+			}
 		}
+
+		// Prepare a safe filename and validate the file type using a strict allowlist.
+		$original_filename = wp_basename( parse_url( $image_url, PHP_URL_PATH ) );
+		$original_filename = sanitize_file_name( $original_filename );
+		if ( empty( $original_filename ) ) {
+			$original_filename = 'imported-image';
+		}
+
+		// Validate type and extension based on actual file contents.
+		$check         = wp_check_filetype_and_ext( $temporary_file, $original_filename );
+		$allowed_mimes = array(
+			'jpg|jpeg|jpe' => 'image/jpeg',
+			'png'          => 'image/png',
+			'gif'          => 'image/gif',
+			'webp'         => 'image/webp',
+		);
+		$allowed_types = array_values( $allowed_mimes );
+		if ( empty( $check['type'] ) || ! in_array( $check['type'], $allowed_types, true ) ) {
+			@unlink( $temporary_file );
+			return false;
+		}
+
+		// Ensure the filename extension matches the detected type.
+		$ext           = $check['ext'];
+		$safe_basename = pathinfo( $original_filename, PATHINFO_FILENAME );
+		$safe_filename = $safe_basename . '.' . $ext;
+
+		// Build the sideload array for media_handle_sideload.
+		$file_array = array(
+			'name'     => $safe_filename,
+			'tmp_name' => $temporary_file,
+			'type'     => $check['type'],
+			'size'     => filesize( $temporary_file ),
+			'error'    => 0,
+		);
+
+		// Include required files for media handling if not already loaded.
+		if ( ! function_exists( 'media_handle_sideload' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+			require_once ABSPATH . 'wp-admin/includes/media.php';
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+		}
+
+		// Sideload the file and let WordPress create the attachment.
+		$attachment_id = media_handle_sideload( $file_array, 0 );
+
+		if ( is_wp_error( $attachment_id ) ) {
+			@unlink( $temporary_file );
+			return false;
+		}
+
+		// Store content hash and source URL for future deduplication.
+		if ( $sha256_hash ) {
+			update_post_meta( $attachment_id, '_dr_file_hash', $sha256_hash );
+		}
+		update_post_meta( $attachment_id, '_dr_source_url', esc_url_raw( $image_url ) );
 
 		return $attachment_id;
 	}

@@ -64,9 +64,9 @@ $recipe_card_image = '';
 			$helpers  = new Delicious_Recipes_Helpers();
 			$settings = $helpers->parse_block_settings( $attributes );
 
-			Delicious_Dynamic_Recipe_Card::$recipeBlockID = isset( $id ) ? esc_attr( $id ) : 'dr-dynamic-recipe-card';
-			Delicious_Dynamic_Recipe_Card::$attributes    = $attributes;
-			Delicious_Dynamic_Recipe_Card::$settings      = $settings;
+			Delicious_Dynamic_Recipe_Card::$recipe_block_id = isset( $id ) ? esc_attr( $id ) : 'dr-dynamic-recipe-card';
+			Delicious_Dynamic_Recipe_Card::$attributes      = $attributes;
+			Delicious_Dynamic_Recipe_Card::$settings        = $settings;
 
 			Delicious_Dynamic_Recipe_Card::$attributes['summaryTitle']     = isset( $summary_title ) ? $summary_title : __( 'Description', 'delicious-recipes' );
 			Delicious_Dynamic_Recipe_Card::$attributes['ingredientsTitle'] = isset( $ingredients_title ) ? $ingredients_title : __( 'Ingredients', 'delicious-recipes' );
@@ -85,7 +85,7 @@ $recipe_card_image = '';
 				$custom_author_name = $settings['custom_author_name'];
 			}
 
-			if ( $hasImage && isset( $image['url'] ) ) {
+			if ( $has_image && isset( $image['url'] ) ) {
 				$img_id    = $image['id'];
 				$src       = $image['url'];
 				$alt       = ( $recipe_title ? strip_tags( $recipe_title ) : strip_tags( $recipe_title ) );

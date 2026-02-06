@@ -3,9 +3,9 @@ Contributors: wpdelicious
 Plugin link: https://wpdelicious.com/
 Tags: recipe, food, cooking, chef, ingredients
 Requires at least: 5.1
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 1.8.8
+Stable tag: 1.9.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -17,7 +17,7 @@ WP Delicious is a free WordPress recipe plugin that is flexible and very easy to
 
 👉 [WP Delicious Pro](https://wpdelicious.com/?utm_source=free_plugin&utm_medium=wporg&utm_campaign=upgrade_to_pro) is now available.
 
-👉 [View Demo](https://demo.wpdelicious.com/delicious-recipes/)
+👉 [View Demo](https://wpdeliciousdemo.com/delicious-recipes/)
 
 [youtube https://youtu.be/O0ju_F8O_Hc?list=PLy3eE6cAMHCfEJG5URBXH24_JRBwKK4X3]
 

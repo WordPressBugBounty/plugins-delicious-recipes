@@ -64,6 +64,14 @@ class Delicious_Dynamic_Recipe_Card {
 	public static $settings;
 
 	/**
+	 * Flag to prevent recursive rendering.
+	 *
+	 * @since 1.0.0
+	 * @var bool $is_rendering Whether the block is currently rendering.
+	 */
+	private static $is_rendering = false;
+
+	/**
 	 * The Constructor.
 	 */
 	public function __construct() {
@@ -358,8 +366,18 @@ class Delicious_Dynamic_Recipe_Card {
 			return $content;
 		}
 
-		if ( is_singular() ) {
+		// Prevent recursive rendering
+		if ( self::$is_rendering ) {
+			return $content;
+		}
+
+		self::$is_rendering = true;
+
+		// Add filter only if not already added
+		$filter_added = false;
+		if ( is_singular() && ! has_filter( 'the_content', array( $this, 'filter_the_content' ) ) ) {
 			add_filter( 'the_content', array( $this, 'filter_the_content' ) );
+			$filter_added = true;
 		}
 
 		$attributes = self::$helpers->omit( $attributes, array( 'toInsert', 'activeIconSet', 'showModal', 'searchIcon', 'icons' ) );
@@ -621,6 +639,13 @@ class Delicious_Dynamic_Recipe_Card {
 			$keywords_text .
 			$structured_data_json
 		);
+
+		// Remove filter if we added it
+		if ( $filter_added ) {
+			remove_filter( 'the_content', array( $this, 'filter_the_content' ) );
+		}
+
+		self::$is_rendering = false;
 
 		return $block_content;
 	}

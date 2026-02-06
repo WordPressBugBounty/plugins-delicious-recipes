@@ -258,6 +258,7 @@ class AjaxFunctions {
 			}
 		}
 
+		$time_threshold = null; // Will hold manual time filter threshold in minutes when needed.
 		if ( isset( $_REQUEST['search']['simple_factor'] ) && ! empty( $_REQUEST['search']['simple_factor'] ) ) {
 			$simple_factor_array = is_array( $_REQUEST['search']['simple_factor'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['search']['simple_factor'] ) ) : array();
 			foreach ( $simple_factor_array as $key => $factor ) {
@@ -274,26 +275,12 @@ class AjaxFunctions {
 						);
 						break;
 					case '15-minutes-or-less':
-						array_push(
-							$meta_query,
-							array(
-								'key'     => '_dr_recipe_total_time',
-								'value'   => 15,
-								'compare' => '<=',
-								'type'    => 'NUMERIC',
-							)
-						);
+						// Handle time-based filter manually to include posts missing _dr_recipe_total_time meta.
+						$time_threshold = is_null( $time_threshold ) ? 15 : min( $time_threshold, 15 );
 						break;
 					case '30-minutes-or-less':
-						array_push(
-							$meta_query,
-							array(
-								'key'     => '_dr_recipe_total_time',
-								'value'   => 30,
-								'compare' => '<=',
-								'type'    => 'NUMERIC',
-							)
-						);
+						// Handle time-based filter manually to include posts missing _dr_recipe_total_time meta.
+						$time_threshold = is_null( $time_threshold ) ? 30 : min( $time_threshold, 30 );
 						break;
 					case '7-ingredients-or-less':
 						array_push(
@@ -307,6 +294,37 @@ class AjaxFunctions {
 						);
 						break;
 				}
+			}
+		}
+
+		// If a time-based simple factor is selected, pre-filter by computing total time from metadata
+		// so that recipes without _dr_recipe_total_time meta are included when they satisfy the threshold.
+		if ( ! is_null( $time_threshold ) ) {
+			$args_for_ids                   = $recipe_search_args;
+			$args_for_ids['fields']         = 'ids';
+			$args_for_ids['posts_per_page'] = -1;
+			// Fetch candidate IDs based on other filters (meta/tax), excluding time meta which we handle manually.
+			$candidate_ids = get_posts( $args_for_ids );
+			if ( ! empty( $candidate_ids ) ) {
+				$filtered_ids = array();
+				foreach ( $candidate_ids as $rid ) {
+					$total_time = get_post_meta( $rid, '_dr_recipe_total_time', true );
+					if ( '' === $total_time || null === $total_time ) {
+						$meta       = get_post_meta( $rid, 'delicious_recipes_metadata', true );
+						$prep_time  = isset( $meta['prepTime'] ) ? (int) $meta['prepTime'] : 0;
+						$cook_time  = isset( $meta['cookTime'] ) ? (int) $meta['cookTime'] : 0;
+						$rest_time  = isset( $meta['restTime'] ) ? (int) $meta['restTime'] : 0;
+						$total_time = $prep_time + $cook_time + $rest_time;
+					} else {
+						$total_time = (int) $total_time;
+					}
+					if ( $total_time <= $time_threshold ) {
+						$filtered_ids[] = $rid;
+					}
+				}
+				$recipe_search_args['post__in'] = ! empty( $filtered_ids ) ? $filtered_ids : array( 0 );
+			} else {
+				$recipe_search_args['post__in'] = array( 0 );
 			}
 		}
 
@@ -786,6 +804,52 @@ class AjaxFunctions {
 	}
 
 	private function filter_by_simple_factor( $key, $value = '', $post_ids = array() ) {
+		// For time-based filters, we need to handle recipes without _dr_recipe_total_time meta.
+		if ( in_array( $key, array( '15-minutes-or-less', '30-minutes-or-less' ), true ) ) {
+			$threshold = ( '15-minutes-or-less' === $key ) ? 15 : 30;
+			
+			// Get candidate recipe IDs (already filtered by other criteria if $post_ids provided).
+			if ( ! empty( $post_ids ) ) {
+				$candidate_ids = $post_ids;
+			} else {
+				$candidate_ids = get_posts(
+					array(
+						'post_type'      => DELICIOUS_RECIPE_POST_TYPE,
+						'posts_per_page' => -1,
+						'fields'         => 'ids',
+						'post_status'    => 'publish',
+					)
+				);
+			}
+			
+			$count = 0;
+			foreach ( $candidate_ids as $recipe_id ) {
+				$total_time = get_post_meta( $recipe_id, '_dr_recipe_total_time', true );
+				
+				// If meta is missing, compute from recipe metadata.
+				if ( '' === $total_time || null === $total_time ) {
+					$recipe_metadata = get_post_meta( $recipe_id, 'delicious_recipes_metadata', true );
+					if ( is_array( $recipe_metadata ) ) {
+						$prep_time  = isset( $recipe_metadata['prepTime'] ) ? (int) $recipe_metadata['prepTime'] : 0;
+						$cook_time  = isset( $recipe_metadata['cookTime'] ) ? (int) $recipe_metadata['cookTime'] : 0;
+						$rest_time  = isset( $recipe_metadata['restTime'] ) ? (int) $recipe_metadata['restTime'] : 0;
+						$total_time = $prep_time + $cook_time + $rest_time;
+					} else {
+						$total_time = 0;
+					}
+				} else {
+					$total_time = (int) $total_time;
+				}
+				
+				if ( $total_time > 0 && $total_time <= $threshold ) {
+					++$count;
+				}
+			}
+			
+			return $count;
+		}
+		
+		// For ingredient-based filters, use standard meta_query.
 		$args = array(
 			'post_type'        => DELICIOUS_RECIPE_POST_TYPE,
 			'posts_per_page'   => -1,
@@ -802,26 +866,6 @@ class AjaxFunctions {
 					array(
 						'key'     => '_dr_ingredient_count',
 						'value'   => 10,
-						'compare' => '<=',
-						'type'    => 'NUMERIC', // Ensures comparison as a number
-					),
-				);
-				break;
-			case '15-minutes-or-less':
-				$args['meta_query'] = array(
-					array(
-						'key'     => '_dr_recipe_total_time',
-						'value'   => 15,
-						'compare' => '<=',
-						'type'    => 'NUMERIC', // Ensures comparison as a number
-					),
-				);
-				break;
-			case '30-minutes-or-less':
-				$args['meta_query'] = array(
-					array(
-						'key'     => '_dr_recipe_total_time',
-						'value'   => 30,
 						'compare' => '<=',
 						'type'    => 'NUMERIC', // Ensures comparison as a number
 					),

@@ -23,7 +23,7 @@ class Delicious_Recipes_Likes_Wishlists {
 		add_action( 'wp_ajax_recipe_get_likes', array( $this, 'get_likes' ) );
 		add_action( 'wp_ajax_nopriv_recipe_get_likes', array( $this, 'get_likes' ) );
 
-		//AJAX check if non-logged in user have liked based on unique identifier we created.
+		// AJAX check if non-logged in user have liked based on unique identifier we created.
 		add_action( 'wp_ajax_nopriv_delicious_recipes_check_like_for_logged_out_users', array( $this, 'check_like' ) );
 	}
 
@@ -60,15 +60,15 @@ class Delicious_Recipes_Likes_Wishlists {
 			return false;
 		}
 
-		//if user is logged in, return true.
+		// if user is logged in, return true.
 		if ( is_user_logged_in() ) {
 			$recipe_likes_ip = get_post_meta( $id, '_recipe_likes_ip', true );
-			$curr_user_id	 = get_current_user_id();
+			$curr_user_id    = get_current_user_id();
 			if ( ! empty( $recipe_likes_ip ) && in_array( $curr_user_id, $recipe_likes_ip ) ) {
 				return false;
-			} 
+			}
 		}
-	
+
 		return true; // Default case
 
 		/**
@@ -76,7 +76,7 @@ class Delicious_Recipes_Likes_Wishlists {
 		 */
 		// $ip_list = ( $ip = get_post_meta( $id, '_recipe_likes_ip', true ) ) ? $ip : array();
 		// if ( ( $ip_list == '' ) || ( is_array( $ip_list ) && ! in_array( $this->get_real_ip_address(), $ip_list ) ) ) {
-		// 	return true;
+		// return true;
 		// }
 	}
 
@@ -87,8 +87,8 @@ class Delicious_Recipes_Likes_Wishlists {
 	 */
 	public function check_like() {
 		if ( isset( $_POST['id'] ) && isset( $_POST['unique_user_id'] ) ) :
-			$post_id = intval( $_POST['id'] );
-			$ip_list = ( $ip = get_post_meta( $post_id, '_recipe_likes_ip', true ) ) ? $ip : array();
+			$post_id        = intval( $_POST['id'] );
+			$ip_list        = ( $ip = get_post_meta( $post_id, '_recipe_likes_ip', true ) ) ? $ip : array();
 			$unique_user_id = sanitize_text_field( wp_unslash( $_POST['unique_user_id'] ) );
 			if ( ( $ip_list == '' ) || ( is_array( $ip_list ) && ! in_array( $unique_user_id, $ip_list ) ) ) :
 				wp_send_json_success( array( 'can_like' => true ) );
@@ -131,36 +131,34 @@ class Delicious_Recipes_Likes_Wishlists {
 	 */
 	public function recipe_like_cb() {
 		if ( isset( $_POST['id'] ) && isset( $_POST['add_remove'] ) ) :
-	
+
 			$post_id = intval( $_POST['id'] );
 			$likes   = ( $count = get_post_meta( $post_id, '_recipe_likes', true ) ) ? absint( $count ) : 0;
 			$ip_list = ( $ip = get_post_meta( $post_id, '_recipe_likes_ip', true ) ) ? $ip : array();
-	
+
 			$add_remove = sanitize_title( wp_unslash( $_POST['add_remove'] ) );
-	
+
 			// Check if the user is logged in and get the user ID
 			$current_user_id = is_user_logged_in() ? get_current_user_id() : null;
-	
+
 			if ( $add_remove === 'add' && $this->can_like( $post_id ) ) :
 				// Add the user ID if logged in, or the unique user ID if not logged in
 				if ( $current_user_id ) {
 					$ip_list[] = $current_user_id;
-				} else {
-					if ( isset( $_POST['unique_user_id'] ) ) {
+				} elseif ( isset( $_POST['unique_user_id'] ) ) {
 						$unique_user_id = sanitize_text_field( wp_unslash( $_POST['unique_user_id'] ) );
-						$ip_list[] = $unique_user_id;
-					}
+						$ip_list[]      = $unique_user_id;
 				}
-				$likes++;
+				++$likes;
 				update_post_meta( $post_id, '_recipe_likes', absint( $likes ) );
 				update_post_meta( $post_id, '_recipe_likes_ip', $ip_list );
-	
+
 			elseif ( $add_remove === 'remove' ) :
 				// Remove the user ID from the list if logged in
 				if ( $current_user_id ) :
 					$key = array_search( $current_user_id, $ip_list );
 					if ( $key !== false ) :
-						$likes--;
+						--$likes;
 						if ( $likes <= 0 ) :
 							$likes = 0;
 						endif;
@@ -172,9 +170,9 @@ class Delicious_Recipes_Likes_Wishlists {
 					// Remove the unique user ID from the list if not logged in
 					if ( isset( $_POST['unique_user_id'] ) ) :
 						$unique_user_id = sanitize_text_field( wp_unslash( $_POST['unique_user_id'] ) );
-						$key = array_search( $unique_user_id, $ip_list );
+						$key            = array_search( $unique_user_id, $ip_list );
 						if ( $key !== false ) :
-							$likes--;
+							--$likes;
 							if ( $likes <= 0 ) :
 								$likes = 0;
 							endif;
@@ -186,11 +184,11 @@ class Delicious_Recipes_Likes_Wishlists {
 						wp_send_json_error( array( 'message' => 'Invalid request.' ) );
 					endif;
 				endif;
-	
+
 			else :
 				wp_send_json_error( array( 'message' => 'Invalid action.' ) );
 			endif;
-	
+
 			$like_count = $this->get_recipe_like_count( $post_id );
 			/* translators: %s: number of likes */
 			wp_send_json_success(
@@ -199,11 +197,11 @@ class Delicious_Recipes_Likes_Wishlists {
 					'likes_count' => $like_count,
 				)
 			);
-	
+
 		else :
 			wp_send_json_error( array( 'message' => 'Invalid request.' ) );
 		endif;
-	
+
 		wp_die();
 	}
 
@@ -263,7 +261,6 @@ class Delicious_Recipes_Likes_Wishlists {
 
 			}
 		}
-
 	}
 
 	/**
@@ -288,16 +285,16 @@ class Delicious_Recipes_Likes_Wishlists {
 			$wishlists     = isset( $_user_meta['wishlists'] ) && ! empty( $_user_meta['wishlists'] ) ? $_user_meta['wishlists'] : array();
 			$current_total = get_post_meta( $recipe_id, '_delicious_recipes_wishlists', true );
 
-			if ( $add_remove === 'add' ) :
+			if ( 'add' === $add_remove ) :
 				$wishlists[] = $recipe_id;
-				$current_total++;
-			elseif ( $add_remove === 'remove' ) :
+				++$current_total;
+			elseif ( 'remove' === $add_remove ) :
 				if ( ( $key = array_search( $recipe_id, $wishlists ) ) !== false ) :
-					$current_total--;
+					--$current_total;
 					if ( $current_total <= 0 ) :
 						$current_total = '';
 						update_post_meta( $recipe_id, '_delicious_recipes_wishlists', 0 );
-endif;
+					endif;
 					unset( $wishlists[ $key ] );
 				endif;
 			else :
@@ -311,8 +308,10 @@ endif;
 			update_user_meta( $current_user->ID, 'delicious_recipes_user_meta', $_user_meta );
 			update_post_meta( $recipe_id, '_delicious_recipes_wishlists', absint( $current_total ) );
 
-            $global_toggles = delicious_recipes_get_global_toggles_and_labels();
-            $message        = $add_remove === 'add' ? __( "Added to Favorites", 'delicious-recipes'  ) : $global_toggles['add_to_wishlist_lbl'];
+			$global_toggles = delicious_recipes_get_global_toggles_and_labels();
+			$message        = 'add' === $add_remove ? __( 'Added to Favorites', 'delicious-recipes' ) : $global_toggles['add_to_wishlist_lbl'];
+			// Allow other plugins/themes to customize the wishlist message without extra processing cost.
+			$message        = apply_filters( 'delicious_recipes_wishlist_message', $message, $add_remove, $recipe_id );
 
 			wp_send_json_success(
 				array(
@@ -320,12 +319,10 @@ endif;
 					'message'   => $message,
 				)
 			);
-
 		else :
 			wp_send_json_error();
 		endif;
 		wp_die();
-
 	}
 
 	/**

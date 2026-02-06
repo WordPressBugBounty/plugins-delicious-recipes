@@ -40,11 +40,6 @@ const inFiniteScrollCallable = () => {
                 }, 100);
             });
 
-            this.on("append", () => {
-                // watchLayoutContainerForReveal(layoutEl);
-                // var masonry_element = document.querySelector('.rishi-container-wrap');
-            });
-
             this.on("request", () => {
                 paginationContainer
                     .querySelector(".dr__load-more-helper")

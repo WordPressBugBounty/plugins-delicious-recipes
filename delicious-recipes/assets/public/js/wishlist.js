@@ -22,7 +22,14 @@ export function initWishlist() {
                     const total = heart.querySelector('.dr-wishlist-total');
                     const info = heart.querySelector('.dr-wishlist-info');
                     if (total) total.innerHTML = data.data.wishlists;
-                    if (info) info.innerHTML = data.data.message;
+                    // Only manage label text if explicitly opted-in via data attribute
+                    const manage = heart.hasAttribute('data-manage-labels');
+                    if (manage && info) {
+                        const isNowBookmarked = (data.data.isBookmarked || addRemove === 'add');
+                        const added = heart.getAttribute('data-label-added') || (data.data.message || info.textContent);
+                        const deflt = heart.getAttribute('data-label-default') || info.textContent;
+                        info.textContent = isNowBookmarked ? added : deflt;
+                    }
                     // Only toggle the class based on server response
                     if (data.data.isBookmarked || addRemove === 'add') {
                         heart.classList.add('dr-wishlist-is-bookmarked');
@@ -56,18 +63,48 @@ export function initWishlist() {
         popupBtns.forEach(function (btn) {
             btn.addEventListener('click', function (e) {
                 e.preventDefault();
-                modal.style.display = 'block';
+                // Ensure modal is properly positioned
+                modal.style.display = 'flex';
+                modal.style.position = 'fixed';
+                modal.style.left = '0';
+                modal.style.top = '0';
+                modal.style.width = '100%';
+                modal.style.height = '100%';
+                modal.style.zIndex = '999999';
+                modal.style.alignItems = 'center';
+                modal.style.justifyContent = 'center';
+                document.body.style.overflow = 'hidden';
             });
         });
         const closeBtn = document.querySelector('.dr-user__registration-login-popup-close');
         if (closeBtn) {
             closeBtn.onclick = function () {
                 modal.style.display = 'none';
+                document.body.style.overflow = '';
+                // Reset inline styles to let CSS handle it
+                modal.style.position = '';
+                modal.style.left = '';
+                modal.style.top = '';
+                modal.style.width = '';
+                modal.style.height = '';
+                modal.style.zIndex = '';
+                modal.style.alignItems = '';
+                modal.style.justifyContent = '';
             };
         }
         window.addEventListener('click', function (event) {
             if (event.target === modal) {
                 modal.style.display = 'none';
+                document.body.style.overflow = '';
+                // Reset inline styles to let CSS handle it
+                modal.style.position = '';
+                modal.style.left = '';
+                modal.style.top = '';
+                modal.style.width = '';
+                modal.style.height = '';
+                modal.style.zIndex = '';
+                modal.style.alignItems = '';
+                modal.style.justifyContent = '';
             }
         });
         // Login form submit

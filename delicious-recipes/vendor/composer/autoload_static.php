@@ -15,14 +15,14 @@ class ComposerStaticInitf3fd41e0d2faf6874925dd6cb41b293c
     );
 
     public static $prefixLengthsPsr4 = array (
-        'W' => 
+        'W' =>
         array (
             'WP_Delicious\\' => 13,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'WP_Delicious\\' => 
+        'WP_Delicious\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
@@ -30,6 +30,10 @@ class ComposerStaticInitf3fd41e0d2faf6874925dd6cb41b293c
 
     public static $classMap = array (
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'WP_Delicious\\DeliciousAdmin' => __DIR__ . '/../..' . '/src/DeliciousAdmin.php',
+        'WP_Delicious\\DeliciousPublic' => __DIR__ . '/../..' . '/src/DeliciousPublic.php',
+        'WP_Delicious\\DeliciousRecipes' => __DIR__ . '/../..' . '/src/DeliciousRecipes.php',
+        'WP_Delicious\\GlobalSettings' => __DIR__ . '/../..' . '/src/GlobalSettings.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

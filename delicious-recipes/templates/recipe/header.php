@@ -65,7 +65,7 @@ if ( function_exists( 'DEL_RECIPE_PRO' ) ) {
 			?>
 			<div class="wpdelicious-recipe-banner-content">
 				<?php
-				if ( '' !== $enable_breadcrumb ) {
+				if ( $enable_breadcrumb ) {
 					get_breadcrumbs();
 				}
 				?>

@@ -1316,6 +1316,7 @@ class DeliciousAdmin {
 		$screen = get_current_screen();
 
 		$post_types = array( DELICIOUS_RECIPE_POST_TYPE );
+
 		$page_ids   = array(
 			'delicious-recipes_page_delicious_recipes_global_settings',
 			'delicious-recipes_page_delicious_recipes_import_recipes',
@@ -1333,7 +1334,7 @@ class DeliciousAdmin {
 			wp_enqueue_style( 'delicious-recipe-admin-common', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/admin/common.css', array( 'wp-components' ), DELICIOUS_RECIPES_VERSION, 'all' );
 		}
 
-		if ( in_array( $screen->post_type, $post_types ) || in_array( $screen->id, $page_ids ) ) {
+		if ( in_array( $screen->post_type, $post_types, true ) || in_array( $screen->id, $page_ids, true ) ) {
 
 			// Add the color picker css file.
 			wp_enqueue_style( 'wp-color-picker' );

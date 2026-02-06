@@ -155,14 +155,19 @@ class Delicious_SEO {
 			endforeach;
 		endif;
 
-		if ( $recipe->rating != 0 ) :
-			$aggregateRating = array(
+		// Get individual reviews for schema markup.
+		$reviews = $this->get_recipe_reviews( $recipe->ID );
+
+		if ( 0 !== $recipe->rating && ! empty( $recipe->rating_count ) ) :
+			$aggregate_rating = array(
 				'@type'       => 'AggregateRating',
-				'ratingValue' => $recipe->rating,
-				'ratingCount' => $recipe->rating_count,
+				'ratingValue' => floatval( $recipe->rating ),
+				'ratingCount' => absint( $recipe->rating_count ),
+				'bestRating'  => 5,
+				'worstRating' => 1,
 			);
 		else :
-			$aggregateRating = null;
+			$aggregate_rating = null;
 		endif;
 
 		$nutrition              = array();
@@ -261,7 +266,8 @@ class Delicious_SEO {
 				'keywords'           => $recipe->keywords,
 				'recipeIngredient'   => $recipe_ingredients,
 				'recipeInstructions' => $recipe_instructions,
-				'aggregateRating'    => $aggregateRating,
+				'aggregateRating'    => $aggregate_rating,
+				'review'             => $reviews,
 				'nutrition'          => $nutrition,
 				'video'              => $video,
 				'@id'                => $recipe->permalink . '#recipe',
@@ -322,5 +328,56 @@ class Delicious_SEO {
 		}
 
 		return $faq_schema_array;
+	}
+
+	/**
+	 * Get individual reviews for schema markup.
+	 *
+	 * @param int $recipe_id The recipe post ID.
+	 * @return array Array of review objects for schema.
+	 */
+	private function get_recipe_reviews( $recipe_id ) {
+		$reviews = array();
+
+		// Get comments with ratings for this recipe.
+		$comments = get_comments(
+			array(
+				'post_id'    => $recipe_id,
+				'status'     => 'approve',
+				'meta_query' => array(
+					array(
+						'key'     => 'rating',
+						'compare' => 'EXISTS',
+					),
+				),
+				'number'     => 10, // Limit to 10 most recent reviews for performance.
+			)
+		);
+
+		if ( ! empty( $comments ) ) {
+			foreach ( $comments as $comment ) {
+				$rating = get_comment_meta( $comment->comment_ID, 'rating', true );
+
+				if ( ! empty( $rating ) && is_numeric( $rating ) ) {
+					$reviews[] = array(
+						'@type'         => 'Review',
+						'reviewRating'  => array(
+							'@type'       => 'Rating',
+							'ratingValue' => floatval( $rating ),
+							'bestRating'  => 5,
+							'worstRating' => 1,
+						),
+						'author'        => array(
+							'@type' => 'Person',
+							'name'  => $comment->comment_author,
+						),
+						'reviewBody'    => wp_strip_all_tags( $comment->comment_content ),
+						'datePublished' => get_comment_date( 'c', $comment->comment_ID ),
+					);
+				}
+			}
+		}
+
+		return ! empty( $reviews ) ? $reviews : null;
 	}
 }
