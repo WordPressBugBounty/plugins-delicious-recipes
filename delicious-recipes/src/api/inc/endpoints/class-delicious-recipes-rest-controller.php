@@ -48,6 +48,10 @@ abstract class Delicious_Recipes_API_Controller {
 	 * @param WP_REST_Request $request Current request.
 	 */
 	public function get_item_permissions_check( $request ) {
+		// Require capability to upload files to access sensitive data.
+		if ( ! current_user_can( 'upload_files' ) ) {
+			return new WP_Error( 'rest_forbidden', esc_html__( 'You cannot view the post resource.', 'delicious-recipes' ), array( 'status' => $this->authorization_status_code() ) );
+		}
 		return true;
 	}
 

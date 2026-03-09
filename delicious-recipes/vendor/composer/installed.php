@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'xqluz/delicious-recipes',
-        'pretty_version' => 'dev-e4cf8d2fe2c1418f2013cb2232cc9dc32db2c1a2',
-        'version' => 'dev-e4cf8d2fe2c1418f2013cb2232cc9dc32db2c1a2',
-        'reference' => 'e4cf8d2fe2c1418f2013cb2232cc9dc32db2c1a2',
+        'pretty_version' => 'dev-eeb1138d25e567fdc5f5ca02ae4e91cf8413bd01',
+        'version' => 'dev-eeb1138d25e567fdc5f5ca02ae4e91cf8413bd01',
+        'reference' => 'eeb1138d25e567fdc5f5ca02ae4e91cf8413bd01',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'xqluz/delicious-recipes' => array(
-            'pretty_version' => 'dev-e4cf8d2fe2c1418f2013cb2232cc9dc32db2c1a2',
-            'version' => 'dev-e4cf8d2fe2c1418f2013cb2232cc9dc32db2c1a2',
-            'reference' => 'e4cf8d2fe2c1418f2013cb2232cc9dc32db2c1a2',
+            'pretty_version' => 'dev-eeb1138d25e567fdc5f5ca02ae4e91cf8413bd01',
+            'version' => 'dev-eeb1138d25e567fdc5f5ca02ae4e91cf8413bd01',
+            'reference' => 'eeb1138d25e567fdc5f5ca02ae4e91cf8413bd01',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

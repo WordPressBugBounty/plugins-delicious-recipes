@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Delicious 1.9.5\n"
+"Project-Id-Version: WP Delicious 1.9.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/delicious-recipes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-02-02T11:25:17+00:00\n"
+"POT-Creation-Date: 2026-03-09T04:57:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -280,11 +280,12 @@ msgid "Google reCAPTCHA validation not required."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-controller.php:40
-#: src/api/inc/endpoints/class-delicious-recipes-rest-controller.php:62
+#: src/api/inc/endpoints/class-delicious-recipes-rest-controller.php:53
+#: src/api/inc/endpoints/class-delicious-recipes-rest-controller.php:66
 msgid "You cannot view the post resource."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-controller.php:75
+#: src/api/inc/endpoints/class-delicious-recipes-rest-controller.php:79
 msgid "You cannot update the site settings."
 msgstr ""
 
@@ -377,7 +378,7 @@ msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:305
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:387
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2063
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2103
 msgid "Error importing terms."
 msgstr ""
 
@@ -388,7 +389,7 @@ msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:455
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:768
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2123
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2163
 msgid "Recipe not found."
 msgstr ""
 
@@ -398,15 +399,15 @@ msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:689
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1177
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1885
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2477
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1925
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2517
 msgid "Error importing recipe."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:753
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1244
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1916
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2546
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1956
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2586
 msgid "Recipe imported successfully."
 msgstr ""
 
@@ -467,33 +468,49 @@ msgstr[1] ""
 msgid "Some recipes could not be deleted."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1400
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2090
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1397
+msgid "Invalid file ID."
+msgstr ""
+
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1407
+msgid "Invalid attachment."
+msgstr ""
+
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1417
+msgid "File must be a CSV file."
+msgstr ""
+
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1429
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2130
 msgid "File not found."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1423
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1437
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1439
+msgid "File must have a .csv extension."
+msgstr ""
+
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1463
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1477
 msgid "Error reading CSV file."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1447
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1487
 msgid "No data found in CSV file."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1454
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1494
 msgid "No recipes found in CSV file."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1460
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1500
 msgid "CSV file data fetched successfully."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2098
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2138
 msgid "Error deleting file."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2107
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2147
 msgid "File deleted successfully."
 msgstr ""
 
@@ -3578,13 +3595,13 @@ msgstr ""
 
 #: assets/@components/components/WriteWithAIPromotion.jsx:13
 #: assets/build/Components.js:1211
-#: assets/build/recipe.js:672
+#: assets/build/recipe.js:1211
 msgid "AI Icon"
 msgstr ""
 
 #: assets/@components/components/WriteWithAIPromotion.jsx:15
 #: assets/build/Components.js:1211
-#: assets/build/recipe.js:672
+#: assets/build/recipe.js:1211
 msgid "Write with AI"
 msgstr ""
 
@@ -3592,7 +3609,7 @@ msgstr ""
 #: assets/admin/promotion-buttons.jsx:21
 #: assets/build/Components.js:1211
 #: assets/build/promotionButtonsJS.js:26
-#: assets/build/recipe.js:672
+#: assets/build/recipe.js:1211
 msgid "AI Recipe Assistant – Create Recipes Faster, Rank Higher, Grow Your Blog"
 msgstr ""
 
@@ -3600,7 +3617,7 @@ msgstr ""
 #: assets/admin/promotion-buttons.jsx:27
 #: assets/build/Components.js:1211
 #: assets/build/promotionButtonsJS.js:26
-#: assets/build/recipe.js:672
+#: assets/build/recipe.js:1211
 msgid "Create Recipes Faster, Rank Higher, Grow Your Blog Write recipes that are "
 msgstr ""
 
@@ -3608,7 +3625,7 @@ msgstr ""
 #: assets/admin/promotion-buttons.jsx:31
 #: assets/build/Components.js:1211
 #: assets/build/promotionButtonsJS.js:26
-#: assets/build/recipe.js:672
+#: assets/build/recipe.js:1211
 msgid "clear, engaging, and SEO-optimized, "
 msgstr ""
 
@@ -3616,7 +3633,7 @@ msgstr ""
 #: assets/admin/promotion-buttons.jsx:32
 #: assets/build/Components.js:1211
 #: assets/build/promotionButtonsJS.js:26
-#: assets/build/recipe.js:672
+#: assets/build/recipe.js:1211
 msgid "get more traffic. AI Recipe Assistant for WP Delicious helps you "
 msgstr ""
 
@@ -3624,7 +3641,7 @@ msgstr ""
 #: assets/admin/promotion-buttons.jsx:34
 #: assets/build/Components.js:1211
 #: assets/build/promotionButtonsJS.js:26
-#: assets/build/recipe.js:672
+#: assets/build/recipe.js:1211
 msgid "write, format, and publish recipes instantly, "
 msgstr ""
 
@@ -3632,7 +3649,7 @@ msgstr ""
 #: assets/admin/promotion-buttons.jsx:36
 #: assets/build/Components.js:1211
 #: assets/build/promotionButtonsJS.js:26
-#: assets/build/recipe.js:672
+#: assets/build/recipe.js:1211
 msgid "making your content stand out effortlessly. "
 msgstr ""
 
@@ -3648,22 +3665,22 @@ msgstr ""
 #: assets/build/Components.js:1211
 #: assets/build/global.js:1365
 #: assets/build/promotionButtonsJS.js:26
-#: assets/build/recipe.js:672
+#: assets/build/recipe.js:1211
 msgid "Get it Now"
 msgstr ""
 
 #: assets/@components/controls/Background.jsx:131
 #: assets/@components/controls/FileUpload.jsx:150
-#: assets/build/blocks.js:431
+#: assets/build/blocks.js:970
 #: assets/build/Components.js:970
 #: assets/build/Components.js:1045
 msgid "Select logo"
 msgstr ""
 
 #: assets/@components/controls/Select.jsx:223
-#: assets/build/blocks.js:857
-#: assets/build/Components.js:186
-#: assets/build/recipe.js:857
+#: assets/build/blocks.js:515
+#: assets/build/Components.js:515
+#: assets/build/recipe.js:515
 msgid "Search..."
 msgstr ""
 

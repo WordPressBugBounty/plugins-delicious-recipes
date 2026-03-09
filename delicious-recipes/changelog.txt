@@ -1,3 +1,7 @@
+1.9.6: 2026-03-09
+- Fixes: Restricted REST API resource access to users with the upload_files capability to prevent unauthorized data exposure.
+- Fixes: Added file ID validation, attachment type verification, and MIME type enforcement in the CSV import endpoint to prevent arbitrary file access.
+
 1.9.5: 2026-02-02
 - Enhancement: Updated demo URLs to new domain (wpdeliciousdemo.com).
 - Fixes: Fixed React key prop warning in nutrition fields component.

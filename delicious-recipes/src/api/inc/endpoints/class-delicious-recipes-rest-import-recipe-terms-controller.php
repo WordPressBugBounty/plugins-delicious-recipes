@@ -1390,14 +1390,54 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$csv_data = array();
 		$file_id  = $request->get_param( 'file' );
 
+		// Validate file ID.
+		if ( empty( $file_id ) || ! is_numeric( $file_id ) ) {
+			return new \WP_Error(
+				'invalid_file_id',
+				__( 'Invalid file ID.', 'delicious-recipes' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		// Verify the attachment exists.
+		$attachment = get_post( $file_id );
+		if ( ! $attachment || 'attachment' !== $attachment->post_type ) {
+			return new \WP_Error(
+				'invalid_attachment',
+				__( 'Invalid attachment.', 'delicious-recipes' ),
+				array( 'status' => 404 )
+			);
+		}
+
+		// Verify the file is a CSV.
+		$mime_type = get_post_mime_type( $file_id );
+		if ( ! in_array( $mime_type, array( 'text/csv', 'text/plain', 'application/csv' ), true ) ) {
+			return new \WP_Error(
+				'invalid_file_type',
+				__( 'File must be a CSV file.', 'delicious-recipes' ),
+				array( 'status' => 400 )
+			);
+		}
+
 		// Get the file path and other details from the file id.
 		$file_path = get_attached_file( $file_id );
 
 		// Check if the file exists.
 		if ( ! file_exists( $file_path ) ) {
-			return array(
-				'status'  => false,
-				'message' => __( 'File not found.', 'delicious-recipes' ),
+			return new \WP_Error(
+				'file_not_found',
+				__( 'File not found.', 'delicious-recipes' ),
+				array( 'status' => 404 )
+			);
+		}
+
+		// Additional security: Verify file extension.
+		$file_extension = strtolower( pathinfo( $file_path, PATHINFO_EXTENSION ) );
+		if ( 'csv' !== $file_extension ) {
+			return new \WP_Error(
+				'invalid_file_extension',
+				__( 'File must have a .csv extension.', 'delicious-recipes' ),
+				array( 'status' => 400 )
 			);
 		}
 
