@@ -1280,6 +1280,9 @@ function delicious_recipes_get_max_upload_size() {
  */
 function delicious_recipes_get_time_units( $time, $time_unit ) {
 	$time_unit_string = '';
+	if ( empty( $time ) ) {
+		return $time_unit_string;
+	}
 	if ( 'min' === $time_unit ) {
 		/* translators: %s: time in minutes */
 		$time_unit_string = sprintf( _nx( '%s min', '%s mins', $time, 'recipe time minutes', 'delicious-recipes' ), $time );

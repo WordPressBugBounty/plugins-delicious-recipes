@@ -220,7 +220,10 @@ class DeliciousPublic {
 		$global_toggles  = delicious_recipes_get_global_toggles_and_labels();
 		$img_size        = $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full';
 
-		if ( isset( $global_settings['enablePreloadFeaturedImage'] ) && array( 'yes' ) !== $global_settings['enablePreloadFeaturedImage'] && ! is_singular( DELICIOUS_RECIPE_POST_TYPE ) ) {
+		if ( ! is_singular( DELICIOUS_RECIPE_POST_TYPE ) ) {
+			return;
+		}
+		if ( ! isset( $global_settings['enablePreloadFeaturedImage'] ) || array( 'yes' ) !== $global_settings['enablePreloadFeaturedImage'] ) {
 			return;
 		}
 		$recipe_meta = get_post_meta( get_the_ID() );

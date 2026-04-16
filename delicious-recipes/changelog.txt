@@ -1,6 +1,15 @@
+1.9.8: 2026-04-16
+- Fixes: Fixed fatal TypeError on recipe pages when using Divi 5 theme caused by an empty string being passed as the plural count to the _nx() translation function.
+- Fixes: Fixed featured image preload logic to correctly respect the enablePreloadFeaturedImage setting and only run on singular recipe pages.
+- Fixes: Fixed button color compatibility issue with WordPress 7.0 by adding CSS specificity overrides for .dr-btn styles.
+
+1.9.7: 2026-03-09
+- Fixes: Patch release to deliver recipe badge style fix.
+
 1.9.6: 2026-03-09
 - Fixes: Restricted REST API resource access to users with the upload_files capability to prevent unauthorized data exposure.
 - Fixes: Added file ID validation, attachment type verification, and MIME type enforcement in the CSV import endpoint to prevent arbitrary file access.
+- Fixes: Moved recipe badge styles to global SCSS file.
 
 1.9.5: 2026-02-02
 - Enhancement: Updated demo URLs to new domain (wpdeliciousdemo.com).
