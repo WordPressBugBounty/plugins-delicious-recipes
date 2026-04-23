@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'xqluz/delicious-recipes',
-        'pretty_version' => 'v1.9.8',
-        'version' => '1.9.8.0',
-        'reference' => 'a4e104478b2b34b5aff74ffa8e0fd44e393d0719',
+        'pretty_version' => 'v1.9.9',
+        'version' => '1.9.9.0',
+        'reference' => '74c1d72f825a24fa6cae223d5fdedb2aff770ac6',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'xqluz/delicious-recipes' => array(
-            'pretty_version' => 'v1.9.8',
-            'version' => '1.9.8.0',
-            'reference' => 'a4e104478b2b34b5aff74ffa8e0fd44e393d0719',
+            'pretty_version' => 'v1.9.9',
+            'version' => '1.9.9.0',
+            'reference' => '74c1d72f825a24fa6cae223d5fdedb2aff770ac6',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
