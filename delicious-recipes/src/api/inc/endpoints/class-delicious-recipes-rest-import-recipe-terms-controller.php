@@ -1971,6 +1971,11 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 			return false;
 		}
 
+		// Include required files for download_url if not already loaded (REST API runs outside admin context).
+		if ( ! function_exists( 'download_url' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
+
 		// Attempt to download to a temporary file using core helper.
 		$temporary_file = download_url( $image_url, 15 );
 		if ( is_wp_error( $temporary_file ) ) {
