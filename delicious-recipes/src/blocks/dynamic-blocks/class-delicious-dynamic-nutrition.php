@@ -109,8 +109,8 @@ class Delicious_Dynamic_Nutrition {
 			return $content;
 		}
 
-		// Import variables into the current symbol table from an array.
-		extract( $attributes );
+		$id   = isset( $attributes['id'] ) ? $attributes['id'] : '';
+		$data = isset( $attributes['data'] ) ? $attributes['data'] : array();
 
 		// Store variables.
 		self::$data       = $data;
@@ -245,20 +245,19 @@ class Delicious_Dynamic_Nutrition {
 						echo '<dt>';
 						echo '<strong>' . esc_html( $nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_attr( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_attr( $nf['measurement'] ) . '</strong>' : '' );
 						echo ( isset( $nf['pdv'] ) && $nutrition_facts[ $slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . ceil( ( esc_attr( $nutrition_facts[ $slug ] ) / $nf['pdv'] ) * 100 ) . '</span>%</strong>' : '' );
+						echo '</dt>';
 
 						if ( isset( $nf['subs'] ) ) :
 							foreach ( $nf['subs'] as $sub_slug => $sub_nf ) :
 								$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $sub_slug ] ) && ( '0' === $nutrition_facts[ $sub_slug ] || 0 === $nutrition_facts[ $sub_slug ] ) ) : false;
 								if ( isset( $nutrition_facts[ $sub_slug ] ) && ( $nutrition_facts[ $sub_slug ] || $nutri_zero_condition ) ) :
-									echo '<dl><dt>';
-									echo '<strong>' . esc_html( $sub_nf['name'] ) . '</strong> <strong class="dr-nut-label">' . $nutrition_facts[ $sub_slug ] . '</strong>' . ( isset( $sub_nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . $sub_nf['measurement'] . '</strong>' : '' );
+									echo '<dt class="dr-nut-sub">';
+									echo '<strong>' . esc_html( $sub_nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_html( $nutrition_facts[ $sub_slug ] ) . '</strong>' . ( isset( $sub_nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_html( $sub_nf['measurement'] ) . '</strong>' : '' );
 									echo ( isset( $sub_nf['pdv'] ) && $nutrition_facts[ $sub_slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . ceil( ( esc_attr( $nutrition_facts[ $sub_slug ] ) / $sub_nf['pdv'] ) * 100 ) . '</span>%</strong>' : '' );
-									echo '</dt></dl>';
+									echo '</dt>';
 								endif;
 							endforeach;
-					endif;
-
-						echo '</dt>';
+						endif;
 
 					endif;
 
@@ -279,9 +278,8 @@ class Delicious_Dynamic_Nutrition {
 				foreach ( $bottom_facts as $slug => $nf ) :
 					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] ) ) : false;
 					if ( ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] ) || $nutri_zero_condition ) :
-						echo '<dt>';
-							echo '<strong>' . esc_html( $nf['name'] ) . ' <span class="dr-nut-percent dr-nut-label">' . esc_attr( $nutrition_facts[ $slug ] ) . '</span> ' . esc_html( $nf['measurement'] ) . '</strong>';
-						echo '</dt>';
+						echo '<dt><strong>' . esc_html( $nf['name'] ) . '</strong></dt>';
+						echo '<dd><span class="dr-nut-percent dr-nut-label">' . esc_attr( $nutrition_facts[ $slug ] ) . '</span> ' . esc_html( $nf['measurement'] ) . '</dd>';
 					endif;
 				endforeach;
 
@@ -305,17 +303,17 @@ class Delicious_Dynamic_Nutrition {
 					echo '<dt><strong class="dr-nut-heading">' . esc_html__( 'Amount Per Serving', 'delicious-recipes' ) . '</strong></dt>';
 
 				if ( isset( $mid_facts_content ) && $mid_facts_content ) :
-					echo '<section class="dr-clearfix">';
+					echo '<div class="dr-clearfix">';
 					echo wp_kses_post( $mid_facts_content );
-					echo '</section>';
+					echo '</div>';
 				endif;
 
 				if ( isset( $main_facts_content ) && $main_facts_content ) :
 					echo '<dt class="dr-nut-spacer" ' . esc_attr( $style ) . '></dt>';
 					echo '<dt class="dr-nut-no-border"><strong class="dr-nut-heading dr-nut-right">' . esc_html__( '% Daily Value *', 'delicious-recipes' ) . '</strong></dt>';
-					echo '<section class="dr-clearfix">';
+					echo '<div class="dr-clearfix">';
 						echo wp_kses_post( $main_facts_content );
-					echo '</section>';
+					echo '</div>';
 					endif;
 
 				echo '</dl>';

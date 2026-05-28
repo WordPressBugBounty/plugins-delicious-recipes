@@ -125,15 +125,14 @@ class Delicious_Dynamic_Instructions {
 		}
 
 		$attributes = self::$helpers->omit( $attributes, array() );
-		// Import variables into the current symbol table from an array.
-		extract( $attributes );
+
+		$id    = isset( $attributes['id'] ) ? $attributes['id'] : '';
+		$steps = isset( $attributes['steps'] ) ? $attributes['steps'] : array();
 
 		// Store variables.
 		self::$attributes = $attributes;
 
-		$class = 'dr-summary-holder';
-
-		$steps         = isset( $steps ) ? $steps : array();
+		$class         = 'dr-summary-holder';
 		$steps_content = self::get_steps_content( $steps );
 
 		$block_content = sprintf(
@@ -144,6 +143,10 @@ class Delicious_Dynamic_Instructions {
 			esc_attr( $class ),
 			wp_kses_post( $steps_content )
 		);
+
+		if ( is_singular() && ! has_block( 'delicious-recipes/dynamic-recipe-card', get_the_ID() ) ) {
+			Delicious_Recipes_Standalone_Schema::add_steps( $steps, get_the_ID() );
+		}
 
 		// Remove filter if we added it
 		if ( $filter_added ) {

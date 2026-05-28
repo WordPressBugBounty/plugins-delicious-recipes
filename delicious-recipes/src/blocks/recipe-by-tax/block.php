@@ -44,7 +44,11 @@ add_action( 'init', 'delicious_recipes_recipe_type_block' );
  */
 if ( ! function_exists( 'delicious_recipes_tax_by_type_block_render_callback' ) ) {
 	function delicious_recipes_tax_by_type_block_render_callback( $attributes ) {
-		extract( $attributes );
+		$title        = isset( $attributes['title'] ) ? $attributes['title'] : '';
+		$heading      = isset( $attributes['heading'] ) ? $attributes['heading'] : 'h2';
+		$className    = isset( $attributes['className'] ) ? $attributes['className'] : '';
+		$tax          = isset( $attributes['tax'] ) ? $attributes['tax'] : '';
+		$recipeNumber = isset( $attributes['recipeNumber'] ) ? $attributes['recipeNumber'] : 6;
 
 		$layout = 'grid-view' === $attributes['layout'] ? 'grid' : 'list';
 		$tax    = ! empty( $tax ) && 'undefined' !== $tax ? $tax : 'recipe-course';
@@ -76,10 +80,6 @@ if ( ! function_exists( 'delicious_recipes_tax_by_type_block_render_callback' ) 
 					'include_children' => false,
 				),
 			);
-		}
-
-		if ( ! isset( $className ) ) {
-			$className = '';
 		}
 
 		$recipes = new WP_Query( $args );

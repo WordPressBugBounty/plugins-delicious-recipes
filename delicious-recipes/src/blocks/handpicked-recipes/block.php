@@ -58,7 +58,9 @@ if ( ! function_exists( 'delicious_recipes_handpicked_recipes_block_render' ) ) 
 	 */
 	function delicious_recipes_handpicked_recipes_block_render( $attributes ) {
 
-		extract( $attributes );
+		$title      = isset( $attributes['title'] ) ? $attributes['title'] : '';
+		$heading    = isset( $attributes['heading'] ) ? $attributes['heading'] : 'h2';
+		$class_name = isset( $attributes['className'] ) ? $attributes['className'] : '';
 
 		if ( isset( $attributes['Recipe'] ) && ! empty( $attributes['Recipe'] ) && is_array( $attributes['Recipe'] ) ) :
 			$post_in = array_column( $attributes['Recipe'], 'value' );
@@ -82,10 +84,6 @@ if ( ! function_exists( 'delicious_recipes_handpicked_recipes_block_render' ) ) 
 			$args['posts_per_page'] = count( $args['post__in'] );
 
 		endif;
-
-		if ( ! isset( $class_name ) ) {
-			$class_name = '';
-		}
 
 		$recipes = new WP_Query( $args );
 

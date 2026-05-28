@@ -41,8 +41,11 @@ class Delicious_Popular_Tags_Widget extends WP_Widget {
             return;
         }
 
-        extract( $args );
-        $title       = ! empty( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( "Popular Tags", 'delicious-recipes'  ) ;
+        $before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
+        $after_widget  = isset( $args['after_widget'] ) ? $args['after_widget'] : '';
+        $before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
+        $after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
+        $title         = ! empty( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( "Popular Tags", 'delicious-recipes'  ) ;
         $show_counts = isset( $instance[ 'show_counts' ] ) ? (bool) $instance[ 'show_counts' ] : false;
         $taxonomy    = 'recipe-tag';
 

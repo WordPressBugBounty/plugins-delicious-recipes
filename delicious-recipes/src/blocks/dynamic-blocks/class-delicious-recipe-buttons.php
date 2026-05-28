@@ -128,16 +128,16 @@ class Delicious_Recipe_Buttons {
 		}
 
 		$attributes = self::$helpers->omit( $attributes, array() );
-		// Import variables into the current symbol table from an array.
-		extract( $attributes );
+
+		$id = isset( $attributes['id'] ) ? $attributes['id'] : '';
 
 		self::$recipe     = get_post();
 		self::$attributes = $attributes;
 		self::$settings   = self::$helpers->parse_recipe_buttons_block_settings( $attributes );
 
-		self::$attributes['jumptorecipeTitle'] = isset( $jumptorecipeTitle ) ? $jumptorecipeTitle : __( 'Jump to Recipe', 'delicious-recipes' );
-		self::$attributes['jumptovideoTitle']  = isset( $jumptovideoTitle ) ? $jumptovideoTitle : __( 'Jump to Video', 'delicious-recipes' );
-		self::$attributes['printrecipeTitle']  = isset( $printrecipeTitle ) ? $printrecipeTitle : __( 'Print Recipe', 'delicious-recipes' );
+		self::$attributes['jumptorecipeTitle'] = isset( $attributes['jumptorecipeTitle'] ) ? $attributes['jumptorecipeTitle'] : __( 'Jump to Recipe', 'delicious-recipes' );
+		self::$attributes['jumptovideoTitle']  = isset( $attributes['jumptovideoTitle'] ) ? $attributes['jumptovideoTitle'] : __( 'Jump to Video', 'delicious-recipes' );
+		self::$attributes['printrecipeTitle']  = isset( $attributes['printrecipeTitle'] ) ? $attributes['printrecipeTitle'] : __( 'Print Recipe', 'delicious-recipes' );
 
 		$class          = implode( ' ', array( 'dr-buttons', 'dr-recipe-buttons-block' ) );
 		$recipe_card_id = 'dr-dynamic-recipe-card';

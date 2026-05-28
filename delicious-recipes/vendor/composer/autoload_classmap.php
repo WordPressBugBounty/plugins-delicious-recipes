@@ -7,8 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
-    'WP_Delicious\\DeliciousAdmin' => $baseDir . '/src/DeliciousAdmin.php',
-    'WP_Delicious\\DeliciousPublic' => $baseDir . '/src/DeliciousPublic.php',
-    'WP_Delicious\\DeliciousRecipes' => $baseDir . '/src/DeliciousRecipes.php',
-    'WP_Delicious\\GlobalSettings' => $baseDir . '/src/GlobalSettings.php',
 );

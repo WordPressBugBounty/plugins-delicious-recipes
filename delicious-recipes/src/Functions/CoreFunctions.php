@@ -220,6 +220,7 @@ function delicious_recipes_get_template( $template_name, $args = array(), $templ
 			);
 			unset( $args['action_args'] );
 		}
+		// phpcs:ignore WordPress.PHP.DontExtract.extract_extract -- intentional: makes $args keys available as variables inside the included template file.
 		extract( $args );
 	}
 

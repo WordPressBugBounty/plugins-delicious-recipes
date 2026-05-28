@@ -53,8 +53,11 @@ class Delicious_Recipe_Keys_Widget extends WP_Widget {
             }
         }
 
-        extract( $args );
-        $title    = ! empty( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( "Recipe Keys", 'delicious-recipes'  ) ;
+        $before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
+        $after_widget  = isset( $args['after_widget'] ) ? $args['after_widget'] : '';
+        $before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
+        $after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
+        $title         = ! empty( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( "Recipe Keys", 'delicious-recipes'  ) ;
         $taxonomy = 'recipe-key';
 
         echo $before_widget;

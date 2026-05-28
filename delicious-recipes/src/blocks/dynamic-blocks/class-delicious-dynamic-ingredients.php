@@ -12,6 +12,112 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Collects schema data from standalone ingredient/instruction blocks and
+ * outputs a minimal Recipe JSON-LD on wp_footer when no Recipe Card block
+ * is present on the same page.
+ */
+class Delicious_Recipes_Standalone_Schema {
+
+	private static $ingredients = array();
+	private static $steps       = array();
+	private static $post_id     = 0;
+	private static $hooked      = false;
+
+	public static function add_ingredients( array $ingredients, $post_id ) {
+		self::$ingredients = $ingredients;
+		self::$post_id     = $post_id;
+		self::maybe_hook_footer();
+	}
+
+	public static function add_steps( array $steps, $post_id ) {
+		self::$steps   = $steps;
+		self::$post_id = $post_id;
+		self::maybe_hook_footer();
+	}
+
+	private static function maybe_hook_footer() {
+		if ( ! self::$hooked ) {
+			add_action( 'wp_footer', array( __CLASS__, 'output' ) );
+			self::$hooked = true;
+		}
+	}
+
+	public static function output() {
+		if ( empty( self::$ingredients ) && empty( self::$steps ) ) {
+			return;
+		}
+
+		$post = get_post( self::$post_id );
+		if ( ! $post ) {
+			return;
+		}
+
+		$helpers = new Delicious_Recipes_Structured_Data_Helpers();
+
+		$json_ld = array(
+			'@context'      => 'https://schema.org',
+			'@type'         => 'Recipe',
+			'name'          => get_the_title( $post ),
+			'author'        => array(
+				'@type' => 'Person',
+				'name'  => get_the_author_meta( 'display_name', $post->post_author ),
+			),
+			'datePublished' => get_the_date( 'c', $post ),
+		);
+
+		$thumbnail_url = get_the_post_thumbnail_url( $post, 'full' );
+		if ( $thumbnail_url ) {
+			$json_ld['image'] = $thumbnail_url;
+		}
+
+		if ( ! empty( self::$ingredients ) ) {
+			$recipe_ingredient = array();
+			foreach ( self::$ingredients as $ingredient ) {
+				if ( is_array( $ingredient ) && empty( $ingredient['isGroup'] ) ) {
+					$recipe_ingredient[] = $helpers->get_ingredient_json_ld( $ingredient );
+				}
+			}
+			if ( ! empty( $recipe_ingredient ) ) {
+				$json_ld['recipeIngredient'] = $recipe_ingredient;
+			}
+		}
+
+		if ( ! empty( self::$steps ) ) {
+			$parent_permalink = get_the_permalink( $post );
+			$groups_section   = array();
+			$instructions     = array();
+
+			foreach ( self::$steps as $key => $step ) {
+				if ( ! is_array( $step ) ) {
+					continue;
+				}
+				$is_group = ! empty( $step['isGroup'] );
+
+				if ( $is_group ) {
+					$groups_section[ $key ] = array(
+						'@type'           => 'HowToSection',
+						'name'            => ! empty( $step['jsonText'] ) ? $step['jsonText'] : $helpers->step_text_to_JSON( $step['text'] ?? '' ),
+						'itemListElement' => array(),
+					);
+				} elseif ( ! empty( $groups_section ) ) {
+					end( $groups_section );
+					$last_key = key( $groups_section );
+					if ( $key > $last_key ) {
+						$groups_section[ $last_key ]['itemListElement'][] = $helpers->get_step_json_ld( $step, $parent_permalink );
+					}
+				} else {
+					$instructions[] = $helpers->get_step_json_ld( $step, $parent_permalink );
+				}
+			}
+
+			$json_ld['recipeInstructions'] = array_merge( $instructions, array_values( $groups_section ) );
+		}
+
+		echo '<script type="application/ld+json">' . wp_json_encode( $json_ld ) . "</script>\n";
+	}
+}
+
+/**
  * Main Delicious_Dynamic_Ingredients Class.
  */
 class Delicious_Dynamic_Ingredients {
@@ -128,14 +234,16 @@ class Delicious_Dynamic_Ingredients {
 		}
 
 		$attributes = self::$helpers->omit( $attributes, array() );
-		// Import variables into the current symbol table from an array.
-		extract( $attributes );
 
 		// Store variables.
 		self::$attributes = $attributes;
 
-		$ingredients         = isset( $ingredients ) ? $ingredients : array();
+		$ingredients         = isset( $attributes['ingredients'] ) ? $attributes['ingredients'] : array();
 		$ingredients_content = self::get_ingredients_content( $ingredients );
+
+		if ( is_singular() && ! has_block( 'delicious-recipes/dynamic-recipe-card', get_the_ID() ) ) {
+			Delicious_Recipes_Standalone_Schema::add_ingredients( $ingredients, get_the_ID() );
+		}
 
 		// Remove filter if we added it
 		if ( $filter_added ) {
@@ -182,9 +290,10 @@ class Delicious_Dynamic_Ingredients {
 				foreach ( $ingredients as $ingredient ) {
 					foreach ( $ingredient_links as $ingredient_link ) {
 						foreach ( $ingredient_link['ingredientsKeywords'] as $keyword ) {
-							if ( strpos( $ingredient, $keyword ) !== false ) {
+							$pattern = '/\b' . preg_quote( $keyword, '/' ) . '\b/ui';
+							if ( preg_match( $pattern, $ingredient ) ) {
 								$link_attributes = 'href="' . esc_url( $ingredient_link['ingredientLink'] ) . '" target="' . esc_attr( $ingredient_link['openInNewTab'] ? '_blank' : '_self' ) . '" rel="' . esc_attr( implode( ' ', $ingredient_link['relAttribute'] ) ) . '"';
-								$ingredient      = str_replace( $keyword, "<a class=ingredient-link {$link_attributes}>{$keyword}</a>", $ingredient );
+								$ingredient      = preg_replace( $pattern, '<a class=ingredient-link ' . $link_attributes . '>$0</a>', $ingredient );
 							}
 						}
 					}

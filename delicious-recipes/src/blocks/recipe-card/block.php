@@ -50,8 +50,9 @@ if ( ! function_exists( 'delicious_recipes_recipe_card_block_render' ) ) {
 	 */
 	function delicious_recipes_recipe_card_block_render( $attributes ) {
 
-		// phpcs:disable
-		extract( $attributes );
+		$title     = isset( $attributes['title'] ) ? $attributes['title'] : '';
+		$heading   = isset( $attributes['heading'] ) ? $attributes['heading'] : 'h2';
+		$className = isset( $attributes['className'] ) ? $attributes['className'] : '';
 
 		$latest_recipe = get_posts( 'post_type=recipe&numberposts=1' );
 		$post_id       = $latest_recipe[0]->ID;
@@ -62,16 +63,12 @@ if ( ! function_exists( 'delicious_recipes_recipe_card_block_render' ) ) {
 
 		$layout = isset( $attributes['layout'] ) && $attributes['layout'] ? $attributes['layout'] : '';
 
-		if ( ! isset( $className ) ) {
-			$className = '';
-		}
-
 		ob_start();
 
 		json_ld( $attributes );
 
 		echo '<div class="dr-recipes-card-block ' . esc_attr( $className ) . '">';
-		// phpcs:enable
+
 		if ( $title ) {
 			// Sanitize heading to prevent XSS - only allow valid HTML tags.
 			$allowed_headings = array( 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div' );

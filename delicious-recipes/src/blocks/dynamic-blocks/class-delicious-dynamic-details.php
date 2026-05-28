@@ -238,19 +238,19 @@ class Delicious_Dynamic_Details {
 		}
 
 		$attributes = self::$helpers->omit( $attributes, array( 'toInsert', 'activeIconSet', 'showModal', 'searchIcon', 'icons' ) );
-		// Import variables into the current symbol table from an array.
-		extract( $attributes );
+
+		$id      = isset( $attributes['id'] ) ? $attributes['id'] : '';
+		$details = isset( $attributes['details'] ) ? $attributes['details'] : array();
 
 		// Store variables.
 		self::$attributes = $attributes;
 		self::$settings   = self::$helpers->parse_block_settings( $attributes );
 
-		self::$attributes['difficultyTitle'] = isset( $difficulty_title ) ? $difficulty_title : __( 'Difficulty', 'delicious-recipes' );
-		self::$attributes['seasonTitle']     = isset( $season_title ) ? $season_title : __( 'Best Season', 'delicious-recipes' );
+		self::$attributes['difficultyTitle'] = isset( $attributes['difficulty_title'] ) ? $attributes['difficulty_title'] : __( 'Difficulty', 'delicious-recipes' );
+		self::$attributes['seasonTitle']     = isset( $attributes['season_title'] ) ? $attributes['season_title'] : __( 'Best Season', 'delicious-recipes' );
 
 		$class = 'dr-summary-holder';
 
-		$details         = isset( $details ) ? $details : array();
 		$details_content = $this->get_details_content( $details );
 
 		$block_content = sprintf(
@@ -371,11 +371,9 @@ class Delicious_Dynamic_Details {
 	public static function get_detail_items( array $details ) {
 		$output = '';
 
-		$attributes = self::$attributes;
-		extract( $attributes );
-
-		$difficulty = isset( $difficulty ) && self::$attributes['displayDifficulty'] ? ucfirst( $difficulty ) : '';
-		$difficulty_title = isset( $difficulty_title ) ? $difficulty_title : __( 'Difficulty', 'delicious-recipes' );
+		$attributes       = self::$attributes;
+		$difficulty       = isset( $attributes['difficulty'] ) && self::$attributes['displayDifficulty'] ? ucfirst( $attributes['difficulty'] ) : '';
+		$difficulty_title = isset( $attributes['difficulty_title'] ) ? $attributes['difficulty_title'] : __( 'Difficulty', 'delicious-recipes' );
 		$svg = '';
 
 		if ( $difficulty ) {

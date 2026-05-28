@@ -1,3 +1,11 @@
+1.10.0: 2026-05-28
+- Enhancement: Declared compatibility with WordPress 7.0 and updated minimum WordPress requirement to 5.8.
+- Enhancement: Added automatic Recipe JSON-LD schema output for pages using standalone Ingredients or Instructions blocks without a Recipe Card block.
+- Fixes: Resolved React 19 compatibility issue in the block editor components.
+- Fixes: Resolved JavaScript errors in the block editor caused by deprecated WordPress APIs removed in WordPress 5.8.
+- Fixes: Fixed ingredient link keyword matching to use word-boundary regex, preventing partial-word matches and preserving original casing in links.
+- Fixes: Fixed nutrition block HTML structure — corrected misplaced closing tags, changed sub-nutrient markup to use semantic dt/dd elements, and replaced invalid section tags with div.
+
 1.9.10: 2026-05-11
 - Fixes: Fixed 500 error when importing recipes with a feature image via the REST API by ensuring download_url() is loaded outside admin context.
 

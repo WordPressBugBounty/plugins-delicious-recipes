@@ -381,8 +381,22 @@ class Delicious_Dynamic_Recipe_Card {
 		}
 
 		$attributes = self::$helpers->omit( $attributes, array( 'toInsert', 'activeIconSet', 'showModal', 'searchIcon', 'icons' ) );
-		// Import variables into the current symbol table from an array.
-		extract( $attributes );
+
+		$id          = isset( $attributes['id'] ) ? $attributes['id'] : '';
+		$image       = isset( $attributes['image'] ) ? $attributes['image'] : array();
+		$recipeTitle = isset( $attributes['recipeTitle'] ) ? $attributes['recipeTitle'] : '';
+		$summary     = isset( $attributes['summary'] ) ? $attributes['summary'] : '';
+		$class_name  = isset( $attributes['className'] ) ? $attributes['className'] : '';
+		$hasImage    = isset( $attributes['hasImage'] ) ? $attributes['hasImage'] : false;
+		$course      = isset( $attributes['course'] ) ? $attributes['course'] : array();
+		$cuisine     = isset( $attributes['cuisine'] ) ? $attributes['cuisine'] : array();
+		$difficulty  = isset( $attributes['difficulty'] ) ? $attributes['difficulty'] : array();
+		$keywords    = isset( $attributes['keywords'] ) ? $attributes['keywords'] : array();
+		$details     = isset( $attributes['details'] ) ? $attributes['details'] : array();
+		$ingredients = isset( $attributes['ingredients'] ) ? $attributes['ingredients'] : array();
+		$steps       = isset( $attributes['steps'] ) ? $attributes['steps'] : array();
+		$notes       = isset( $attributes['notes'] ) ? $attributes['notes'] : '';
+		$notesTitle  = isset( $attributes['notesTitle'] ) ? $attributes['notesTitle'] : '';
 
 		// Recipe post variables.
 		self::$recipe         = get_post();
@@ -394,31 +408,17 @@ class Delicious_Dynamic_Recipe_Card {
 		$recipe_author_name   = get_the_author_meta( 'display_name', self::$recipe->post_author );
 		$attachment_id        = isset( $image['id'] ) ? $image['id'] : $recipe_thumbnail_id;
 
-		// Variables from attributes
-		// add default value if not exists.
-		$recipeTitle = isset( $recipeTitle ) ? $recipeTitle : '';
-		$summary     = isset( $summary ) ? $summary : '';
-		$class_name  = isset( $class_name ) ? $class_name : '';
-		$hasImage    = isset( $hasImage ) ? $hasImage : false;
-		$course      = isset( $course ) ? $course : array();
-		$cuisine     = isset( $cuisine ) ? $cuisine : array();
-		$difficulty  = isset( $difficulty ) ? $difficulty : array();
-		$keywords    = isset( $keywords ) ? $keywords : array();
-		$details     = isset( $details ) ? $details : array();
-		$ingredients = isset( $ingredients ) ? $ingredients : array();
-		$steps       = isset( $steps ) ? $steps : array();
-
 		// Store variables.
 		self::$recipe_block_id = esc_attr( $id );
 		self::$attributes      = $attributes;
 		self::$settings        = self::$helpers->parse_block_settings( $attributes );
 
-		self::$attributes['summaryTitle']     = isset( $summaryTitle ) ? $summaryTitle : __( 'Description', 'delicious-recipes' );
-		self::$attributes['ingredientsTitle'] = isset( $ingredientsTitle ) ? $ingredientsTitle : __( 'Ingredients', 'delicious-recipes' );
-		self::$attributes['directionsTitle']  = isset( $directionsTitle ) ? $directionsTitle : __( 'Instructions', 'delicious-recipes' );
-		self::$attributes['videoTitle']       = isset( $videoTitle ) ? $videoTitle : __( 'Video', 'delicious-recipes' );
-		self::$attributes['difficultyTitle']  = isset( $difficultyTitle ) ? $difficultyTitle : __( 'Difficulty', 'delicious-recipes' );
-		self::$attributes['seasonTitle']      = isset( $seasonTitle ) ? $seasonTitle : __( 'Best Season', 'delicious-recipes' );
+		self::$attributes['summaryTitle']     = isset( $attributes['summaryTitle'] ) ? $attributes['summaryTitle'] : __( 'Description', 'delicious-recipes' );
+		self::$attributes['ingredientsTitle'] = isset( $attributes['ingredientsTitle'] ) ? $attributes['ingredientsTitle'] : __( 'Ingredients', 'delicious-recipes' );
+		self::$attributes['directionsTitle']  = isset( $attributes['directionsTitle'] ) ? $attributes['directionsTitle'] : __( 'Instructions', 'delicious-recipes' );
+		self::$attributes['videoTitle']       = isset( $attributes['videoTitle'] ) ? $attributes['videoTitle'] : __( 'Video', 'delicious-recipes' );
+		self::$attributes['difficultyTitle']  = isset( $attributes['difficultyTitle'] ) ? $attributes['difficultyTitle'] : __( 'Difficulty', 'delicious-recipes' );
+		self::$attributes['seasonTitle']      = isset( $attributes['seasonTitle'] ) ? $attributes['seasonTitle'] : __( 'Best Season', 'delicious-recipes' );
 
 		$class               = 'dr-summary-holder wp-block-delicious-recipes-block-recipe-card';
 		$class              .= $hasImage && isset( $image['url'] ) ? '' : ' recipe-card-noimage';
@@ -577,7 +577,7 @@ class Delicious_Dynamic_Recipe_Card {
 				'<div class="%s"><h3 class="%s">%s</h3><p>%s</p></div>',
 				esc_attr( $summary_class ),
 				'dr-title summary-title',
-				@$summaryTitle,
+				isset( self::$attributes['summaryTitle'] ) ? self::$attributes['summaryTitle'] : '',
 				$summary
 			);
 		}
@@ -1034,10 +1034,11 @@ class Delicious_Dynamic_Recipe_Card {
 	public static function get_detail_items( array $details ) {
 		$output = '';
 
-		$attributes = self::$attributes;
-		extract( $attributes );
-
-		$difficulty = isset( $difficulty ) && self::$settings['displayDifficulty'] ? $difficulty : '';
+		$attributes      = self::$attributes;
+		$difficulty      = isset( $attributes['difficulty'] ) && self::$settings['displayDifficulty'] ? $attributes['difficulty'] : '';
+		$difficultyTitle = isset( $attributes['difficultyTitle'] ) ? $attributes['difficultyTitle'] : __( 'Difficulty', 'delicious-recipes' );
+		$season          = isset( $attributes['season'] ) ? $attributes['season'] : '';
+		$seasonTitle     = isset( $attributes['seasonTitle'] ) ? $attributes['seasonTitle'] : __( 'Best Season', 'delicious-recipes' );
 
 		if ( $difficulty ) {
 			$svg     = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#difficulty"></use></svg>';
@@ -1181,9 +1182,10 @@ class Delicious_Dynamic_Recipe_Card {
 				foreach ( $ingredients as $ingredient ) {
 					foreach ( $ingredient_links as $ingredient_link ) {
 						foreach ( $ingredient_link['ingredientsKeywords'] as $keyword ) {
-							if ( strpos( $ingredient, $keyword ) !== false ) {
+							$pattern = '/\b' . preg_quote( $keyword, '/' ) . '\b/ui';
+							if ( preg_match( $pattern, $ingredient ) ) {
 								$link_attributes = 'href="' . esc_url( $ingredient_link['ingredientLink'] ) . '" target="' . esc_attr( $ingredient_link['openInNewTab'] ? '_blank' : '_self' ) . '" rel="' . esc_attr( implode( ' ', $ingredient_link['relAttribute'] ) ) . '"';
-								$ingredient      = str_replace( $keyword, "<a class=ingredient-link {$link_attributes}>{$keyword}</a>", $ingredient );
+								$ingredient      = preg_replace( $pattern, '<a class=ingredient-link ' . $link_attributes . '>$0</a>', $ingredient );
 							}
 						}
 					}
@@ -1353,18 +1355,17 @@ class Delicious_Dynamic_Recipe_Card {
 	 * @return string
 	 */
 	public static function get_recipe_terms( $taxonomy ) {
-		$attributes = self::$attributes;
-		$render     = true;
+		$attributes   = self::$attributes;
+		$render       = true;
+		$class_name   = '';
+		$label        = '';
+		$terms_output = '';
 
-		$class_name = $label = $terms_output = '';
-
-		extract( $attributes );
-
-		$course     = isset( $course ) ? $course : array();
-		$cuisine    = isset( $cuisine ) ? $cuisine : array();
-		$method     = isset( $method ) ? $method : array();
-		$recipe_key = isset( $recipe_key ) ? $recipe_key : array();
-		$dietary    = isset( $recipe_dietary ) ? $recipe_dietary : array();
+		$course     = isset( $attributes['course'] ) ? $attributes['course'] : array();
+		$cuisine    = isset( $attributes['cuisine'] ) ? $attributes['cuisine'] : array();
+		$method     = isset( $attributes['method'] ) ? $attributes['method'] : array();
+		$recipe_key = isset( $attributes['recipe_key'] ) ? $attributes['recipe_key'] : array();
+		$dietary    = isset( $attributes['recipe_dietary'] ) ? $attributes['recipe_dietary'] : array();
 		$svg        = '';
 		$terms      = array();
 

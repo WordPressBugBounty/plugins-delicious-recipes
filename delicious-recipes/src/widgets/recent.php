@@ -38,8 +38,11 @@ class Delicious_Recent_Recipes_Widget extends WP_Widget {
 				</div>';
 			return;
 		}
-        extract( $args );
-        $title    = ! empty( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( "Recent Recipes", 'delicious-recipes'  ) ;
+        $before_widget = isset( $args['before_widget'] ) ? $args['before_widget'] : '';
+        $after_widget  = isset( $args['after_widget'] ) ? $args['after_widget'] : '';
+        $before_title  = isset( $args['before_title'] ) ? $args['before_title'] : '';
+        $after_title   = isset( $args['after_title'] ) ? $args['after_title'] : '';
+        $title         = ! empty( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( "Recent Recipes", 'delicious-recipes'  ) ;
         $num_post = ! empty( $instance['num_post'] ) ? $instance['num_post'] : 4 ;
         $style    = ! empty( $instance[ 'style' ] ) ? $instance[ 'style' ] : 'style-one';
 
