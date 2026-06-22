@@ -1,3 +1,8 @@
+1.10.1: 2026-06-22
+- Fixes: Fixed ingredients and instructions appearing blank in the block editor — both newly bulk-added items and content saved before v1.10.0 (stored in a legacy array format) now render correctly without needing to be re-entered.
+- Fixes: Restored the "Best Season" detail in the standalone Details block, which stopped rendering in v1.10.0.
+- Fixes: Adjusted padding and margin for the ingredients and instructions sections on single recipe pages.
+
 1.10.0: 2026-05-28
 - Enhancement: Declared compatibility with WordPress 7.0 and updated minimum WordPress requirement to 5.8.
 - Enhancement: Added automatic Recipe JSON-LD schema output for pages using standalone Ingredients or Instructions blocks without a Recipe Card block.

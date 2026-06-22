@@ -459,8 +459,8 @@ class Delicious_Dynamic_Details {
 			);
 		}
 
-		$season = isset( $season ) && self::$attributes['displayBestSeason'] ? $season : '';
-		$seasonitle = isset( $season_title ) ? $season_title : __( 'Best Season', 'delicious-recipes' );
+		$season = isset( $attributes['season'] ) && self::$attributes['displayBestSeason'] ? $attributes['season'] : '';
+		$seasonitle = isset( $attributes['season_title'] ) ? $attributes['season_title'] : __( 'Best Season', 'delicious-recipes' );
 
 		if ( $season ) {
 			$svg     = '<svg class="icon"><use xlink:href="' . esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/images/sprite.svg#season"></use></svg>';
