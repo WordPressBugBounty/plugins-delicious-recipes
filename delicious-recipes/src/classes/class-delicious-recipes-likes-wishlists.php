@@ -49,6 +49,26 @@ class Delicious_Recipes_Likes_Wishlists {
 	}
 
 	/**
+	 * Get the server-side identifier used to track a "like" for the current visitor.
+	 *
+	 * Logged-in users are tracked by user ID. Logged-out visitors are tracked by a
+	 * salted hash of their real IP address (REMOTE_ADDR only — forwarded headers are
+	 * spoofable) so the identity cannot be forged or cycled by the client to inflate
+	 * the like counter or grow the stored meta without bound.
+	 *
+	 * @return int|string
+	 */
+	public function get_like_identifier() {
+		if ( is_user_logged_in() ) {
+			return get_current_user_id();
+		}
+
+		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+
+		return 'ip_' . md5( $ip . wp_salt() );
+	}
+
+	/**
 	 * Check if user can like the recipes post
 	 *
 	 * @param integer $id Post ID.
@@ -60,24 +80,12 @@ class Delicious_Recipes_Likes_Wishlists {
 			return false;
 		}
 
-		// if user is logged in, return true.
-		if ( is_user_logged_in() ) {
-			$recipe_likes_ip = get_post_meta( $id, '_recipe_likes_ip', true );
-			$curr_user_id    = get_current_user_id();
-			if ( ! empty( $recipe_likes_ip ) && in_array( $curr_user_id, $recipe_likes_ip ) ) {
-				return false;
-			}
+		$recipe_likes_ip = get_post_meta( $id, '_recipe_likes_ip', true );
+		if ( ! empty( $recipe_likes_ip ) && is_array( $recipe_likes_ip ) && in_array( $this->get_like_identifier(), $recipe_likes_ip, true ) ) {
+			return false;
 		}
 
-		return true; // Default case
-
-		/**
-		 * @deprecated code @since 1.8.0 since we changed checking likes from IP Address to Unique User ID we created and assigned for not logged in users.
-		 */
-		// $ip_list = ( $ip = get_post_meta( $id, '_recipe_likes_ip', true ) ) ? $ip : array();
-		// if ( ( $ip_list == '' ) || ( is_array( $ip_list ) && ! in_array( $this->get_real_ip_address(), $ip_list ) ) ) {
-		// return true;
-		// }
+		return true; // Default case.
 	}
 
 	/**
@@ -86,15 +94,9 @@ class Delicious_Recipes_Likes_Wishlists {
 	 * @return void
 	 */
 	public function check_like() {
-		if ( isset( $_POST['id'] ) && isset( $_POST['unique_user_id'] ) ) :
-			$post_id        = intval( $_POST['id'] );
-			$ip_list        = ( $ip = get_post_meta( $post_id, '_recipe_likes_ip', true ) ) ? $ip : array();
-			$unique_user_id = sanitize_text_field( wp_unslash( $_POST['unique_user_id'] ) );
-			if ( ( $ip_list == '' ) || ( is_array( $ip_list ) && ! in_array( $unique_user_id, $ip_list ) ) ) :
-				wp_send_json_success( array( 'can_like' => true ) );
-			else :
-				wp_send_json_success( array( 'can_like' => false ) );
-			endif;
+		if ( isset( $_POST['id'] ) ) :
+			$post_id = intval( $_POST['id'] );
+			wp_send_json_success( array( 'can_like' => $this->can_like( $post_id ) ) );
 		else :
 			wp_send_json_error();
 		endif;
@@ -130,59 +132,45 @@ class Delicious_Recipes_Likes_Wishlists {
 	 * @return void
 	 */
 	public function recipe_like_cb() {
+		// Verify the request originated from our frontend.
+		check_ajax_referer( 'delicious_recipes_like_nonce', 'nonce' );
+
 		if ( isset( $_POST['id'] ) && isset( $_POST['add_remove'] ) ) :
 
 			$post_id = intval( $_POST['id'] );
+
+			// Only allow liking actual recipe posts, never arbitrary post IDs.
+			if ( DELICIOUS_RECIPE_POST_TYPE !== get_post_type( $post_id ) ) :
+				wp_send_json_error( array( 'message' => 'Invalid recipe.' ) );
+			endif;
+
 			$likes   = ( $count = get_post_meta( $post_id, '_recipe_likes', true ) ) ? absint( $count ) : 0;
 			$ip_list = ( $ip = get_post_meta( $post_id, '_recipe_likes_ip', true ) ) ? $ip : array();
+			if ( ! is_array( $ip_list ) ) :
+				$ip_list = array();
+			endif;
 
 			$add_remove = sanitize_title( wp_unslash( $_POST['add_remove'] ) );
 
-			// Check if the user is logged in and get the user ID
-			$current_user_id = is_user_logged_in() ? get_current_user_id() : null;
+			// Identity is derived server-side; never trust a client-supplied identifier.
+			$identifier = $this->get_like_identifier();
 
 			if ( $add_remove === 'add' && $this->can_like( $post_id ) ) :
-				// Add the user ID if logged in, or the unique user ID if not logged in
-				if ( $current_user_id ) {
-					$ip_list[] = $current_user_id;
-				} elseif ( isset( $_POST['unique_user_id'] ) ) {
-						$unique_user_id = sanitize_text_field( wp_unslash( $_POST['unique_user_id'] ) );
-						$ip_list[]      = $unique_user_id;
-				}
+				$ip_list[] = $identifier;
 				++$likes;
 				update_post_meta( $post_id, '_recipe_likes', absint( $likes ) );
 				update_post_meta( $post_id, '_recipe_likes_ip', $ip_list );
 
 			elseif ( $add_remove === 'remove' ) :
-				// Remove the user ID from the list if logged in
-				if ( $current_user_id ) :
-					$key = array_search( $current_user_id, $ip_list );
-					if ( $key !== false ) :
-						--$likes;
-						if ( $likes <= 0 ) :
-							$likes = 0;
-						endif;
-						unset( $ip_list[ $key ] );
-						update_post_meta( $post_id, '_recipe_likes', absint( $likes ) );
-						update_post_meta( $post_id, '_recipe_likes_ip', $ip_list );
+				$key = array_search( $identifier, $ip_list, true );
+				if ( $key !== false ) :
+					--$likes;
+					if ( $likes <= 0 ) :
+						$likes = 0;
 					endif;
-				else :
-					// Remove the unique user ID from the list if not logged in
-					if ( isset( $_POST['unique_user_id'] ) ) :
-						$unique_user_id = sanitize_text_field( wp_unslash( $_POST['unique_user_id'] ) );
-						$key            = array_search( $unique_user_id, $ip_list );
-						if ( $key !== false ) :
-							--$likes;
-							if ( $likes <= 0 ) :
-								$likes = 0;
-							endif;
-							unset( $ip_list[ $key ] );
-							update_post_meta( $post_id, '_recipe_likes', absint( $likes ) );
-							update_post_meta( $post_id, '_recipe_likes_ip', $ip_list );
-						endif;
-					else :
-						wp_send_json_error( array( 'message' => 'Invalid request.' ) );
-					endif;
+					unset( $ip_list[ $key ] );
+					update_post_meta( $post_id, '_recipe_likes', absint( $likes ) );
+					update_post_meta( $post_id, '_recipe_likes_ip', $ip_list );
 				endif;
 
 			else :

@@ -95,6 +95,7 @@ export function initRecipeLike() {
         formData.append('add_remove', addRemove);
         formData.append('id', id);
         formData.append('unique_user_id', unique_user_id);
+        formData.append('nonce', delicious_recipes.like_nonce);
         fetch(delicious_recipes.ajax_url, {
             method: 'POST',
             body: formData

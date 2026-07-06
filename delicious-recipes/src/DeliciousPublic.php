@@ -401,6 +401,7 @@ class DeliciousPublic {
 			'proEnabled'           => function_exists( 'DEL_RECIPE_PRO' ),
 			'license_validity'     => $license_validity,
 			'isUserLoggedIn'       => is_user_logged_in(),
+			'like_nonce'           => wp_create_nonce( 'delicious_recipes_like_nonce' ),
 		);
 
 		wp_register_script(

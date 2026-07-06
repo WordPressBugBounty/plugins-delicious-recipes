@@ -1,3 +1,6 @@
+1.10.2: 2026-07-02
+- Security: Hardened the recipe "likes" AJAX endpoint — added nonce verification, restricted likes to recipe post types, and moved visitor identity server-side to prevent unauthenticated like-count inflation and unbounded post meta growth. Thanks to Pedro Pinho for the responsible disclosure.
+
 1.10.1: 2026-06-22
 - Fixes: Fixed ingredients and instructions appearing blank in the block editor — both newly bulk-added items and content saved before v1.10.0 (stored in a legacy array format) now render correctly without needing to be re-entered.
 - Fixes: Restored the "Best Season" detail in the standalone Details block, which stopped rendering in v1.10.0.
