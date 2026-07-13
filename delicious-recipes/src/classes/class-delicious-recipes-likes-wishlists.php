@@ -258,6 +258,10 @@ class Delicious_Recipes_Likes_Wishlists {
 	 */
 	public function recipe_wishlist_cb() {
 
+		if ( ! check_ajax_referer( 'delicious_recipes_wishlist_nonce', 'nonce', false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Invalid nonce.', 'delicious-recipes' ) ) );
+		}
+
 		global $wp;
 		$current_user = wp_get_current_user();
 
@@ -270,6 +274,12 @@ class Delicious_Recipes_Likes_Wishlists {
 
 			$add_remove    = sanitize_title( wp_unslash( $_POST['add_remove'] ) );
 			$recipe_id     = absint( $_POST['recipe_id'] );
+			$recipe_post   = get_post( $recipe_id );
+
+			if ( ! $recipe_post || DELICIOUS_RECIPE_POST_TYPE !== $recipe_post->post_type ) {
+				wp_send_json_error( array( 'message' => __( 'Invalid recipe.', 'delicious-recipes' ) ) );
+			}
+
 			$wishlists     = isset( $_user_meta['wishlists'] ) && ! empty( $_user_meta['wishlists'] ) ? $_user_meta['wishlists'] : array();
 			$current_total = get_post_meta( $recipe_id, '_delicious_recipes_wishlists', true );
 

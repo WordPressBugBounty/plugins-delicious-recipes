@@ -336,17 +336,17 @@ class Delicious_Dynamic_Instructions {
 							$start_tag = sprintf(
 								'<%s src="%s" title="%s" alt="%s" class="%s" style="%s"/>',
 								$type,
-								$src,
-								$title,
-								$alt,
-								trim( $class ),
-								self::parse_tag_style( $img_style )
+								esc_url( $src ),
+								esc_attr( $title ),
+								esc_attr( $alt ),
+								esc_attr( trim( $class ) ),
+								esc_attr( self::parse_tag_style( $img_style ) )
 							);
 						}
 					} else {
 						$start_tag = '';
 					}
-					$start_tag = sprintf( '<a data-fslightbox href="%s">%s</a>', $src, $start_tag );
+					$start_tag = sprintf( '<a data-fslightbox href="%s">%s</a>', esc_url( $src ), $start_tag );
 					$end_tag   = '';
 				} elseif ( 'a' === $type ) {
 					$rel        = isset( $node['props']['rel'] ) ? $node['props']['rel'] : '';
@@ -354,7 +354,7 @@ class Delicious_Dynamic_Instructions {
 					$href       = isset( $node['props']['href'] ) ? $node['props']['href'] : '#';
 					$target     = isset( $node['props']['target'] ) ? $node['props']['target'] : '_blank';
 
-					$start_tag = sprintf( '<%s rel="%s" aria-label="%s" href="%s" target="%s">', $type, $rel, $aria_label, $href, $target );
+					$start_tag = sprintf( '<%s rel="%s" aria-label="%s" href="%s" target="%s">', $type, esc_attr( $rel ), esc_attr( $aria_label ), esc_url( $href ), esc_attr( $target ) );
 				} elseif ( 'br' === $type ) {
 					$end_tag = '';
 				}

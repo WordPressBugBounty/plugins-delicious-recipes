@@ -65,7 +65,6 @@ class AjaxFunctions {
 
 		// AJAX for ingredient links count in recipe content.
 		add_action( 'wp_ajax_get_ingredient_links_count', array( $this, 'get_ingredient_links_count' ) );
-		add_action( 'wp_ajax_nopriv_get_ingredient_links_count', array( $this, 'get_ingredient_links_count' ) );
 
 		// AJAX for getting pages for user dashboard settings.
 		add_action( 'wp_ajax_dr_get_pages', array( $this, 'dr_get_pages' ) );
@@ -79,8 +78,13 @@ class AjaxFunctions {
 			exit( 'invalid' );
 		}
 
+		$post_id = intval( $_POST['post_id'] );
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			exit( 'invalid' );
+		}
+
 		header( 'Content-Type: application/json' );
-		$post_id         = intval( $_POST['post_id'] );
 		$featured_status = esc_attr( get_post_meta( $post_id, 'wp_delicious_featured_recipe', true ) );
 		$new_status      = $featured_status == 'yes' ? 'no' : 'yes';
 		update_post_meta( $post_id, 'wp_delicious_featured_recipe', $new_status );
@@ -129,6 +133,10 @@ class AjaxFunctions {
 		$post_type = get_post_type( $post_id );
 
 		if ( DELICIOUS_RECIPE_POST_TYPE !== $post_type ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'edit_posts' ) ) {
 			return;
 		}
 		$post = get_post( $post_id );
@@ -707,14 +715,20 @@ class AjaxFunctions {
 	 * @return void
 	 */
 	public function get_ingredient_links_count() {
-		$clicks             = isset( $_POST['clicks'] ) ? $_POST['clicks'] : '';
-		$ingredient_link_id = isset( $_POST['ingredientLinkID'] ) ? $_POST['ingredientLinkID'] : '';
+		if ( ! check_ajax_referer( 'delicious_recipes_ingredient_links_nonce', 'nonce', false ) ) {
+			wp_send_json_error( array( 'message' => __( 'Invalid nonce.', 'delicious-recipes' ) ) );
+		}
+
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error( array( 'message' => __( 'You do not have permission to perform this action.', 'delicious-recipes' ) ) );
+		}
+
+		$clicks             = isset( $_POST['clicks'] ) ? absint( $_POST['clicks'] ) : '';
+		$ingredient_link_id = isset( $_POST['ingredientLinkID'] ) ? sanitize_text_field( wp_unslash( $_POST['ingredientLinkID'] ) ) : '';
 		$ingredient_links   = get_option( 'delicious_recipes_auto_link_ingredients', array() );
 
-		if ( ! empty( $ingredient_links ) ) {
-			if ( is_array( $ingredient_links[ $ingredient_link_id ] ) ) {
-				$ingredient_links[ $ingredient_link_id ]['totalClicks'] = $clicks;
-			}
+		if ( ! empty( $ingredient_links ) && ! empty( $ingredient_link_id ) && isset( $ingredient_links[ $ingredient_link_id ] ) && is_array( $ingredient_links[ $ingredient_link_id ] ) ) {
+			$ingredient_links[ $ingredient_link_id ]['totalClicks'] = $clicks;
 		}
 		update_option( 'delicious_recipes_auto_link_ingredients', $ingredient_links );
 

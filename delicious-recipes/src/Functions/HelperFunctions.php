@@ -482,16 +482,20 @@ function delicious_recipes_parse_videos( $videoString = null ) {
 
 							// get the thumbnail
 							try {
-								$hash = unserialize( file_get_contents( "http://vimeo.com/api/v2/video/$video_id.php" ) );
-								if ( ! empty( $hash ) && is_array( $hash ) ) {
-									$video_str     = 'https://player.vimeo.com/video/%s';
-									$thumbnail_str = $hash[0]['thumbnail_small'];
-									$fullsize_str  = $hash[0]['thumbnail_large'];
-									$vid_type      = 'vimeo';
-									$url           = sprintf( $video_str, $video_id );
-								} else {
-									// don't use, couldn't find what we need
+								$response = wp_remote_get( "https://vimeo.com/api/v2/video/$video_id.json" );
+								if ( is_wp_error( $response ) ) {
 									unset( $video_id );
+								} else {
+									$hash = json_decode( wp_remote_retrieve_body( $response ), true );
+									if ( ! empty( $hash ) && is_array( $hash ) ) {
+										$video_str     = 'https://player.vimeo.com/video/%s';
+										$thumbnail_str = $hash[0]['thumbnail_small'];
+										$fullsize_str  = $hash[0]['thumbnail_large'];
+										$vid_type      = 'vimeo';
+										$url           = sprintf( $video_str, $video_id );
+									} else {
+										unset( $video_id );
+									}
 								}
 							} catch ( Exception $e ) {
 								unset( $video_id );

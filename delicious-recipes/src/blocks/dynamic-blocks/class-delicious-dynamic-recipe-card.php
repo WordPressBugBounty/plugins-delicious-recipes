@@ -451,7 +451,7 @@ class Delicious_Dynamic_Recipe_Card {
 			if ( $findpos === false ) {
 				$attachment = sprintf(
 					'<img src="%s" alt="%s" class="%s"/>',
-					$src,
+					esc_url( $src ),
 					$alt,
 					trim( $img_class )
 				);
@@ -501,7 +501,7 @@ class Delicious_Dynamic_Recipe_Card {
 			if ( false === $findpos ) {
 				$attachment = sprintf(
 					'<img src="%s" alt="%s" class="%s"/>',
-					$src,
+					esc_url( $src ),
 					$alt,
 					trim( $img_class )
 				);
@@ -520,7 +520,7 @@ class Delicious_Dynamic_Recipe_Card {
 
 			$recipe_card_image = '<div class="dr-image">
 				<figure>
-					' . sprintf( '<img id="%s" src="%s" alt="%s" class="%s"/>', $img_id, $src, $alt, trim( $img_class ) ) . '
+					' . sprintf( '<img id="%s" src="%s" alt="%s" class="%s"/>', $img_id, esc_url( $src ), $alt, trim( $img_class ) ) . '
 					<figcaption>
 						' .
 							( $attributes['pin_btn'] ? self::get_pinterest_button( array( 'url' => $recipe_thumbnail_url ), $recipe_permalink, $pin_description ) : '' ) .
@@ -1607,11 +1607,11 @@ class Delicious_Dynamic_Recipe_Card {
 							$start_tag = sprintf(
 								'<%s src="%s" title="%s" alt="%s" class="%s" style="%s"/>',
 								$type,
-								$src,
-								$title,
-								$alt,
-								trim( $class ),
-								self::parseTagStyle( $img_style )
+								esc_url( $src ),
+								esc_attr( $title ),
+								esc_attr( $alt ),
+								esc_attr( trim( $class ) ),
+								esc_attr( self::parseTagStyle( $img_style ) )
 							);
 						}
 					} else {
@@ -1624,7 +1624,7 @@ class Delicious_Dynamic_Recipe_Card {
 					$href       = isset( $node['props']['href'] ) ? $node['props']['href'] : '#';
 					$target     = isset( $node['props']['target'] ) ? $node['props']['target'] : '_blank';
 
-					$start_tag = sprintf( '<%s rel="%s" aria-label="%s" href="%s" target="%s">', $type, $rel, $aria_label, $href, $target );
+					$start_tag = sprintf( '<%s rel="%s" aria-label="%s" href="%s" target="%s">', $type, esc_attr( $rel ), esc_attr( $aria_label ), esc_url( $href ), esc_attr( $target ) );
 				} elseif ( 'br' === $type ) {
 					$end_tag = '';
 				}
@@ -1669,7 +1669,7 @@ class Delicious_Dynamic_Recipe_Card {
 						$class     = ' direction-step-image';
 						$img_style = isset( $node['props']['style'] ) ? $node['props']['style'] : '';
 
-						$start_tag = sprintf( '<%s src="%s" title="%s" alt="%s" class="%s" style="%s"/>', $type, $src, $title, $alt, trim( $class ), self::parseTagStyle( $img_style ) );
+						$start_tag = sprintf( '<%s src="%s" title="%s" alt="%s" class="%s" style="%s"/>', $type, esc_url( $src ), esc_attr( $title ), esc_attr( $alt ), esc_attr( trim( $class ) ), esc_attr( self::parseTagStyle( $img_style ) ) );
 					} else {
 						$start_tag = '';
 					}
@@ -1680,7 +1680,7 @@ class Delicious_Dynamic_Recipe_Card {
 					$href       = isset( $node['props']['href'] ) ? $node['props']['href'] : '#';
 					$target     = isset( $node['props']['target'] ) ? $node['props']['target'] : '_blank';
 
-					$start_tag = sprintf( '<%s rel="%s" aria-label="%s" href="%s" target="%s">', $type, $rel, $aria_label, $href, $target );
+					$start_tag = sprintf( '<%s rel="%s" aria-label="%s" href="%s" target="%s">', $type, esc_attr( $rel ), esc_attr( $aria_label ), esc_url( $href ), esc_attr( $target ) );
 				} elseif ( 'br' === $type ) {
 					$end_tag = '';
 				}

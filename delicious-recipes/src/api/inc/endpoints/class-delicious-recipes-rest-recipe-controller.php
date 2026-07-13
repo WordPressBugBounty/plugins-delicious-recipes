@@ -308,6 +308,34 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 	}
 
 	/**
+	 * Check permissions for updating a recipe.
+	 *
+	 * @param WP_REST_Request $request Current request.
+	 */
+	public function post_item_permissions_check( $request ) {
+		$parent_check = parent::post_item_permissions_check( $request );
+		if ( is_wp_error( $parent_check ) ) {
+			return $parent_check;
+		}
+
+		$id = isset( $request['id'] ) ? (int) $request['id'] : 0;
+		if ( ! $id ) {
+			return new WP_Error( 'rest_post_not_found', esc_html__( 'Recipe not found.', 'delicious-recipes' ), array( 'status' => 404 ) );
+		}
+
+		$post = get_post( $id );
+		if ( ! $post || DELICIOUS_RECIPE_POST_TYPE !== $post->post_type ) {
+			return new WP_Error( 'rest_invalid_post_type', esc_html__( 'Invalid post type.', 'delicious-recipes' ), array( 'status' => 404 ) );
+		}
+
+		if ( ! current_user_can( 'edit_post', $id ) ) {
+			return new WP_Error( 'rest_cannot_edit', esc_html__( 'Sorry, you are not allowed to edit this recipe.', 'delicious-recipes' ), array( 'status' => $this->authorization_status_code() ) );
+		}
+
+		return true;
+	}
+
+	/**
 	 * Matches the post data to the schema we want.
 	 *
 	 * @param WP_Post         $post The comment object whose response is being prepared.

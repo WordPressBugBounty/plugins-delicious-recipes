@@ -1,3 +1,13 @@
+1.10.3: 2026-07-13
+- Security: Fixed stored XSS vulnerabilities in Recipe Card, Ingredients, and Instructions blocks — links and image URLs are now sanitized on output. Reported by Wordfence and internal security audit.
+- Security: Added nonce verification and capability checks to ingredient links, featured recipe, recipe clone, and wishlist AJAX endpoints.
+- Security: Replaced unsafe unserialize() calls with wp_remote_get() + json_decode() for Vimeo thumbnail fetching across 5 locations.
+- Security: Fixed an authorization issue where Author-level users could read the reCAPTCHA secret key from global settings via the REST API.
+- Fixes: Fixed an authorization issue where Author-level users could edit other users' recipes via the REST API.
+- Fixes: Fixed an authorization issue where Author-level users could delete arbitrary media files via the CSV import endpoint.
+- Fixes: Fixed a CSRF issue in the wishlist handler — added nonce verification and post-type validation.
+- Fixes: Replaced raw unserialize() with maybe_unserialize() on WP Recipe Maker import data for defense-in-depth.
+
 1.10.2: 2026-07-02
 - Security: Hardened the recipe "likes" AJAX endpoint — added nonce verification, restricted likes to recipe post types, and moved visitor identity server-side to prevent unauthenticated like-count inflation and unbounded post meta growth. Thanks to Pedro Pinho for the responsible disclosure.
 

@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Delicious 1.10.2\n"
+"Project-Id-Version: WP Delicious 1.10.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/delicious-recipes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-06T08:59:30+00:00\n"
+"POT-Creation-Date: 2026-07-13T04:34:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -306,62 +306,62 @@ msgid "Recipe Onboarding Settings Saved Successfully."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:298
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:370
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:398
 msgid "Current page of the collection."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:306
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:378
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:406
 msgid "Maximum number of items to be returned in result set."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:357
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:429
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:457
 msgid "Unique identifier for the object."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:363
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:435
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:463
 msgid "The date the object was published, in the site's timezone."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:369
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:441
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:469
 msgid "The title for the object."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:378
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:450
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:478
 msgid "Title for the object, as it exists in the database."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:383
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:455
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:483
 msgid "HTML title for the object, transformed for display."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:391
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:463
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:491
 msgid "URL to the object."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:398
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:470
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:498
 msgid "The date the object was last modified, in the site's timezone."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:405
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:477
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:505
 msgid "The date the object was last modified, as GMT."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:412
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:484
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:512
 msgid "A named status for the object."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:418
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:490
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:518
 msgid "Type of Post for the object."
 msgstr ""
 
@@ -378,7 +378,7 @@ msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:305
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:387
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2108
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2125
 msgid "Error importing terms."
 msgstr ""
 
@@ -388,8 +388,9 @@ msgid "Terms imported successfully."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:455
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:768
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2168
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:774
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2224
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:323
 msgid "Recipe not found."
 msgstr ""
 
@@ -397,120 +398,125 @@ msgstr ""
 msgid "Recipe settings not found."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:689
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1177
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1925
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2522
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:695
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1188
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1942
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2584
 msgid "Error importing recipe."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:753
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1244
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1956
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2591
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:759
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1255
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1973
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2653
 msgid "Recipe imported successfully."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1262
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1273
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:328
 msgid "Invalid post type."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1271
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1282
 msgid "Sorry, you are not allowed to delete recipes."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1292
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1303
 msgid "Recipe IDs are required."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1303
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1314
 msgid "Invalid recipe IDs format."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1317
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1328
 #, php-format
 msgid "Invalid recipe ID: %s"
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1326
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1337
 #, php-format
 msgid "Recipe with ID %d does not exist."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1332
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1343
 #, php-format
 msgid "Post ID %d is not a recipe."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1338
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1349
 #, php-format
 msgid "You do not have permission to delete recipe ID %d."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1347
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1358
 #, php-format
 msgid "Failed to delete recipe ID %d."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1355
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1366
 msgid "Failed to delete recipes."
 msgstr ""
 
 #. translators: %d: number of deleted recipes
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1365
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1376
 #, php-format
 msgid "%d recipe deleted successfully."
 msgid_plural "%d recipes deleted successfully."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1377
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1388
 msgid "Some recipes could not be deleted."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1397
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1408
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2149
 msgid "Invalid file ID."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1407
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1418
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2159
 msgid "Invalid attachment."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1417
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1428
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2169
 msgid "File must be a CSV file."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1429
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2135
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1440
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2181
 msgid "File not found."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1439
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1450
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2190
 msgid "File must have a .csv extension."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1463
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1477
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1474
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1488
 msgid "Error reading CSV file."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1487
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1498
 msgid "No data found in CSV file."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1494
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1505
 msgid "No recipes found in CSV file."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1500
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1511
 msgid "CSV file data fetched successfully."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2143
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2199
 msgid "Error deleting file."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2152
+#: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2208
 msgid "File deleted successfully."
 msgstr ""
 
@@ -538,6 +544,10 @@ msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:266
 msgid "Recipe Settings Saved Successfully."
+msgstr ""
+
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:332
+msgid "Sorry, you are not allowed to edit this recipe."
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-details.php:249
@@ -939,7 +949,7 @@ msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:511
 #: src/DeliciousAdmin.php:1625
-#: src/Functions/HelperFunctions.php:1186
+#: src/Functions/HelperFunctions.php:1190
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:19
 #: assets/admin/contexts/recipe-contexts.jsx:115
 #: assets/build/global.js:1364
@@ -949,7 +959,7 @@ msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:515
 #: src/DeliciousAdmin.php:1626
-#: src/Functions/HelperFunctions.php:1188
+#: src/Functions/HelperFunctions.php:1192
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:23
 #: assets/admin/contexts/recipe-contexts.jsx:117
 #: assets/build/global.js:1364
@@ -959,7 +969,7 @@ msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:519
 #: src/DeliciousAdmin.php:1627
-#: src/Functions/HelperFunctions.php:1187
+#: src/Functions/HelperFunctions.php:1191
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:15
 #: assets/admin/contexts/recipe-contexts.jsx:116
 #: assets/build/global.js:1364
@@ -973,7 +983,7 @@ msgstr ""
 #: src/Functions/CoreFunctions.php:634
 #: src/Functions/CoreFunctions.php:1026
 #: src/Functions/CoreFunctions.php:1167
-#: src/Functions/HelperFunctions.php:1189
+#: src/Functions/HelperFunctions.php:1193
 #: src/widgets/recipe-keys.php:60
 #: src/widgets/recipe-keys.php:97
 #: templates/global/block-print.php:241
@@ -992,7 +1002,7 @@ msgstr ""
 #: src/classes/class-delicious-recipes-activator.php:527
 #: src/DeliciousAdmin.php:1629
 #: src/Functions/CoreFunctions.php:1031
-#: src/Functions/HelperFunctions.php:1190
+#: src/Functions/HelperFunctions.php:1194
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:27
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:493
 #: assets/admin/contexts/recipe-contexts.jsx:119
@@ -1006,7 +1016,7 @@ msgstr ""
 #: src/DeliciousAdmin.php:1014
 #: src/DeliciousAdmin.php:1630
 #: src/Functions/CoreFunctions.php:1036
-#: src/Functions/HelperFunctions.php:1191
+#: src/Functions/HelperFunctions.php:1195
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:35
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:498
 #: assets/admin/contexts/recipe-contexts.jsx:120
@@ -1019,7 +1029,7 @@ msgstr ""
 #: src/classes/class-delicious-recipes-activator.php:535
 #: src/DeliciousAdmin.php:1631
 #: src/Functions/CoreFunctions.php:1043
-#: src/Functions/HelperFunctions.php:1192
+#: src/Functions/HelperFunctions.php:1196
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:503
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:784
 #: assets/build/blocks.js:1211
@@ -1053,7 +1063,7 @@ msgid "Ingredients Link"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-likes-wishlists.php:184
-#: src/classes/class-delicious-recipes-likes-wishlists.php:356
+#: src/classes/class-delicious-recipes-likes-wishlists.php:366
 #: templates/recipe/recipe-like.php:7
 #, php-format
 msgctxt "number of likes"
@@ -1063,9 +1073,18 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/classes/class-delicious-recipes-likes-wishlists.php:233
-#: src/classes/class-delicious-recipes-likes-wishlists.php:300
+#: src/classes/class-delicious-recipes-likes-wishlists.php:310
 #: templates/recipe/recipe-wishlist.php:26
 msgid "Added to Favorites"
+msgstr ""
+
+#: src/classes/class-delicious-recipes-likes-wishlists.php:262
+#: src/Functions/AjaxFunctions.php:719
+msgid "Invalid nonce."
+msgstr ""
+
+#: src/classes/class-delicious-recipes-likes-wishlists.php:280
+msgid "Invalid recipe."
 msgstr ""
 
 #: src/classes/class-delicious-recipes-onboard.php:58
@@ -1949,25 +1968,25 @@ msgstr ""
 msgid "Click here or Drop new image to update your profile picture"
 msgstr ""
 
-#: src/DeliciousPublic.php:677
+#: src/DeliciousPublic.php:678
 msgid "Leave a Comment"
 msgstr ""
 
 #. translators: %s is username.
-#: src/DeliciousPublic.php:680
+#: src/DeliciousPublic.php:681
 #, php-format
 msgid "Leave a Comment to %s"
 msgstr ""
 
-#: src/DeliciousPublic.php:753
+#: src/DeliciousPublic.php:754
 msgid "Please rate the recipe."
 msgstr ""
 
-#: src/DeliciousPublic.php:819
+#: src/DeliciousPublic.php:820
 msgid "Rating"
 msgstr ""
 
-#: src/DeliciousPublic.php:903
+#: src/DeliciousPublic.php:904
 #: src/Functions/CoreFunctions.php:762
 #: assets/admin/components/global-settings/global-tabs/global-recipe-index.jsx:15
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:293
@@ -1977,39 +1996,43 @@ msgstr ""
 msgid "Recipe Index"
 msgstr ""
 
-#: src/Functions/AjaxFunctions.php:530
+#: src/Functions/AjaxFunctions.php:538
 msgid "fall"
 msgstr ""
 
-#: src/Functions/AjaxFunctions.php:531
+#: src/Functions/AjaxFunctions.php:539
 msgid "winter"
 msgstr ""
 
-#: src/Functions/AjaxFunctions.php:532
+#: src/Functions/AjaxFunctions.php:540
 msgid "summer"
 msgstr ""
 
-#: src/Functions/AjaxFunctions.php:533
+#: src/Functions/AjaxFunctions.php:541
 msgid "spring"
 msgstr ""
 
-#: src/Functions/AjaxFunctions.php:534
+#: src/Functions/AjaxFunctions.php:542
 msgid "suitable throughout the year"
 msgstr ""
 
-#: src/Functions/AjaxFunctions.php:641
+#: src/Functions/AjaxFunctions.php:649
 #: src/Functions/HelperPagination.php:163
 msgid "Prev"
 msgstr ""
 
-#: src/Functions/AjaxFunctions.php:642
+#: src/Functions/AjaxFunctions.php:650
 #: src/Functions/HelperPagination.php:165
 #: templates/recipe/navigation.php:52
 msgid "Next"
 msgstr ""
 
-#: src/Functions/AjaxFunctions.php:694
+#: src/Functions/AjaxFunctions.php:702
 msgid "Plugin"
+msgstr ""
+
+#: src/Functions/AjaxFunctions.php:723
+msgid "You do not have permission to perform this action."
 msgstr ""
 
 #. translators: %s template
@@ -2104,7 +2127,7 @@ msgstr ""
 
 #: src/Functions/CoreFunctions.php:610
 #: src/Functions/CoreFunctions.php:1155
-#: src/Functions/HelperFunctions.php:533
+#: src/Functions/HelperFunctions.php:537
 #: templates/recipe/recipe-block/ingredients.php:124
 #: templates/recipe/recipe-block/nutrition-flat.php:120
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:181
@@ -2120,7 +2143,7 @@ msgstr ""
 
 #: src/Functions/CoreFunctions.php:618
 #: src/Functions/CoreFunctions.php:1159
-#: src/Functions/HelperFunctions.php:544
+#: src/Functions/HelperFunctions.php:548
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:187
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:391
 #: assets/admin/contexts/recipe-contexts.jsx:65
@@ -2674,258 +2697,258 @@ msgstr ""
 msgid "Style Two"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:537
+#: src/Functions/HelperFunctions.php:541
 #: templates/recipe/recipe-block/nutrition-flat.php:123
 #: assets/admin/contexts/recipe-contexts.jsx:64
 #: assets/build/import.js:1
 msgid "Serving Size"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:552
+#: src/Functions/HelperFunctions.php:556
 #: assets/admin/contexts/recipe-contexts.jsx:66
 #: assets/build/import.js:1
 msgid "Total Fat"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:558
+#: src/Functions/HelperFunctions.php:562
 #: assets/admin/contexts/recipe-contexts.jsx:67
 #: assets/build/import.js:1
 msgid "Saturated Fat"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:564
+#: src/Functions/HelperFunctions.php:568
 #: assets/admin/contexts/recipe-contexts.jsx:68
 #: assets/build/import.js:1
 msgid "Trans Fat"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:571
+#: src/Functions/HelperFunctions.php:575
 #: assets/admin/contexts/recipe-contexts.jsx:69
 #: assets/build/import.js:1
 msgid "Cholesterol"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:577
+#: src/Functions/HelperFunctions.php:581
 #: assets/admin/contexts/recipe-contexts.jsx:70
 #: assets/build/import.js:1
 msgid "Sodium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:583
+#: src/Functions/HelperFunctions.php:587
 #: assets/admin/contexts/recipe-contexts.jsx:71
 #: assets/build/import.js:1
 msgid "Potassium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:589
+#: src/Functions/HelperFunctions.php:593
 #: assets/admin/contexts/recipe-contexts.jsx:72
 #: assets/build/import.js:1
 msgid "Total Carbohydrate"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:595
+#: src/Functions/HelperFunctions.php:599
 #: assets/admin/contexts/recipe-contexts.jsx:73
 #: assets/build/import.js:1
 msgid "Dietary Fiber"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:601
+#: src/Functions/HelperFunctions.php:605
 #: assets/admin/contexts/recipe-contexts.jsx:74
 #: assets/build/import.js:1
 msgid "Sugars"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:608
+#: src/Functions/HelperFunctions.php:612
 #: templates/recipe/header.php:237
 #: assets/admin/contexts/recipe-contexts.jsx:75
 #: assets/build/import.js:1
 msgid "Protein"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:617
+#: src/Functions/HelperFunctions.php:621
 #: assets/admin/contexts/recipe-contexts.jsx:76
 #: assets/build/import.js:1
 msgid "Vitamin A"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:622
+#: src/Functions/HelperFunctions.php:626
 #: assets/admin/contexts/recipe-contexts.jsx:77
 #: assets/build/import.js:1
 msgid "Vitamin C"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:627
+#: src/Functions/HelperFunctions.php:631
 #: assets/admin/contexts/recipe-contexts.jsx:83
 #: assets/build/import.js:1
 msgid "Calcium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:632
+#: src/Functions/HelperFunctions.php:636
 #: assets/admin/contexts/recipe-contexts.jsx:84
 #: assets/build/import.js:1
 msgid "Iron"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:637
+#: src/Functions/HelperFunctions.php:641
 #: assets/admin/contexts/recipe-contexts.jsx:78
 #: assets/build/import.js:1
 msgid "Vitamin D"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:642
+#: src/Functions/HelperFunctions.php:646
 #: assets/admin/contexts/recipe-contexts.jsx:79
 #: assets/build/import.js:1
 msgid "Vitamin E"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:647
+#: src/Functions/HelperFunctions.php:651
 #: assets/admin/contexts/recipe-contexts.jsx:80
 #: assets/build/import.js:1
 msgid "Vitamin K"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:652
+#: src/Functions/HelperFunctions.php:656
 #: assets/admin/contexts/recipe-contexts.jsx:85
 #: assets/build/import.js:1
 msgid "Thiamin"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:657
+#: src/Functions/HelperFunctions.php:661
 #: assets/admin/contexts/recipe-contexts.jsx:86
 #: assets/build/import.js:1
 msgid "Riboflavin"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:662
+#: src/Functions/HelperFunctions.php:666
 #: assets/admin/contexts/recipe-contexts.jsx:87
 #: assets/build/import.js:1
 msgid "Niacin"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:667
+#: src/Functions/HelperFunctions.php:671
 #: assets/admin/contexts/recipe-contexts.jsx:81
 #: assets/build/import.js:1
 msgid "Vitamin B6"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:672
+#: src/Functions/HelperFunctions.php:676
 #: assets/admin/contexts/recipe-contexts.jsx:88
 #: assets/build/import.js:1
 msgid "Folate"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:677
+#: src/Functions/HelperFunctions.php:681
 #: assets/admin/contexts/recipe-contexts.jsx:82
 #: assets/build/import.js:1
 msgid "Vitamin B12"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:682
+#: src/Functions/HelperFunctions.php:686
 #: assets/admin/contexts/recipe-contexts.jsx:89
 #: assets/build/import.js:1
 msgid "Biotin"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:687
+#: src/Functions/HelperFunctions.php:691
 #: assets/admin/contexts/recipe-contexts.jsx:90
 #: assets/build/import.js:1
 msgid "Pantothenic Acid"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:692
+#: src/Functions/HelperFunctions.php:696
 #: assets/admin/contexts/recipe-contexts.jsx:91
 #: assets/build/import.js:1
 msgid "Phosphorus"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:697
+#: src/Functions/HelperFunctions.php:701
 #: assets/admin/contexts/recipe-contexts.jsx:92
 #: assets/build/import.js:1
 msgid "Iodine"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:702
+#: src/Functions/HelperFunctions.php:706
 #: assets/admin/contexts/recipe-contexts.jsx:93
 #: assets/build/import.js:1
 msgid "Magnesium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:707
+#: src/Functions/HelperFunctions.php:711
 #: assets/admin/contexts/recipe-contexts.jsx:94
 #: assets/build/import.js:1
 msgid "Zinc"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:712
+#: src/Functions/HelperFunctions.php:716
 #: assets/admin/contexts/recipe-contexts.jsx:95
 #: assets/build/import.js:1
 msgid "Selenium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:717
+#: src/Functions/HelperFunctions.php:721
 #: assets/admin/contexts/recipe-contexts.jsx:96
 #: assets/build/import.js:1
 msgid "Copper"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:722
+#: src/Functions/HelperFunctions.php:726
 #: assets/admin/contexts/recipe-contexts.jsx:97
 #: assets/build/import.js:1
 msgid "Manganese"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:727
+#: src/Functions/HelperFunctions.php:731
 #: assets/admin/contexts/recipe-contexts.jsx:98
 #: assets/build/import.js:1
 msgid "Chromium"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:732
+#: src/Functions/HelperFunctions.php:736
 #: assets/admin/contexts/recipe-contexts.jsx:99
 #: assets/build/import.js:1
 msgid "Molybdenum"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:737
+#: src/Functions/HelperFunctions.php:741
 #: assets/admin/contexts/recipe-contexts.jsx:100
 #: assets/build/import.js:1
 msgid "Chloride"
 msgstr ""
 
 #. translators: %s: comment author link
-#: src/Functions/HelperFunctions.php:876
+#: src/Functions/HelperFunctions.php:880
 #, php-format
 msgid "<b class=\"fn\" itemprop=\"creator\" itemscope itemtype=\"https://schema.org/Person\">%s</b> <span class=\"says\">says:</span>"
 msgstr ""
 
 #. translators: %1$s: comment date %2$s: comment time
-#: src/Functions/HelperFunctions.php:884
+#: src/Functions/HelperFunctions.php:888
 #, php-format
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:890
+#: src/Functions/HelperFunctions.php:894
 msgid "Your comment is awaiting moderation."
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:1222
+#: src/Functions/HelperFunctions.php:1226
 msgid "Displays icon"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:1226
+#: src/Functions/HelperFunctions.php:1230
 msgid "Displays text"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:1230
+#: src/Functions/HelperFunctions.php:1234
 msgid "Displays text & icon"
 msgstr ""
 
-#: src/Functions/HelperFunctions.php:1234
+#: src/Functions/HelperFunctions.php:1238
 msgid "Randomize posts"
 msgstr ""
 
 #. translators: %s: time in minutes
-#: src/Functions/HelperFunctions.php:1288
+#: src/Functions/HelperFunctions.php:1292
 #, php-format
 msgctxt "recipe time minutes"
 msgid "%s min"
@@ -2934,7 +2957,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: time in hours
-#: src/Functions/HelperFunctions.php:1292
+#: src/Functions/HelperFunctions.php:1296
 #, php-format
 msgctxt "recipe time hours"
 msgid "%s hr"

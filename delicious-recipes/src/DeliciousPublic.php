@@ -402,6 +402,7 @@ class DeliciousPublic {
 			'license_validity'     => $license_validity,
 			'isUserLoggedIn'       => is_user_logged_in(),
 			'like_nonce'           => wp_create_nonce( 'delicious_recipes_like_nonce' ),
+			'wishlist_nonce'       => wp_create_nonce( 'delicious_recipes_wishlist_nonce' ),
 		);
 
 		wp_register_script(

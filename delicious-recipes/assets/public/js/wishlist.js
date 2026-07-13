@@ -12,6 +12,7 @@ export function initWishlist() {
         formData.append('action', 'delicious_recipes_wishlist');
         formData.append('add_remove', addRemove);
         formData.append('recipe_id', recipeID);
+        formData.append('nonce', delicious_recipes.wishlist_nonce);
         fetch(delicious_recipes.ajax_url, {
             method: 'POST',
             body: formData

@@ -624,8 +624,14 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 				$video_type      = 'vimeo';
 				$video_id        = explode( '/', $video_url );
 				$video_id        = end( $video_id );
-				$video_thumbnail = unserialize( file_get_contents( 'http://vimeo.com/api/v2/video/' . $video_id . '.php' ) );
-				$video_thumbnail = $video_thumbnail[0]['thumbnail_large'];
+				$thumbnail_response = wp_remote_get( 'https://vimeo.com/api/v2/video/' . $video_id . '.json' );
+				$video_thumbnail    = '';
+				if ( ! is_wp_error( $thumbnail_response ) ) {
+					$thumbnail_data = json_decode( wp_remote_retrieve_body( $thumbnail_response ), true );
+					if ( ! empty( $thumbnail_data ) && is_array( $thumbnail_data ) ) {
+						$video_thumbnail = $thumbnail_data[0]['thumbnail_large'];
+					}
+				}
 			}
 			$new_recipe_meta['videoGalleryVids'][] = array(
 				'vidID'    => $video_id,
@@ -847,7 +853,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		// Ingredients Data.
 		$new_recipe_meta['ingredientTitle'] = '';
 		if ( isset( $post_meta['wprm_ingredients'][0] ) && '' !== $post_meta['wprm_ingredients'][0] ) {
-			$ingredients = unserialize( $post_meta['wprm_ingredients'][0] );
+			$ingredients = maybe_unserialize( $post_meta['wprm_ingredients'][0] );
 			foreach ( $ingredients as $key => $ingredient ) {
 				$current_section_ingredients = array();
 				if ( isset( $ingredient['name'] ) && ! empty( $ingredient['name'] ) ) {
@@ -885,7 +891,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		// Instructions Data.
 		$new_recipe_meta['instructionTitle'] = '';
 		if ( isset( $post_meta['wprm_instructions'][0] ) ) {
-			$instructions = unserialize( $post_meta['wprm_instructions'][0] );
+			$instructions = maybe_unserialize( $post_meta['wprm_instructions'][0] );
 			foreach ( $instructions as $key => $instruction ) {
 				$current_section_instructions = array();
 				if ( isset( $instruction['name'] ) && ! empty( $instruction['name'] ) ) {
@@ -980,8 +986,13 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 				$video_thumbnail = '';
 				$video_id        = explode( '/', $video_url );
 				$video_id        = end( $video_id );
-				$video_thumbnail = unserialize( file_get_contents( 'http://vimeo.com/api/v2/video/' . $video_id . '.php' ) );
-				$video_thumbnail = $video_thumbnail[0]['thumbnail_large'];
+				$thumbnail_response = wp_remote_get( 'https://vimeo.com/api/v2/video/' . $video_id . '.json' );
+				if ( ! is_wp_error( $thumbnail_response ) ) {
+					$thumbnail_data = json_decode( wp_remote_retrieve_body( $thumbnail_response ), true );
+					if ( ! empty( $thumbnail_data ) && is_array( $thumbnail_data ) ) {
+						$video_thumbnail = $thumbnail_data[0]['thumbnail_large'];
+					}
+				}
 			}
 			$new_recipe_meta['videoGalleryVids'][] = array(
 				'vidID'    => $video_id,
@@ -1041,7 +1052,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		if ( delicious_recipes_is_pro_activated() ) {
 			// Equipment Data.
 			if ( isset( $post_meta['wprm_equipment'][0] ) && '' !== $post_meta['wprm_equipment'][0] ) {
-				$equipment = unserialize( $post_meta['wprm_equipment'][0] );
+				$equipment = maybe_unserialize( $post_meta['wprm_equipment'][0] );
 				foreach ( $equipment as $key => $equip ) {
 					$term_meta       = get_term_meta( $equip['id'] );
 					$term_meta       = array_map( 'maybe_unserialize', $term_meta );
@@ -1127,7 +1138,7 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 
 			// Ingredient Links Data.
 			if ( isset( $post_meta['wprm_ingredients'][0] ) && '' !== $post_meta['wprm_ingredients'][0] ) {
-				$ingredients                        = unserialize( $post_meta['wprm_ingredients'][0] );
+				$ingredients                        = maybe_unserialize( $post_meta['wprm_ingredients'][0] );
 				$ingredient_links                   = array();
 				$delicious_recipes_ingredient_links = get_option( 'delicious_recipes_auto_link_ingredients', array() );
 				foreach ( $ingredients as $key => $ingredient ) {
@@ -1756,11 +1767,17 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 					$video_type      = 'vimeo';
 					$video_id        = explode( '/', $video_url );
 					$video_id        = end( $video_id );
-					$video_thumbnail = unserialize( file_get_contents( 'http://vimeo.com/api/v2/video/' . $video_id . '.php' ) );
-					$video_thumbnail = $video_thumbnail[0]['thumbnail_large'];
+					$thumbnail_response = wp_remote_get( 'https://vimeo.com/api/v2/video/' . $video_id . '.json' );
+					$video_thumbnail    = '';
+			if ( ! is_wp_error( $thumbnail_response ) ) {
+				$thumbnail_data = json_decode( wp_remote_retrieve_body( $thumbnail_response ), true );
+				if ( ! empty( $thumbnail_data ) && is_array( $thumbnail_data ) ) {
+					$video_thumbnail = $thumbnail_data[0]['thumbnail_large'];
 				}
-				$new_recipe_meta['videoGalleryVids'][] = array(
-					'vidID'    => $video_id,
+			}
+			}
+			$new_recipe_meta['videoGalleryVids'][] = array(
+				'vidID'    => $video_id,
 					'vidType'  => $video_type,
 					'vidThumb' => $video_thumbnail,
 				);
@@ -2125,6 +2142,35 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 		$request_params = $request->get_params();
 		$file_id        = $request_params['CSV_id'];
 
+		// Validate file ID.
+		if ( empty( $file_id ) || ! is_numeric( $file_id ) ) {
+			return new \WP_Error(
+				'invalid_file_id',
+				__( 'Invalid file ID.', 'delicious-recipes' ),
+				array( 'status' => 400 )
+			);
+		}
+
+		// Verify the attachment exists.
+		$attachment = get_post( $file_id );
+		if ( ! $attachment || 'attachment' !== $attachment->post_type ) {
+			return new \WP_Error(
+				'invalid_attachment',
+				__( 'Invalid attachment.', 'delicious-recipes' ),
+				array( 'status' => 404 )
+			);
+		}
+
+		// Verify the file is a CSV.
+		$mime_type = get_post_mime_type( $file_id );
+		if ( ! in_array( $mime_type, array( 'text/csv', 'text/plain', 'application/csv' ), true ) ) {
+			return new \WP_Error(
+				'invalid_file_type',
+				__( 'File must be a CSV file.', 'delicious-recipes' ),
+				array( 'status' => 400 )
+			);
+		}
+
 		// Get the file path from the file id.
 		$file_path = get_attached_file( $file_id );
 
@@ -2133,6 +2179,16 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 			return array(
 				'status'  => false,
 				'message' => __( 'File not found.', 'delicious-recipes' ),
+			);
+		}
+
+		// Additional security: Verify file extension.
+		$file_extension = strtolower( pathinfo( $file_path, PATHINFO_EXTENSION ) );
+		if ( 'csv' !== $file_extension ) {
+			return new \WP_Error(
+				'invalid_file_extension',
+				__( 'File must have a .csv extension.', 'delicious-recipes' ),
+				array( 'status' => 400 )
 			);
 		}
 
@@ -2428,20 +2484,26 @@ class Delicious_Recipes_REST_Import_Recipe_Terms_Controller extends Delicious_Re
 					$video_thumbnail = '';
 					$video_id        = explode( '/', $video_url );
 					$video_id        = end( $video_id );
-					$video_thumbnail = unserialize( file_get_contents( 'http://vimeo.com/api/v2/video/' . $video_id . '.php' ) );
-					$video_thumbnail = $video_thumbnail[0]['thumbnail_large'];
-				}
-				$new_recipe_meta['videoGalleryVids'][] = array(
-					'vidID'    => $video_id,
-					'vidType'  => $video_type,
-					'vidThumb' => $video_thumbnail,
-				);
+					$thumbnail_response = wp_remote_get( 'https://vimeo.com/api/v2/video/' . $video_id . '.json' );
+					$video_thumbnail    = '';
+					if ( ! is_wp_error( $thumbnail_response ) ) {
+						$thumbnail_data = json_decode( wp_remote_retrieve_body( $thumbnail_response ), true );
+						if ( ! empty( $thumbnail_data ) && is_array( $thumbnail_data ) ) {
+							$video_thumbnail = $thumbnail_data[0]['thumbnail_large'];
+						}
+					}
 			}
+			$new_recipe_meta['videoGalleryVids'][] = array(
+				'vidID'    => $video_id,
+				'vidType'  => $video_type,
+				'vidThumb' => $video_thumbnail,
+			);
+		}
 
-			// ? Might need to remove this from recipe-tabs-content.jsx.
-			$new_recipe_meta['recipeDelicious'][] = array(
-				'drImage' => '',
-				'drLink'  => '',
+		// ? Might need to remove this from recipe-tabs-content.jsx.
+		$new_recipe_meta['recipeDelicious'][] = array(
+			'drImage' => '',
+			'drLink'  => '',
 			);
 
 			// Nutrition Data.

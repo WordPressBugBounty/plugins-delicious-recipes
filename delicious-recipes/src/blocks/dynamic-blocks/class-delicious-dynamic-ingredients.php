@@ -378,7 +378,7 @@ class Delicious_Dynamic_Ingredients {
 					$href       = isset( $node['props']['href'] ) ? $node['props']['href'] : '#';
 					$target     = isset( $node['props']['target'] ) ? $node['props']['target'] : '_blank';
 
-					$start_tag = sprintf( '<%s rel="%s" aria-label="%s" href="%s" target="%s">', $type, $rel, $aria_label, $href, $target );
+					$start_tag = sprintf( '<%s rel="%s" aria-label="%s" href="%s" target="%s">', $type, esc_attr( $rel ), esc_attr( $aria_label ), esc_url( $href ), esc_attr( $target ) );
 				} elseif ( 'br' === $type ) {
 					$end_tag = '';
 				}
