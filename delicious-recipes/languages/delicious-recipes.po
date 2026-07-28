@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Delicious 1.10.3\n"
+"Project-Id-Version: WP Delicious 1.10.4\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/delicious-recipes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-13T04:34:39+00:00\n"
+"POT-Creation-Date: 2026-07-28T07:43:56+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -610,7 +610,7 @@ msgstr ""
 msgid "Percent Daily Values are based on a 2,000 calorie diet. Your daily value may be higher or lower depending on your calorie needs."
 msgstr ""
 
-#: src/blocks/dynamic-blocks/class-delicious-dynamic-nutrition.php:303
+#: src/blocks/dynamic-blocks/class-delicious-dynamic-nutrition.php:305
 #: templates/recipe/recipe-block/nutrition.php:243
 #: assets/admin/components/recipe-settings/tabs/recipe-nutrition-facts.jsx:59
 #: assets/blocks/nutrition/Nutrition.js:235

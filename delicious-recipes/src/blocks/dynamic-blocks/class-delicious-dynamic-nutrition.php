@@ -214,13 +214,15 @@ class Delicious_Dynamic_Nutrition {
 					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] ) ) : false;
 					if ( ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] ) || $nutri_zero_condition ) :
 						if ( 'calories_fat' !== $slug ) :
-							echo '<dt class="dr-nut-no-border text-large">';
-							echo '<strong>' . esc_html( $nf['name'] ) . '</strong> <span class="dr-nut-right" style="display:block;"><strong>' . esc_html( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong>' . esc_html( $nf['measurement'] ) . '</strong></span>' : '' );
+							echo '<div class="dr-nut-group dr-nut-no-border text-large">';
+							echo '<dt><strong>' . esc_html( $nf['name'] ) . '</strong></dt>';
+							echo '<dd><span class="dr-nut-right"><strong>' . esc_html( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong>' . esc_html( $nf['measurement'] ) . '</strong>' : '' ) . '</span>';
 
 							if ( isset( $nutrition_facts['calories_fat'] ) && $nutrition_facts['calories_fat'] ) :
-								echo '<span class="dr-calories-fat dr-right">' . esc_attr( $mid_facts['calories_fat']['name'] ) . ' ' . esc_attr( $nutrition_facts['calories_fat'] ) . '</span>';
+								echo '<span class="dr-calories-fat dr-right">' . esc_html( $mid_facts['calories_fat']['name'] ) . ' ' . esc_html( $nutrition_facts['calories_fat'] ) . '</span>';
 							endif;
-							echo '</dt>';
+							echo '</dd>';
+							echo '</div>';
 						endif;
 					endif;
 				endforeach;
@@ -242,19 +244,19 @@ class Delicious_Dynamic_Nutrition {
 					$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $slug ] ) && ( '0' === $nutrition_facts[ $slug ] || 0 === $nutrition_facts[ $slug ] ) ) : false;
 					if ( ( isset( $nutrition_facts[ $slug ] ) && $nutrition_facts[ $slug ] ) || $nutri_zero_condition ) :
 
-						echo '<dt>';
-						echo '<strong>' . esc_html( $nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_attr( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_attr( $nf['measurement'] ) . '</strong>' : '' );
-						echo ( isset( $nf['pdv'] ) && $nutrition_facts[ $slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . ceil( ( esc_attr( $nutrition_facts[ $slug ] ) / $nf['pdv'] ) * 100 ) . '</span>%</strong>' : '' );
-						echo '</dt>';
+						echo '<div class="dr-nut-group">';
+						echo '<dt><strong>' . esc_html( $nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_attr( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_attr( $nf['measurement'] ) . '</strong>' : '' ) . '</dt>';
+						echo '<dd>' . ( isset( $nf['pdv'] ) && $nutrition_facts[ $slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . ceil( ( floatval( $nutrition_facts[ $slug ] ) / $nf['pdv'] ) * 100 ) . '</span>%</strong>' : '' ) . '</dd>';
+						echo '</div>';
 
 						if ( isset( $nf['subs'] ) ) :
 							foreach ( $nf['subs'] as $sub_slug => $sub_nf ) :
 								$nutri_zero_condition = $display_nutrition_zero_values ? ( isset( $nutrition_facts[ $sub_slug ] ) && ( '0' === $nutrition_facts[ $sub_slug ] || 0 === $nutrition_facts[ $sub_slug ] ) ) : false;
 								if ( isset( $nutrition_facts[ $sub_slug ] ) && ( $nutrition_facts[ $sub_slug ] || $nutri_zero_condition ) ) :
-									echo '<dt class="dr-nut-sub">';
-									echo '<strong>' . esc_html( $sub_nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_html( $nutrition_facts[ $sub_slug ] ) . '</strong>' . ( isset( $sub_nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_html( $sub_nf['measurement'] ) . '</strong>' : '' );
-									echo ( isset( $sub_nf['pdv'] ) && $nutrition_facts[ $sub_slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . ceil( ( esc_attr( $nutrition_facts[ $sub_slug ] ) / $sub_nf['pdv'] ) * 100 ) . '</span>%</strong>' : '' );
-									echo '</dt>';
+									echo '<div class="dr-nut-group dr-nut-sub">';
+									echo '<dt><strong>' . esc_html( $sub_nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_html( $nutrition_facts[ $sub_slug ] ) . '</strong>' . ( isset( $sub_nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_html( $sub_nf['measurement'] ) . '</strong>' : '' ) . '</dt>';
+									echo '<dd>' . ( isset( $sub_nf['pdv'] ) && $nutrition_facts[ $sub_slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . ceil( ( floatval( $nutrition_facts[ $sub_slug ] ) / $sub_nf['pdv'] ) * 100 ) . '</span>%</strong>' : '' ) . '</dd>';
+									echo '</div>';
 								endif;
 							endforeach;
 						endif;
@@ -300,20 +302,16 @@ class Delicious_Dynamic_Nutrition {
 				echo '<hr class="dr-nut-hr" ' . esc_attr( $style_hr ) . ' />';
 				echo '<dl>';
 
-					echo '<dt><strong class="dr-nut-heading">' . esc_html__( 'Amount Per Serving', 'delicious-recipes' ) . '</strong></dt>';
+					echo '<div class="dr-nut-group dr-nut-no-border"><dt><strong class="dr-nut-heading">' . esc_html__( 'Amount Per Serving', 'delicious-recipes' ) . '</strong></dt><dd></dd></div>';
 
 				if ( isset( $mid_facts_content ) && $mid_facts_content ) :
-					echo '<div class="dr-clearfix">';
 					echo wp_kses_post( $mid_facts_content );
-					echo '</div>';
 				endif;
 
 				if ( isset( $main_facts_content ) && $main_facts_content ) :
-					echo '<dt class="dr-nut-spacer" ' . esc_attr( $style ) . '></dt>';
-					echo '<dt class="dr-nut-no-border"><strong class="dr-nut-heading dr-nut-right">' . esc_html__( '% Daily Value *', 'delicious-recipes' ) . '</strong></dt>';
-					echo '<div class="dr-clearfix">';
-						echo wp_kses_post( $main_facts_content );
-					echo '</div>';
+					echo '<div class="dr-nut-group dr-nut-spacer" ' . esc_attr( $style ) . '><dt></dt><dd></dd></div>';
+					echo '<div class="dr-nut-group dr-nut-no-border"><dt></dt><dd><strong class="dr-nut-heading dr-nut-right">' . esc_html__( '% Daily Value *', 'delicious-recipes' ) . '</strong></dd></div>';
+					echo wp_kses_post( $main_facts_content );
 					endif;
 
 				echo '</dl>';
