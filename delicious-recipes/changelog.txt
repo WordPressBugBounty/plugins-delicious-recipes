@@ -1,3 +1,8 @@
+1.10.5: 2026-08-17
+- Fixes: Fixed the Recipe Settings panel appearing blank on every recipe — collapsing the panel is no longer remembered across page loads, so the recipe fields always come back after a reload.
+- Fixes: The block editor "Meta Boxes" area now opens at a usable height the first time you edit a recipe instead of starting collapsed. Your own choice is respected from then on.
+- Fixes: Prevented the Recipe Settings panel from being moved into the narrow editor sidebar by the move up/down buttons. Panels already moved there are restored to the main editor area automatically.
+
 1.10.4: 2026-07-28
 - Fixes: Fixed invalid HTML in the Nutrition Facts block — nutrition rows now use a valid <dl>/<dt>/<dd> structure, resolving W3C validation errors and the Lighthouse accessibility audit (1.3.1 Info and Relationships) for correct screen-reader output.
 

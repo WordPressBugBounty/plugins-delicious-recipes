@@ -79,6 +79,12 @@ class DeliciousAdmin {
 		// Add meta box.
 		add_action( 'add_meta_boxes', array( $this, 'add_new_recipe_metabox' ) );
 
+		// Never persist a collapsed state for the Recipe Settings metabox.
+		add_filter( 'get_user_option_closedpostboxes_' . DELICIOUS_RECIPE_POST_TYPE, array( $this, 'reset_recipe_metabox_closed_state' ) );
+
+		// Keep the Recipe Settings metabox out of the narrow editor sidebar.
+		add_filter( 'get_user_option_meta-box-order_' . DELICIOUS_RECIPE_POST_TYPE, array( $this, 'restore_recipe_metabox_location' ) );
+
 		// Admin Scripts.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ), 999999999 );
 
@@ -1256,6 +1262,83 @@ class DeliciousAdmin {
 	}
 
 	/**
+	 * Decide whether the "Meta Boxes" drawer preferences should be seeded for this user.
+	 *
+	 * Returns true only the first time a user opens the recipe editor, so the
+	 * drawer is opened once and every later change the user makes is respected.
+	 *
+	 * @return bool
+	 */
+	private function maybe_seed_metabox_prefs() {
+		$user_id = get_current_user_id();
+
+		if ( ! $user_id ) {
+			return false;
+		}
+
+		if ( get_user_meta( $user_id, '_delicious_recipes_metabox_prefs_seeded', true ) ) {
+			return false;
+		}
+
+		update_user_meta( $user_id, '_delicious_recipes_metabox_prefs_seeded', 1 );
+
+		return true;
+	}
+
+	/**
+	 * Drop the Recipe Settings metabox from the user's stored closed-postbox list.
+	 *
+	 * WordPress persists the collapsed state per user (not per post) in the
+	 * `closedpostboxes_recipe` user option, so a single accidental click on the
+	 * toggle hides the recipe fields on every recipe the user opens afterwards.
+	 * The box stays collapsible for the current page view; reloading restores it.
+	 *
+	 * @param array|false $closed Stored closed metabox IDs, or false when unset.
+	 *
+	 * @return array|false
+	 */
+	public function reset_recipe_metabox_closed_state( $closed ) {
+		if ( ! is_array( $closed ) ) {
+			return $closed;
+		}
+
+		return array_values( array_diff( $closed, array( 'delicious_recipes_metabox' ) ) );
+	}
+
+	/**
+	 * Move the Recipe Settings metabox back out of the `side` context.
+	 *
+	 * The block editor renders `side` metaboxes in the document sidebar, which is
+	 * far too narrow for the recipe fields. Users who already relocated it with
+	 * the move buttons get it restored to the main area on their next page load.
+	 *
+	 * @param array|false $order Stored metabox order keyed by context, or false when unset.
+	 *
+	 * @return array|false
+	 */
+	public function restore_recipe_metabox_location( $order ) {
+		if ( ! is_array( $order ) || empty( $order['side'] ) ) {
+			return $order;
+		}
+
+		$side = array_filter( array_map( 'trim', explode( ',', $order['side'] ) ) );
+
+		if ( ! in_array( 'delicious_recipes_metabox', $side, true ) ) {
+			return $order;
+		}
+
+		$order['side'] = implode( ',', array_diff( $side, array( 'delicious_recipes_metabox' ) ) );
+
+		$normal = isset( $order['normal'] ) ? array_filter( array_map( 'trim', explode( ',', $order['normal'] ) ) ) : array();
+		$normal = array_diff( $normal, array( 'delicious_recipes_metabox' ) );
+		array_unshift( $normal, 'delicious_recipes_metabox' );
+
+		$order['normal'] = implode( ',', $normal );
+
+		return $order;
+	}
+
+	/**
 	 * WP Delicious Metabox Callback.
 	 *
 	 * @return void
@@ -1406,6 +1489,24 @@ class DeliciousAdmin {
 				);
 
 				wp_enqueue_script( 'delicious-recipe-edit' );
+
+				// Meta Boxes drawer defaults + keep Recipe Settings out of the sidebar.
+				wp_enqueue_script(
+					'delicious-recipe-metabox-ui',
+					plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/admin/metabox-ui.js',
+					array( 'wp-data', 'wp-preferences', 'wp-dom-ready' ),
+					DELICIOUS_RECIPES_VERSION,
+					true
+				);
+
+				wp_localize_script(
+					'delicious-recipe-metabox-ui',
+					'DeliciousRecipesMetaBoxPrefs',
+					array(
+						'seed'   => $this->maybe_seed_metabox_prefs(),
+						'height' => (int) apply_filters( 'delicious_recipes_meta_boxes_default_height', 500 ),
+					)
+				);
 			}
 
 			$global_deps = include_once plugin_dir_path( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/global.asset.php';

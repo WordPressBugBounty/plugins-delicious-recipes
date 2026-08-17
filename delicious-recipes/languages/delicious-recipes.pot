@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Delicious 1.10.4\n"
+"Project-Id-Version: WP Delicious 1.10.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/delicious-recipes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-07-28T07:43:56+00:00\n"
+"POT-Creation-Date: 2026-08-17T03:01:40+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: delicious-recipes\n"
@@ -18,9 +18,9 @@ msgstr ""
 #. Author of the plugin
 #: delicious-recipes.php
 #: src/blocks/init.php:134
-#: src/DeliciousAdmin.php:595
-#: src/DeliciousAdmin.php:1764
-#: src/DeliciousAdmin.php:1795
+#: src/DeliciousAdmin.php:601
+#: src/DeliciousAdmin.php:1865
+#: src/DeliciousAdmin.php:1896
 #: assets/admin/components/onboarding/startBanner.jsx:26
 #: assets/admin/components/whatsNew/recipeWhatsNew.jsx:162
 #: assets/build/onboard.js:1
@@ -754,7 +754,7 @@ msgid "Cooking Method:"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:1444
-#: src/DeliciousAdmin.php:1085
+#: src/DeliciousAdmin.php:1091
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:83
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:47
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:61
@@ -763,7 +763,7 @@ msgid "Gluten Free"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:1445
-#: src/DeliciousAdmin.php:1145
+#: src/DeliciousAdmin.php:1151
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:84
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:48
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:89
@@ -772,7 +772,7 @@ msgid "Dairy Free"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:1446
-#: src/DeliciousAdmin.php:1100
+#: src/DeliciousAdmin.php:1106
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:85
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:49
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:108
@@ -789,7 +789,7 @@ msgid "Vegetarian"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:1448
-#: src/DeliciousAdmin.php:1185
+#: src/DeliciousAdmin.php:1191
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:87
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:51
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:125
@@ -798,7 +798,7 @@ msgid "Organic"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:1449
-#: src/DeliciousAdmin.php:1150
+#: src/DeliciousAdmin.php:1156
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:88
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:52
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:139
@@ -807,7 +807,7 @@ msgid "Nut Free"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:1450
-#: src/DeliciousAdmin.php:1205
+#: src/DeliciousAdmin.php:1211
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:89
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:53
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:156
@@ -816,7 +816,7 @@ msgid "Egg Free"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:1451
-#: src/DeliciousAdmin.php:1180
+#: src/DeliciousAdmin.php:1186
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:90
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:54
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:168
@@ -825,7 +825,7 @@ msgid "High Protein"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:1452
-#: src/DeliciousAdmin.php:1175
+#: src/DeliciousAdmin.php:1181
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:91
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:55
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:184
@@ -834,7 +834,7 @@ msgid "Keto"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:1453
-#: src/DeliciousAdmin.php:1170
+#: src/DeliciousAdmin.php:1176
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:92
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:56
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:201
@@ -949,7 +949,7 @@ msgid "Recipe Subscriber"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:511
-#: src/DeliciousAdmin.php:1625
+#: src/DeliciousAdmin.php:1726
 #: src/Functions/HelperFunctions.php:1190
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:19
 #: assets/admin/contexts/recipe-contexts.jsx:115
@@ -959,7 +959,7 @@ msgid "Recipe Courses"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:515
-#: src/DeliciousAdmin.php:1626
+#: src/DeliciousAdmin.php:1727
 #: src/Functions/HelperFunctions.php:1192
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:23
 #: assets/admin/contexts/recipe-contexts.jsx:117
@@ -969,7 +969,7 @@ msgid "Recipe Cooking Methods"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:519
-#: src/DeliciousAdmin.php:1627
+#: src/DeliciousAdmin.php:1728
 #: src/Functions/HelperFunctions.php:1191
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:15
 #: assets/admin/contexts/recipe-contexts.jsx:116
@@ -979,8 +979,8 @@ msgid "Recipe Cuisines"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:523
-#: src/DeliciousAdmin.php:985
-#: src/DeliciousAdmin.php:1628
+#: src/DeliciousAdmin.php:991
+#: src/DeliciousAdmin.php:1729
 #: src/Functions/CoreFunctions.php:634
 #: src/Functions/CoreFunctions.php:1026
 #: src/Functions/CoreFunctions.php:1167
@@ -1001,7 +1001,7 @@ msgid "Recipe Keys"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:527
-#: src/DeliciousAdmin.php:1629
+#: src/DeliciousAdmin.php:1730
 #: src/Functions/CoreFunctions.php:1031
 #: src/Functions/HelperFunctions.php:1194
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:27
@@ -1014,8 +1014,8 @@ msgid "Recipe Tags"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:531
-#: src/DeliciousAdmin.php:1014
-#: src/DeliciousAdmin.php:1630
+#: src/DeliciousAdmin.php:1020
+#: src/DeliciousAdmin.php:1731
 #: src/Functions/CoreFunctions.php:1036
 #: src/Functions/HelperFunctions.php:1195
 #: assets/admin/components/global-settings/global-tabs/global-related-recipes.jsx:35
@@ -1028,7 +1028,7 @@ msgid "Recipe Badges"
 msgstr ""
 
 #: src/classes/class-delicious-recipes-activator.php:535
-#: src/DeliciousAdmin.php:1631
+#: src/DeliciousAdmin.php:1732
 #: src/Functions/CoreFunctions.php:1043
 #: src/Functions/HelperFunctions.php:1196
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:503
@@ -1195,8 +1195,8 @@ msgstr ""
 
 #: src/classes/class-delicious-recipes-shortcodes.php:454
 #: src/classes/class-delicious-recipes-shortcodes.php:471
-#: src/DeliciousAdmin.php:618
-#: src/DeliciousAdmin.php:1484
+#: src/DeliciousAdmin.php:624
+#: src/DeliciousAdmin.php:1585
 msgid "Surprise Me"
 msgstr ""
 
@@ -1386,188 +1386,188 @@ msgid "Couldn&#8217;t register you&hellip; please contact us if you continue to 
 msgstr ""
 
 #. translators: %s: URL to the Delisho plugin
-#: src/DeliciousAdmin.php:370
+#: src/DeliciousAdmin.php:376
 #, php-format
 msgid "Get access to all Delisho widgets and blocks. <a target=\"_blank\" href=\"%s\">Click here</a> to install and activate the plugin now."
 msgstr ""
 
-#: src/DeliciousAdmin.php:398
+#: src/DeliciousAdmin.php:404
 msgid "Action Required: Deactivate Classic Editor"
 msgstr ""
 
 #. translators: %s: URL to the Chicory integration settings
-#: src/DeliciousAdmin.php:403
+#: src/DeliciousAdmin.php:409
 msgid "Classic Editor plugin is activated on your website. We recommend deactivating it to use our plugin."
 msgstr ""
 
-#: src/DeliciousAdmin.php:409
+#: src/DeliciousAdmin.php:415
 msgid "Deactivate Classic Editor"
 msgstr ""
 
-#: src/DeliciousAdmin.php:412
-#: src/DeliciousAdmin.php:468
+#: src/DeliciousAdmin.php:418
+#: src/DeliciousAdmin.php:474
 msgid "Dismiss this notice"
 msgstr ""
 
-#: src/DeliciousAdmin.php:459
+#: src/DeliciousAdmin.php:465
 msgid "Effortless Recipe Creation and Stunning Food Images with AI"
 msgstr ""
 
-#: src/DeliciousAdmin.php:461
+#: src/DeliciousAdmin.php:467
 msgid "Meet PixifyAI and AI Recipe Assistant - your ultimate tools for creating stunning food images and generating engaging recipe content effortlessly."
 msgstr ""
 
-#: src/DeliciousAdmin.php:465
+#: src/DeliciousAdmin.php:471
 msgid "Get started"
 msgstr ""
 
-#: src/DeliciousAdmin.php:473
+#: src/DeliciousAdmin.php:479
 msgid "AI-integration-promotion"
 msgstr ""
 
-#: src/DeliciousAdmin.php:623
+#: src/DeliciousAdmin.php:629
 msgid "Link Text"
 msgstr ""
 
-#: src/DeliciousAdmin.php:631
+#: src/DeliciousAdmin.php:637
 msgid "Add to Menu"
 msgstr ""
 
-#: src/DeliciousAdmin.php:683
+#: src/DeliciousAdmin.php:689
 msgid "WP Delicious Sidebar"
 msgstr ""
 
-#: src/DeliciousAdmin.php:685
+#: src/DeliciousAdmin.php:691
 msgid "This is the widget area for single recipe page."
 msgstr ""
 
-#: src/DeliciousAdmin.php:725
+#: src/DeliciousAdmin.php:731
 msgid "Get help"
 msgstr ""
 
-#: src/DeliciousAdmin.php:725
-#: src/DeliciousAdmin.php:1815
+#: src/DeliciousAdmin.php:731
+#: src/DeliciousAdmin.php:1916
 msgid "Support"
 msgstr ""
 
-#: src/DeliciousAdmin.php:726
+#: src/DeliciousAdmin.php:732
 msgid "Docs"
 msgstr ""
 
-#: src/DeliciousAdmin.php:727
+#: src/DeliciousAdmin.php:733
 msgid "Rate the plugin"
 msgstr ""
 
-#: src/DeliciousAdmin.php:727
+#: src/DeliciousAdmin.php:733
 msgid "Rate the plugin ★★★★★"
 msgstr ""
 
-#: src/DeliciousAdmin.php:749
+#: src/DeliciousAdmin.php:755
 msgctxt "post type general name"
 msgid "Recipes"
 msgstr ""
 
-#: src/DeliciousAdmin.php:750
+#: src/DeliciousAdmin.php:756
 msgctxt "post type singular name"
 msgid "Recipe"
 msgstr ""
 
-#: src/DeliciousAdmin.php:751
+#: src/DeliciousAdmin.php:757
 msgctxt "admin menu"
 msgid "Recipes"
 msgstr ""
 
-#: src/DeliciousAdmin.php:752
+#: src/DeliciousAdmin.php:758
 msgctxt "add new on admin bar"
 msgid "Recipe"
 msgstr ""
 
-#: src/DeliciousAdmin.php:753
+#: src/DeliciousAdmin.php:759
 msgctxt "Recipe"
 msgid "Add New"
 msgstr ""
 
-#: src/DeliciousAdmin.php:754
-#: src/DeliciousAdmin.php:1805
+#: src/DeliciousAdmin.php:760
+#: src/DeliciousAdmin.php:1906
 msgid "Add New Recipe"
 msgstr ""
 
-#: src/DeliciousAdmin.php:755
+#: src/DeliciousAdmin.php:761
 msgid "New Recipe"
 msgstr ""
 
-#: src/DeliciousAdmin.php:756
+#: src/DeliciousAdmin.php:762
 msgid "Edit Recipe"
 msgstr ""
 
-#: src/DeliciousAdmin.php:757
+#: src/DeliciousAdmin.php:763
 msgid "View Recipe"
 msgstr ""
 
-#: src/DeliciousAdmin.php:758
+#: src/DeliciousAdmin.php:764
 msgid "All Recipes"
 msgstr ""
 
-#: src/DeliciousAdmin.php:759
+#: src/DeliciousAdmin.php:765
 msgid "Search Recipes"
 msgstr ""
 
-#: src/DeliciousAdmin.php:760
+#: src/DeliciousAdmin.php:766
 msgid "Parent Recipes:"
 msgstr ""
 
-#: src/DeliciousAdmin.php:761
+#: src/DeliciousAdmin.php:767
 msgid "No Recipes found."
 msgstr ""
 
-#: src/DeliciousAdmin.php:762
+#: src/DeliciousAdmin.php:768
 msgid "No Recipes found in Trash."
 msgstr ""
 
-#: src/DeliciousAdmin.php:772
+#: src/DeliciousAdmin.php:778
 msgid "Description."
 msgstr ""
 
-#: src/DeliciousAdmin.php:859
+#: src/DeliciousAdmin.php:865
 msgctxt "taxonomy general name"
 msgid "Courses"
 msgstr ""
 
-#: src/DeliciousAdmin.php:860
+#: src/DeliciousAdmin.php:866
 msgctxt "taxonomy singular name"
 msgid "Course"
 msgstr ""
 
-#: src/DeliciousAdmin.php:861
+#: src/DeliciousAdmin.php:867
 msgid "Search Courses"
 msgstr ""
 
-#: src/DeliciousAdmin.php:862
+#: src/DeliciousAdmin.php:868
 msgid "All Courses"
 msgstr ""
 
-#: src/DeliciousAdmin.php:863
-#: src/DeliciousAdmin.php:864
+#: src/DeliciousAdmin.php:869
+#: src/DeliciousAdmin.php:870
 msgid "Parent Course"
 msgstr ""
 
-#: src/DeliciousAdmin.php:865
+#: src/DeliciousAdmin.php:871
 msgid "Edit Course"
 msgstr ""
 
-#: src/DeliciousAdmin.php:866
+#: src/DeliciousAdmin.php:872
 msgid "Update Course"
 msgstr ""
 
-#: src/DeliciousAdmin.php:867
+#: src/DeliciousAdmin.php:873
 msgid "Add New Course"
 msgstr ""
 
-#: src/DeliciousAdmin.php:868
+#: src/DeliciousAdmin.php:874
 msgid "New Course Name"
 msgstr ""
 
-#: src/DeliciousAdmin.php:869
+#: src/DeliciousAdmin.php:875
 #: src/Functions/CoreFunctions.php:538
 #: templates/global/block-print.php:229
 #: assets/admin/components/global-settings/global-tabs/global-tabs-content.jsx:127
@@ -1577,365 +1577,365 @@ msgstr ""
 msgid "Courses"
 msgstr ""
 
-#: src/DeliciousAdmin.php:888
+#: src/DeliciousAdmin.php:894
 msgctxt "taxonomy general name"
 msgid "Cuisines"
 msgstr ""
 
-#: src/DeliciousAdmin.php:889
+#: src/DeliciousAdmin.php:895
 msgctxt "taxonomy singular name"
 msgid "Cuisine"
 msgstr ""
 
-#: src/DeliciousAdmin.php:890
+#: src/DeliciousAdmin.php:896
 msgid "Search Cuisines"
 msgstr ""
 
-#: src/DeliciousAdmin.php:891
+#: src/DeliciousAdmin.php:897
 msgid "All Cuisines"
 msgstr ""
 
-#: src/DeliciousAdmin.php:892
-#: src/DeliciousAdmin.php:893
+#: src/DeliciousAdmin.php:898
+#: src/DeliciousAdmin.php:899
 msgid "Parent Cuisine"
 msgstr ""
 
-#: src/DeliciousAdmin.php:894
+#: src/DeliciousAdmin.php:900
 msgid "Edit Cuisine"
 msgstr ""
 
-#: src/DeliciousAdmin.php:895
+#: src/DeliciousAdmin.php:901
 msgid "Update Cuisine"
 msgstr ""
 
-#: src/DeliciousAdmin.php:896
+#: src/DeliciousAdmin.php:902
 msgid "Add New Cuisine"
 msgstr ""
 
-#: src/DeliciousAdmin.php:897
+#: src/DeliciousAdmin.php:903
 msgid "New Cuisine Name"
 msgstr ""
 
-#: src/DeliciousAdmin.php:898
+#: src/DeliciousAdmin.php:904
 #: assets/blocks/recipe-by-tax/BlockInspectorControls.js:64
 #: assets/build/blocks.js:1211
 msgid "Cuisines"
 msgstr ""
 
-#: src/DeliciousAdmin.php:917
+#: src/DeliciousAdmin.php:923
 msgctxt "taxonomy general name"
 msgid "Cooking Methods"
 msgstr ""
 
-#: src/DeliciousAdmin.php:918
+#: src/DeliciousAdmin.php:924
 msgctxt "taxonomy singular name"
 msgid "Cooking Method"
 msgstr ""
 
-#: src/DeliciousAdmin.php:919
+#: src/DeliciousAdmin.php:925
 msgid "Search Cooking Methods"
 msgstr ""
 
-#: src/DeliciousAdmin.php:920
+#: src/DeliciousAdmin.php:926
 msgid "All Cooking Methods"
 msgstr ""
 
-#: src/DeliciousAdmin.php:921
-#: src/DeliciousAdmin.php:922
+#: src/DeliciousAdmin.php:927
+#: src/DeliciousAdmin.php:928
 msgid "Parent Cooking Method"
 msgstr ""
 
-#: src/DeliciousAdmin.php:923
+#: src/DeliciousAdmin.php:929
 msgid "Edit Cooking Method"
 msgstr ""
 
-#: src/DeliciousAdmin.php:924
+#: src/DeliciousAdmin.php:930
 msgid "Update Cooking Method"
 msgstr ""
 
-#: src/DeliciousAdmin.php:925
+#: src/DeliciousAdmin.php:931
 msgid "Add New Cooking Method"
 msgstr ""
 
-#: src/DeliciousAdmin.php:926
+#: src/DeliciousAdmin.php:932
 msgid "New Cooking Method Name"
 msgstr ""
 
-#: src/DeliciousAdmin.php:927
+#: src/DeliciousAdmin.php:933
 #: assets/blocks/recipe-by-tax/BlockInspectorControls.js:68
 #: assets/build/blocks.js:1211
 msgid "Cooking Methods"
 msgstr ""
 
-#: src/DeliciousAdmin.php:946
+#: src/DeliciousAdmin.php:952
 msgctxt "taxonomy general name"
 msgid "Tags"
 msgstr ""
 
-#: src/DeliciousAdmin.php:947
+#: src/DeliciousAdmin.php:953
 msgctxt "taxonomy singular name"
 msgid "Tag"
 msgstr ""
 
-#: src/DeliciousAdmin.php:948
+#: src/DeliciousAdmin.php:954
 msgid "Search Tags"
 msgstr ""
 
-#: src/DeliciousAdmin.php:949
+#: src/DeliciousAdmin.php:955
 msgid "All Tags"
 msgstr ""
 
-#: src/DeliciousAdmin.php:950
-#: src/DeliciousAdmin.php:951
+#: src/DeliciousAdmin.php:956
+#: src/DeliciousAdmin.php:957
 msgid "Parent Tag"
 msgstr ""
 
-#: src/DeliciousAdmin.php:952
+#: src/DeliciousAdmin.php:958
 msgid "Edit Tag"
 msgstr ""
 
-#: src/DeliciousAdmin.php:953
+#: src/DeliciousAdmin.php:959
 msgid "Update Tag"
 msgstr ""
 
-#: src/DeliciousAdmin.php:954
+#: src/DeliciousAdmin.php:960
 msgid "Add New Tag"
 msgstr ""
 
-#: src/DeliciousAdmin.php:955
+#: src/DeliciousAdmin.php:961
 msgid "New Tag Name"
 msgstr ""
 
-#: src/DeliciousAdmin.php:956
+#: src/DeliciousAdmin.php:962
 #: assets/blocks/recipe-by-tax/BlockInspectorControls.js:72
 #: assets/build/blocks.js:1211
 msgid "Tags"
 msgstr ""
 
-#: src/DeliciousAdmin.php:975
+#: src/DeliciousAdmin.php:981
 msgctxt "taxonomy general name"
 msgid "Recipe Keys"
 msgstr ""
 
-#: src/DeliciousAdmin.php:976
+#: src/DeliciousAdmin.php:982
 msgctxt "taxonomy singular name"
 msgid "Recipe Key"
 msgstr ""
 
-#: src/DeliciousAdmin.php:977
+#: src/DeliciousAdmin.php:983
 msgid "Search Recipe Keys"
 msgstr ""
 
-#: src/DeliciousAdmin.php:978
+#: src/DeliciousAdmin.php:984
 msgid "All Recipe Keys"
 msgstr ""
 
-#: src/DeliciousAdmin.php:979
-#: src/DeliciousAdmin.php:980
+#: src/DeliciousAdmin.php:985
+#: src/DeliciousAdmin.php:986
 msgid "Parent Recipe Key"
 msgstr ""
 
-#: src/DeliciousAdmin.php:981
+#: src/DeliciousAdmin.php:987
 msgid "Edit Recipe Key"
 msgstr ""
 
-#: src/DeliciousAdmin.php:982
+#: src/DeliciousAdmin.php:988
 msgid "Update Recipe Key"
 msgstr ""
 
-#: src/DeliciousAdmin.php:983
+#: src/DeliciousAdmin.php:989
 msgid "Add New Recipe Key"
 msgstr ""
 
-#: src/DeliciousAdmin.php:984
+#: src/DeliciousAdmin.php:990
 msgid "New Recipe Key Name"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1004
+#: src/DeliciousAdmin.php:1010
 msgctxt "taxonomy general name"
 msgid "Recipe Badges"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1005
+#: src/DeliciousAdmin.php:1011
 msgctxt "taxonomy singular name"
 msgid "Recipe Badge"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1006
+#: src/DeliciousAdmin.php:1012
 msgid "Search Recipe Badges"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1007
+#: src/DeliciousAdmin.php:1013
 msgid "All Recipe Badges"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1008
-#: src/DeliciousAdmin.php:1009
+#: src/DeliciousAdmin.php:1014
+#: src/DeliciousAdmin.php:1015
 msgid "Parent Recipe Badge"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1010
+#: src/DeliciousAdmin.php:1016
 msgid "Edit Recipe Badge"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1011
+#: src/DeliciousAdmin.php:1017
 msgid "Update Recipe Badge"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1012
+#: src/DeliciousAdmin.php:1018
 msgid "Add New Recipe Badge"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1013
+#: src/DeliciousAdmin.php:1019
 msgid "New Recipe Badge Name"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1033
+#: src/DeliciousAdmin.php:1039
 msgctxt "taxonomy general name"
 msgid "Dietaries"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1034
+#: src/DeliciousAdmin.php:1040
 msgctxt "taxonomy singular name"
 msgid "Dietary"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1035
+#: src/DeliciousAdmin.php:1041
 msgid "Search Dietaries"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1036
+#: src/DeliciousAdmin.php:1042
 msgid "All Dietaries"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1037
-#: src/DeliciousAdmin.php:1038
+#: src/DeliciousAdmin.php:1043
+#: src/DeliciousAdmin.php:1044
 msgid "Parent Dietary"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1039
+#: src/DeliciousAdmin.php:1045
 msgid "Edit Dietary"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1040
+#: src/DeliciousAdmin.php:1046
 msgid "Update Dietary"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1041
+#: src/DeliciousAdmin.php:1047
 msgid "Add New Dietary"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1042
+#: src/DeliciousAdmin.php:1048
 msgid "New Dietary Name"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1043
+#: src/DeliciousAdmin.php:1049
 msgid "Dietaries"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1080
+#: src/DeliciousAdmin.php:1086
 msgid "Vegetarian Meals"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1090
+#: src/DeliciousAdmin.php:1096
 msgid "Paleo"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1095
+#: src/DeliciousAdmin.php:1101
 msgid "Freezer Meals"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1105
+#: src/DeliciousAdmin.php:1111
 msgid "Slow Cooker Recipes"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1110
+#: src/DeliciousAdmin.php:1116
 msgid "Dairy"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1115
+#: src/DeliciousAdmin.php:1121
 msgid "Kids"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1120
+#: src/DeliciousAdmin.php:1126
 msgid "Mixing"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1125
+#: src/DeliciousAdmin.php:1131
 msgid "Non Vegetarian"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1130
+#: src/DeliciousAdmin.php:1136
 msgid "Cold"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1135
+#: src/DeliciousAdmin.php:1141
 msgid "Spicy"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1140
+#: src/DeliciousAdmin.php:1146
 msgid "Raw"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1155
+#: src/DeliciousAdmin.php:1161
 msgid "Pescetarian"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1160
+#: src/DeliciousAdmin.php:1166
 msgid "Quick Meals"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1165
+#: src/DeliciousAdmin.php:1171
 msgid "Whole30"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1190
+#: src/DeliciousAdmin.php:1196
 msgid "Corn Free"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1195
+#: src/DeliciousAdmin.php:1201
 msgid "Soy Free"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1200
+#: src/DeliciousAdmin.php:1206
 msgid "Sugar Free"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1250
+#: src/DeliciousAdmin.php:1256
 #: assets/admin/components/global-settings/global-tabs/global-tabs.jsx:30
 #: assets/build/global.js:1365
 msgid "Recipe Settings"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1534
+#: src/DeliciousAdmin.php:1635
 msgid "Jump to recipe settings"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1549
+#: src/DeliciousAdmin.php:1650
 msgid "Featured"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1672
+#: src/DeliciousAdmin.php:1773
 msgid "Clone"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1678
+#: src/DeliciousAdmin.php:1779
 msgid "Clone "
 msgstr ""
 
 #. translators: %1$s: permalink options page link
-#: src/DeliciousAdmin.php:1695
+#: src/DeliciousAdmin.php:1796
 #, php-format
 msgid "<strong>WP Delicious</strong> plugin uses <b>WordPress Core REST API</b> interface for creating and managing recipes and does not support the plain permalink structure. Please <a href=\"%1$s\" >change your permalinks settings</a> to other structure to use WP Delicious plugin."
 msgstr ""
 
-#: src/DeliciousAdmin.php:1738
+#: src/DeliciousAdmin.php:1839
 #: assets/blocks/handpicked-recipes/BlockInspectorControls.js:46
 #: assets/build/blocks.js:1211
 msgid "Recipes"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1810
+#: src/DeliciousAdmin.php:1911
 #: src/GlobalSettings.php:68
 #: src/GlobalSettings.php:69
 #: assets/admin/components/whatsNew/recipeWhatsNew.jsx:190
@@ -1943,12 +1943,12 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1815
-#: src/DeliciousAdmin.php:1827
+#: src/DeliciousAdmin.php:1916
+#: src/DeliciousAdmin.php:1928
 msgid "Opens in new tab"
 msgstr ""
 
-#: src/DeliciousAdmin.php:1827
+#: src/DeliciousAdmin.php:1928
 #: src/updater/class-delicious-recipes-edd.php:49
 #: assets/admin/components/UpgradeToPro.js:48
 #: assets/admin/components/UpgradeToProAlert.jsx:25
