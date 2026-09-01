@@ -66,6 +66,18 @@ function delicious_recipes_gb_block_assets() { // phpcs:ignore
 				)
 			);
 		}
+	} else {
+		// Styles.
+		// Enqueued on `enqueue_block_assets` (rather than `enqueue_block_editor_assets`)
+		// so WordPress loads them inside the block editor's iframe canvas correctly.
+		wp_enqueue_style(
+			'delicious-recipes-gb-style-css', // Handle.
+			plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/blocks/blocks.css', // Block style CSS.
+			array( 'wp-editor' ), // Dependency to include the CSS after it.
+			DELICIOUS_RECIPES_VERSION // Version: File modification time.
+		);
+
+		wp_enqueue_style( 'delicious-recipe-block-styles', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/blockCSS.css' );
 	}
 }
 
@@ -102,16 +114,6 @@ function delicious_recipes_gb_editor_assets() { // phpcs:ignore
 			'nutritionFacts'      => delicious_recipes_get_nutrition_facts(),
 		)
 	);
-
-	// Styles.
-	wp_enqueue_style(
-		'delicious-recipes-gb-style-css', // Handle.
-		plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/blocks/blocks.css', // Block style CSS.
-		array( 'wp-editor' ), // Dependency to include the CSS after it.
-		DELICIOUS_RECIPES_VERSION // Version: File modification time.
-	);
-
-	wp_enqueue_style( 'delicious-recipe-block-styles', plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/build/blockCSS.css' );
 }
 
 global $wp_version;

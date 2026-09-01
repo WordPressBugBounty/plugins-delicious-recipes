@@ -9,9 +9,9 @@
  * License URI:         https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:         delicious-recipes
  * Domain Path:         /languages
- * Version:             1.10.5
+ * Version:             1.10.6
  * Requires at least:   5.8
- * Tested up to:        7.0
+ * Tested up to:        7.1
  * Requires PHP:        7.4
  *
  * @package         Delicious_Recipes
@@ -79,7 +79,7 @@ if ( ! defined( 'DELICIOUS_RECIPES_PLUGIN_FILE' ) ) {
 }
 
 if ( ! defined( 'DELICIOUS_RECIPES_VERSION' ) ) {
-	define( 'DELICIOUS_RECIPES_VERSION', '1.10.5' );
+	define( 'DELICIOUS_RECIPES_VERSION', '1.10.6' );
 }
 
 /**

@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Delicious 1.10.5\n"
+"Project-Id-Version: WP Delicious 1.10.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/delicious-recipes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-08-17T03:01:40+00:00\n"
+"POT-Creation-Date: 2026-09-01T02:55:04+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: delicious-recipes\n"
@@ -17,7 +17,7 @@ msgstr ""
 #. Plugin Name of the plugin
 #. Author of the plugin
 #: delicious-recipes.php
-#: src/blocks/init.php:134
+#: src/blocks/init.php:136
 #: src/DeliciousAdmin.php:601
 #: src/DeliciousAdmin.php:1865
 #: src/DeliciousAdmin.php:1896
@@ -307,62 +307,62 @@ msgid "Recipe Onboarding Settings Saved Successfully."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:298
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:398
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:423
 msgid "Current page of the collection."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:306
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:406
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:431
 msgid "Maximum number of items to be returned in result set."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:357
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:457
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:482
 msgid "Unique identifier for the object."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:363
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:463
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:488
 msgid "The date the object was published, in the site's timezone."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:369
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:469
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:494
 msgid "The title for the object."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:378
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:478
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:503
 msgid "Title for the object, as it exists in the database."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:383
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:483
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:508
 msgid "HTML title for the object, transformed for display."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:391
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:491
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:516
 msgid "URL to the object."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:398
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:498
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:523
 msgid "The date the object was last modified, in the site's timezone."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:405
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:505
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:530
 msgid "The date the object was last modified, as GMT."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:412
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:512
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:537
 msgid "A named status for the object."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-global-settings-controller.php:418
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:518
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:543
 msgid "Type of Post for the object."
 msgstr ""
 
@@ -391,7 +391,7 @@ msgstr ""
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:455
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:774
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:2224
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:323
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:348
 msgid "Recipe not found."
 msgstr ""
 
@@ -414,7 +414,7 @@ msgid "Recipe imported successfully."
 msgstr ""
 
 #: src/api/inc/endpoints/class-delicious-recipes-rest-import-recipe-terms-controller.php:1273
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:328
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:353
 msgid "Invalid post type."
 msgstr ""
 
@@ -533,21 +533,21 @@ msgstr ""
 msgid "No Recipes Found."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:226
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:251
 msgid "Recipe Found."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:232
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:255
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:273
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:257
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:280
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:298
 msgid "Recipe not found by ID."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:266
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:291
 msgid "Recipe Settings Saved Successfully."
 msgstr ""
 
-#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:332
+#: src/api/inc/endpoints/class-delicious-recipes-rest-recipe-controller.php:357
 msgid "Sorry, you are not allowed to edit this recipe."
 msgstr ""
 
@@ -6894,7 +6894,7 @@ msgid "recipes"
 msgstr ""
 
 #: assets/blocks/details/block.js:46
-#: assets/blocks/recipe-card-dynamic/block.js:65
+#: assets/blocks/recipe-card-dynamic/block.js:105
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:48
 #: assets/build/blocks.js:1211
 msgid "Main"
@@ -6902,14 +6902,14 @@ msgstr ""
 
 #: assets/blocks/details/block.js:47
 #: assets/blocks/details/Inspector.js:194
-#: assets/blocks/recipe-card-dynamic/block.js:66
+#: assets/blocks/recipe-card-dynamic/block.js:106
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:60
 #: assets/build/blocks.js:1211
 msgid "Italian"
 msgstr ""
 
 #: assets/blocks/details/block.js:48
-#: assets/blocks/recipe-card-dynamic/block.js:68
+#: assets/blocks/recipe-card-dynamic/block.js:108
 #: assets/build/blocks.js:1211
 msgid "Medium"
 msgstr ""
@@ -7389,7 +7389,7 @@ msgid "recipe card"
 msgstr ""
 
 #: assets/blocks/recipe-buttons/block.js:42
-#: assets/blocks/recipe-card-dynamic/block.js:51
+#: assets/blocks/recipe-card-dynamic/block.js:91
 #: assets/build/blocks.js:1211
 msgid "block recipe card"
 msgstr ""
@@ -7484,32 +7484,37 @@ msgstr ""
 msgid "Recipes by Type"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/block.js:32
+#: assets/blocks/recipe-card-dynamic/block.js:46
+#: assets/build/blocks.js:1211
+msgid "The Dynamic Recipe Card block ran into an error while editing. Check the browser console for details."
+msgstr ""
+
+#: assets/blocks/recipe-card-dynamic/block.js:72
 #: assets/build/blocks.js:1211
 msgid "Dynamic Recipe Card"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/block.js:33
+#: assets/blocks/recipe-card-dynamic/block.js:73
 #: assets/build/blocks.js:1211
 msgid "Display a Recipe Card box with recipe metadata."
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/block.js:50
+#: assets/blocks/recipe-card-dynamic/block.js:90
 #: assets/build/blocks.js:1211
 msgid "dynamic recipe card"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/block.js:52
+#: assets/blocks/recipe-card-dynamic/block.js:92
 #: assets/build/blocks.js:1211
 msgid "delicious recipes"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/block.js:56
+#: assets/blocks/recipe-card-dynamic/block.js:96
 #: assets/build/blocks.js:1211
 msgid "Your recipe title goes here"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/block.js:67
+#: assets/blocks/recipe-card-dynamic/block.js:107
 #: assets/build/blocks.js:1211
 msgid "Frying"
 msgstr ""

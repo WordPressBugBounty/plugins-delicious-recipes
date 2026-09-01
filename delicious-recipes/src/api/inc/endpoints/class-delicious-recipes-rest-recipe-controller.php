@@ -213,6 +213,31 @@ class Delicious_Recipes_REST_Recipe_Controller extends Delicious_Recipes_API_Con
 	}
 
 	/**
+	 * Check permissions for reading a recipe resource.
+	 *
+	 * Publicly published recipes are readable by anyone, since the requested
+	 * data (ingredients, instructions, etc.) is already rendered on the
+	 * public recipe page for every visitor - e.g. the frontend Unit
+	 * Conversion feature relies on fetching this while logged out. Any other
+	 * request (collection requests, or a single recipe that isn't publicly
+	 * published) falls back to the stricter capability check.
+	 *
+	 * @param WP_REST_Request $request Current request.
+	 */
+	public function get_item_permissions_check( $request ) {
+		$id = isset( $request['id'] ) ? (int) $request['id'] : 0;
+
+		if ( $id ) {
+			$post = get_post( $id );
+			if ( $post && DELICIOUS_RECIPE_POST_TYPE === $post->post_type && 'publish' === $post->post_status ) {
+				return true;
+			}
+		}
+
+		return parent::get_item_permissions_check( $request );
+	}
+
+	/**
 	 * Grabs a single Enquiry if vald id is provided.
 	 *
 	 * @param WP_REST_Request $request Current request.

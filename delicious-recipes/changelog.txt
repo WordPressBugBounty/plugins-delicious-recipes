@@ -1,3 +1,9 @@
+1.10.6: 2026-08-31
+- Compatibility: Declared compatibility with WordPress 7.1.
+- Fixes: Fixed the Unit Conversion toggle on single recipe pages not working for logged-out visitors — the REST endpoint it depends on required an authenticated capability that anonymous visitors and even logged-in cookie sessions without a REST nonce could never satisfy, so switching to Metric silently failed for effectively all real traffic.
+- Fixes: Fixed the Dynamic Recipe Card block sometimes rendering blank in the block editor with no visible error, caused by its stylesheet being enqueued on a hook that isn't aware of the editor's iframe canvas; the stylesheet is now enqueued via `enqueue_block_assets` so it loads reliably inside the iframe.
+- Fixes: Hardened the Dynamic Recipe Card block's editor component against crashing when author data hasn't finished loading yet or when recipe attributes contain unexpected data, and added an error boundary so any future editor error is shown visibly instead of leaving the block blank.
+
 1.10.5: 2026-08-17
 - Fixes: Fixed the Recipe Settings panel appearing blank on every recipe — collapsing the panel is no longer remembered across page loads, so the recipe fields always come back after a reload.
 - Fixes: The block editor "Meta Boxes" area now opens at a usable height the first time you edit a recipe instead of starting collapsed. Your own choice is respected from then on.
