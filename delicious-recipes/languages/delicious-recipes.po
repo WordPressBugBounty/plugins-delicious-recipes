@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Delicious 1.10.6\n"
+"Project-Id-Version: WP Delicious 1.10.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/delicious-recipes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-01T02:55:04+00:00\n"
+"POT-Creation-Date: 2026-09-09T03:14:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Language: \n"
 "X-Generator: WP-CLI 2.12.0\n"
@@ -720,7 +720,7 @@ msgid "Author:"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:609
-#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:905
+#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:901
 #: assets/build/blocks.js:1211
 msgid "Keywords:"
 msgstr ""
@@ -1097,7 +1097,7 @@ msgstr ""
 #: templates/global/search/filter-difficulty.php:6
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:86
 #: assets/blocks/details/Inspector.js:252
-#: assets/blocks/recipe-card-dynamic/components/Detail.js:376
+#: assets/blocks/recipe-card-dynamic/components/Detail.js:377
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:905
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
@@ -1108,7 +1108,7 @@ msgstr ""
 #: templates/global/search/filter-difficulty.php:7
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:87
 #: assets/blocks/details/Inspector.js:256
-#: assets/blocks/recipe-card-dynamic/components/Detail.js:378
+#: assets/blocks/recipe-card-dynamic/components/Detail.js:379
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:909
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
@@ -1119,7 +1119,7 @@ msgstr ""
 #: templates/global/search/filter-difficulty.php:8
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:88
 #: assets/blocks/details/Inspector.js:260
-#: assets/blocks/recipe-card-dynamic/components/Detail.js:381
+#: assets/blocks/recipe-card-dynamic/components/Detail.js:382
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:913
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
@@ -4542,8 +4542,8 @@ msgstr ""
 #: assets/admin/components/global-settings/global-tabs/global-nutrition.jsx:1037
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:676
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:454
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:535
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:571
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:536
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:572
 #: assets/build/blocks.js:1211
 #: assets/build/global.js:1275
 #: assets/build/recipe.js:1212
@@ -6173,7 +6173,7 @@ msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-gallery-vid.jsx:156
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:316
-#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:437
+#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:438
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1211
 #: assets/build/recipe.js:1242
@@ -6407,7 +6407,7 @@ msgid "Add Ingredient in Bulk"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:435
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:433
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:434
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 msgid "Add Ingredients in Bulk"
@@ -6420,8 +6420,8 @@ msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:677
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:455
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:536
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:572
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:537
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:573
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 #: assets/build/recipe.js:1242
@@ -6429,28 +6429,28 @@ msgid "Section Heading"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:729
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:626
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:627
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 msgid "Paste the Ingredients List"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:735
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:632
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:633
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 msgid "1 tbsp Olive Oil (extra virgin)"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:739
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:636
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:637
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 msgid "Press 'Enter' to add new ingredient."
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:781
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:670
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:671
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 msgid "Add Bulk Ingredient"
@@ -6591,21 +6591,21 @@ msgid "Add Instruction"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:504
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:491
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:492
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1242
 msgid "Paste the Instructions List"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:514
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:507
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:508
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1242
 msgid "Press 'Enter' to add new instruction."
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:559
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:520
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:521
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1242
 msgid "Add Bulk Instructions"

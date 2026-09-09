@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: WP Delicious 1.10.6\n"
+"Project-Id-Version: WP Delicious 1.10.7\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/delicious-recipes\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-01T02:55:04+00:00\n"
+"POT-Creation-Date: 2026-09-09T03:14:51+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: delicious-recipes\n"
@@ -721,7 +721,7 @@ msgid "Author:"
 msgstr ""
 
 #: src/blocks/dynamic-blocks/class-delicious-dynamic-recipe-card.php:609
-#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:905
+#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:901
 #: assets/build/blocks.js:1211
 msgid "Keywords:"
 msgstr ""
@@ -1098,7 +1098,7 @@ msgstr ""
 #: templates/global/search/filter-difficulty.php:6
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:86
 #: assets/blocks/details/Inspector.js:252
-#: assets/blocks/recipe-card-dynamic/components/Detail.js:376
+#: assets/blocks/recipe-card-dynamic/components/Detail.js:377
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:905
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
@@ -1109,7 +1109,7 @@ msgstr ""
 #: templates/global/search/filter-difficulty.php:7
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:87
 #: assets/blocks/details/Inspector.js:256
-#: assets/blocks/recipe-card-dynamic/components/Detail.js:378
+#: assets/blocks/recipe-card-dynamic/components/Detail.js:379
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:909
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
@@ -1120,7 +1120,7 @@ msgstr ""
 #: templates/global/search/filter-difficulty.php:8
 #: assets/admin/components/recipe-settings/tabs/recipe-info.jsx:88
 #: assets/blocks/details/Inspector.js:260
-#: assets/blocks/recipe-card-dynamic/components/Detail.js:381
+#: assets/blocks/recipe-card-dynamic/components/Detail.js:382
 #: assets/blocks/recipe-card-dynamic/components/Inspector.js:913
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
@@ -4543,8 +4543,8 @@ msgstr ""
 #: assets/admin/components/global-settings/global-tabs/global-nutrition.jsx:1037
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:676
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:454
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:535
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:571
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:536
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:572
 #: assets/build/blocks.js:1211
 #: assets/build/global.js:1275
 #: assets/build/recipe.js:1212
@@ -6174,7 +6174,7 @@ msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-gallery-vid.jsx:156
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:316
-#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:437
+#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:438
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1211
 #: assets/build/recipe.js:1242
@@ -6408,7 +6408,7 @@ msgid "Add Ingredient in Bulk"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:435
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:433
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:434
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 msgid "Add Ingredients in Bulk"
@@ -6421,8 +6421,8 @@ msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:677
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:455
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:536
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:572
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:537
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:573
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 #: assets/build/recipe.js:1242
@@ -6430,28 +6430,28 @@ msgid "Section Heading"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:729
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:626
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:627
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 msgid "Paste the Ingredients List"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:735
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:632
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:633
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 msgid "1 tbsp Olive Oil (extra virgin)"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:739
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:636
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:637
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 msgid "Press 'Enter' to add new ingredient."
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-ingredients-repeater.jsx:781
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:670
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:671
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1212
 msgid "Add Bulk Ingredient"
@@ -6592,21 +6592,21 @@ msgid "Add Instruction"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:504
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:491
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:492
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1242
 msgid "Paste the Instructions List"
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:514
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:507
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:508
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1242
 msgid "Press 'Enter' to add new instruction."
 msgstr ""
 
 #: assets/admin/components/recipe-settings/tabs/recipe-instructions.jsx:559
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:520
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:521
 #: assets/build/blocks.js:1211
 #: assets/build/recipe.js:1242
 msgid "Add Bulk Instructions"
@@ -7542,123 +7542,123 @@ msgstr ""
 msgid "servings"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:215
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:216
 #: assets/build/blocks.js:1211
 msgid "New step added"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:579
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:580
 #: assets/build/blocks.js:1211
 msgid "Add instruction"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:588
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:589
 #: assets/build/blocks.js:1211
 msgid "Add instruction section"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:597
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:598
 #: assets/build/blocks.js:1211
 msgid "Add instruction in bulk"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Direction.js:639
+#: assets/blocks/recipe-card-dynamic/components/Direction.js:640
 #: assets/build/blocks.js:1211
 msgid "Write Instructions title"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:269
+#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:270
 #: assets/build/blocks.js:1211
 msgid "Delete step"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:275
+#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:276
 #: assets/build/blocks.js:1211
 msgid "Insert step"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:294
+#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:295
 #: assets/build/blocks.js:1211
 msgid "Move step up"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:301
+#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:302
 #: assets/build/blocks.js:1211
 msgid "Move step down"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:408
+#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:409
 #: assets/build/blocks.js:1211
 msgid "Enter instruction description"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:423
+#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:424
 #: assets/build/blocks.js:1211
 msgid "Enter YouTube or Vimeo video URL"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:458
+#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:459
 #: assets/build/blocks.js:1211
 msgid "Enter notes"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:474
-#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:292
+#: assets/blocks/recipe-card-dynamic/components/DirectionStep.js:475
+#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:293
 #: assets/build/blocks.js:1211
 msgid "Enter section title"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:140
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:141
 #: assets/build/blocks.js:1211
 msgid "New ingredient added"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:211
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:212
 #: assets/build/blocks.js:1211
 msgid "Ingredient removed"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:411
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:412
 #: assets/build/blocks.js:1211
 msgid "Add ingredient"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:420
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:421
 #: assets/build/blocks.js:1211
 msgid "Add ingredient section"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:429
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:430
 #: assets/build/blocks.js:1211
 msgid "Add ingredients in bulk"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:474
+#: assets/blocks/recipe-card-dynamic/components/Ingredient.js:475
 #: assets/build/blocks.js:1211
 msgid "Write Ingredients title"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:168
+#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:169
 #: assets/build/blocks.js:1211
 msgid "Delete ingredient"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:174
+#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:175
 #: assets/build/blocks.js:1211
 msgid "Insert ingredient"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:193
+#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:194
 #: assets/build/blocks.js:1211
 msgid "Move item up"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:200
+#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:201
 #: assets/build/blocks.js:1211
 msgid "Move item down"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:275
+#: assets/blocks/recipe-card-dynamic/components/IngredientItem.js:276
 #: assets/build/blocks.js:1211
 msgid "Enter ingredient name"
 msgstr ""
@@ -7669,7 +7669,7 @@ msgstr ""
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:681
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:721
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:747
-#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:908
+#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:904
 #: assets/build/blocks.js:1211
 msgid "Not added"
 msgstr ""
@@ -8011,93 +8011,98 @@ msgid "You can add a video here from Recipe Card Video Settings in the right sid
 msgstr ""
 
 #: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:835
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:261
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:262
 #: assets/build/blocks.js:1211
 msgid "Recipe Card Video"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:874
+#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:870
 #: assets/build/blocks.js:1211
 msgid "Write Notes title"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:891
+#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:887
 #: assets/build/blocks.js:1211
 msgid "Enter Note text for your recipe."
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:897
+#: assets/blocks/recipe-card-dynamic/components/RecipeCard.js:893
 #: assets/build/blocks.js:1211
 msgid "Press Enter to add new note."
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:155
+#: assets/blocks/recipe-card-dynamic/components/VideoEmbedPreview.js:56
+#: assets/build/blocks.js:1211
+msgid "Preview isn't available here, but the video will play normally on the published recipe."
+msgstr ""
+
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:156
 #: assets/build/blocks.js:1211
 msgid "Note: Many browsers can only autoplay the videos with sound off, so you'll need to enable muted attribute to the video too."
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:256
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:257
 #: assets/build/blocks.js:1211
 msgid "Recipe Card Video Settings"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:284
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:285
 #: assets/build/blocks.js:1211
 msgid "Edit URL"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:297
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:298
 #: assets/build/blocks.js:1211
 msgid "Apply"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:311
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:347
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:312
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:348
 #: assets/build/blocks.js:1211
 msgid "Remove Recipe Video"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:335
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:336
 #: assets/build/blocks.js:1211
 msgid "Replace Video"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:355
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:356
 #: assets/build/blocks.js:1211
 msgid "Autoplay"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:361
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:362
 #: assets/build/blocks.js:1211
 msgid "Loop"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:366
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:367
 #: assets/build/blocks.js:1211
 msgid "Muted"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:371
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:372
 #: assets/build/blocks.js:1211
 msgid "Playback Controls"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:380
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:381
 #: assets/build/blocks.js:1211
 msgid "Video Poster"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:394
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:395
 #: assets/build/blocks.js:1211
 msgid "Replace Poster"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:398
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:399
 #: assets/build/blocks.js:1211
 msgid "Select Poster Image"
 msgstr ""
 
-#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:411
+#: assets/blocks/recipe-card-dynamic/components/VideoUpload.js:412
 #: assets/build/blocks.js:1211
 msgid "Remove Poster Image"
 msgstr ""

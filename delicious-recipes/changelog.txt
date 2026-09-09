@@ -1,3 +1,8 @@
+1.10.7: 2026-09-09
+- Fixes: Fixed the Dynamic Recipe Card block's dropdown controls rendering with the wrong position and styling in the WP 7.1 block editor.
+- Fixes: Restored missing icons on Dynamic Recipe Card block buttons in the editor.
+- Fixes: Fixed the video preview not rendering for the video embed field in the Dynamic Recipe Card block editor.
+
 1.10.6: 2026-08-31
 - Compatibility: Declared compatibility with WordPress 7.1.
 - Fixes: Fixed the Unit Conversion toggle on single recipe pages not working for logged-out visitors — the REST endpoint it depends on required an authenticated capability that anonymous visitors and even logged-in cookie sessions without a REST nonce could never satisfy, so switching to Metric silently failed for effectively all real traffic.

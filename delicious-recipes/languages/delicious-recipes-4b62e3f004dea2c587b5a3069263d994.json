@@ -904,6 +904,9 @@
             "Press Enter to add new note.": [
                 ""
             ],
+            "Preview isn't available here, but the video will play normally on the published recipe.": [
+                ""
+            ],
             "Note: Many browsers can only autoplay the videos with sound off, so you'll need to enable muted attribute to the video too.": [
                 ""
             ],
