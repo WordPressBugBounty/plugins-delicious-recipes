@@ -583,8 +583,8 @@ class Delicious_Dynamic_Recipe_Card {
 		}
 
 		$details_content     = self::get_details_content( $details );
-		$ingredients_content = self::get_ingredients_content( $ingredients ) ? self::get_ingredients_content( $ingredients ) : '';
-		$steps_content       = self::get_steps_content( $steps ) ? self::get_steps_content( $steps ) : '';
+		$ingredients_content = self::get_ingredients_content( $ingredients ) ? wp_kses( self::get_ingredients_content( $ingredients ), delicious_recipes_kses_allowed_html() ) : '';
+		$steps_content       = self::get_steps_content( $steps ) ? wp_kses( self::get_steps_content( $steps ), delicious_recipes_kses_allowed_html() ) : '';
 		$recipe_card_video   = self::get_video_content();
 
 		$strip_tags_notes = isset( $notes ) ? strip_tags( $notes ) : '';
@@ -1545,6 +1545,10 @@ class Delicious_Dynamic_Recipe_Card {
 				$type     = isset( $node['type'] ) ? $node['type'] : null;
 				$children = isset( $node['props']['children'] ) ? $node['props']['children'] : null;
 
+				if ( $type && ! in_array( $type, self::get_allowed_richtext_tags(), true ) ) {
+					$type = null;
+				}
+
 				$start_tag = $type ? "<$type>" : '';
 				$end_tag   = $type ? "</$type>" : '';
 
@@ -1658,6 +1662,10 @@ class Delicious_Dynamic_Recipe_Card {
 				$type     = isset( $node['type'] ) ? $node['type'] : null;
 				$children = isset( $node['props']['children'] ) ? $node['props']['children'] : null;
 
+				if ( $type && ! in_array( $type, self::get_allowed_richtext_tags(), true ) ) {
+					$type = null;
+				}
+
 				$start_tag = $type ? "<$type>" : '';
 				$end_tag   = $type ? "</$type>" : '';
 
@@ -1690,6 +1698,17 @@ class Delicious_Dynamic_Recipe_Card {
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Fixed allowlist of tag names permitted when reconstructing RichText
+	 * markup from block attribute data (see wrap_direction_text() and
+	 * wrap_ingredient_name()).
+	 *
+	 * @return array
+	 */
+	public static function get_allowed_richtext_tags() {
+		return array( 'strong', 'em', 'b', 'i', 'u', 's', 'sub', 'sup', 'mark', 'code', 'span', 'del', 'ins', 'br', 'a', 'img' );
 	}
 
 	/**

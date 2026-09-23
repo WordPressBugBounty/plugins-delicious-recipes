@@ -89,7 +89,7 @@ class GlobalSettings {
 
 		if ( 'admin.php' === $pagenow ) {
 			?>
-				<div id="delicious-recipe-global" data-rest-nonce="<?php echo wp_create_nonce( 'wp_rest' ); ?>"></div>
+				<div id="delicious-recipe-global" data-rest-nonce="<?php echo esc_attr( wp_create_nonce( 'wp_rest' ) ); ?>"></div>
 			<?php
 		}
 

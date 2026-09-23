@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Notes template
  *
@@ -34,7 +38,7 @@ if ( ! empty( $recipe->keywords ) && $global_toggles['enable_keywords'] ) :
 			<?php
 			// Check if the keywords is an array.
 			if ( is_array( $recipe->keywords ) ) {
-				echo implode( ', ', $recipe->keywords );
+				echo esc_html( implode( ', ', $recipe->keywords ) );
 			} else {
 				echo wp_kses_post( $recipe->keywords );
 			}

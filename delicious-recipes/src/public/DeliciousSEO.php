@@ -70,14 +70,14 @@ class Delicious_SEO {
 		$schema_html .= $schema_values_json;
 		$schema_html .= '</script>';
 
-		echo apply_filters( 'wp_delicious_guided_recipe_schema_html', $schema_html );
+		echo apply_filters( 'wp_delicious_guided_recipe_schema_html', $schema_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-LD script output, values already JSON-encoded.
 
 		if ( $faq_schema_values_json != 'false' ) {
 			$faq_schema_html  = '<script type="application/ld+json">';
 			$faq_schema_html .= $faq_schema_values_json;
 			$faq_schema_html .= '</script>';
 
-			echo apply_filters( 'wp_delicious_recipe_faq_schema_html', $faq_schema_html );
+			echo apply_filters( 'wp_delicious_recipe_faq_schema_html', $faq_schema_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON-LD script output, values already JSON-encoded.
 		}
 	}
 

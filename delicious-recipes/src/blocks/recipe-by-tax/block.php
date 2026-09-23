@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 // PHP rendering for the block (for frontend)
 function delicious_recipes_recipe_type_block() {
 	if ( ! function_exists( 'register_block_type' ) ) {

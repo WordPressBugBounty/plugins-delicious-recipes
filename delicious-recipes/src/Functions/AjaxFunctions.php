@@ -102,6 +102,10 @@ class AjaxFunctions {
 	 * */
 	public function dr_recipe_taxonomy_terms() {
 
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error();
+		}
+
 		$terms    = array();
 		$taxonomy = isset( $_POST['taxonomy'] ) && ! empty( $_POST['taxonomy'] ) ? sanitize_title( $_POST['taxonomy'] ) : false;
 
@@ -136,7 +140,7 @@ class AjaxFunctions {
 			return;
 		}
 
-		if ( ! current_user_can( 'edit_posts' ) ) {
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 			return;
 		}
 		$post = get_post( $post_id );
@@ -672,6 +676,10 @@ class AjaxFunctions {
 	 * @return void
 	 */
 	public function get_latest_changelog() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error();
+		}
+
 		$changelog   = null;
 		$access_type = get_filesystem_method();
 
@@ -759,6 +767,7 @@ class AjaxFunctions {
 
 			$where .= $wpdb->prepare( ' AND tt.taxonomy = %s', $taxonomy );
 
+			$post_ids  = array_map( 'absint', $post_ids );
 			$_post_ids = implode( ', ', $post_ids );
 			$query     = "
 				SELECT t.*, COUNT(*) as count

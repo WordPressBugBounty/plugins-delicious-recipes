@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Print Recipe Screen file.
  *
@@ -50,7 +54,7 @@ $all_no = true;
 
 <head>
 	<title><?php echo esc_html( get_the_title( $recipe->ID ) ); ?></title>
-	<link rel="stylesheet" href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/public/css' . $asset_script_path . 'recipe-print' . $min_prefix . '.css'; ?>" media="screen,print">
+	<link rel="stylesheet" href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/public/css' . $asset_script_path . 'recipe-print' . $min_prefix . '.css' ); ?>" media="screen,print">
 	<?php delicious_recipes_get_template( 'global/dynamic-css.php' ); ?>
 	<meta name="robots" content="noindex">
 </head>
@@ -196,7 +200,7 @@ $all_no = true;
 					if ( $print_logo_image && 'yes' === $default_print_options['images'] ) {
 						?>
 						<div class="dr-logo">
-							<?php echo wp_get_attachment_image( $print_logo_image, 'full' ); ?>
+							<?php echo wp_kses_post( wp_get_attachment_image( $print_logo_image, 'full' ) ); ?>
 						</div>
 					<?php } ?>
 					<?php if ( 'yes' === $default_print_options['title'] ) { ?>
@@ -206,7 +210,7 @@ $all_no = true;
 					<?php } ?>
 					<?php if ( 'yes' === $default_print_options['images'] ) { ?>
 						<figure class="dr-print-img <?php echo esc_attr( $global_toggles['enable_recipe_image_crop'] ? 'large' : 'full' ); ?>">
-							<?php echo get_the_post_thumbnail( $recipe->ID, 'large', array( 'class' => 'dr-print-page-image' ) ); ?>
+							<?php echo wp_kses_post( get_the_post_thumbnail( $recipe->ID, 'large', array( 'class' => 'dr-print-page-image' ) ) ); ?>
 						</figure>
 					<?php } ?>
 				</div>

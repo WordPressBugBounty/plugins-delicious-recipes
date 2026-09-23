@@ -12,7 +12,7 @@
  *
  * @see         https://wpdelicious.com/docs/template-structure/
  * @package     Delicious_Recipes/Templates
- * @version     1.1.0
+ * @version     1.2.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +22,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 $ran = rand( 1, 1000 );
 ++$ran;
 $dropdown_id = "dr-category-dropdown-{$ran}";
-$type_attr   = current_theme_supports( 'html5', 'script' ) ? '' : 'text/javascript';
 
 ?>
 <label class="screen-reader-text" for="<?php echo esc_attr( $dropdown_id ); ?>"><?php echo esc_html( $title ); ?></label>
@@ -50,25 +49,6 @@ $type_attr   = current_theme_supports( 'html5', 'script' ) ? '' : 'text/javascri
 
 	<?php } ?>
 </select>
-
-<script type=<?php echo esc_attr( $type_attr ); ?>>
-/* <![CDATA[ */
-document.addEventListener('DOMContentLoaded', () => {
-	const dropdown = document.getElementById("<?php echo esc_js( $dropdown_id ); ?>");
-
-	if (dropdown) {
-		dropdown.addEventListener('change', () => {
-			const selectedValue = dropdown.value;
-			if (selectedValue) {
-				window.location.href = selectedValue;
-			}
-		});
-	} else {
-		console.error("Dropdown element not found");
-	}
-});
-/* ]]> */
-</script>
 
 <?php
 /* Omit closing PHP tag at the end of PHP files to avoid "headers already sent" issues. */

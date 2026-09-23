@@ -1,3 +1,11 @@
+1.10.8: 2026-09-23
+- Security: Fixed stored XSS in Dynamic Recipe Card, standalone Ingredients, and standalone Instructions blocks — the HTML tag name for RichText content (ingredient names, instruction steps) is now restricted to a fixed allowlist before rendering, closing a gap left by the 1.10.3 fix which sanitized link/image attribute values but not the tag name itself. Reported by Philipp Doblhofer via WPScan.
+- Security: Replaced a remaining unserialize(file_get_contents()) call for Vimeo thumbnail fetching in the Instructions template with wp_remote_get() + json_decode(), the last of 6 call sites using this pattern (5 were fixed in 1.10.3).
+- Security: Fixed an authorization issue where Contributor/Author-level users could clone another user's private or draft recipe via the recipe-clone AJAX endpoint.
+- Security: Added capability checks to the taxonomy-terms and changelog AJAX endpoints, and sanitized post IDs in the recipe-likes AJAX endpoint.
+- Hardening: Added direct file access protection to all plugin files missing it, escaped additional unescaped output flagged across widgets and templates, and hardened remaining unprepared SQL query construction, per a full WordPress Plugin Check audit.
+- Dev: The `widgets/categories-dropdown.php` template (now v1.2.0) no longer contains an inline script; dropdown navigation is handled by an enqueued script. Themes overriding this template should remove their copy of the inline script.
+
 1.10.7: 2026-09-09
 - Fixes: Fixed the Dynamic Recipe Card block's dropdown controls rendering with the wrong position and styling in the WP 7.1 block editor.
 - Fixes: Restored missing icons on Dynamic Recipe Card block buttons in the editor.

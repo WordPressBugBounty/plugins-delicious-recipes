@@ -476,7 +476,7 @@ class DeliciousAdmin {
 					</div>
 				</div>
 				<div class="image">
-					<img src="<?php echo plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/images/AI-integration-promotion.webp'; ?>" alt=<?php echo esc_html__( 'AI-integration-promotion', 'delicious-recipes' ); ?>>
+					<img src="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/images/AI-integration-promotion.webp' ); ?>" alt="<?php echo esc_attr__( 'AI-integration-promotion', 'delicious-recipes' ); ?>">
 				</div>
 			</div>
 		</div>
@@ -1345,7 +1345,7 @@ class DeliciousAdmin {
 	 */
 	public function delicious_recipes_mb_callback( $post ) {
 		?>
-		<div id="delicious-recipe-app" data-rest-nonce="<?php echo wp_create_nonce( 'wp_rest' ); ?>" data-post-id="<?php echo esc_attr( $post->ID ); ?>"></div>
+		<div id="delicious-recipe-app" data-rest-nonce="<?php echo esc_attr( wp_create_nonce( 'wp_rest' ) ); ?>" data-post-id="<?php echo esc_attr( $post->ID ); ?>"></div>
 		<?php
 	}
 
@@ -1669,7 +1669,7 @@ class DeliciousAdmin {
 					$icon_class = ' dashicons-star-filled ';
 				}
 				$nonce = wp_create_nonce( 'wp_delicious_featured_recipe_nonce' );
-				printf( '<a href="#" class="dr-featured-recipe dashicons %s" data-post-id="%d"  data-nonce="%s"></a>', $icon_class, $id, $nonce );
+				printf( '<a href="#" class="dr-featured-recipe dashicons %s" data-post-id="%d"  data-nonce="%s"></a>', esc_attr( $icon_class ), esc_attr( $id ), esc_attr( $nonce ) );
 				break;
 			default:
 				break;
@@ -1793,7 +1793,7 @@ class DeliciousAdmin {
 				<p>
 					<?php
 					/* translators: %1$s: permalink options page link */
-					printf( __( '<strong>WP Delicious</strong> plugin uses <b>WordPress Core REST API</b> interface for creating and managing recipes and does not support the plain permalink structure. Please <a href="%1$s" >change your permalinks settings</a> to other structure to use WP Delicious plugin.', 'delicious-recipes' ), admin_url( 'options-permalink.php' ) );
+					echo wp_kses_post( sprintf( __( '<strong>WP Delicious</strong> plugin uses <b>WordPress Core REST API</b> interface for creating and managing recipes and does not support the plain permalink structure. Please <a href="%1$s" >change your permalinks settings</a> to other structure to use WP Delicious plugin.', 'delicious-recipes' ), esc_url( admin_url( 'options-permalink.php' ) ) ) );
 					?>
 				</p>
 			</div>

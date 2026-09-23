@@ -244,7 +244,7 @@ class EmailHelpers {
 
 		$this->email_header();
 
-		echo wpautop( wptexturize( $message ) ); // WPCS: XSS ok.
+		echo wp_kses_post( wpautop( wptexturize( $message ) ) );
 
 		$this->email_footer();
 

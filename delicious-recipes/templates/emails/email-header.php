@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Email Header Template.
  *
@@ -14,7 +18,7 @@ $print_logo_image = isset( $global_settings['printLogoImage'] ) && ! empty( $glo
 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=<?php bloginfo( 'charset' ); ?>" />
-		<title><?php echo get_bloginfo( 'name', 'display' ); ?></title>
+		<title><?php echo esc_html( get_bloginfo( 'name', 'display' ) ); ?></title>
 	</head>
 
 	<body itemscope itemtype="http://schema.org/EmailMessage">

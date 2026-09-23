@@ -34,7 +34,7 @@ class Delicious_Featured_Recipes_Widget extends WP_Widget {
         if ( is_admin() ) {
             // Display nothing if called in backend.
             echo '<div class="wp-block-legacy-widget__edit-no-preview">
-                    <h3>'. $args['widget_name'] .'</h3>
+                    <h3>'. esc_html( $args['widget_name'] ) .'</h3>
                     <p>'. esc_html__( "No preview available.", "delicious-recipes" ) .'</p>
                 </div>';
             return;
@@ -51,12 +51,12 @@ class Delicious_Featured_Recipes_Widget extends WP_Widget {
         $class  = 'style-one' === $style ? 'dr-favorite-recipe' : 'dr-most-popular-rcp';
         $layout = 'style-one' === $style ? 'card' : 'list';
 
-        echo $before_widget;
+        echo wp_kses_post( $before_widget );
 
         ob_start();
 
         if ( ! empty( $title ) ) {
-            echo $before_title . $title . $after_title;
+            echo wp_kses_post( $before_title ) . esc_html( $title ) . wp_kses_post( $after_title );
         }
 
         $cat = get_theme_mod( 'exclude_categories' );
@@ -89,9 +89,9 @@ class Delicious_Featured_Recipes_Widget extends WP_Widget {
         }
 
         $html = ob_get_clean();
-        echo apply_filters( 'wp_delicious_featured_recipe_widget', $html, $args, $instance );
+        echo wp_kses( apply_filters( 'wp_delicious_featured_recipe_widget', $html, $args, $instance ), delicious_recipes_kses_allowed_html() );
 
-        echo $after_widget;
+        echo wp_kses_post( $after_widget );
     }
 
     /**

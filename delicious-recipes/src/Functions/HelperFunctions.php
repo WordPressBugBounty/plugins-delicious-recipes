@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Helper functions for our plugin.
  *
@@ -302,6 +306,86 @@ function delicious_recipes_get_image_sizes( $size = '' ) {
 }
 
 /**
+ * Allowed HTML for plugin-built front-end markup: post tags plus the form
+ * controls and inline SVG icons used by recipe cards and widgets.
+ *
+ * @return array
+ */
+function delicious_recipes_kses_allowed_html() {
+	$svg_common = array(
+		'class'        => true,
+		'id'           => true,
+		'fill'         => true,
+		'stroke'       => true,
+		'stroke-width' => true,
+		'transform'    => true,
+		'data-name'    => true,
+	);
+
+	return array_merge(
+		wp_kses_allowed_html( 'post' ),
+		array(
+			'input'    => array(
+				'type'    => true,
+				'id'      => true,
+				'name'    => true,
+				'value'   => true,
+				'class'   => true,
+				'checked' => true,
+			),
+			'select'   => array(
+				'name'  => true,
+				'id'    => true,
+				'class' => true,
+			),
+			'option'   => array(
+				'value'    => true,
+				'selected' => true,
+			),
+			'svg'      => $svg_common + array(
+				'xmlns'       => true,
+				'width'       => true,
+				'height'      => true,
+				'viewbox'     => true,
+				'title'       => true,
+				'aria-hidden' => true,
+				'role'        => true,
+				'focusable'   => true,
+			),
+			'use'      => array(
+				'xlink:href' => true,
+				'href'       => true,
+			),
+			'g'        => $svg_common,
+			'defs'     => array(),
+			'path'     => $svg_common + array( 'd' => true ),
+			'circle'   => $svg_common + array(
+				'cx' => true,
+				'cy' => true,
+				'r'  => true,
+			),
+			'ellipse'  => $svg_common + array(
+				'cx' => true,
+				'cy' => true,
+				'rx' => true,
+				'ry' => true,
+			),
+			'line'     => $svg_common + array(
+				'x1' => true,
+				'y1' => true,
+				'x2' => true,
+				'y2' => true,
+			),
+			'rect'     => $svg_common + array(
+				'width'  => true,
+				'height' => true,
+				'style'  => true,
+			),
+		)
+	);
+}
+
+/**
  * Get Fallback SVG
  */
 function delicious_recipes_get_fallback_svg( $size, $buffer = false ) {
@@ -322,7 +406,7 @@ function delicious_recipes_get_fallback_svg( $size, $buffer = false ) {
 	if ( $image_size ) {
 		?>
 		<svg class="dr-fallback-svg" width="<?php echo esc_attr( $image_size['width'] ); ?>" height="<?php echo esc_attr( $image_size['height'] ); ?>" viewBox="0 0 <?php echo esc_attr( $image_size['width'] ); ?> <?php echo esc_attr( $image_size['height'] ); ?>" preserveAspectRatio="none">
-			<rect width="<?php echo esc_attr( $image_size['width'] ); ?>" height="<?php echo esc_attr( $image_size['height'] ); ?>" style="<?php echo $svg_fill; ?> opacity:0.1;"></rect>
+			<rect width="<?php echo esc_attr( $image_size['width'] ); ?>" height="<?php echo esc_attr( $image_size['height'] ); ?>" style="<?php echo esc_attr( $svg_fill ); ?> opacity:0.1;"></rect>
 		</svg>
 		<?php
 	}
@@ -877,7 +961,7 @@ function delicious_recipes_comments_callback( $comment, $args, $depth ) {
 					?>
 					<?php
 						/* translators: %s: comment author link */
-						printf( __( '<b class="fn" itemprop="creator" itemscope itemtype="https://schema.org/Person">%s</b> <span class="says">says:</span>', 'delicious-recipes' ), get_comment_author_link() );
+						echo wp_kses_post( sprintf( __( '<b class="fn" itemprop="creator" itemscope itemtype="https://schema.org/Person">%s</b> <span class="says">says:</span>', 'delicious-recipes' ), get_comment_author_link() ) );
 					?>
 				</div><!-- .comment-author vcard -->
 				<div class="comment-metadata commentmetadata">
@@ -885,7 +969,7 @@ function delicious_recipes_comments_callback( $comment, $args, $depth ) {
 						<time itemprop="commentTime" datetime="<?php echo esc_attr( get_gmt_from_date( get_comment_date() . get_comment_time(), 'Y-m-d H:i:s' ) ); ?>">
 							<?php
 								/* translators: %1$s: comment date %2$s: comment time */
-								printf( esc_html__( '%1$s at %2$s', 'delicious-recipes' ), get_comment_date(), get_comment_time() );
+								printf( esc_html__( '%1$s at %2$s', 'delicious-recipes' ), esc_html( get_comment_date() ), esc_html( get_comment_time() ) );
 							?>
 						</time>
 					</a>
@@ -1145,7 +1229,7 @@ function delicious_recipes_social_share() {
 							break;
 
 						case 'twitter':
-							echo '<li><a href="' . esc_url( 'https://twitter.com/intent/tweet?text=' . get_the_title( $post->ID ) ) . '&nbsp;' . get_the_permalink( $post->ID ) . '" rel="nofollow noopener" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>';
+							echo '<li><a href="' . esc_url( 'https://twitter.com/intent/tweet?text=' . get_the_title( $post->ID ) . '&nbsp;' . get_the_permalink( $post->ID ) ) . '" rel="nofollow noopener" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>';
 							break;
 
 						case 'linkedin':
@@ -1520,17 +1604,17 @@ function get_breadcrumbs( $home = 'Home', $delimiter = ' &raquo; ', $before = '<
 
 	// Home breadcrumb
 	echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-	echo '<a href="' . esc_url( home_url() ) . '" itemprop="item"><span itemprop="name" class="home-text">' . esc_html( $home ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . $delimiter . '</span>';
+	echo '<a href="' . esc_url( home_url() ) . '" itemprop="item"><span itemprop="name" class="home-text">' . esc_html( $home ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . wp_kses_post( $delimiter ) . '</span>';
 	++$depth;
 
 	// Single recipe post page
 	if ( is_singular( 'recipe' ) ) {
 		echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">';
-		echo '<a href="' . esc_url( get_post_type_archive_link( 'recipe' ) ) . '" itemprop="item"><span itemprop="name">Recipe</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . $delimiter . '</span>';
+		echo '<a href="' . esc_url( get_post_type_archive_link( 'recipe' ) ) . '" itemprop="item"><span itemprop="name">Recipe</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . wp_kses_post( $delimiter ) . '</span>';
 		++$depth;
 
 		$post = get_post();
-		echo $before . '<a itemprop="item" href="' . esc_url( get_permalink( $post->ID ) ) . '"><span itemprop="name">' . esc_html( get_the_title( $post->ID ) ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . $after;
+		echo wp_kses_post( $before ) . '<a itemprop="item" href="' . esc_url( get_permalink( $post->ID ) ) . '"><span itemprop="name">' . esc_html( get_the_title( $post->ID ) ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . wp_kses_post( $after );
 		++$depth;
 	}
 
@@ -1542,11 +1626,11 @@ function get_breadcrumbs( $home = 'Home', $delimiter = ' &raquo; ', $before = '<
 		$category = ! empty( $category ) ? $category[0] : null;
 
 		if ( $category ) {
-			echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_category_link( $category->term_id ) ) . '"><span itemprop="name">' . esc_html( $category->name ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . $delimiter . '</span>';
+			echo '<span itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="' . esc_url( get_category_link( $category->term_id ) ) . '"><span itemprop="name">' . esc_html( $category->name ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . wp_kses_post( $delimiter ) . '</span>';
 			++$depth;
 		}
 
-		echo $before . '<a itemprop="item" href="' . esc_url( get_permalink( $post->ID ) ) . '"><span itemprop="name">' . esc_html( get_the_title( $post->ID ) ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . $after;
+		echo wp_kses_post( $before ) . '<a itemprop="item" href="' . esc_url( get_permalink( $post->ID ) ) . '"><span itemprop="name">' . esc_html( get_the_title( $post->ID ) ) . '</span></a><meta itemprop="position" content="' . absint( $depth ) . '" />' . wp_kses_post( $after );
 		++$depth;
 	}
 

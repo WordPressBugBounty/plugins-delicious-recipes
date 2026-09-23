@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Template to be used for the recipe print page.
  *
@@ -24,7 +28,7 @@ $recipe_card_image = '';
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<meta name="robots" content="noindex">
 		<?php wp_site_icon(); ?>
-		<link rel="stylesheet" href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) ) . 'assets/public/css' . $asset_script_path . 'recipe-print' . $min_prefix . '.css'; ?>" media="screen,print">
+		<link rel="stylesheet" href="<?php echo esc_url( plugin_dir_url( DELICIOUS_RECIPES_PLUGIN_FILE ) . 'assets/public/css' . $asset_script_path . 'recipe-print' . $min_prefix . '.css' ); ?>" media="screen,print">
 		<?php delicious_recipes_get_template( 'global/dynamic-css.php' ); ?>
 	</head>
 	<body class="delrecipes-block-print" data-recipe-id="<?php echo esc_attr( $recipe_id ); ?>">

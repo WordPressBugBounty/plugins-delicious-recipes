@@ -306,6 +306,7 @@ class Delicious_Recipes_Import_Blossom_Recipe_Maker {
 		$search = stripslashes_deep( $search_shortcode );
 		$replace = stripslashes_deep( $replace_shortcode );
 
+		// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $where_query is built from hardcoded literal strings only, contains no user input.
 		$query = $wpdb->prepare(
 			"UPDATE ".$wpdb->posts."
 				SET post_excerpt = REPLACE(post_excerpt, %s, %s),
@@ -318,6 +319,7 @@ class Delicious_Recipes_Import_Blossom_Recipe_Maker {
 		$res = $wpdb->query(
 			$query
 		);
+		// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 
 		$this->replace_recent_popular_shortcodes();
 
@@ -378,6 +380,7 @@ class Delicious_Recipes_Import_Blossom_Recipe_Maker {
 			$search = stripslashes_deep( $shortcode['search'] );
 			$replace = stripslashes_deep( $shortcode['replace'] );
 
+			// phpcs:disable WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter -- $where_query is built from hardcoded literal strings only, contains no user input.
 			$query = $wpdb->prepare(
 				"UPDATE ".$wpdb->posts."
 					SET post_excerpt = REPLACE(post_excerpt, %s, %s),
@@ -390,6 +393,7 @@ class Delicious_Recipes_Import_Blossom_Recipe_Maker {
 			$res = $wpdb->query(
 				$query
 			);
+			// phpcs:enable WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 
 		}
 

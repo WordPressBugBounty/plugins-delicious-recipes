@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * REST API: Delicious_Recipes_REST_Global_Settings_Controller class
  *

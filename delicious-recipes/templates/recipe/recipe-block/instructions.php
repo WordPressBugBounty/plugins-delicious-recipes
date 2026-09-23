@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Instructions template.
  *
@@ -244,8 +248,10 @@ if ( ! empty( $video_gallery_vids ) && $global_toggles['enable_video'] ) :
 				$vid_src = 'https://player.vimeo.com/video/' . $video['vidID'];
 				$vid_url = $video['vidID'];
 				// get vimeo video thumbnail.
-				$hash  = unserialize( file_get_contents( "https://vimeo.com/api/v2/video/{$vid_url}.php" ) );
-				$thumb = $hash[0]['thumbnail_large'];
+				$vimeo_response = wp_remote_get( "https://vimeo.com/api/v2/video/{$vid_url}.json" );
+				$vimeo_body      = wp_remote_retrieve_body( $vimeo_response );
+				$hash            = $vimeo_body ? json_decode( $vimeo_body, true ) : array();
+				$thumb           = isset( $hash[0]['thumbnail_large'] ) ? $hash[0]['thumbnail_large'] : '';
 				?>
 				<iframe
 					src="<?php echo esc_url( $vid_src ); ?>"

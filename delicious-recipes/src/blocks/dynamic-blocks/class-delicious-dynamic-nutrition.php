@@ -246,7 +246,7 @@ class Delicious_Dynamic_Nutrition {
 
 						echo '<div class="dr-nut-group">';
 						echo '<dt><strong>' . esc_html( $nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_attr( $nutrition_facts[ $slug ] ) . '</strong>' . ( isset( $nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_attr( $nf['measurement'] ) . '</strong>' : '' ) . '</dt>';
-						echo '<dd>' . ( isset( $nf['pdv'] ) && $nutrition_facts[ $slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . ceil( ( floatval( $nutrition_facts[ $slug ] ) / $nf['pdv'] ) * 100 ) . '</span>%</strong>' : '' ) . '</dd>';
+						echo '<dd>' . ( isset( $nf['pdv'] ) && $nutrition_facts[ $slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . esc_html( ceil( ( floatval( $nutrition_facts[ $slug ] ) / $nf['pdv'] ) * 100 ) ) . '</span>%</strong>' : '' ) . '</dd>';
 						echo '</div>';
 
 						if ( isset( $nf['subs'] ) ) :
@@ -255,7 +255,7 @@ class Delicious_Dynamic_Nutrition {
 								if ( isset( $nutrition_facts[ $sub_slug ] ) && ( $nutrition_facts[ $sub_slug ] || $nutri_zero_condition ) ) :
 									echo '<div class="dr-nut-group dr-nut-sub">';
 									echo '<dt><strong>' . esc_html( $sub_nf['name'] ) . '</strong> <strong class="dr-nut-label">' . esc_html( $nutrition_facts[ $sub_slug ] ) . '</strong>' . ( isset( $sub_nf['measurement'] ) ? '<strong class="dr-nut-label dr-nut-measurement">' . esc_html( $sub_nf['measurement'] ) . '</strong>' : '' ) . '</dt>';
-									echo '<dd>' . ( isset( $sub_nf['pdv'] ) && $nutrition_facts[ $sub_slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . ceil( ( floatval( $nutrition_facts[ $sub_slug ] ) / $sub_nf['pdv'] ) * 100 ) . '</span>%</strong>' : '' ) . '</dd>';
+									echo '<dd>' . ( isset( $sub_nf['pdv'] ) && $nutrition_facts[ $sub_slug ] ? '<strong class="dr-nut-right"><span class="dr-nut-percent">' . esc_html( ceil( ( floatval( $nutrition_facts[ $sub_slug ] ) / $sub_nf['pdv'] ) * 100 ) ) . '</span>%</strong>' : '' ) . '</dd>';
 									echo '</div>';
 								endif;
 							endforeach;

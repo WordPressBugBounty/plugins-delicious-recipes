@@ -36,7 +36,7 @@ class Delicious_Recipe_Keys_Widget extends WP_Widget {
         if ( is_admin() ) {
             // Display nothing if called in backend.
             echo '<div class="wp-block-legacy-widget__edit-no-preview">
-                    <h3>'. $args['widget_name'] .'</h3>
+                    <h3>'. esc_html( $args['widget_name'] ) .'</h3>
                     <p>'. esc_html__( "No preview available.", "delicious-recipes" ) .'</p>
                 </div>';
             return;
@@ -60,12 +60,12 @@ class Delicious_Recipe_Keys_Widget extends WP_Widget {
         $title         = ! empty( $instance['title'] ) ? apply_filters( 'widget_title', $instance['title'] ) : __( "Recipe Keys", 'delicious-recipes'  ) ;
         $taxonomy = 'recipe-key';
 
-        echo $before_widget;
+        echo wp_kses_post( $before_widget );
 
         ob_start();
 
         if ( ! empty( $title ) ) {
-            echo $before_title . esc_html( $title ) . $after_title;
+            echo wp_kses_post( $before_title ) . esc_html( $title ) . wp_kses_post( $after_title );
         }
 
         $recipe_keys = get_terms( array(
@@ -81,9 +81,9 @@ class Delicious_Recipe_Keys_Widget extends WP_Widget {
         delicious_recipes_get_template( 'widgets/recipe-keys.php', $data );
 
         $html = ob_get_clean();
-        echo apply_filters( 'wp_delicious_recipe_keys_widget', $html, $args, $instance );
+        echo wp_kses( apply_filters( 'wp_delicious_recipe_keys_widget', $html, $args, $instance ), delicious_recipes_kses_allowed_html() );
 
-        echo $after_widget;
+        echo wp_kses_post( $after_widget );
     }
 
     /**
@@ -97,8 +97,8 @@ class Delicious_Recipe_Keys_Widget extends WP_Widget {
         $title    = isset( $instance[ 'title' ] ) ? $instance[ 'title' ] : __( "Recipe Keys", 'delicious-recipes'  );
         ?>
         <p>
-            <label for="<?php echo $this->get_field_name( 'title' ); ?>"><?php _e( "Title:", 'delicious-recipes' ); ?></label>
-            <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+            <label for="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"><?php _e( "Title:", 'delicious-recipes' ); ?></label>
+            <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
         </p>
     <?php
     }

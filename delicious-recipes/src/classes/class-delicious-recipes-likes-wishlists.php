@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Recipes Likes / wishlists Class
  *
@@ -357,7 +361,7 @@ class Delicious_Recipes_Likes_Wishlists {
 			wp_send_json_error();
 		}
 
-		$ids   = wp_unslash( $_POST['ids'] );
+		$ids   = array_map( 'absint', wp_unslash( $_POST['ids'] ) );
 		$likes = array();
 		foreach ( $ids as $id ) {
 			$count        = get_post_meta( $id, '_recipe_likes', true );

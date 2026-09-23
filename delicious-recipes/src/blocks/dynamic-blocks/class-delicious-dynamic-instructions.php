@@ -274,6 +274,10 @@ class Delicious_Dynamic_Instructions {
 				$type     = isset( $node['type'] ) ? $node['type'] : null;
 				$children = isset( $node['props']['children'] ) ? $node['props']['children'] : null;
 
+				if ( $type && ! in_array( $type, self::get_allowed_richtext_tags(), true ) ) {
+					$type = null;
+				}
+
 				$start_tag = $type ? "<$type>" : '';
 				$end_tag   = $type ? "</$type>" : '';
 
@@ -364,6 +368,16 @@ class Delicious_Dynamic_Instructions {
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Fixed allowlist of tag names permitted when reconstructing RichText
+	 * markup from block attribute data (see wrap_direction_text()).
+	 *
+	 * @return array
+	 */
+	public static function get_allowed_richtext_tags() {
+		return array( 'strong', 'em', 'b', 'i', 'u', 's', 'sub', 'sup', 'mark', 'code', 'span', 'del', 'ins', 'br', 'a', 'img' );
 	}
 
 	/**
