@@ -210,13 +210,23 @@ function delicious_recipes_get_all_ingredients() {
 		'posts_per_page'   => -1,
 		'suppress_filters' => false,
 		'post_status'      => 'publish',
+		'fields'           => 'ids',
 	);
 
-	$recipes           = get_posts( $args );
+	// The cheap ID query keys the cache, so language (WPML/Polylang) or access filters
+	// on get_posts() each get their own entry, and publishing/unpublishing changes the key.
+	$recipe_ids = get_posts( $args );
+	$cache_key  = 'dr_all_ingredients_' . md5( (int) get_option( 'delicious_recipes_ingredients_cache_version', 0 ) . '|' . implode( ',', $recipe_ids ) );
+	$cached     = get_transient( $cache_key );
+	if ( is_array( $cached ) ) {
+		return apply_filters( 'wp_delicious_ingredients', $cached, $args );
+	}
+
+	update_meta_cache( 'post', $recipe_ids );
 	$ingredients_array = array();
 
-	foreach ( $recipes as $recipe ) {
-		$recipe_meta        = get_post_meta( $recipe->ID, 'delicious_recipes_metadata', true );
+	foreach ( $recipe_ids as $recipe_id ) {
+		$recipe_meta        = get_post_meta( $recipe_id, 'delicious_recipes_metadata', true );
 		$recipe_ingredients = isset( $recipe_meta['recipeIngredients'] ) && $recipe_meta['recipeIngredients'] ? $recipe_meta['recipeIngredients'] : '';
 		$ingres_per_recipe  = array();
 
@@ -236,8 +246,59 @@ function delicious_recipes_get_all_ingredients() {
 		}
 	}
 
-	return apply_filters( 'wp_delicious_ingredients', array_count_values( $ingredients_array ), $args );
+	$ingredient_counts = array_count_values( $ingredients_array );
+	// ponytail: stale keys from older versions/ID sets are not deleted, they expire via WP's transient cleanup.
+	set_transient( $cache_key, $ingredient_counts, DAY_IN_SECONDS );
+
+	return apply_filters( 'wp_delicious_ingredients', $ingredient_counts, $args );
 }
+
+/**
+ * Invalidate the cached ingredient list when a published recipe's ingredients change.
+ *
+ * Bumping a version (instead of deleting a transient) means a rebuild that started
+ * before the change can only write to the old, never-read key.
+ *
+ * @param int|array $meta_id   Meta ID(s).
+ * @param int       $object_id Post ID.
+ * @param string    $meta_key  Meta key.
+ */
+function delicious_recipes_maybe_flush_ingredients_cache( $meta_id, $object_id, $meta_key ) {
+	if ( 'delicious_recipes_metadata' === $meta_key && 'publish' === get_post_status( $object_id ) ) {
+		update_option( 'delicious_recipes_ingredients_cache_version', (int) get_option( 'delicious_recipes_ingredients_cache_version', 0 ) + 1 );
+	}
+}
+add_action( 'added_post_meta', 'delicious_recipes_maybe_flush_ingredients_cache', 10, 3 );
+add_action( 'updated_post_meta', 'delicious_recipes_maybe_flush_ingredients_cache', 10, 3 );
+add_action( 'deleted_post_meta', 'delicious_recipes_maybe_flush_ingredients_cache', 10, 3 );
+
+/**
+ * Whether the current request is an ingredient-filtered recipe search (?ingredient=).
+ * These URLs are unbounded in number and each run an unindexed meta LIKE query.
+ *
+ * @return bool
+ */
+function delicious_recipes_is_ingredient_search() {
+	// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+	if ( empty( $_GET['ingredient'] ) ) {
+		return false;
+	}
+
+	// is_recipe_search() also matches translated copies of the search page (shortcode check).
+	$global_settings = delicious_recipes_get_global_settings();
+	return is_recipe_search() || ( ! empty( $global_settings['searchPage'] ) && is_page( $global_settings['searchPage'] ) );
+}
+
+/**
+ * Send noindex, nofollow as a header on ingredient-filtered searches. A header (not the
+ * wp_robots meta tag) because SEO plugins like Yoast and Rank Math replace that tag.
+ */
+function delicious_recipes_noindex_ingredient_search_header() {
+	if ( delicious_recipes_is_ingredient_search() ) {
+		header( 'X-Robots-Tag: noindex, nofollow' );
+	}
+}
+add_action( 'template_redirect', 'delicious_recipes_noindex_ingredient_search_header' );
 
 /**
  * Get a list of ingredients of a single recipe.
@@ -1410,6 +1471,11 @@ function delicious_recipes_get_dashboard_page_id() {
 	$settings = delicious_recipes_get_global_settings();
 
 	$dashboard_id = isset( $settings['dashboardPage'] ) ? esc_attr( $settings['dashboardPage'] ) : delicious_recipes_get_page_id( 'recipe-dashboard' );
+
+	// Keep the setting's string type: callers compare it strictly against page_on_front.
+	if ( is_string( $dashboard_id ) && 0 < (int) $dashboard_id ) {
+		$dashboard_id = (string) delicious_recipes_translate_page_id( (int) $dashboard_id );
+	}
 
 	return $dashboard_id;
 }

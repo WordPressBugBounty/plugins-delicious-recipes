@@ -367,7 +367,25 @@ function delicious_recipes_post_content_has_shortcode( $tag = '' ) {
 function delicious_recipes_get_page_id( $page ) {
 	$page = apply_filters( 'delicious_recipes_get_' . $page . '_page_id', get_option( 'delicious_recipes_' . $page . '_page_id' ) );
 
-	return $page ? absint( $page ) : -1;
+	return $page ? delicious_recipes_translate_page_id( absint( $page ) ) : -1;
+}
+
+/**
+ * Resolve a page ID to its translation in the current language (Polylang / WPML).
+ * Returns the original ID when no multilingual plugin, language or published translation applies.
+ *
+ * @param int $page_id Page ID.
+ * @return int
+ */
+function delicious_recipes_translate_page_id( $page_id ) {
+	if ( function_exists( 'pll_get_post' ) ) {
+		$translated = pll_get_post( $page_id );
+	} else {
+		$translated = apply_filters( 'wpml_object_id', $page_id, 'page', true );
+	}
+
+	// A draft translation would 404 for visitors; keep the original page instead.
+	return $translated && 'publish' === get_post_status( $translated ) ? (int) $translated : $page_id;
 }
 
 /**

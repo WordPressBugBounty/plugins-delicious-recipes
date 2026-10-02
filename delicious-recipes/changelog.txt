@@ -1,3 +1,10 @@
+1.10.9: 2026-10-02
+- Fixes: Reduced server load caused by search engine crawlers on the ingredient index. Ingredient links now use rel="nofollow", ingredient-filtered search results (?ingredient=) send an X-Robots-Tag: noindex, nofollow header, and the ingredient list is cached and refreshed automatically when a published recipe changes.
+- Fixes: The ingredient index now shows ingredients as plain text when no Recipe Search page is set, instead of broken links.
+- Fixes: With Polylang or WPML, links and redirects to the Dashboard and Recipe Search pages (Create an Account, Sign In, Log Out, dashboard tabs, login/registration redirects and the new-account email) now use the visitor's language instead of the default language.
+- Fixes: Recipe Categories widget labels now use the same font size and spacing as the Recipe Keys widget.
+- Dev: The `archive/recipes-by-ingredients.php` template is now v1.1.1. Themes overriding it should update their copy to get the nofollow links, the plain-text fallback and the translated Recipe Search page link.
+
 1.10.8: 2026-09-23
 - Security: Fixed stored XSS in Dynamic Recipe Card, standalone Ingredients, and standalone Instructions blocks — the HTML tag name for RichText content (ingredient names, instruction steps) is now restricted to a fixed allowlist before rendering, closing a gap left by the 1.10.3 fix which sanitized link/image attribute values but not the tag name itself. Reported by Philipp Doblhofer via WPScan.
 - Security: Replaced a remaining unserialize(file_get_contents()) call for Vimeo thumbnail fetching in the Instructions template with wp_remote_get() + json_decode(), the last of 6 call sites using this pattern (5 were fixed in 1.10.3).

@@ -359,7 +359,7 @@ class Delicious_Recipes_Template_Loader {
 			return;
 		}
 
-		$pid = $options['searchPage'];
+		$pid = delicious_recipes_translate_page_id( (int) $options['searchPage'] );
 
 		if ( ! is_object( $post ) ) {
 			return;

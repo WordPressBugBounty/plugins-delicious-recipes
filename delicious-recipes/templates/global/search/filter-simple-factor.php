@@ -88,6 +88,8 @@ $args = array(
 							'post_status'    => 'publish',
 						)
 					);
+					// Prime meta in one query instead of one per recipe in the loop below.
+					update_meta_cache( 'post', $fallback_ids );
 					$fallback_count = 0;
 					foreach ( $fallback_ids as $rid ) {
 						$total_time = get_post_meta( $rid, '_dr_recipe_total_time', true );

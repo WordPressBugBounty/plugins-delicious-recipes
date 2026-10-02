@@ -12,7 +12,7 @@
  *
  * @see         https://wpdelicious.com/docs/template-structure/
  * @package     Delicious_Recipes/Templates
- * @version     1.1.0
+ * @version     1.1.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $global_settings        = delicious_recipes_get_global_settings();
-$recipe_search_page_url = isset( $global_settings['searchPage'] ) && ! empty( $global_settings['searchPage'] ) ? get_the_permalink( $global_settings['searchPage'] ) : '#';
+$recipe_search_page_url = isset( $global_settings['searchPage'] ) && ! empty( $global_settings['searchPage'] ) ? get_the_permalink( delicious_recipes_translate_page_id( (int) $global_settings['searchPage'] ) ) : '#';
 
 $ingredients_array = delicious_recipes_get_all_ingredients();
 // Sort ingredients alphabetically.
@@ -98,9 +98,14 @@ foreach ( $ingredients as $alphabet => $ingredient_by_alphabet ) {
 					$ingre_search_url = add_query_arg( 'ingredient', $ingredient['ingredient'], $recipe_search_page_url );
 				?>
 					<li>
-						<a href="<?php echo esc_url( $ingre_search_url ); ?>"><?php echo esc_html( $ingredient['ingredient'] ); ?>
+						<?php if ( '#' === $recipe_search_page_url ) : // No search page set: nothing to link to. ?>
+							<?php echo esc_html( $ingredient['ingredient'] ); ?>
+							<span class="dr-recp-count"><?php echo sprintf( '(%1$s)', esc_html( $ingredient['count'] ) ); ?></span>
+						<?php else : ?>
+						<a href="<?php echo esc_url( $ingre_search_url ); ?>" rel="nofollow"><?php echo esc_html( $ingredient['ingredient'] ); ?>
 							<span class="dr-recp-count"><?php echo sprintf( '(%1$s)', esc_html( $ingredient['count'] ) ); ?></span>
 						</a>
+						<?php endif; ?>
 					</li>
 			<?php } ?>
 		</ul>
