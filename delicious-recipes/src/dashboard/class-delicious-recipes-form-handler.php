@@ -242,6 +242,11 @@ class Delicious_Recipes_Form_Handler {
 	 */
 	public static function redirect_reset_password_link() {
 
+		// Let WooCommerce handle reset links when its My Account form is on this page.
+		if ( function_exists( 'wc_post_content_has_shortcode' ) && wc_post_content_has_shortcode( 'woocommerce_my_account' ) ) {
+			return;
+		}
+
 		if ( delicious_recipes_is_account_page() && ! empty( $_GET['key'] ) && ! empty( $_GET['login'] ) ) {
 
 			$value = sprintf( '%s:%s', sanitize_text_field( wp_unslash( $_GET['login'] ) ), sanitize_text_field( wp_unslash( $_GET['key'] ) ) );

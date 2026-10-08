@@ -1,3 +1,7 @@
+1.10.10: 2026-10-08
+- Fixes: When the WP Delicious Dashboard page is also the WooCommerce My Account page, password reset links from WooCommerce emails now correctly open WooCommerce's new-password form.
+- Enhancement: Updated Freemius SDK to the latest version.
+
 1.10.9: 2026-10-02
 - Fixes: Reduced server load caused by search engine crawlers on the ingredient index. Ingredient links now use rel="nofollow", ingredient-filtered search results (?ingredient=) send an X-Robots-Tag: noindex, nofollow header, and the ingredient list is cached and refreshed automatically when a published recipe changes.
 - Fixes: The ingredient index now shows ingredients as plain text when no Recipe Search page is set, instead of broken links.

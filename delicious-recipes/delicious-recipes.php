@@ -9,7 +9,7 @@
  * License URI:         https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:         delicious-recipes
  * Domain Path:         /languages
- * Version:             1.10.9
+ * Version:             1.10.10
  * Requires at least:   5.8
  * Tested up to:        7.1
  * Requires PHP:        7.4
@@ -65,8 +65,6 @@ if ( ! function_exists( 'delicious_recipes_fs' ) ) {
 
 	// Init Freemius.
 	delicious_recipes_fs();
-	// Signal that parent SDK was initiated.
-	do_action( '_loaded' );
 	// Signal that SDK was initiated.
 	do_action( 'delicious_recipes_fs_loaded' );
 }
@@ -79,7 +77,7 @@ if ( ! defined( 'DELICIOUS_RECIPES_PLUGIN_FILE' ) ) {
 }
 
 if ( ! defined( 'DELICIOUS_RECIPES_VERSION' ) ) {
-	define( 'DELICIOUS_RECIPES_VERSION', '1.10.9' );
+	define( 'DELICIOUS_RECIPES_VERSION', '1.10.10' );
 }
 
 /**
